@@ -78,7 +78,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center mb-4 group">
               <img
                 alt="TotalGuard Yard Care - Madison's Premier Lawn Care Service"
-                className="h-20 md:h-24 lg:h-28 w-auto group-hover:scale-105 transition-transform"
+                className="h-28 md:h-32 lg:h-36 w-auto group-hover:scale-105 transition-transform"
                 src="/images/totalguard-logo-summer.png"
                 loading="lazy"
               />
