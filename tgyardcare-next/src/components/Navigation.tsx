@@ -348,7 +348,6 @@ function MegaMenu({
   isActivePath: (p: string) => boolean;
   variant?: MegaMenuVariant;
 }) {
-  const [hoveredColumn, setHoveredColumn] = useState<number | null>(null);
   const [hoveredItem, setHoveredItem] = useState<MegaMenuItem | null>(null);
   const isCommercial = variant === 'commercial';
 
@@ -408,28 +407,19 @@ function MegaMenu({
       <div className="flex relative">
         {/* ---- 3 Service Columns ---- */}
         <div className="flex-1 p-5 grid grid-cols-3 gap-6">
-          {columns.map((col, colIndex) => {
+          {columns.map((col) => {
             const ColIcon = col.icon;
-            const isColumnHovered = hoveredColumn === colIndex;
             return (
-              <div
-                key={col.heading}
-                className="space-y-3"
-                onMouseEnter={() => setHoveredColumn(colIndex)}
-                onMouseLeave={() => setHoveredColumn(null)}
-              >
-                {/* Column header */}
-                <div className={cn(
-                  `flex items-center gap-2 pb-2.5 border-b transition-all duration-300`,
-                  isColumnHovered ? accent.headerBorder + ' ' + accent.headerBg + ' -mx-2 px-2 rounded-t-lg' : accent.headerBorder
-                )}>
+              <div key={col.heading} className="space-y-3">
+                {/* Column header — static, no hover effect */}
+                <div className={`flex items-center gap-2 pb-2.5 border-b ${accent.headerBorder}`}>
                   <div className={`p-1.5 ${accent.headerBg} rounded-lg`}>
                     <ColIcon className={`h-4 w-4 ${accent.iconColor}`} />
                   </div>
                   <span className={`text-xs font-bold ${accent.headerText} tracking-widest uppercase`}>{col.heading}</span>
                 </div>
 
-                {/* Service items */}
+                {/* Service items — only the hovered item highlights */}
                 <div className="space-y-0.5">
                   {col.items.map((item) => {
                     const ItemIcon = item.icon;
@@ -445,30 +435,23 @@ function MegaMenu({
                           `group flex items-start gap-2.5 py-2 px-2 -mx-2 rounded-lg transition-all duration-200`,
                           active
                             ? `${accent.activeItemBg} ${accent.activeItemText}`
-                            : isColumnHovered
-                              ? 'bg-white/[0.06] hover:bg-white/[0.14] hover:translate-x-1'
-                              : 'hover:bg-white/10 hover:translate-x-1'
+                            : 'hover:bg-white/10 hover:translate-x-1'
                         )}
                       >
                         <ItemIcon className={cn(
                           `h-3.5 w-3.5 mt-0.5 flex-shrink-0 transition-colors`,
-                          active ? accent.activeItemText : isColumnHovered ? `text-white/70 ${accent.hoverText}` : `text-white/50 ${accent.hoverText}`
+                          active ? accent.activeItemText : `text-white/50 ${accent.hoverText}`
                         )} />
                         <div className="min-w-0">
                           <span className={cn(
                             `block text-sm leading-tight transition-colors`,
                             active
                               ? `${accent.activeItemText} font-semibold`
-                              : isColumnHovered
-                                ? `text-white font-medium ${accent.hoverText}`
-                                : `text-white font-medium ${accent.hoverText}`
+                              : `text-white font-medium ${accent.hoverText}`
                           )}>
                             {item.name}
                           </span>
-                          <span className={cn(
-                            `block text-[11px] leading-tight mt-0.5 transition-colors`,
-                            isColumnHovered ? 'text-white/50 group-hover:text-white/70' : 'text-white/40 group-hover:text-white/60'
-                          )}>
+                          <span className="block text-[11px] leading-tight mt-0.5 text-white/40 group-hover:text-white/60 transition-colors">
                             {item.description}
                           </span>
                         </div>
