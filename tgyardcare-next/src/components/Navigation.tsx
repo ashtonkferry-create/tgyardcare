@@ -694,14 +694,17 @@ export default function Navigation() {
   const t = navTheme[activeSeason] ?? navTheme.summer;
 
   return (
-    <nav className={cn("sticky top-0 z-50 border-b shadow-lg nav-seasonal relative overflow-hidden", t.bg, t.border)}>
-      {/* Cinematic: Ambient center glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-20 rounded-full blur-3xl pointer-events-none"
-        style={{ background: `radial-gradient(ellipse, ${t.ambientGlow}, transparent)` }}
-      />
-      {/* Cinematic: Bottom accent glow line */}
-      <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${t.glowLine} to-transparent pointer-events-none`} />
+    <nav className={cn("sticky top-0 z-50 border-b shadow-lg nav-seasonal relative", t.bg, t.border)}>
+      {/* Cinematic effects container — overflow-hidden so glow doesn't bleed, but nav itself can show dropdowns */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Ambient center glow */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-20 rounded-full blur-3xl"
+          style={{ background: `radial-gradient(ellipse, ${t.ambientGlow}, transparent)` }}
+        />
+        {/* Bottom accent glow line */}
+        <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${t.glowLine} to-transparent`} />
+      </div>
       <div className="container mx-auto px-3 sm:px-4 relative z-10">
         <div className="flex items-center justify-between h-16 md:h-18 lg:h-20">
           {/* ---- Logo ---- */}
