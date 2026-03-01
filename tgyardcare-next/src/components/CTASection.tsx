@@ -5,6 +5,43 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Phone, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+
+const ctaTheme = {
+  winter: {
+    bg: 'from-slate-900 via-blue-950 to-indigo-950',
+    border: 'border-cyan-500/10',
+    glow: 'bg-cyan-500/5',
+    headingClass: 'animate-frost-text-glow',
+    checkColor: 'text-cyan-400',
+    phoneBorderHover: 'hover:border-cyan-400/50',
+    particleColors: ['bg-white/15'],
+    particleAnim: 'animate-snow-fall',
+    particleFilter: 'blur(0.5px) drop-shadow(0 0 3px rgba(147, 197, 253, 0.4))',
+  },
+  summer: {
+    bg: 'from-[#0f2818] via-[#1a3a2a] to-[#0d3320]',
+    border: 'border-green-500/15',
+    glow: 'bg-green-500/5',
+    headingClass: '',
+    checkColor: 'text-green-400',
+    phoneBorderHover: 'hover:border-green-400/50',
+    particleColors: ['bg-green-400/20', 'bg-emerald-400/15', 'bg-green-300/25', 'bg-lime-400/10'],
+    particleAnim: 'animate-float-particle',
+    particleFilter: 'blur(0.5px) drop-shadow(0 0 3px rgba(34, 197, 94, 0.3))',
+  },
+  fall: {
+    bg: 'from-stone-900 via-amber-950 to-stone-900',
+    border: 'border-amber-500/10',
+    glow: 'bg-amber-500/5',
+    headingClass: '',
+    checkColor: 'text-amber-400',
+    phoneBorderHover: 'hover:border-amber-400/50',
+    particleColors: ['bg-amber-400/20', 'bg-orange-400/15', 'bg-yellow-300/20'],
+    particleAnim: 'animate-float-particle',
+    particleFilter: 'blur(0.5px) drop-shadow(0 0 3px rgba(245, 158, 11, 0.3))',
+  },
+} as const;
 
 interface CTASectionProps {
   title?: string;
@@ -18,6 +55,8 @@ export default function CTASection({
   variant = "default"
 }: CTASectionProps) {
   const { ref: ctaRef, isInView } = useScrollReveal();
+  const { activeSeason } = useSeasonalTheme();
+  const ct = ctaTheme[activeSeason] ?? ctaTheme.summer;
 
   // Compact variant for mid-page CTAs
   if (variant === "compact") {
@@ -48,7 +87,7 @@ export default function CTASection({
     );
   }
 
-  // Final CTA - stronger visual weight for page end
+  // Final CTA - season-adaptive with immersive styling
   return (
     <section className="py-14 md:py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -61,26 +100,29 @@ export default function CTASection({
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 border-2 border-cyan-500/10 rounded-2xl p-8 md:p-12 text-center shadow-2xl max-w-4xl mx-auto">
+          <div className={`relative overflow-hidden bg-gradient-to-br ${ct.bg} border-2 ${ct.border} rounded-2xl p-8 md:p-12 text-center shadow-2xl max-w-4xl mx-auto`}>
+            {/* Floating particles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
-              {[...Array(6)].map((_, i) => (
+              {[...Array(8)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute bg-white/15 rounded-full animate-snow-fall"
+                  className={`absolute ${ct.particleColors[i % ct.particleColors.length]} rounded-full ${ct.particleAnim}`}
                   style={{
                     width: `${2 + Math.random() * 3}px`,
                     height: `${2 + Math.random() * 3}px`,
                     left: `${10 + Math.random() * 80}%`,
+                    top: `${Math.random() * 100}%`,
                     animationDelay: `${-(Math.random() * 10)}s`,
-                    animationDuration: `${6 + Math.random() * 4}s`,
-                    filter: 'blur(0.5px) drop-shadow(0 0 3px rgba(147, 197, 253, 0.4))',
+                    animationDuration: `${5 + Math.random() * 5}s`,
+                    filter: ct.particleFilter,
                   }}
                 />
               ))}
             </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+            {/* Center glow */}
+            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 ${ct.glow} rounded-full blur-3xl pointer-events-none`} />
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 animate-frost-text-glow">{title}</h2>
+            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 ${ct.headingClass}`}>{title}</h2>
             <p className="text-base md:text-lg mb-6 max-w-2xl mx-auto text-white/70 leading-relaxed">
               {description}
             </p>
@@ -88,15 +130,15 @@ export default function CTASection({
             {/* Operational proof strip */}
             <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm text-white/60">
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-cyan-400" />
+                <CheckCircle2 className={`h-4 w-4 ${ct.checkColor}`} />
                 Quote within 24 hours
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-cyan-400" />
+                <CheckCircle2 className={`h-4 w-4 ${ct.checkColor}`} />
                 Written scope, flat pricing
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-cyan-400" />
+                <CheckCircle2 className={`h-4 w-4 ${ct.checkColor}`} />
                 Same crew assigned
               </span>
             </div>
@@ -114,7 +156,7 @@ export default function CTASection({
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg font-bold border-white/30 text-white hover:bg-white/10 hover:border-cyan-400/50"
+                className={`text-lg font-bold border-white/30 text-white hover:bg-white/10 ${ct.phoneBorderHover}`}
                 asChild
               >
                 <a href="tel:608-535-6057">
