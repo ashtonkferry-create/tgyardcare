@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: "When does lawn mowing season start and end in Madison?",
-    answer: "Madison's mowing season typically runs from mid-April through early November\u2014about 28 weeks. We monitor conditions and communicate the exact start/end dates each year. Late season includes final cuts at lower heights to prepare for winter."
+    answer: "Madison's mowing season typically runs from mid-April through early November—about 28 weeks. We monitor conditions and communicate the exact start/end dates each year. Late season includes final cuts at lower heights to prepare for winter."
   },
   {
     question: "What's included in your Madison lawn mowing service?",
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     question: "Do you offer one-time mowing or only contracts?",
-    answer: "We offer both. One-time mowing is available for property prep, vacation coverage, or trying our service. However, most clients choose weekly service for consistent results and better lawn health. No long-term contracts required\u2014cancel anytime."
+    answer: "We offer both. One-time mowing is available for property prep, vacation coverage, or trying our service. However, most clients choose weekly service for consistent results and better lawn health. No long-term contracts required—cancel anytime."
   }
 ];
 
@@ -114,7 +114,8 @@ export default function LawnCareMadisonContent() {
           role="img"
           aria-label="Professional lawn mowing service in Madison Wisconsin showing freshly cut residential lawn"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

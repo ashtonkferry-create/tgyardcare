@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: "What day will my lawn be mowed?",
-    answer: "We assign Middleton properties to specific route days based on geography. Once scheduled, your service day remains consistent. You'll know exactly when to expect us each week\u2014no guessing."
+    answer: "We assign Middleton properties to specific route days based on geography. Once scheduled, your service day remains consistent. You'll know exactly when to expect us each week—no guessing."
   },
   {
     question: "How do I get started with lawn mowing service?",
@@ -110,7 +110,8 @@ export default function LawnCareMiddletonContent() {
           role="img"
           aria-label="Professional lawn mowing service in Middleton Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

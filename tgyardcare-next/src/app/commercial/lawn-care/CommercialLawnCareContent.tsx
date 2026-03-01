@@ -20,7 +20,7 @@ const serviceScope = [
   {
     icon: Scissors,
     title: "Weekly mowing and edging",
-    description: "Consistent cut schedules maintained across your entire property\u2014no variation between crews or visits."
+    description: "Consistent cut schedules maintained across your entire property—no variation between crews or visits."
   },
   {
     icon: Clock,
@@ -51,7 +51,7 @@ const propertyTypes = [
 const pricingStructure = [
   {
     title: "Seasonal contract",
-    description: "Fixed monthly billing for the growing season (April\u2013October). Predictable budgeting with no per-visit invoicing."
+    description: "Fixed monthly billing for the growing season (April–October). Predictable budgeting with no per-visit invoicing."
   },
   {
     title: "Per-visit billing",
@@ -64,7 +64,7 @@ const pricingStructure = [
 ];
 
 const qualityStandards = [
-  "Same crew, same schedule, same standards\u2014every visit",
+  "Same crew, same schedule, same standards—every visit",
   "3-3.5 inch cut height maintained per industry best practices",
   "Edging along all hardscapes, curbs, and bed borders",
   "Clippings mulched or removed based on contract specification",
@@ -96,7 +96,8 @@ export default function CommercialLawnCareContent() {
           role="img"
           aria-label="Professional commercial lawn mowing and property maintenance for businesses in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl">
@@ -105,7 +106,7 @@ export default function CommercialLawnCareContent() {
               Commercial Lawn Care <span className="text-accent">Contracts</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 md:mb-8 leading-relaxed">
-              Predictable, documented lawn maintenance for property managers who need reliability\u2014not excuses. Same crew, same schedule, zero missed visits.
+              Predictable, documented lawn maintenance for property managers who need reliability—not excuses. Same crew, same schedule, zero missed visits.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button size="lg" variant="accent" className="w-full sm:w-auto tap-target text-base md:text-lg font-bold" asChild>
@@ -134,7 +135,7 @@ export default function CommercialLawnCareContent() {
               Built for commercial property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              This service is designed for property managers, facility directors, and HOA boards who need grounds maintenance that operates like a system\u2014not a favor from a local contractor.
+              This service is designed for property managers, facility directors, and HOA boards who need grounds maintenance that operates like a system—not a favor from a local contractor.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -185,7 +186,7 @@ export default function CommercialLawnCareContent() {
                 Service quality standards
               </h2>
               <p className="text-base md:text-lg text-muted-foreground">
-                What you can expect from every visit\u2014documented and verifiable.
+                What you can expect from every visit—documented and verifiable.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -222,7 +223,7 @@ export default function CommercialLawnCareContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground mb-4">
-                Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-foreground">$400\u2013$1,500</strong> depending on scope.
+                Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-foreground">$400–$1,500</strong> depending on scope.
               </p>
             </div>
           </div>
@@ -243,7 +244,7 @@ export default function CommercialLawnCareContent() {
                 <Shield className="h-8 w-8 text-primary mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-3">Accountability systems</h3>
                 <p className="text-muted-foreground">
-                  Every visit logged with crew ID, timestamp, and completion status. No wondering if service happened\u2014you'll have records.
+                  Every visit logged with crew ID, timestamp, and completion status. No wondering if service happened—you'll have records.
                 </p>
               </div>
               <div className="bg-background p-6 rounded-xl border border-border">
@@ -286,7 +287,7 @@ export default function CommercialLawnCareContent() {
                 <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground mb-1">Property walkthrough</h3>
-                  <p className="text-muted-foreground">We assess your property in person\u2014measuring turf areas, identifying access points, and documenting any special requirements or problem areas.</p>
+                  <p className="text-muted-foreground">We assess your property in person—measuring turf areas, identifying access points, and documenting any special requirements or problem areas.</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start">

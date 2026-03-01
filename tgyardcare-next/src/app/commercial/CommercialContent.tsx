@@ -68,7 +68,7 @@ const whyChooseUs = [
   {
     icon: Clock,
     title: "Off-Hours Scheduling",
-    description: "Early morning or weekend service available\u2014work completed before your tenants arrive."
+    description: "Early morning or weekend service available—work completed before your tenants arrive."
   },
   {
     icon: Shield,
@@ -94,7 +94,7 @@ const comparisonPoints = [
 const commercialObjections = [
   {
     objection: "How do I know you'll actually show up consistently?",
-    response: "We assign the same crew to your property every visit\u2014they know your site, your preferences, and your standards. You'll have a direct line to your crew lead. If weather delays a visit, you're notified by 8am with the reschedule date."
+    response: "We assign the same crew to your property every visit—they know your site, your preferences, and your standards. You'll have a direct line to your crew lead. If weather delays a visit, you're notified by 8am with the reschedule date."
   },
   {
     objection: "What if there's damage or an issue?",
@@ -106,7 +106,7 @@ const commercialObjections = [
   },
   {
     objection: "We've been burned by contractors before.",
-    response: "That's exactly why we operate differently: written scope of work, flat monthly billing, no surprise charges, and a 30-day out clause if we're not meeting expectations. You're not locked in\u2014we have to earn your business every month."
+    response: "That's exactly why we operate differently: written scope of work, flat monthly billing, no surprise charges, and a 30-day out clause if we're not meeting expectations. You're not locked in—we have to earn your business every month."
   }
 ];
 
@@ -191,7 +191,8 @@ export default function CommercialContent() {
           role="img"
           aria-label="Professional commercial lawn care services for businesses in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         {/* Decorative elements */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />

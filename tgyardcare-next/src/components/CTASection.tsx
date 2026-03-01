@@ -14,7 +14,7 @@ interface CTASectionProps {
 
 export default function CTASection({
   title = "Get Your Quote Today. We'll Respond by Tomorrow.",
-  description = "Tell us what you need. We'll send a clear, no-obligation quote within 24 hours\u2014usually faster.",
+  description = "Tell us what you need. We'll send a clear, no-obligation quote within 24 hours—usually faster.",
   variant = "default"
 }: CTASectionProps) {
   const { ref: ctaRef, isInView } = useScrollReveal();

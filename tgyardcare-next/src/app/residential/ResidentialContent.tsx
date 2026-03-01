@@ -59,7 +59,7 @@ const allServices = [
   {
     icon: Scissors,
     title: "Lawn Mowing",
-    description: "Weekly service, same crew assigned. Includes mowing, edging, and blowing\u2014completed in under 45 minutes.",
+    description: "Weekly service, same crew assigned. Includes mowing, edging, and blowing—completed in under 45 minutes.",
     path: "/services/mowing",
     image: mowingImage,
     category: "lawn"
@@ -247,6 +247,7 @@ export default function ResidentialContent() {
           role="img"
           aria-label="Professional residential lawn care services for Madison homeowners"
         />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
         {/* Decorative elements */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -339,7 +340,7 @@ export default function ResidentialContent() {
             badgeIcon={Sparkles}
             title="14+ Services."
             titleHighlight="Zero Headaches."
-            description="Stop juggling contractors. We handle lawn, beds, gutters, and seasonal work\u2014all with the same reliable crew."
+            description="Stop juggling contractors. We handle lawn, beds, gutters, and seasonal work—all with the same reliable crew."
             size="lg"
           />
 

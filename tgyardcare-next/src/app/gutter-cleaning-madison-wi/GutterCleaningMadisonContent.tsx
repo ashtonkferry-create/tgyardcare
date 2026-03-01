@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: "How often should gutters be cleaned in Madison?",
-    answer: "Most Madison homes need gutter cleaning twice per year\u2014once in late spring after seed pods and pollen, and once in late fall after leaves drop. Homes near mature trees may need a third mid-summer cleaning."
+    answer: "Most Madison homes need gutter cleaning twice per year—once in late spring after seed pods and pollen, and once in late fall after leaves drop. Homes near mature trees may need a third mid-summer cleaning."
   },
   {
     question: "What's included in your gutter cleaning service?",
@@ -61,7 +61,7 @@ const whyChooseUs = [
   {
     icon: Droplets,
     title: "Downspout Flushing",
-    description: "We don't just clean gutters\u2014we flush every downspout to ensure proper drainage."
+    description: "We don't just clean gutters—we flush every downspout to ensure proper drainage."
   },
   {
     icon: Shield,
@@ -108,7 +108,8 @@ export default function GutterCleaningMadisonContent() {
           role="img"
           aria-label="Professional gutter cleaning service in Madison Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

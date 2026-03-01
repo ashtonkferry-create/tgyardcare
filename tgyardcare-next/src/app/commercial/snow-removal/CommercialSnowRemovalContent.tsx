@@ -88,7 +88,7 @@ const liabilityProtection = [
 const pricingStructure = [
   {
     title: "Seasonal contract",
-    description: "Fixed monthly rate November\u2013March regardless of snowfall. Predictable budgeting with unlimited service."
+    description: "Fixed monthly rate November–March regardless of snowfall. Predictable budgeting with unlimited service."
   },
   {
     title: "Per-push billing",
@@ -133,7 +133,8 @@ export default function CommercialSnowRemovalContent() {
           role="img"
           aria-label="Professional commercial snow removal and plowing for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -142,7 +143,7 @@ export default function CommercialSnowRemovalContent() {
               Commercial Snow Removal <span className="text-accent">Contracts</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-6 md:mb-8">
-              Documented storm response with real-time communication. Know when we arrive, when we finish, and what was done\u2014every storm, every time.
+              Documented storm response with real-time communication. Know when we arrive, when we finish, and what was done—every storm, every time.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button size="lg" variant="accent" className="text-base md:text-lg font-bold" asChild>
@@ -171,7 +172,7 @@ export default function CommercialSnowRemovalContent() {
               Commercial snow removal for property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need reliable winter operations with liability documentation\u2014not contractors who disappear during major storms.
+              Designed for property managers and facility directors who need reliable winter operations with liability documentation—not contractors who disappear during major storms.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -254,7 +255,7 @@ export default function CommercialSnowRemovalContent() {
                 Response trigger thresholds
               </h2>
               <p className="text-base md:text-lg text-muted-foreground">
-                Pre-defined accumulation thresholds eliminate guesswork. Service initiates automatically\u2014no phone calls needed.
+                Pre-defined accumulation thresholds eliminate guesswork. Service initiates automatically—no phone calls needed.
               </p>
             </div>
             <div className="space-y-4">
@@ -324,7 +325,7 @@ export default function CommercialSnowRemovalContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Commercial snow removal contracts typically range from <strong className="text-foreground">$500\u2013$2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
+                Commercial snow removal contracts typically range from <strong className="text-foreground">$500–$2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
               </p>
             </div>
           </div>

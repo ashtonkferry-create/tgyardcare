@@ -83,8 +83,8 @@ const pricingStructure = [
 const differentiators = [
   "Licensed applicators with commercial certifications",
   "Application records for compliance and auditing",
-  "Proactive turf health monitoring\u2014not reactive spot treatments",
-  "Consistent coverage across entire property\u2014no thin areas",
+  "Proactive turf health monitoring—not reactive spot treatments",
+  "Consistent coverage across entire property—no thin areas",
   "Direct communication with your account manager",
   "Integrated with mowing schedules for optimal timing"
 ];
@@ -113,7 +113,8 @@ export default function CommercialFertilizationWeedControlContent() {
           role="img"
           aria-label="Professional commercial lawn fertilization and weed control for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -122,7 +123,7 @@ export default function CommercialFertilizationWeedControlContent() {
               Commercial Fertilization & <span className="text-accent">Weed Control</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-6 md:mb-8">
-              Licensed applicators, documented treatments, and proactive turf management\u2014not reactive spot spraying. Compliance-ready records for every application.
+              Licensed applicators, documented treatments, and proactive turf management—not reactive spot spraying. Compliance-ready records for every application.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button size="lg" variant="accent" className="text-base md:text-lg font-bold" asChild>
@@ -151,7 +152,7 @@ export default function CommercialFertilizationWeedControlContent() {
               Commercial turf treatment for property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need professional turf appearance with compliance documentation\u2014not just occasional weed spraying.
+              Designed for property managers and facility directors who need professional turf appearance with compliance documentation—not just occasional weed spraying.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -176,7 +177,7 @@ export default function CommercialFertilizationWeedControlContent() {
                 Compliance and documentation standards
               </h2>
               <p className="text-base md:text-lg text-muted-foreground">
-                Commercial turf treatment requires more than just results\u2014it requires records. We provide documentation for audits, board reports, and regulatory compliance.
+                Commercial turf treatment requires more than just results—it requires records. We provide documentation for audits, board reports, and regulatory compliance.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -252,7 +253,7 @@ export default function CommercialFertilizationWeedControlContent() {
                   <span className="font-bold text-primary">2</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Late spring (May\u2013June)</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">Late spring (May–June)</h3>
                   <p className="text-muted-foreground">Broadleaf weed control + balanced fertilization during peak growing season.</p>
                 </div>
               </div>
@@ -261,7 +262,7 @@ export default function CommercialFertilizationWeedControlContent() {
                   <span className="font-bold text-primary">3</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Summer (July\u2013August)</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">Summer (July–August)</h3>
                   <p className="text-muted-foreground">Targeted weed treatment + summer stress management. Light fertilization to maintain color without forcing growth.</p>
                 </div>
               </div>
@@ -270,7 +271,7 @@ export default function CommercialFertilizationWeedControlContent() {
                   <span className="font-bold text-primary">4</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Fall (September\u2013October)</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-1">Fall (September–October)</h3>
                   <p className="text-muted-foreground">Fall fertilization for root development + broadleaf weed control. This is the most important treatment for spring recovery.</p>
                 </div>
               </div>
@@ -310,7 +311,7 @@ export default function CommercialFertilizationWeedControlContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Commercial fertilization programs typically range from <strong className="text-foreground">$80\u2013$200</strong> per application depending on property size. Full-season programs (5-6 applications) offer contract discounts.
+                Commercial fertilization programs typically range from <strong className="text-foreground">$80–$200</strong> per application depending on property size. Full-season programs (5-6 applications) offer contract discounts.
               </p>
             </div>
           </div>

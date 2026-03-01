@@ -122,7 +122,8 @@ export default function CommercialSeasonalContent() {
           role="img"
           aria-label="Professional commercial seasonal cleanup and maintenance for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -160,7 +161,7 @@ export default function CommercialSeasonalContent() {
               Commercial seasonal maintenance for property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need seasonal transitions completed on schedule with documented scope\u2014not vague cleanup promises that drag into the next season.
+              Designed for property managers and facility directors who need seasonal transitions completed on schedule with documented scope—not vague cleanup promises that drag into the next season.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -242,7 +243,7 @@ export default function CommercialSeasonalContent() {
                 Commercial spring cleanup scope
               </h2>
               <p className="text-base md:text-lg text-muted-foreground">
-                Spring cleanup typically scheduled March\u2013May depending on ground conditions. Completion guaranteed before Memorial Day.
+                Spring cleanup typically scheduled March–May depending on ground conditions. Completion guaranteed before Memorial Day.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -267,7 +268,7 @@ export default function CommercialSeasonalContent() {
                 Commercial fall cleanup scope
               </h2>
               <p className="text-base md:text-lg text-muted-foreground">
-                Fall cleanup scheduled October\u2013November. Completion guaranteed before first significant snowfall.
+                Fall cleanup scheduled October–November. Completion guaranteed before first significant snowfall.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -304,7 +305,7 @@ export default function CommercialSeasonalContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Commercial spring or fall cleanup typically ranges from <strong className="text-foreground">$400\u2013$1,500</strong> depending on property size and scope. Weekly leaf removal priced separately.
+                Commercial spring or fall cleanup typically ranges from <strong className="text-foreground">$400–$1,500</strong> depending on property size and scope. Weekly leaf removal priced separately.
               </p>
             </div>
           </div>
@@ -326,19 +327,19 @@ export default function CommercialSeasonalContent() {
             </div>
             <div className="space-y-4">
               <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-lg font-bold text-foreground mb-2">March\u2013April: Spring cleanup window</h3>
+                <h3 className="text-lg font-bold text-foreground mb-2">March–April: Spring cleanup window</h3>
                 <p className="text-muted-foreground">Ground thaw through active growth. Cleanup scheduled when soil is workable but before peak mowing season.</p>
               </div>
               <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-lg font-bold text-foreground mb-2">May\u2013September: Regular maintenance</h3>
+                <h3 className="text-lg font-bold text-foreground mb-2">May–September: Regular maintenance</h3>
                 <p className="text-muted-foreground">Ongoing lawn care, bed maintenance, and property upkeep during growing season.</p>
               </div>
               <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-lg font-bold text-foreground mb-2">October\u2013November: Fall cleanup window</h3>
+                <h3 className="text-lg font-bold text-foreground mb-2">October–November: Fall cleanup window</h3>
                 <p className="text-muted-foreground">Leaf drop through first freeze. Weekly leaf removal during peak season, final cleanup before snow.</p>
               </div>
               <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-lg font-bold text-foreground mb-2">December\u2013February: Snow removal</h3>
+                <h3 className="text-lg font-bold text-foreground mb-2">December–February: Snow removal</h3>
                 <p className="text-muted-foreground">Winter operations for contracted properties. Seamless transition from seasonal to snow services.</p>
               </div>
             </div>

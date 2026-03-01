@@ -45,12 +45,13 @@ export default function PruningContent() {
         <section className="relative min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden py-20 md:py-28">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imgSrc(heroImage)})`,
-            }}
+            style={{ backgroundImage: `url(${imgSrc(heroImage)})` }}
             role="img"
             aria-label="Professional bush trimming and pruning service showing well-maintained shrubs in Madison Wisconsin"
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
+          </div>
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6">
               Bush Trimming & Shrub Pruning in Madison

@@ -52,7 +52,8 @@ export default function LeafRemovalContent() {
           role="img"
           aria-label="Professional leaf removal service showing leaf blower clearing colorful autumn leaves from residential lawn in Madison Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">

@@ -48,12 +48,12 @@ const propertyTypes = [
 
 const timingSchedule = [
   {
-    season: "Fall (September\u2013October)",
+    season: "Fall (September–October)",
     priority: "Primary",
     description: "Best timing for cool-season grasses. Aeration before winter dormancy promotes spring recovery and root development."
   },
   {
-    season: "Spring (April\u2013May)",
+    season: "Spring (April–May)",
     priority: "Secondary",
     description: "Good option for properties that missed fall service. Schedule before summer stress to maximize root growth."
   },
@@ -112,7 +112,8 @@ export default function CommercialAerationContent() {
           role="img"
           aria-label="Professional commercial lawn aeration for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl">
@@ -314,7 +315,7 @@ export default function CommercialAerationContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Commercial aeration typically ranges from <strong className="text-foreground">$150\u2013$600</strong> depending on property size. Multi-property and annual program discounts available.
+                Commercial aeration typically ranges from <strong className="text-foreground">$150–$600</strong> depending on property size. Multi-property and annual program discounts available.
               </p>
             </div>
           </div>

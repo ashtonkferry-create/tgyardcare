@@ -43,7 +43,7 @@ const propertyTypes = [
 const liabilityBenefits = [
   {
     title: "Water damage prevention",
-    description: "Clogged gutters cause foundation damage, basement flooding, and landscape erosion\u2014all preventable liability exposures."
+    description: "Clogged gutters cause foundation damage, basement flooding, and landscape erosion—all preventable liability exposures."
   },
   {
     title: "Ice dam prevention",
@@ -107,7 +107,8 @@ export default function CommercialGutterServicesContent() {
           role="img"
           aria-label="Professional commercial gutter cleaning and maintenance for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -145,7 +146,7 @@ export default function CommercialGutterServicesContent() {
               Commercial gutter maintenance for property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need documented, scheduled gutter maintenance\u2014not reactive service calls after damage occurs.
+              Designed for property managers and facility directors who need documented, scheduled gutter maintenance—not reactive service calls after damage occurs.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -264,7 +265,7 @@ export default function CommercialGutterServicesContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Commercial gutter cleaning typically ranges from <strong className="text-foreground">$200\u2013$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
+                Commercial gutter cleaning typically ranges from <strong className="text-foreground">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
               </p>
             </div>
           </div>

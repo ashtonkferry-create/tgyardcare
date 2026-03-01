@@ -48,19 +48,19 @@ const propertyTypes = [
 
 const annualProgram = [
   {
-    season: "Spring (March\u2013May)",
+    season: "Spring (March–May)",
     services: "Bed cleanup, dead plant removal, soil amendment, spring mulch application, annual flower installation"
   },
   {
-    season: "Summer (June\u2013August)",
+    season: "Summer (June–August)",
     services: "Ongoing weeding, irrigation monitoring, deadheading, pest monitoring, mid-season color refresh if needed"
   },
   {
-    season: "Fall (September\u2013November)",
+    season: "Fall (September–November)",
     services: "Perennial cutback, fall mulch touch-up, fall color installation, bed preparation for winter"
   },
   {
-    season: "Winter (December\u2013February)",
+    season: "Winter (December–February)",
     services: "Dormant pruning, evergreen maintenance, winter interest plantings, spring planning"
   }
 ];
@@ -132,7 +132,8 @@ export default function CommercialPropertyEnhancementContent() {
           role="img"
           aria-label="Professional commercial landscape design and maintenance for property managers in Madison, Wisconsin"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
@@ -170,7 +171,7 @@ export default function CommercialPropertyEnhancementContent() {
               Commercial landscape management for property operations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers, HOA boards, and facility directors who need landscape beds that look professional from April through November\u2014not just during spring installation.
+              Designed for property managers, HOA boards, and facility directors who need landscape beds that look professional from April through November—not just during spring installation.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -313,7 +314,7 @@ export default function CommercialPropertyEnhancementContent() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-muted-foreground">
-                Annual bed maintenance programs typically range from <strong className="text-foreground">$200\u2013$800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
+                Annual bed maintenance programs typically range from <strong className="text-foreground">$200–$800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
               </p>
             </div>
           </div>
