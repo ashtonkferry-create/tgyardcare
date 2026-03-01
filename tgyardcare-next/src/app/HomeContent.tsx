@@ -192,7 +192,7 @@ export default function HomeContent() {
       {activeSeason === 'fall' && <FallHero />}
 
       {/* IMMEDIATE TRUST: Stats Strip */}
-      <section className="py-6 md:py-8 bg-primary text-primary-foreground" ref={statsRef}>
+      <section className="py-6 md:py-8 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] text-white" ref={statsRef}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
             {trustStats.map((stat, index) => (

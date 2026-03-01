@@ -163,7 +163,7 @@ export default function LawnCareMadisonContent() {
       </section>
 
       {/* Madison-Specific Value Props */}
-      <section className="py-8 bg-primary text-primary-foreground">
+      <section className="py-8 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] text-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
             <div>

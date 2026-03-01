@@ -451,7 +451,7 @@ export default function ResidentialContent() {
       </section>
 
       {/* Social Proof Strip */}
-      <section className="py-12 bg-primary text-primary-foreground">
+      <section className="py-12 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] text-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-5xl mx-auto">
             <div className="text-center md:text-left">
