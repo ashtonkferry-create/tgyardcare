@@ -333,6 +333,39 @@ function SeasonalParticles({ season }: { season: string }) {
 }
 
 // ---------------------------------------------------------------------------
+// Related / upsell service groups — hover one, siblings subtly highlight
+// Snow removal intentionally excluded (no upsell pairing)
+// ---------------------------------------------------------------------------
+const relatedServicesMap: Record<string, string[]> = {
+  // Residential — Lawn care trio
+  "/services/mowing": ["/services/fertilization", "/services/herbicide"],
+  "/services/fertilization": ["/services/mowing", "/services/herbicide"],
+  "/services/herbicide": ["/services/mowing", "/services/fertilization"],
+  // Aeration pairs with core lawn care
+  "/services/aeration": ["/services/fertilization", "/services/mowing"],
+  // Bed care trio
+  "/services/garden-beds": ["/services/mulching", "/services/weeding"],
+  "/services/mulching": ["/services/garden-beds", "/services/weeding"],
+  "/services/weeding": ["/services/garden-beds", "/services/mulching"],
+  // Pruning pairs with bed care
+  "/services/pruning": ["/services/garden-beds", "/services/mulching"],
+  // Seasonal trio
+  "/services/spring-cleanup": ["/services/fall-cleanup", "/services/leaf-removal"],
+  "/services/fall-cleanup": ["/services/spring-cleanup", "/services/leaf-removal"],
+  "/services/leaf-removal": ["/services/spring-cleanup", "/services/fall-cleanup"],
+  // Gutter pair
+  "/services/gutter-cleaning": ["/services/gutter-guards"],
+  "/services/gutter-guards": ["/services/gutter-cleaning"],
+  // Commercial — Turf management trio
+  "/commercial/lawn-care": ["/commercial/fertilization-weed-control", "/commercial/aeration"],
+  "/commercial/fertilization-weed-control": ["/commercial/lawn-care", "/commercial/aeration"],
+  "/commercial/aeration": ["/commercial/lawn-care", "/commercial/fertilization-weed-control"],
+  // Commercial — Landscape enhancement ↔ gutters
+  "/commercial/property-enhancement": ["/commercial/gutters"],
+  "/commercial/gutters": ["/commercial/property-enhancement"],
+};
+
+// ---------------------------------------------------------------------------
 // MegaMenu Component (reusable for Residential + Commercial)
 // ---------------------------------------------------------------------------
 function MegaMenu({
@@ -350,6 +383,16 @@ function MegaMenu({
 }) {
   const [hoveredItem, setHoveredItem] = useState<MegaMenuItem | null>(null);
   const isCommercial = variant === 'commercial';
+
+  // Related-service highlight: checks explicit map + same-path siblings
+  const relatedPaths = hoveredItem ? (relatedServicesMap[hoveredItem.path] ?? []) : [];
+  const isRelated = (item: MegaMenuItem): boolean => {
+    if (!hoveredItem || item === hoveredItem) return false;
+    // Same path, different item (e.g. commercial sub-services sharing a page)
+    if (item.path === hoveredItem.path && item.name !== hoveredItem.name) return true;
+    // Explicit upsell relation
+    return relatedPaths.includes(item.path);
+  };
 
   // Resolve sidebar content: hovered service overrides default
   const serviceOverride = hoveredItem ? serviceSidebarData[hoveredItem.path] : null;
@@ -419,11 +462,12 @@ function MegaMenu({
                   <span className={`text-xs font-bold ${accent.headerText} tracking-widest uppercase`}>{col.heading}</span>
                 </div>
 
-                {/* Service items — only the hovered item highlights */}
+                {/* Service items — hovered item + related upsell items highlight */}
                 <div className="space-y-0.5">
                   {col.items.map((item) => {
                     const ItemIcon = item.icon;
                     const active = isActivePath(item.path);
+                    const related = isRelated(item);
 
                     return (
                       <Link
@@ -435,23 +479,34 @@ function MegaMenu({
                           `group flex items-start gap-2.5 py-2 px-2 -mx-2 rounded-lg transition-all duration-200`,
                           active
                             ? `${accent.activeItemBg} ${accent.activeItemText}`
-                            : 'hover:bg-white/10 hover:translate-x-1'
+                            : related
+                              ? 'bg-white/[0.07]'
+                              : 'hover:bg-white/10 hover:translate-x-1'
                         )}
                       >
                         <ItemIcon className={cn(
                           `h-3.5 w-3.5 mt-0.5 flex-shrink-0 transition-colors`,
-                          active ? accent.activeItemText : `text-white/50 ${accent.hoverText}`
+                          active
+                            ? accent.activeItemText
+                            : related
+                              ? 'text-white/60'
+                              : `text-white/50 ${accent.hoverText}`
                         )} />
                         <div className="min-w-0">
                           <span className={cn(
                             `block text-sm leading-tight transition-colors`,
                             active
                               ? `${accent.activeItemText} font-semibold`
-                              : `text-white font-medium ${accent.hoverText}`
+                              : related
+                                ? 'text-white/80 font-medium'
+                                : `text-white font-medium ${accent.hoverText}`
                           )}>
                             {item.name}
                           </span>
-                          <span className="block text-[11px] leading-tight mt-0.5 text-white/40 group-hover:text-white/60 transition-colors">
+                          <span className={cn(
+                            "block text-[11px] leading-tight mt-0.5 transition-colors",
+                            related ? 'text-white/50' : 'text-white/40 group-hover:text-white/60'
+                          )}>
                             {item.description}
                           </span>
                         </div>
