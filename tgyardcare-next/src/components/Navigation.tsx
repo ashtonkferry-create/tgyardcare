@@ -299,42 +299,75 @@ const aboutPages = [
 // ---------------------------------------------------------------------------
 // Seasonal Particles (shared between both mega menus)
 // ---------------------------------------------------------------------------
+// 3-tier particle config: icon anchors + glowing dots + ambient orbs
+const particleConfig = {
+  winter: {
+    Icon: Snowflake,
+    iconColor: 'text-sky-300',
+    dotColors: ['bg-cyan-400', 'bg-sky-300', 'bg-blue-300', 'bg-cyan-300'],
+    orbColor: 'bg-cyan-500/8',
+  },
+  fall: {
+    Icon: Leaf,
+    iconColor: 'text-orange-400',
+    dotColors: ['bg-amber-400', 'bg-orange-400', 'bg-yellow-400', 'bg-amber-300'],
+    orbColor: 'bg-amber-500/8',
+  },
+  summer: {
+    Icon: Sparkles,
+    iconColor: 'text-green-400',
+    dotColors: ['bg-green-400', 'bg-emerald-400', 'bg-lime-300', 'bg-green-300'],
+    orbColor: 'bg-green-500/8',
+  },
+} as const;
+
 function SeasonalParticles({ season }: { season: string }) {
-  if (season === 'winter') {
-    return (
-      <>
-        <Snowflake className="absolute top-[10%] left-[10%] w-4 h-4 text-sky-300/40 animate-drift-1" />
-        <Snowflake className="absolute top-[20%] right-[15%] w-3 h-3 text-sky-200/30 animate-drift-2" />
-        <Snowflake className="absolute bottom-[25%] left-[30%] w-4 h-4 text-sky-300/35 animate-drift-3" />
-        <Snowflake className="absolute top-[40%] left-[55%] w-2.5 h-2.5 text-sky-200/25 animate-drift-1" style={{ animationDelay: '-3s' }} />
-        <Snowflake className="absolute bottom-[35%] right-[25%] w-3 h-3 text-sky-300/30 animate-drift-2" style={{ animationDelay: '-5s' }} />
-        <Snowflake className="absolute top-[15%] right-[40%] w-3.5 h-3.5 text-sky-200/35 animate-drift-3" style={{ animationDelay: '-7s' }} />
-      </>
-    );
-  }
+  const cfg = particleConfig[season as keyof typeof particleConfig] ?? particleConfig.summer;
+  const { Icon, iconColor, dotColors, orbColor } = cfg;
 
-  if (season === 'fall') {
-    return (
-      <>
-        <Leaf className="absolute top-[10%] left-[10%] w-4 h-4 text-orange-400/40 animate-drift-1" />
-        <Leaf className="absolute top-[20%] right-[15%] w-3 h-3 text-amber-500/30 animate-drift-2" />
-        <Leaf className="absolute bottom-[25%] left-[30%] w-4 h-4 text-orange-300/35 animate-drift-3" />
-        <Leaf className="absolute top-[40%] left-[55%] w-2.5 h-2.5 text-amber-400/25 animate-drift-1" style={{ animationDelay: '-3s' }} />
-        <Leaf className="absolute bottom-[35%] right-[25%] w-3 h-3 text-orange-500/30 animate-drift-2" style={{ animationDelay: '-5s' }} />
-        <Leaf className="absolute top-[15%] right-[40%] w-3.5 h-3.5 text-amber-300/35 animate-drift-3" style={{ animationDelay: '-7s' }} />
-      </>
-    );
-  }
-
-  // Spring / Summer default
   return (
     <>
-      <Flower2 className="absolute top-[10%] left-[10%] w-4 h-4 text-primary/40 animate-drift-1" />
-      <Sparkles className="absolute top-[20%] right-[15%] w-3 h-3 text-yellow-400/30 animate-drift-2" />
-      <Flower2 className="absolute bottom-[25%] left-[30%] w-4 h-4 text-primary/35 animate-drift-3" />
-      <Sparkles className="absolute top-[40%] left-[55%] w-2.5 h-2.5 text-yellow-300/25 animate-drift-1" style={{ animationDelay: '-3s' }} />
-      <Flower2 className="absolute bottom-[35%] right-[25%] w-3 h-3 text-primary/30 animate-drift-2" style={{ animationDelay: '-5s' }} />
-      <Sparkles className="absolute top-[15%] right-[40%] w-3.5 h-3.5 text-yellow-400/35 animate-drift-3" style={{ animationDelay: '-7s' }} />
+      {/* Layer 1: Ambient orbs — large, blurred, slow drift */}
+      <div className={`absolute top-[5%] left-[15%] w-32 h-32 ${orbColor} rounded-full blur-3xl animate-drift-1`} style={{ animationDuration: '14s' }} />
+      <div className={`absolute bottom-[10%] right-[10%] w-24 h-24 ${orbColor} rounded-full blur-3xl animate-drift-2`} style={{ animationDuration: '16s' }} />
+
+      {/* Layer 2: Icon anchors — branded shapes at strategic positions */}
+      <Icon className={`absolute top-[12%] left-[8%] w-4 h-4 ${iconColor}/35 animate-drift-1`} />
+      <Icon className={`absolute top-[18%] right-[12%] w-3 h-3 ${iconColor}/25 animate-drift-2`} style={{ animationDelay: '-4s' }} />
+      <Icon className={`absolute bottom-[20%] left-[25%] w-3.5 h-3.5 ${iconColor}/30 animate-drift-3`} style={{ animationDelay: '-7s' }} />
+      <Icon className={`absolute top-[45%] left-[60%] w-2.5 h-2.5 ${iconColor}/20 animate-drift-1`} style={{ animationDelay: '-2s' }} />
+      <Icon className={`absolute bottom-[30%] right-[20%] w-3 h-3 ${iconColor}/25 animate-drift-2`} style={{ animationDelay: '-6s' }} />
+
+      {/* Layer 3: Glowing micro-dots — strategic fill, varied timing */}
+      {[
+        { top: '8%', left: '22%', s: 2, o: 0.25, d: '7s', dl: '-1s' },
+        { top: '35%', left: '5%', s: 2.5, o: 0.2, d: '9s', dl: '-3s' },
+        { top: '55%', right: '8%', s: 1.5, o: 0.3, d: '6s', dl: '-5s' },
+        { top: '15%', left: '45%', s: 2, o: 0.2, d: '8s', dl: '-2s' },
+        { bottom: '15%', left: '50%', s: 3, o: 0.18, d: '10s', dl: '-4s' },
+        { top: '60%', left: '35%', s: 1.5, o: 0.25, d: '7s', dl: '-6s' },
+        { bottom: '40%', right: '35%', s: 2, o: 0.22, d: '8s', dl: '-1s' },
+        { top: '25%', right: '45%', s: 2.5, o: 0.15, d: '11s', dl: '-8s' },
+        { bottom: '10%', right: '55%', s: 1.5, o: 0.2, d: '6s', dl: '-3s' },
+        { top: '70%', left: '15%', s: 2, o: 0.2, d: '9s', dl: '-7s' },
+      ].map((dot, i) => {
+        const { s, o, d, dl, ...pos } = dot;
+        return (
+          <div
+            key={i}
+            className={`absolute ${dotColors[i % dotColors.length]} rounded-full animate-drift-${(i % 3) + 1}`}
+            style={{
+              ...pos,
+              width: s,
+              height: s,
+              opacity: o,
+              animationDuration: d,
+              animationDelay: dl,
+              filter: 'blur(0.3px) drop-shadow(0 0 4px currentColor)',
+            }}
+          />
+        );
+      })}
     </>
   );
 }
@@ -622,6 +655,8 @@ export default function Navigation() {
       ctaShadowHover: 'hover:shadow-cyan-500/40',
       phoneBorder: 'border-white/20',
       phoneBorderHover: 'hover:border-cyan-400/40',
+      glowLine: 'via-cyan-400/30',
+      ambientGlow: 'rgba(56, 189, 248, 0.06)',
     },
     summer: {
       bg: 'bg-gradient-to-r from-[#0f2a1a] via-[#142e1e] to-[#1a3a2a]',
@@ -636,6 +671,8 @@ export default function Navigation() {
       ctaShadowHover: 'hover:shadow-green-500/40',
       phoneBorder: 'border-white/20',
       phoneBorderHover: 'hover:border-green-400/40',
+      glowLine: 'via-green-400/30',
+      ambientGlow: 'rgba(74, 222, 128, 0.05)',
     },
     fall: {
       bg: 'bg-gradient-to-r from-stone-950 via-stone-900 to-amber-950',
@@ -650,12 +687,21 @@ export default function Navigation() {
       ctaShadowHover: 'hover:shadow-amber-500/40',
       phoneBorder: 'border-white/20',
       phoneBorderHover: 'hover:border-amber-400/40',
+      glowLine: 'via-amber-400/30',
+      ambientGlow: 'rgba(251, 191, 36, 0.05)',
     },
   } as const;
   const t = navTheme[activeSeason] ?? navTheme.summer;
 
   return (
-    <nav className={cn("sticky top-0 z-50 border-b shadow-lg nav-seasonal", t.bg, t.border)}>
+    <nav className={cn("sticky top-0 z-50 border-b shadow-lg nav-seasonal relative overflow-hidden", t.bg, t.border)}>
+      {/* Cinematic: Ambient center glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-20 rounded-full blur-3xl pointer-events-none"
+        style={{ background: `radial-gradient(ellipse, ${t.ambientGlow}, transparent)` }}
+      />
+      {/* Cinematic: Bottom accent glow line */}
+      <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${t.glowLine} to-transparent pointer-events-none`} />
       <div className="container mx-auto px-3 sm:px-4 relative z-10">
         <div className="flex items-center justify-between h-16 md:h-18 lg:h-20">
           {/* ---- Logo ---- */}

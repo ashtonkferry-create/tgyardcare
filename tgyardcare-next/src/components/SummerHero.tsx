@@ -17,45 +17,89 @@ export function SummerHero() {
       {/* MOBILE-FIRST: Reduced min-height for faster value delivery */}
       <div className="min-h-[500px] sm:min-h-[550px] lg:min-h-[650px]">
 
-        {/* Subtle ambient glow - reduced on mobile for performance */}
+        {/* ═══ TIER 1: Ambient Orbs — large, blurred, ultra-slow drift ═══ */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none motion-reduce:hidden">
-          <div className="absolute -top-20 -right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-green-800/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[200px] lg:w-[400px] h-[200px] lg:h-[400px] bg-green-900/15 rounded-full blur-3xl" />
+          <div className="absolute -top-20 -right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-green-800/20 rounded-full blur-3xl animate-drift-1" style={{ animationDuration: '20s' }} />
+          <div className="absolute bottom-0 left-0 w-[200px] lg:w-[400px] h-[200px] lg:h-[400px] bg-green-900/15 rounded-full blur-3xl animate-drift-2" style={{ animationDuration: '24s' }} />
+          <div className="absolute top-[30%] left-[40%] w-[250px] lg:w-[350px] h-[250px] lg:h-[350px] bg-emerald-800/10 rounded-full blur-3xl animate-drift-3 hidden sm:block" style={{ animationDuration: '18s' }} />
+          <div className="absolute top-[10%] right-[30%] w-[180px] lg:w-[280px] h-[180px] lg:h-[280px] bg-green-700/8 rounded-full blur-3xl animate-drift-1 hidden lg:block" style={{ animationDuration: '22s', animationDelay: '-6s' }} />
         </div>
 
-        {/* Floating Light Particles - reduced count on mobile */}
+        {/* ═══ TIER 2: Mid-layer dots — medium, moderate speed, fill space ═══ */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none motion-reduce:hidden hidden sm:block">
-          {[...Array(20)].map((_, i) => {
-            const colors = ['bg-green-400/20', 'bg-emerald-400/15', 'bg-green-300/25', 'bg-lime-400/10'];
+          {[
+            { top: '5%', left: '12%', s: 3, o: 0.2, d: '8s', dl: '-1s', c: 'bg-green-400' },
+            { top: '15%', left: '45%', s: 2.5, o: 0.25, d: '7s', dl: '-3s', c: 'bg-emerald-400' },
+            { top: '25%', right: '20%', s: 3.5, o: 0.15, d: '9s', dl: '-5s', c: 'bg-green-300' },
+            { top: '40%', left: '8%', s: 2, o: 0.2, d: '10s', dl: '-2s', c: 'bg-lime-400' },
+            { top: '50%', left: '55%', s: 3, o: 0.18, d: '8s', dl: '-7s', c: 'bg-green-400' },
+            { top: '60%', right: '12%', s: 2.5, o: 0.22, d: '7s', dl: '-4s', c: 'bg-emerald-300' },
+            { top: '70%', left: '25%', s: 2, o: 0.2, d: '9s', dl: '-6s', c: 'bg-green-400' },
+            { top: '80%', right: '35%', s: 3, o: 0.15, d: '11s', dl: '-1s', c: 'bg-emerald-400' },
+            { top: '35%', left: '70%', s: 2.5, o: 0.2, d: '8s', dl: '-8s', c: 'bg-green-300' },
+            { top: '55%', left: '35%', s: 2, o: 0.18, d: '10s', dl: '-3s', c: 'bg-lime-300' },
+            { top: '12%', right: '45%', s: 3, o: 0.16, d: '9s', dl: '-5s', c: 'bg-green-400' },
+            { top: '90%', left: '60%', s: 2.5, o: 0.2, d: '7s', dl: '-2s', c: 'bg-emerald-400' },
+          ].map((dot, i) => {
+            const { s, o, d, dl, c, ...pos } = dot;
             return (
               <div
-                key={i}
-                className={`absolute ${colors[i % colors.length]} rounded-full animate-float-particle`}
+                key={`mid-${i}`}
+                className={`absolute ${c} rounded-full animate-float-particle`}
                 style={{
-                  width: `${2 + Math.random() * 4}px`,
-                  height: `${2 + Math.random() * 4}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${-Math.random() * 10}s`,
-                  animationDuration: `${5 + Math.random() * 6}s`,
+                  ...pos,
+                  width: s,
+                  height: s,
+                  opacity: o,
+                  animationDuration: d,
+                  animationDelay: dl,
+                  filter: 'blur(0.5px) drop-shadow(0 0 6px currentColor)',
                 }}
               />
             );
           })}
         </div>
 
-        {/* Minimal soft orbs - desktop only */}
-        <div className="hidden lg:block">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-green-700/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-1/4 w-48 h-48 bg-green-600/8 rounded-full blur-3xl" />
+        {/* ═══ TIER 3: Foreground sparkles — tiny, bright, quick movement ═══ */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none motion-reduce:hidden">
+          {[
+            { top: '8%', left: '20%', s: 1.5, o: 0.35, d: '5s', dl: '0s' },
+            { top: '22%', right: '18%', s: 1, o: 0.3, d: '4s', dl: '-2s' },
+            { top: '45%', left: '15%', s: 1.5, o: 0.3, d: '5s', dl: '-1s' },
+            { top: '65%', right: '22%', s: 1, o: 0.35, d: '4s', dl: '-3s' },
+            { top: '30%', left: '65%', s: 1.5, o: 0.25, d: '6s', dl: '-4s' },
+            { top: '75%', left: '45%', s: 1, o: 0.3, d: '5s', dl: '-2s' },
+            { top: '18%', left: '80%', s: 1.5, o: 0.3, d: '4s', dl: '-5s' },
+            { top: '85%', right: '40%', s: 1, o: 0.25, d: '6s', dl: '-1s' },
+          ].map((dot, i) => {
+            const { s, o, d, dl, ...pos } = dot;
+            return (
+              <div
+                key={`fg-${i}`}
+                className="absolute bg-white rounded-full animate-float-particle"
+                style={{
+                  ...pos,
+                  width: s,
+                  height: s,
+                  opacity: o,
+                  animationDuration: d,
+                  animationDelay: dl,
+                  filter: 'drop-shadow(0 0 3px rgba(255,255,255,0.6))',
+                }}
+              />
+            );
+          })}
         </div>
 
-        {/* Subtle overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
+        {/* Cinematic vignette overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.25)_100%)] pointer-events-none" />
+
+        {/* Depth gradient — subtle bottom fade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/25 pointer-events-none" />
 
         {/* Subtle Grid Pattern - hidden on mobile */}
-        <div className="absolute inset-0 opacity-[0.015] hidden lg:block" style={{
-          backgroundImage: 'linear-gradient(rgba(34,197,94,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(34,197,94,.2) 1px, transparent 1px)',
+        <div className="absolute inset-0 opacity-[0.02] hidden lg:block pointer-events-none" style={{
+          backgroundImage: 'linear-gradient(rgba(34,197,94,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(34,197,94,.3) 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }} />
 

@@ -18,25 +18,31 @@ export const PromoBanner = () => {
   const { activeSeason } = useSeasonalTheme();
   const { promotions, isLoading, getPromoIndex, getTimeUntilNextPromo } = usePromoSettings();
 
-  // Season-adaptive banner colors — slightly lighter than nav to separate visually
+  // Season-adaptive banner colors with cinematic particles
   const bannerTheme = {
     winter: {
       bg: 'bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950',
       border: 'border-cyan-400/10',
-      shimmerLine: 'via-cyan-400/20',
+      shimmerLine: 'via-cyan-400/30',
       ctaBg: 'bg-white text-blue-900 hover:bg-cyan-50',
+      dotColors: ['bg-cyan-400', 'bg-sky-300', 'bg-blue-400'],
+      ambientGlow: 'rgba(56, 189, 248, 0.06)',
     },
     summer: {
       bg: 'bg-gradient-to-r from-[#132e1b] via-[#1a3a25] to-[#0f3320]',
       border: 'border-green-400/10',
-      shimmerLine: 'via-green-400/20',
+      shimmerLine: 'via-green-400/30',
       ctaBg: 'bg-white text-green-900 hover:bg-green-50',
+      dotColors: ['bg-green-400', 'bg-emerald-400', 'bg-lime-300'],
+      ambientGlow: 'rgba(74, 222, 128, 0.05)',
     },
     fall: {
       bg: 'bg-gradient-to-r from-stone-900 via-amber-950 to-stone-900',
       border: 'border-amber-400/10',
-      shimmerLine: 'via-amber-400/20',
+      shimmerLine: 'via-amber-400/30',
       ctaBg: 'bg-white text-amber-900 hover:bg-amber-50',
+      dotColors: ['bg-amber-400', 'bg-orange-400', 'bg-yellow-300'],
+      ambientGlow: 'rgba(251, 191, 36, 0.05)',
     },
   } as const;
   const bt = bannerTheme[activeSeason] ?? bannerTheme.summer;
@@ -102,7 +108,40 @@ export const PromoBanner = () => {
 
   return (
     <div className={cn("text-white py-2.5 px-4 border-b relative overflow-hidden", bt.bg, bt.border)}>
-      {/* Subtle shimmer bottom line */}
+      {/* Cinematic: Ambient center glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-16 rounded-full blur-3xl pointer-events-none"
+        style={{ background: `radial-gradient(ellipse, ${bt.ambientGlow}, transparent)` }}
+      />
+      {/* Cinematic: Strategic floating dots */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block">
+        {[
+          { top: '15%', left: '8%', s: 2, o: 0.2, d: '6s', dl: '0s' },
+          { top: '60%', left: '18%', s: 1.5, o: 0.25, d: '8s', dl: '-2s' },
+          { top: '25%', left: '35%', s: 2.5, o: 0.15, d: '7s', dl: '-4s' },
+          { top: '70%', right: '30%', s: 2, o: 0.2, d: '9s', dl: '-1s' },
+          { top: '20%', right: '15%', s: 1.5, o: 0.25, d: '6s', dl: '-3s' },
+          { top: '50%', right: '45%', s: 2, o: 0.18, d: '10s', dl: '-5s' },
+        ].map((dot, i) => {
+          const { s, o, d, dl, ...pos } = dot;
+          return (
+            <div
+              key={i}
+              className={`absolute ${bt.dotColors[i % bt.dotColors.length]} rounded-full animate-drift-${(i % 3) + 1}`}
+              style={{
+                ...pos,
+                width: s,
+                height: s,
+                opacity: o,
+                animationDuration: d,
+                animationDelay: dl,
+                filter: 'blur(0.3px) drop-shadow(0 0 3px currentColor)',
+              }}
+            />
+          );
+        })}
+      </div>
+      {/* Bottom accent glow line */}
       <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${bt.shimmerLine} to-transparent`} />
       <div className="container mx-auto flex items-center justify-between gap-2 sm:gap-4 relative z-10">
         {/* Mobile: entire content is clickable */}
