@@ -10,7 +10,7 @@ import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import CTASection from "@/components/CTASection";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
+import { SectionDivider } from "@/components/SectionTransition";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { ServiceGuarantees } from "@/components/ServiceGuarantees";
 
@@ -225,61 +225,67 @@ export default function HomeContent() {
       {/* TRUST AUTHORITY */}
       <WhyMadisonTrust />
 
-      {/* PROOF: Trust Badges */}
-      <section className="py-6 md:py-8 bg-white border-y border-gray-200/50" ref={badgesRef}>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 max-w-4xl mx-auto">
+      {/* PROOF + SERVICES: Unified Dark Cinematic Block */}
+      <section id="services" className="relative py-16 md:py-24 overflow-hidden" ref={servicesRef}>
+        {/* Dark forest background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f14] via-[#0f2a1a] to-[#0a1f14]" />
+        {/* Radial depth glows */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,197,94,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,rgba(16,185,129,0.06),transparent_60%)]" />
+        {/* Subtle grain texture */}
+        <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Trust Badges — Glass Shelf */}
+          <div ref={badgesRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto mb-14 md:mb-20">
             {[
               { src: imgSrc(googleBadge), alt: '4.9 star Google rating', title: '4.9★ Google', sub: 'Top Rated' },
               { src: imgSrc(nextdoorBadge), alt: '2024 Nextdoor Neighborhood Fave', title: 'Nextdoor Fave', sub: '2024 Winner' },
               { src: imgSrc(satisfactionBadge), alt: '100% satisfaction guarantee', title: '100% Guarantee', sub: 'Or We Fix It' },
             ].map((badge, index) => (
               <Fragment key={badge.alt}>
-                {index > 0 && <div className="hidden md:block w-px h-10 bg-gray-200" />}
+                {index > 0 && <div className="hidden sm:block w-px h-12 bg-emerald-500/20" />}
                 <motion.div
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={badgesInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.15, duration: 0.5 }}
-                  className="flex items-center gap-3 group bg-white backdrop-blur-sm border border-gray-200/60 rounded-xl px-4 py-3 shadow-sm hover:shadow-blue-200/30 hover:border-blue-200/60 transition-all duration-300"
+                  transition={{ delay: index * 0.15, duration: 0.6 }}
+                  className="flex items-center gap-4 group bg-white/[0.04] backdrop-blur-sm border border-emerald-500/15 rounded-2xl px-5 py-4 hover:bg-white/[0.08] hover:border-emerald-400/30 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-500"
                 >
-                  <img
-                    src={badge.src}
-                    alt={badge.alt}
-                    className="h-12 w-12 object-contain group-hover:scale-110 transition-transform"
-                    loading="lazy"
-                    width={48}
-                    height={48}
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <img
+                      src={badge.src}
+                      alt={badge.alt}
+                      className="relative h-14 w-14 object-contain group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      width={56}
+                      height={56}
+                    />
+                  </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-900">{badge.title}</p>
-                    <p className="text-xs text-gray-500">{badge.sub}</p>
+                    <p className="text-sm font-bold text-white">{badge.title}</p>
+                    <p className="text-xs text-emerald-300/60">{badge.sub}</p>
                   </div>
                 </motion.div>
               </Fragment>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* SERVICES: Complete Offerings */}
-      <section id="services" className="py-10 md:py-14 bg-white" ref={servicesRef}>
-        <div className="container mx-auto px-4">
-          <SectionConnector className="mb-6" />
-
+          {/* Services Header */}
           <motion.div
             initial={{ opacity: 0, filter: 'blur(8px)' }}
             animate={servicesInView ? { opacity: 1, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.7 }}
-            className="text-center mb-8"
+            className="text-center mb-10"
           >
-            <div className="inline-flex items-center gap-2 bg-primary/5 text-primary px-4 py-1.5 rounded-full text-xs font-bold mb-3 border border-primary/10">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-300 px-4 py-1.5 rounded-full text-xs font-bold mb-4 border border-emerald-500/20 backdrop-blur-sm">
               <Sparkles className="h-3.5 w-3.5" />
               One Call Handles It All
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              14+ Services. <span className="text-primary">One Trusted Team.</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
+              14+ Services. <span className="bg-gradient-to-r from-emerald-400 to-green-300 bg-clip-text text-transparent">One Trusted Team.</span>
             </h2>
-            <p className="text-gray-500 text-sm md:text-base max-w-md mx-auto">
+            <p className="text-emerald-100/60 text-sm md:text-base max-w-lg mx-auto">
               Stop juggling contractors. We handle your entire property—lawn to gutters.
             </p>
           </motion.div>
@@ -301,7 +307,7 @@ export default function HomeContent() {
 
           {totalSlides > 0 && (
             <div className="flex justify-center items-center gap-2 mt-6">
-              <Button variant="ghost" size="icon" onClick={() => carouselApi?.scrollPrev()} className="rounded-full h-8 w-8 border border-gray-200 hover:border-primary/30 hover:bg-primary/5" aria-label="Previous">
+              <Button variant="ghost" size="icon" onClick={() => carouselApi?.scrollPrev()} className="rounded-full h-8 w-8 border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-emerald-500/10 text-emerald-300/70 hover:text-emerald-200" aria-label="Previous">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
               <div className="flex gap-1.5">
@@ -309,12 +315,12 @@ export default function HomeContent() {
                   <button
                     key={index}
                     onClick={() => carouselApi?.scrollTo(index)}
-                    className={`rounded-full transition-all duration-300 ${index === current ? 'bg-primary h-2 w-6' : 'bg-gray-300 hover:bg-primary/30 h-2 w-2'}`}
+                    className={`rounded-full transition-all duration-300 ${index === current ? 'bg-emerald-400 h-2 w-6' : 'bg-emerald-500/30 hover:bg-emerald-400/50 h-2 w-2'}`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
               </div>
-              <Button variant="ghost" size="icon" onClick={() => carouselApi?.scrollNext()} className="rounded-full h-8 w-8 border border-gray-200 hover:border-primary/30 hover:bg-primary/5" aria-label="Next">
+              <Button variant="ghost" size="icon" onClick={() => carouselApi?.scrollNext()} className="rounded-full h-8 w-8 border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-emerald-500/10 text-emerald-300/70 hover:text-emerald-200" aria-label="Next">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -324,46 +330,44 @@ export default function HomeContent() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center items-center max-w-xl mx-auto">
             <Link
               href="/residential"
-              className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 hover:border-primary/50 hover:bg-primary/5 transition-all text-sm font-medium text-gray-900 hover:scale-[1.02] hover:shadow-md"
+              className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-500/20 hover:border-emerald-400/40 hover:bg-emerald-500/10 transition-all text-sm font-medium text-emerald-100/80 hover:text-white hover:scale-[1.02] hover:shadow-md hover:shadow-emerald-500/10"
             >
-              <Home className="h-4 w-4 text-primary" />
+              <Home className="h-4 w-4 text-emerald-400" />
               Residential Services
-              <ArrowRight className="h-3.5 w-3.5 text-gray-400 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight className="h-3.5 w-3.5 text-emerald-500/50 group-hover:text-emerald-300 group-hover:translate-x-0.5 transition-all" />
             </Link>
 
             <Link
               href="/commercial"
-              className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all text-sm font-medium hover:scale-[1.02] hover:shadow-md"
+              className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-white hover:bg-emerald-500/25 transition-all text-sm font-medium hover:scale-[1.02] hover:shadow-md hover:shadow-emerald-500/10"
             >
-              <Package className="h-4 w-4" />
+              <Package className="h-4 w-4 text-emerald-300" />
               Commercial Services
-              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight className="h-3.5 w-3.5 text-emerald-400/60 group-hover:text-emerald-300 group-hover:translate-x-0.5 transition-all" />
             </Link>
           </div>
 
           {/* Micro-trust line */}
           <div className="mt-6 flex justify-center">
-            <div className="flex items-center gap-4 text-xs text-gray-500">
+            <div className="flex items-center gap-4 text-xs text-emerald-300/40">
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-3 w-3 text-primary" />
+                <CheckCircle2 className="h-3 w-3 text-emerald-500/60" />
                 Free Estimates
               </span>
-              <span className="w-1 h-1 bg-gray-300 rounded-full" />
+              <span className="w-1 h-1 bg-emerald-500/30 rounded-full" />
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-3 w-3 text-primary" />
+                <CheckCircle2 className="h-3 w-3 text-emerald-500/60" />
                 Same-Day Response
               </span>
-              <span className="w-1 h-1 bg-gray-300 rounded-full" />
+              <span className="w-1 h-1 bg-emerald-500/30 rounded-full" />
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-3 w-3 text-primary" />
+                <CheckCircle2 className="h-3 w-3 text-emerald-500/60" />
                 Fully Insured
               </span>
             </div>
           </div>
         </div>
       </section>
-
-      <SectionDivider />
 
       {/* FLAGSHIP: Full Season Contract */}
       <FullSeasonContract />

@@ -55,14 +55,14 @@ export function WhyMadisonTrust() {
       {/* Soft Curve Top */}
       <div className="absolute -top-1 left-0 right-0">
         <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-16 md:h-20" preserveAspectRatio="none">
-          <path d="M0 80V0H1440V80C1440 80 1080 40 720 40C360 40 0 80 0 80Z" fill="#f8fafc" />
+          <path d="M0 80V0H1440V80C1440 80 1080 40 720 40C360 40 0 80 0 80Z" fill="#071a0e" />
         </svg>
       </div>
 
       {/* Soft Curve Bottom */}
       <div className="absolute -bottom-1 left-0 right-0">
         <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-16 md:h-20" preserveAspectRatio="none">
-          <path d="M0 0V80H1440V0C1440 0 1080 40 720 40C360 40 0 0 0 0Z" fill="#f0fdf4" />
+          <path d="M0 0V80H1440V0C1440 0 1080 40 720 40C360 40 0 0 0 0Z" fill="#0a1f14" />
         </svg>
       </div>
 
