@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Search, Filter } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import { PromoBanner } from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { FAQSchema } from "@/components/FAQSchema";
 import { Input } from "@/components/ui/input";
@@ -98,8 +97,7 @@ export default function FAQContent() {
   return (
     <div className="min-h-screen bg-background">
       <FAQSchema faqs={allFAQsForSchema} />
-      <PromoBanner />
-      <Navigation />
+      <Navigation showPromoBanner />
 
       <section className="sr-only">
         <h2>Frequently Asked Questions About TG Yard Care</h2>

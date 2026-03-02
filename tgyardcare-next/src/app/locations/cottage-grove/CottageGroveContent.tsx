@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, ArrowRight, MapPin, CheckCircle2, Star, Clock, Shield, DollarSign, Users } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import { PromoBanner } from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -45,8 +44,7 @@ export default function CottageGroveContent() {
         { name: "Service Areas", url: "https://totalguardyardcare.com/service-areas" },
         { name: `${cityName} Lawn Care`, url: `https://totalguardyardcare.com/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}` }
       ]} />
-      <PromoBanner />
-      <Navigation />
+      <Navigation showPromoBanner />
 
       {/* TL;DR for AI/Answer Engines */}
       <section className="sr-only" aria-label="Location Summary">

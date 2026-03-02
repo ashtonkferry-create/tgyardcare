@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, ArrowRight, MapPin, CheckCircle2, Star } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import { PromoBanner } from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import heroImage from "@/assets/hero-lawn.jpg";
@@ -29,8 +28,7 @@ export default function MiddletonContent() {
   return (
     <div className="min-h-screen bg-background">
       <LocalBusinessSchema cityName="Middleton" />
-      <PromoBanner />
-      <Navigation />
+      <Navigation showPromoBanner />
 
       {/* TL;DR for AI/Answer Engines */}
       <section className="sr-only" aria-label="Location Summary">

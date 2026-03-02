@@ -3,13 +3,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Clock, CheckCircle2, Shield, Users, ArrowRight } from "lucide-react";
-import { PromoBanner } from "@/components/PromoBanner";
 
 export default function AboutContent() {
   return (
     <div className="min-h-screen bg-background">
-      <PromoBanner />
-      <Navigation />
+      <Navigation showPromoBanner />
 
       <section className="sr-only">
         <h2>About TG Yard Care</h2>
