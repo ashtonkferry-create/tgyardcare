@@ -451,7 +451,7 @@ export default function Footer({
               <Link href="/" className="hover:opacity-80 transition-opacity shrink-0">
                 <img
                   alt="TotalGuard Yard Care"
-                  src="/images/totalguard-logo-full.png"
+                  src="/images/totalguard-logo-summer.png"
                   className="h-28 md:h-32 lg:h-36 w-auto"
                   loading="lazy"
                 />
