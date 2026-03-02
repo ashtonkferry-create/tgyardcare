@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 
@@ -62,7 +64,8 @@ export const metadata: Metadata = {
     'geo.placename': 'Madison',
   },
   icons: {
-    icon: 'https://storage.googleapis.com/gpt-engineer-file-uploads/dBy3Eb9lpdUVQ8p8JOd8tIKKabx1/uploads/1770045601762-TotalGuard Yard Care LOGO_edited.png',
+    icon: '/favicon.ico',
+    apple: '/icon.png',
   },
 };
 
@@ -197,6 +200,8 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <Providers>{children}</Providers>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
