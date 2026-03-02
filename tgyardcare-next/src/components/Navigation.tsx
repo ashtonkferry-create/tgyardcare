@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -638,6 +638,26 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
   const pathname = usePathname();
   const isCondensed = useScrollCondense();
 
+  // Track banner height + scroll to offset the fixed nav below the banner
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const [navTop, setNavTop] = useState(0);
+
+  useEffect(() => {
+    if (!showPromoBanner) { setNavTop(0); return; }
+
+    const update = () => {
+      const bh = bannerRef.current?.offsetHeight ?? 0;
+      setNavTop(Math.max(0, bh - window.scrollY));
+    };
+
+    // ResizeObserver for banner height changes (e.g. dismiss)
+    const ro = new ResizeObserver(update);
+    if (bannerRef.current) ro.observe(bannerRef.current);
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => { ro.disconnect(); window.removeEventListener('scroll', update); };
+  }, [showPromoBanner]);
 
   // Close sibling menus when opening one — prevents overlap jitter
   const openResidential = useCallback(() => { setCommercialOpen(false); setAboutOpen(false); setResidentialOpen(true); }, []);
@@ -704,9 +724,11 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
   return (
     <>
     {showPromoBanner && (
-      <PromoBanner />
+      <div ref={bannerRef}>
+        <PromoBanner />
+      </div>
     )}
-    <div className="fixed top-0 left-0 right-0 z-50">
+    <div className="fixed left-0 right-0 z-50" style={{ top: navTop }}>
     <nav className={cn("border-b shadow-lg nav-seasonal relative", t.bg, t.border)}>
       {/* Cinematic effects container — overflow-hidden so glow doesn't bleed, but nav itself can show dropdowns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
