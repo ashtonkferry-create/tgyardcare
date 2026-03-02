@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Phone, ArrowRight, CheckCircle2, MapPin, Sparkles, Mail, Snowflake, Leaf, Sun, CloudRain } from "lucide-react";
+import { Phone, ArrowRight, CheckCircle2, Mail, Snowflake, Leaf, Sun, CloudRain } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useSeasonalTheme, Season } from "@/contexts/SeasonalThemeContext";
 import { AmbientParticles } from "@/components/AmbientParticles";
@@ -19,14 +19,8 @@ const theme = {
     phoneGlow: '0 0 60px rgba(34,197,94,0.15)',
     checkColor: 'text-emerald-400',
     accentText: 'text-emerald-400',
-    // Zone 2
-    gridBg: 'from-[#0a1f14] to-[#071510]',
-    cardBorder: 'border-emerald-500/10',
-    cardHoverBorder: 'hover:border-emerald-400/25',
-    cardHoverShadow: 'hover:shadow-emerald-500/5',
-    pillBg: 'bg-emerald-500/8',
-    pillBorder: 'border-emerald-500/15',
-    pillHover: 'hover:bg-emerald-500/15 hover:border-emerald-400/30',
+    // Zone 2 + 3
+    footerBg: 'bg-[#070f0a]',
     linkHover: 'hover:text-emerald-400',
     iconColor: 'text-emerald-400',
     textColor: 'text-emerald-100/50',
@@ -34,7 +28,6 @@ const theme = {
     seasonBg: 'bg-emerald-500/10',
     seasonText: 'text-emerald-400',
     seasonBorder: 'border-emerald-500/20',
-    // Zone 3
     sigBorder: 'border-emerald-500/10',
   },
   fall: {
@@ -43,13 +36,7 @@ const theme = {
     phoneGlow: '0 0 60px rgba(245,158,11,0.15)',
     checkColor: 'text-amber-400',
     accentText: 'text-amber-400',
-    gridBg: 'from-stone-900 to-stone-950',
-    cardBorder: 'border-amber-500/10',
-    cardHoverBorder: 'hover:border-amber-400/25',
-    cardHoverShadow: 'hover:shadow-amber-500/5',
-    pillBg: 'bg-amber-500/8',
-    pillBorder: 'border-amber-500/15',
-    pillHover: 'hover:bg-amber-500/15 hover:border-amber-400/30',
+    footerBg: 'bg-[#0a0908]',
     linkHover: 'hover:text-amber-400',
     iconColor: 'text-amber-400',
     textColor: 'text-stone-400',
@@ -65,13 +52,7 @@ const theme = {
     phoneGlow: '0 0 60px rgba(147,197,253,0.15)',
     checkColor: 'text-cyan-400',
     accentText: 'text-cyan-400',
-    gridBg: 'from-slate-900 to-slate-950',
-    cardBorder: 'border-cyan-500/10',
-    cardHoverBorder: 'hover:border-cyan-400/25',
-    cardHoverShadow: 'hover:shadow-cyan-500/5',
-    pillBg: 'bg-cyan-500/8',
-    pillBorder: 'border-cyan-500/15',
-    pillHover: 'hover:bg-cyan-500/15 hover:border-cyan-400/30',
+    footerBg: 'bg-[#060810]',
     linkHover: 'hover:text-cyan-400',
     iconColor: 'text-cyan-400',
     textColor: 'text-slate-400',
@@ -253,101 +234,88 @@ export default function Footer({
         </section>
       )}
 
-      {/* ═══════════ ZONE 2 — THE INTELLIGENCE GRID ═══════════ */}
-      <section className={`relative py-14 md:py-20 overflow-hidden bg-gradient-to-b ${t.gridBg}`}>
+      {/* ═══════════ ZONE 2 — LINK GRID ═══════════ */}
+      <section className={`relative py-16 md:py-24 overflow-hidden ${t.footerBg}`}>
         <AmbientParticles density="sparse" />
 
-        <div ref={gridRef} className="container mx-auto px-4 relative z-10">
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        <div ref={gridRef} className="container mx-auto px-4 relative z-10 max-w-6xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
 
-            {/* ── Service Area Card (large) ── */}
+            {/* Column 1: SERVICES */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className={`relative md:col-span-2 lg:col-span-2 lg:row-span-2 bg-white/[0.03] backdrop-blur-sm border ${t.cardBorder} rounded-2xl p-6 ${t.cardHoverBorder} ${t.cardHoverShadow} hover:bg-white/[0.05] transition-all duration-500 overflow-hidden`}
             >
-              {/* Abstract geo glow */}
-              <div
-                className="absolute -bottom-20 -right-20 w-60 h-60 rounded-full blur-3xl pointer-events-none opacity-30"
-                style={{ background: `radial-gradient(circle, ${t.glowColor}, transparent 70%)` }}
-              />
-              <div className="relative">
-                <div className="flex items-center gap-2 mb-5">
-                  <MapPin className={`h-5 w-5 ${t.iconColor}`} />
-                  <h3 className="text-white font-bold text-lg">Serving All of Dane County</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {cities.map((city) => (
-                    <Link
-                      key={city.href}
-                      href={city.href}
-                      className={`inline-flex items-center ${t.pillBg} border ${t.pillBorder} ${t.pillHover} text-white/70 hover:text-white rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-300 hover:scale-105`}
-                    >
-                      {city.label}
-                    </Link>
-                  ))}
-                </div>
-                <div className={`mt-5 pt-4 border-t ${t.cardBorder}`}>
-                  <div className="flex items-start gap-2">
-                    <Phone className={`h-4 w-4 ${t.iconColor} mt-0.5 flex-shrink-0`} />
-                    <div>
-                      <a href="tel:608-535-6057" className={`text-white/70 ${t.linkHover} transition-colors text-sm font-medium`}>
-                        (608) 535-6057
-                      </a>
-                      <p className={`${t.dimText} text-xs mt-0.5`}>Madison, Wisconsin</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* ── Services Card (medium) ── */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className={`md:col-span-2 lg:col-span-2 bg-white/[0.03] backdrop-blur-sm border ${t.cardBorder} rounded-2xl p-6 ${t.cardHoverBorder} ${t.cardHoverShadow} hover:bg-white/[0.05] transition-all duration-500`}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <Sparkles className={`h-5 w-5 ${t.iconColor}`} />
-                <h3 className="text-white font-bold text-lg">Our Services</h3>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-4">
+              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+                Services
+              </h4>
+              <ul className="space-y-2.5">
                 {services.map((svc) => (
-                  <Link
-                    key={svc.href}
-                    href={svc.href}
-                    className={`inline-flex items-center ${t.pillBg} border ${t.pillBorder} ${t.pillHover} text-white/70 hover:text-white rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-300 hover:scale-105`}
-                  >
-                    {svc.label}
-                  </Link>
+                  <li key={svc.href}>
+                    <Link
+                      href={svc.href}
+                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                    >
+                      {svc.label}
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
               <Link
                 href="/services"
-                className={`inline-flex items-center gap-1 text-sm font-semibold ${t.accentText} hover:underline underline-offset-4 group`}
+                className={`inline-flex items-center gap-1 text-sm font-semibold ${t.accentText} mt-4 group`}
               >
-                View All Services
+                All services
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
 
-            {/* ── Company Card ── */}
+            {/* Column 2: SERVICE AREAS */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className={`bg-white/[0.03] backdrop-blur-sm border ${t.cardBorder} rounded-2xl p-6 ${t.cardHoverBorder} ${t.cardHoverShadow} hover:bg-white/[0.05] transition-all duration-500`}
+              transition={{ duration: 0.5, delay: 0.08 }}
             >
-              <h3 className="text-white font-bold text-base mb-4">Company</h3>
+              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+                Service Areas
+              </h4>
+              <ul className="space-y-2.5">
+                {cities.map((city) => (
+                  <li key={city.href}>
+                    <Link
+                      href={city.href}
+                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                    >
+                      {city.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/service-areas"
+                className={`inline-flex items-center gap-1 text-sm font-semibold ${t.accentText} mt-4 group`}
+              >
+                All areas
+                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </motion.div>
+
+            {/* Column 3: COMPANY */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.16 }}
+            >
+              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+                Company
+              </h4>
               <ul className="space-y-2.5">
                 {companyLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-300 hover:translate-x-1 inline-block`}
+                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
                     >
                       {link.label}
                     </Link>
@@ -356,7 +324,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/residential"
-                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-300 hover:translate-x-1 inline-block`}
+                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
                   >
                     Residential
                   </Link>
@@ -364,7 +332,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/commercial"
-                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-300 hover:translate-x-1 inline-block`}
+                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
                   >
                     Commercial
                   </Link>
@@ -372,14 +340,33 @@ export default function Footer({
               </ul>
             </motion.div>
 
-            {/* ── Connect Card ── */}
+            {/* Column 4: CONNECT */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className={`bg-white/[0.03] backdrop-blur-sm border ${t.cardBorder} rounded-2xl p-6 ${t.cardHoverBorder} ${t.cardHoverShadow} hover:bg-white/[0.05] transition-all duration-500`}
+              transition={{ duration: 0.5, delay: 0.24 }}
             >
-              <h3 className="text-white font-bold text-base mb-4">Connect</h3>
+              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+                Connect
+              </h4>
+
+              {/* Phone */}
+              <a
+                href="tel:608-535-6057"
+                className={`flex items-center gap-2.5 text-sm text-white/80 ${t.linkHover} transition-colors mb-3`}
+              >
+                <Phone className={`h-4 w-4 ${t.iconColor} flex-shrink-0`} />
+                (608) 535-6057
+              </a>
+
+              {/* Email */}
+              <a
+                href="mailto:totalguardllc@gmail.com"
+                className={`flex items-center gap-2.5 text-sm ${t.textColor} ${t.linkHover} transition-colors mb-5`}
+              >
+                <Mail className={`h-4 w-4 ${t.iconColor} flex-shrink-0`} />
+                totalguardllc@gmail.com
+              </a>
 
               {/* Social Icons */}
               <div className="flex gap-3 mb-5">
@@ -390,7 +377,7 @@ export default function Footer({
                   className="hover:opacity-80 hover:scale-110 transition-all"
                   aria-label="Follow TotalGuard Yard Care on Facebook"
                 >
-                  <img alt="Facebook" className="h-9 w-9" loading="lazy" src="/lovable-uploads/a2985d40-e463-4243-b26d-149a047426fb.png" width="36" height="36" />
+                  <img alt="Facebook" className="h-8 w-8" loading="lazy" src="/lovable-uploads/a2985d40-e463-4243-b26d-149a047426fb.png" width="32" height="32" />
                 </a>
                 <a
                   href="https://www.instagram.com/tgyardcare/"
@@ -399,55 +386,67 @@ export default function Footer({
                   className="hover:opacity-80 hover:scale-110 transition-all"
                   aria-label="Follow TotalGuard Yard Care on Instagram"
                 >
-                  <img alt="Instagram" className="h-9 w-9" loading="lazy" src="/lovable-uploads/0d24ae3b-c2eb-4565-a7ce-f97959422e02.png" width="36" height="36" />
+                  <img alt="Instagram" className="h-8 w-8" loading="lazy" src="/lovable-uploads/0d24ae3b-c2eb-4565-a7ce-f97959422e02.png" width="32" height="32" />
                 </a>
               </div>
 
-              {/* Email */}
-              <a
-                href="mailto:totalguardllc@gmail.com"
-                className={`flex items-center gap-2 text-sm ${t.textColor} ${t.linkHover} transition-colors mb-5`}
-              >
-                <Mail className={`h-4 w-4 ${t.iconColor} flex-shrink-0`} />
-                <span className="break-all">totalguardllc@gmail.com</span>
-              </a>
-
               {/* Seasonal Badge */}
-              <div className={`flex items-center gap-2 ${t.seasonBg} ${t.seasonText} px-3 py-2 rounded-lg text-xs font-medium border ${t.seasonBorder}`}>
+              <div className={`inline-flex items-center gap-2 ${t.seasonBg} ${t.seasonText} px-3 py-1.5 rounded-full text-xs font-medium border ${t.seasonBorder}`}>
                 <SeasonIcon className="h-3.5 w-3.5 flex-shrink-0" />
                 <span>{seasonMessages[activeSeason]}</span>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ═══════════ ZONE 3 — THE SIGNATURE ═══════════ */}
-      <section className={`bg-gradient-to-b ${t.gridBg} border-t ${t.sigBorder}`}>
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
-              <img
-                alt="TotalGuard Yard Care"
-                src="/images/totalguard-logo-summer.png"
-                className="h-12 w-auto"
-                loading="lazy"
-              />
-            </Link>
+      {/* ═══════════ ZONE 3 — SIGNATURE STRIP ═══════════ */}
+      <section className={`${t.footerBg} border-t ${t.sigBorder}`}>
+        <div className="container mx-auto px-4 py-5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
 
-            {/* Copyright */}
-            <p className={`text-xs ${t.dimText} text-center`}>
-              &copy; {currentYear} TotalGuard Yard Care LLC. All rights reserved. | Madison, Wisconsin
+            {/* Left: Logo + Brand + Tagline */}
+            <div className="flex items-center gap-3">
+              <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img
+                  alt="TotalGuard Yard Care"
+                  src="/images/totalguard-logo-summer.png"
+                  className="h-8 w-auto"
+                  loading="lazy"
+                />
+              </Link>
+              <span className="text-sm font-medium text-white/70">
+                TotalGuard Yard Care
+              </span>
+              <span className={`hidden sm:inline ${t.dimText}`}>&mdash;</span>
+              <span className={`hidden sm:inline text-xs ${t.dimText}`}>
+                Madison&apos;s Trusted Lawn Care
+              </span>
+            </div>
+
+            {/* Center-right: Utility links */}
+            <div className="flex items-center gap-4">
+              <Link
+                href="/privacy"
+                className={`text-xs ${t.dimText} ${t.linkHover} transition-colors`}
+              >
+                Privacy Policy
+              </Link>
+              <span className={t.dimText}>&middot;</span>
+              <Link
+                href="/contact"
+                className={`text-xs ${t.dimText} ${t.linkHover} transition-colors`}
+              >
+                Contact
+              </Link>
+            </div>
+
+            {/* Right: Copyright */}
+            <p className={`text-xs ${t.dimText}`}>
+              &copy; {currentYear} TotalGuard Yard Care LLC
             </p>
 
-            {/* Privacy */}
-            <Link
-              href="/privacy"
-              className={`text-xs ${t.dimText} ${t.linkHover} transition-colors`}
-            >
-              Privacy Policy
-            </Link>
           </div>
         </div>
       </section>
