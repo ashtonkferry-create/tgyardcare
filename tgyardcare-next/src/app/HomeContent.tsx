@@ -17,7 +17,7 @@ import { GlobalSchema } from "@/components/GlobalSchema";
 import { WebsiteSchema } from "@/components/WebsiteSchema";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Scissors, Leaf, Trees, Trash2, Sparkles, CloudRain, Home, Shield, Flower2, Sprout, Phone, CheckCircle2, Clock, Users, ArrowRight, Package, SprayCan, ChevronLeft, ChevronRight, Snowflake, CircleDot } from "lucide-react";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import type { CarouselApi } from "@/components/ui/carousel";
@@ -234,38 +234,46 @@ export default function HomeContent() {
         <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]" />
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Trust Badges — Glass Shelf */}
-          <div ref={badgesRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto mb-14 md:mb-20">
+          {/* Trust Badges — Premium Floating Shelf */}
+          <div ref={badgesRef} className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 max-w-5xl mx-auto mb-14 md:mb-20">
             {[
-              { src: imgSrc(googleBadge), alt: '4.9 star Google rating', title: '4.9★ Google', sub: 'Top Rated' },
-              { src: imgSrc(nextdoorBadge), alt: '2024 Nextdoor Neighborhood Fave', title: 'Nextdoor Fave', sub: '2024 Winner' },
-              { src: imgSrc(satisfactionBadge), alt: '100% satisfaction guarantee', title: '100% Guarantee', sub: 'Or We Fix It' },
+              { src: imgSrc(googleBadge), alt: '4.9 star Google rating', title: '4.9★ Google', sub: 'Top Rated', accent: 'from-yellow-400/20 to-amber-500/10' },
+              { src: imgSrc(nextdoorBadge), alt: '2024 Nextdoor Neighborhood Fave', title: 'Nextdoor Fave', sub: '2024 Winner', accent: 'from-emerald-400/20 to-green-500/10' },
+              { src: imgSrc(satisfactionBadge), alt: '100% satisfaction guarantee', title: '100% Guarantee', sub: 'Or We Fix It', accent: 'from-emerald-400/20 to-teal-500/10' },
             ].map((badge, index) => (
-              <Fragment key={badge.alt}>
-                {index > 0 && <div className="hidden sm:block w-px h-12 bg-emerald-500/20" />}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={badgesInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.15, duration: 0.6 }}
-                  className="flex items-center gap-4 group bg-white/[0.04] backdrop-blur-sm border border-emerald-500/15 rounded-2xl px-5 py-4 hover:bg-white/[0.08] hover:border-emerald-400/30 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-500"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <img
-                      src={badge.src}
-                      alt={badge.alt}
-                      className="relative h-14 w-14 object-contain group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                      width={56}
-                      height={56}
-                    />
+              <motion.div
+                key={badge.alt}
+                initial={{ opacity: 0, y: 24, scale: 0.95 }}
+                animate={badgesInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ delay: index * 0.12, duration: 0.6, ease: 'easeOut' }}
+                className="group relative"
+              >
+                {/* Hover glow */}
+                <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br ${badge.accent} blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+
+                <div className="relative flex items-center gap-4 bg-[#0d1f15]/80 backdrop-blur-md border border-emerald-500/10 rounded-2xl px-6 py-5 hover:border-emerald-400/25 hover:bg-[#0d1f15] transition-all duration-500">
+                  {/* Badge image — circular dark container, blend away white bg */}
+                  <div className="relative flex-shrink-0">
+                    <div className="h-16 w-16 rounded-full bg-[#0a1a12] border border-emerald-500/15 flex items-center justify-center overflow-hidden group-hover:border-emerald-400/30 transition-colors duration-500">
+                      <img
+                        src={badge.src}
+                        alt={badge.alt}
+                        className="h-12 w-12 object-contain rounded-full mix-blend-luminosity brightness-150 contrast-125 group-hover:mix-blend-normal group-hover:brightness-110 group-hover:contrast-100 transition-all duration-500"
+                        loading="lazy"
+                        width={48}
+                        height={48}
+                      />
+                    </div>
+                    {/* Subtle ring pulse on hover */}
+                    <div className="absolute inset-0 rounded-full border border-emerald-400/0 group-hover:border-emerald-400/20 group-hover:scale-110 transition-all duration-700" />
                   </div>
+
                   <div>
-                    <p className="text-sm font-bold text-white">{badge.title}</p>
-                    <p className="text-xs text-emerald-300/60">{badge.sub}</p>
+                    <p className="text-base font-bold text-white tracking-tight leading-tight">{badge.title}</p>
+                    <p className="text-xs text-emerald-300/50 font-medium uppercase tracking-wider mt-0.5">{badge.sub}</p>
                   </div>
-                </motion.div>
-              </Fragment>
+                </div>
+              </motion.div>
             ))}
           </div>
 
