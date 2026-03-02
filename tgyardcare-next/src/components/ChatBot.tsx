@@ -629,12 +629,12 @@ export const ChatBot = () => {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl bg-gradient-to-br from-primary via-primary to-primary/90 hover:scale-110 text-white z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 transition-transform hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]"
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-emerald-500/90 hover:bg-emerald-400 hover:scale-105 text-white z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 transition-all hover:shadow-[0_0_20px_rgba(52,211,153,0.3)]"
           aria-label="Open chat"
         >
-          <MessageCircle className="h-7 w-7 animate-pulse" />
-          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full animate-ping" />
-          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full" />
+          <MessageCircle className="h-6 w-6" />
+          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full animate-ping opacity-75" />
+          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full" />
         </Button>
       )}
 
