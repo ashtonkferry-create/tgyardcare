@@ -456,7 +456,7 @@ export default function Footer({
                 <img
                   alt="TotalGuard Yard Care"
                   src="/images/totalguard-logo-full.png"
-                  className="h-8 w-auto"
+                  className="h-16 md:h-20 w-auto"
                   loading="lazy"
                 />
               </Link>
