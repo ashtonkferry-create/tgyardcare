@@ -28,13 +28,19 @@ export default function BackToTop() {
   if (!isVisible || isChatOpen) return null;
 
   return (
-    <Button
+    <button
       onClick={scrollToTop}
-      size="icon"
-      className="fixed bottom-[5.5rem] right-6 z-40 h-10 w-10 rounded-full shadow-md bg-emerald-500/80 hover:bg-emerald-400 text-white transition-all duration-300 animate-fade-in hover:shadow-[0_0_15px_rgba(52,211,153,0.25)]"
+      className="fixed bottom-[5.5rem] right-7 z-40 h-9 w-9 rounded-full
+        bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-700
+        border border-emerald-400/25
+        shadow-[0_3px_14px_rgba(16,185,129,0.3),inset_0_1px_0_rgba(255,255,255,0.12)]
+        hover:shadow-[0_4px_20px_rgba(16,185,129,0.45)]
+        hover:scale-105 active:scale-95
+        text-white transition-all duration-300 animate-fade-in
+        flex items-center justify-center"
       aria-label="Back to top"
     >
-      <ArrowUp className="h-4 w-4" />
-    </Button>
+      <ArrowUp className="h-4 w-4 drop-shadow-sm" />
+    </button>
   );
 }

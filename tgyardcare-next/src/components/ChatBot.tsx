@@ -627,15 +627,23 @@ export const ChatBot = () => {
     <>
       {/* ========== FLOATING CHAT BUTTON ========== */}
       {!isOpen && (
-        <Button
+        <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-emerald-500/90 hover:bg-emerald-400 hover:scale-105 text-white z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 transition-all hover:shadow-[0_0_20px_rgba(52,211,153,0.3)]"
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full z-50
+            bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-700
+            border border-emerald-400/30
+            shadow-[0_4px_20px_rgba(16,185,129,0.35),inset_0_1px_0_rgba(255,255,255,0.15)]
+            hover:shadow-[0_6px_28px_rgba(16,185,129,0.5),inset_0_1px_0_rgba(255,255,255,0.2)]
+            hover:scale-105 active:scale-95
+            text-white transition-all duration-300
+            animate-in fade-in slide-in-from-bottom-4
+            flex items-center justify-center"
           aria-label="Open chat"
         >
-          <MessageCircle className="h-6 w-6" />
-          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full animate-ping opacity-75" />
-          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full" />
-        </Button>
+          <MessageCircle className="h-6 w-6 drop-shadow-sm" />
+          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full animate-ping opacity-60" />
+          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-300 rounded-full shadow-[0_0_6px_rgba(110,231,183,0.5)]" />
+        </button>
       )}
 
       {/* ========== CHAT WINDOW ========== */}
@@ -647,17 +655,17 @@ export const ChatBot = () => {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6
-              w-[92vw] sm:w-[420px] h-[70vh] sm:h-[620px] max-h-[620px]
+              w-[88vw] sm:w-[380px] h-[60vh] sm:h-[520px] max-h-[520px]
               bg-gray-950/95 backdrop-blur-2xl
               border border-white/[0.06]
-              rounded-3xl
-              shadow-[0_0_60px_rgba(0,0,0,0.5),0_0_15px_rgba(34,197,94,0.08)]
+              rounded-2xl
+              shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_12px_rgba(34,197,94,0.06)]
               z-50 flex flex-col
               overscroll-contain"
             onTouchMove={(e) => e.stopPropagation()}
           >
             {/* ===== HEADER ===== */}
-            <div className="relative overflow-hidden rounded-t-3xl">
+            <div className="relative overflow-hidden rounded-t-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-gray-900/95 to-emerald-950/95" />
               {/* Subtle radial glow */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,197,94,0.08)_0%,transparent_60%)]" />
