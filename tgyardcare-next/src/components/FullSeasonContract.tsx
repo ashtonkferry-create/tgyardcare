@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { AmbientParticles } from "@/components/AmbientParticles";
 
 interface SeasonData {
   icon: typeof Leaf;
@@ -85,6 +86,7 @@ export function FullSeasonContract() {
 
   return (
     <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <AmbientParticles density="sparse" />
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient orbs */}

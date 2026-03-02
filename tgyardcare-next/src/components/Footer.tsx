@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Phone, Mail, MapPin, Snowflake, Leaf, Sun, CloudRain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSeasonalTheme, Season } from "@/contexts/SeasonalThemeContext";
+import { AmbientParticles } from "@/components/AmbientParticles";
 
 const footerTheme = {
   winter: {
@@ -70,8 +71,9 @@ export default function Footer() {
   const SeasonIcon = seasonIcons[activeSeason];
 
   return (
-    <footer className={`${ft.bg} border-t ${ft.borderTop} pb-24 lg:pb-0`}>
-      <div className="container mx-auto px-4 py-12">
+    <footer className={`${ft.bg} border-t ${ft.borderTop} pb-24 lg:pb-0 relative overflow-hidden`}>
+      <AmbientParticles density="sparse" />
+      <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8">
           {/* Company Info */}
           <div className="col-span-2 lg:col-span-2">

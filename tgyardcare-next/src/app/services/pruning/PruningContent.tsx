@@ -15,6 +15,7 @@ import pruningCombined2 from "@/assets/before-after/pruning-combined-2.png";
 import heroImage from "@/assets/service-pruning.jpg";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { AmbientParticles } from "@/components/AmbientParticles";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -58,6 +59,7 @@ export default function PruningContent() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f14]/90 via-[#0a1f14]/50 to-[#0a1f14]/85" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,31,20,0.4)_100%)]" />
           </div>
+          <AmbientParticles density="sparse" />
           <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6">
               Bush Trimming & Shrub Pruning in Madison

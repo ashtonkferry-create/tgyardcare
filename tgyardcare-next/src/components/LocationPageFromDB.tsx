@@ -22,6 +22,7 @@ import { useLocationBySlug, useLocationServices } from '@/hooks/useLocations';
 import { useFAQsByLocation } from '@/hooks/useFAQs';
 import { useReviewsByLocation } from '@/hooks/useReviews';
 import heroImage from '@/assets/hero-lawn.jpg';
+import { AmbientParticles } from '@/components/AmbientParticles';
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -98,6 +99,7 @@ export function LocationPageFromDB({ slug: propSlug }: LocationPageFromDBProps) 
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/20" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.25)_100%)]" />
         </div>
+        <AmbientParticles density="sparse" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-4xl">
             <div className="inline-flex items-center bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-bold mb-6">

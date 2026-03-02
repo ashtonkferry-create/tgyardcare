@@ -12,6 +12,7 @@ import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialAerationFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { AmbientParticles } from "@/components/AmbientParticles";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -121,6 +122,7 @@ export default function CommercialAerationContent() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f14]/90 via-[#0a1f14]/50 to-[#0a1f14]/85" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,31,20,0.4)_100%)]" />
         </div>
+        <AmbientParticles density="sparse" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl">
             <p className="text-accent font-semibold mb-3 text-sm md:text-base tracking-wide uppercase">Commercial Turf Management</p>

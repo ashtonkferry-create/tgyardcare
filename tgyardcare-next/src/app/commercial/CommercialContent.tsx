@@ -8,6 +8,7 @@ import CTASection from "@/components/CTASection";
 import { ComparisonSection, ObjectionHandlerSection, PricingGuideSection } from "@/components/SearchIntentSections";
 import { FAQSchema } from "@/components/FAQSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { AmbientParticles } from "@/components/AmbientParticles";
 import {
   Building2,
   Store,
@@ -202,6 +203,7 @@ export default function CommercialContent() {
         {/* Decorative elements */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <AmbientParticles density="sparse" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

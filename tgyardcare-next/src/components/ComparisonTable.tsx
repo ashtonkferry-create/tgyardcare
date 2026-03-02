@@ -2,6 +2,7 @@
 
 import { Check, X, Shield, Clock, Users, FileText, Star, Undo2 } from 'lucide-react';
 import Link from 'next/link';
+import { AmbientParticles } from '@/components/AmbientParticles';
 
 const rows = [
   { feature: 'Response Time', icon: Clock, us: '24 hours', them: '3–5 days' },
@@ -29,6 +30,9 @@ export function ComparisonTable() {
 
       {/* Ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[120px] bg-emerald-500/[0.06] pointer-events-none" />
+
+      {/* Season-adaptive particles */}
+      <AmbientParticles density="sparse" />
 
       <div className="relative container mx-auto px-4">
         <div className="max-w-4xl mx-auto">

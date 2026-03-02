@@ -8,6 +8,7 @@ import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
+import { AmbientParticles } from "@/components/AmbientParticles";
 import { SectionHeader } from "@/components/SectionHeader";
 import {
   Home,
@@ -251,6 +252,8 @@ export default function ResidentialContent() {
         {/* Decorative elements */}
         <div className="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+
+        <AmbientParticles density="sparse" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
