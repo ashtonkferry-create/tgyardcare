@@ -66,20 +66,23 @@ const theme = {
 
 /* ── Static data ───────────────────────────────────── */
 
-const services = [
+const lawnCareServices = [
   { label: 'Lawn Mowing', href: '/services/mowing' },
-  { label: 'Herbicide', href: '/services/herbicide' },
   { label: 'Fertilization', href: '/services/fertilization' },
+  { label: 'Herbicide', href: '/services/herbicide' },
   { label: 'Weeding', href: '/services/weeding' },
   { label: 'Mulching', href: '/services/mulching' },
   { label: 'Garden Beds', href: '/services/garden-beds' },
+  { label: 'Bush Trimming', href: '/services/pruning' },
+];
+
+const specialtyServices = [
   { label: 'Spring Cleanup', href: '/services/spring-cleanup' },
   { label: 'Fall Cleanup', href: '/services/fall-cleanup' },
   { label: 'Leaf Removal', href: '/services/leaf-removal' },
+  { label: 'Aeration', href: '/services/aeration' },
   { label: 'Gutter Cleaning', href: '/services/gutter-cleaning' },
   { label: 'Gutter Guards', href: '/services/gutter-guards' },
-  { label: 'Aeration', href: '/services/aeration' },
-  { label: 'Bush Trimming', href: '/services/pruning' },
   { label: 'Snow Removal', href: '/services/snow-removal' },
 ];
 
@@ -235,27 +238,50 @@ export default function Footer({
       )}
 
       {/* ═══════════ ZONE 2 — LINK GRID ═══════════ */}
-      <section className={`relative py-16 md:py-24 overflow-hidden ${t.footerBg}`}>
+      <section className={`relative py-12 md:py-16 overflow-hidden ${t.footerBg}`}>
         <AmbientParticles density="sparse" />
 
         <div ref={gridRef} className="container mx-auto px-4 relative z-10 max-w-6xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
 
-            {/* Column 1: SERVICES */}
+            {/* Column 1: LAWN CARE */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
             >
-              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
-                Services
+              <h4 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${t.accentText} mb-4`}>
+                Lawn Care
               </h4>
-              <ul className="space-y-2.5">
-                {services.map((svc) => (
+              <ul className="space-y-2">
+                {lawnCareServices.map((svc) => (
                   <li key={svc.href}>
                     <Link
                       href={svc.href}
-                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                      className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
+                    >
+                      {svc.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Column 2: SEASONAL & SPECIALTY */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.06 }}
+            >
+              <h4 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${t.accentText} mb-4`}>
+                Seasonal
+              </h4>
+              <ul className="space-y-2">
+                {specialtyServices.map((svc) => (
+                  <li key={svc.href}>
+                    <Link
+                      href={svc.href}
+                      className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
                     >
                       {svc.label}
                     </Link>
@@ -264,28 +290,28 @@ export default function Footer({
               </ul>
               <Link
                 href="/services"
-                className={`inline-flex items-center gap-1 text-sm font-semibold ${t.accentText} mt-4 group`}
+                className={`inline-flex items-center gap-1 text-[13px] font-semibold ${t.accentText} mt-3 group`}
               >
-                All services
-                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                See all services
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
 
-            {/* Column 2: SERVICE AREAS */}
+            {/* Column 3: SERVICE AREAS */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.08 }}
+              transition={{ duration: 0.4, delay: 0.12 }}
             >
-              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
-                Service Areas
+              <h4 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${t.accentText} mb-4`}>
+                Dane County
               </h4>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2">
                 {cities.map((city) => (
                   <li key={city.href}>
                     <Link
                       href={city.href}
-                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                      className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
                     >
                       {city.label}
                     </Link>
@@ -294,28 +320,28 @@ export default function Footer({
               </ul>
               <Link
                 href="/service-areas"
-                className={`inline-flex items-center gap-1 text-sm font-semibold ${t.accentText} mt-4 group`}
+                className={`inline-flex items-center gap-1 text-[13px] font-semibold ${t.accentText} mt-3 group`}
               >
                 All areas
-                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
 
-            {/* Column 3: COMPANY */}
+            {/* Column 4: COMPANY */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.16 }}
+              transition={{ duration: 0.4, delay: 0.18 }}
             >
-              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+              <h4 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${t.accentText} mb-4`}>
                 Company
               </h4>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2">
                 {companyLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                      className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
                     >
                       {link.label}
                     </Link>
@@ -324,7 +350,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/residential"
-                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
                   >
                     Residential
                   </Link>
@@ -332,7 +358,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/commercial"
-                    className={`text-sm ${t.textColor} ${t.linkHover} transition-all duration-200 hover:translate-x-1 inline-block`}
+                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block`}
                   >
                     Commercial
                   </Link>
@@ -340,59 +366,77 @@ export default function Footer({
               </ul>
             </motion.div>
 
-            {/* Column 4: CONNECT */}
+            {/* Column 5: CONNECT */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.24 }}
+              transition={{ duration: 0.4, delay: 0.24 }}
             >
-              <h4 className={`text-xs font-bold uppercase tracking-[0.2em] ${t.accentText} mb-5`}>
+              <h4 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${t.accentText} mb-4`}>
                 Connect
               </h4>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="tel:608-535-6057"
+                    className={`text-[13px] text-white/80 ${t.linkHover} transition-colors inline-flex items-center gap-2`}
+                  >
+                    <Phone className={`h-3.5 w-3.5 ${t.iconColor}`} />
+                    (608) 535-6057
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:totalguardllc@gmail.com"
+                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors inline-flex items-center gap-2`}
+                  >
+                    <Mail className={`h-3.5 w-3.5 ${t.iconColor}`} />
+                    Email Us
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors inline-block`}
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy"
+                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors inline-block`}
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+              </ul>
 
-              {/* Phone */}
-              <a
-                href="tel:608-535-6057"
-                className={`flex items-center gap-2.5 text-sm text-white/80 ${t.linkHover} transition-colors mb-3`}
-              >
-                <Phone className={`h-4 w-4 ${t.iconColor} flex-shrink-0`} />
-                (608) 535-6057
-              </a>
-
-              {/* Email */}
-              <a
-                href="mailto:totalguardllc@gmail.com"
-                className={`flex items-center gap-2.5 text-sm ${t.textColor} ${t.linkHover} transition-colors mb-5`}
-              >
-                <Mail className={`h-4 w-4 ${t.iconColor} flex-shrink-0`} />
-                totalguardllc@gmail.com
-              </a>
-
-              {/* Social Icons */}
-              <div className="flex gap-3 mb-5">
+              {/* Social */}
+              <div className="flex gap-2.5 mt-4">
                 <a
                   href="https://facebook.com/totalguardyardcare"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-80 hover:scale-110 transition-all"
-                  aria-label="Follow TotalGuard Yard Care on Facebook"
+                  aria-label="Facebook"
                 >
-                  <img alt="Facebook" className="h-8 w-8" loading="lazy" src="/lovable-uploads/a2985d40-e463-4243-b26d-149a047426fb.png" width="32" height="32" />
+                  <img alt="Facebook" className="h-7 w-7" loading="lazy" src="/lovable-uploads/a2985d40-e463-4243-b26d-149a047426fb.png" width="28" height="28" />
                 </a>
                 <a
                   href="https://www.instagram.com/tgyardcare/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-80 hover:scale-110 transition-all"
-                  aria-label="Follow TotalGuard Yard Care on Instagram"
+                  aria-label="Instagram"
                 >
-                  <img alt="Instagram" className="h-8 w-8" loading="lazy" src="/lovable-uploads/0d24ae3b-c2eb-4565-a7ce-f97959422e02.png" width="32" height="32" />
+                  <img alt="Instagram" className="h-7 w-7" loading="lazy" src="/lovable-uploads/0d24ae3b-c2eb-4565-a7ce-f97959422e02.png" width="28" height="28" />
                 </a>
               </div>
 
               {/* Seasonal Badge */}
-              <div className={`inline-flex items-center gap-2 ${t.seasonBg} ${t.seasonText} px-3 py-1.5 rounded-full text-xs font-medium border ${t.seasonBorder}`}>
-                <SeasonIcon className="h-3.5 w-3.5 flex-shrink-0" />
+              <div className={`inline-flex items-center gap-1.5 ${t.seasonBg} ${t.seasonText} px-2.5 py-1 rounded-full text-[10px] font-medium border ${t.seasonBorder} mt-4`}>
+                <SeasonIcon className="h-3 w-3 flex-shrink-0" />
                 <span>{seasonMessages[activeSeason]}</span>
               </div>
             </motion.div>
@@ -401,50 +445,29 @@ export default function Footer({
         </div>
       </section>
 
-      {/* ═══════════ ZONE 3 — SIGNATURE STRIP ═══════════ */}
+      {/* ═══════════ ZONE 3 — SIGNATURE ═══════════ */}
       <section className={`${t.footerBg} border-t ${t.sigBorder}`}>
-        <div className="container mx-auto px-4 py-5">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 py-6 md:py-8">
+          <div className="flex flex-col items-center gap-5 max-w-6xl mx-auto">
 
-            {/* Left: Logo + Brand + Tagline */}
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
-                <img
-                  alt="TotalGuard Yard Care"
-                  src="/images/totalguard-logo-summer.png"
-                  className="h-8 w-auto"
-                  loading="lazy"
-                />
-              </Link>
-              <span className="text-sm font-medium text-white/70">
-                TotalGuard Yard Care
-              </span>
-              <span className={`hidden sm:inline ${t.dimText}`}>&mdash;</span>
-              <span className={`hidden sm:inline text-xs ${t.dimText}`}>
-                Madison&apos;s Trusted Lawn Care
-              </span>
-            </div>
+            {/* Logo — prominent */}
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              <img
+                alt="TotalGuard Yard Care"
+                src="/images/totalguard-banner-logo.png"
+                className="h-14 md:h-16 w-auto"
+                loading="lazy"
+              />
+            </Link>
 
-            {/* Center-right: Utility links */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/privacy"
-                className={`text-xs ${t.dimText} ${t.linkHover} transition-colors`}
-              >
-                Privacy Policy
-              </Link>
-              <span className={t.dimText}>&middot;</span>
-              <Link
-                href="/contact"
-                className={`text-xs ${t.dimText} ${t.linkHover} transition-colors`}
-              >
-                Contact
-              </Link>
-            </div>
+            {/* Tagline */}
+            <p className={`text-xs ${t.dimText} text-center tracking-wide`}>
+              Madison&apos;s reliability-first lawn care company &mdash; serving all of Dane County
+            </p>
 
-            {/* Right: Copyright */}
-            <p className={`text-xs ${t.dimText}`}>
-              &copy; {currentYear} TotalGuard Yard Care LLC
+            {/* Copyright */}
+            <p className={`text-[11px] ${t.dimText} text-center`}>
+              &copy; {currentYear} TotalGuard Yard Care LLC. All rights reserved.
             </p>
 
           </div>
