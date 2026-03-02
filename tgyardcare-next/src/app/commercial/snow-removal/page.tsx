@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: 'Commercial Snow Removal Madison WI | 24/7 | TG Yard Care',
   description: 'Commercial snow removal for HOAs & facilities in Madison, WI. Documented storm response, 24/7 service & liability protection. Seasonal contracts available. Get quote!',
   keywords: 'commercial snow removal Madison, HOA snow plowing Wisconsin, commercial de-icing, property management snow service',
+  alternates: {
+    canonical: 'https://tgyardcare.com/commercial/snow-removal',
+  },
 };
 
 export default function CommercialSnowRemovalPage() {

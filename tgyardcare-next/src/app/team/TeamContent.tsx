@@ -50,6 +50,11 @@ export default function TeamContent() {
     <div className="min-h-screen bg-background">
       <Navigation />
 
+      <section className="sr-only">
+        <h2>Meet the TG Yard Care Team</h2>
+        <p>The TG Yard Care team is a dedicated group of lawn care and landscaping professionals serving Madison, Wisconsin. Our crew members are trained, insured, and committed to delivering consistent quality on every property. With our same-crew-every-visit policy, you'll always know who's taking care of your yard.</p>
+      </section>
+
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-b from-primary/5 via-secondary/30 to-background overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.1),transparent_50%)]" />

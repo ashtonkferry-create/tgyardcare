@@ -12,6 +12,7 @@ import heroImage from "@/assets/service-spring-cleanup.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { springCleanupFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -22,6 +23,11 @@ export default function SpringCleanupContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Spring Cleanup', url: 'https://tgyardcare.com/services/spring-cleanup' }
+      ]} />
       <ServiceSchema
         serviceName="Spring Cleanup Services in Madison & Dane County"
         description="Comprehensive spring cleanup to prepare your yard for Wisconsin's growing season. Serving Madison, Middleton, Waunakee, Sun Prairie, and all Dane County communities."

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Prepare your Madison lawn for spring! Complete checklist: debris cleanup, dethatching, fertilizing & more. Get a lush, healthy lawn this season!',
   keywords: 'spring lawn care Madison, Wisconsin lawn care tips, spring lawn checklist, Madison lawn preparation',
   alternates: {
-    canonical: '/blog/spring-lawn-care-checklist',
+    canonical: 'https://tgyardcare.com/blog/spring-lawn-care-checklist',
   },
   openGraph: {
     title: 'Spring Lawn Care Checklist Madison WI | Expert Tips 2024',

@@ -11,6 +11,7 @@ import heroImage from "@/assets/service-gutter.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialGutterServicesFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -86,6 +87,11 @@ const qualityStandards = [
 export default function CommercialGutterServicesContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Gutter Services', url: 'https://tgyardcare.com/commercial/gutters' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Gutter Services"
         description="Professional commercial gutter cleaning and guard installation for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

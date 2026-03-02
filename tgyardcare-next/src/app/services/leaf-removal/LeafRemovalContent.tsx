@@ -14,6 +14,7 @@ import leafImage2 from "@/assets/before-after/leaf-removal-combined-2.png";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { leafRemovalFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -31,6 +32,11 @@ export default function LeafRemovalContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Leaf Removal', url: 'https://tgyardcare.com/services/leaf-removal' }
+      ]} />
       <ServiceSchema
         serviceName="Professional Leaf Removal in Madison & Dane County"
         description="Efficient fall leaf removal service across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County communities. Keep your lawn healthy through Wisconsin winters."

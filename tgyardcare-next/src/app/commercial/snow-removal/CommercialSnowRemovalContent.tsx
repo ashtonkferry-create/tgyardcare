@@ -12,6 +12,7 @@ import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialSnowRemovalFAQs } from "@/data/serviceFAQs";
 import { WinterPriorityServices } from "@/components/WinterPriorityServices";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -112,6 +113,11 @@ const qualityStandards = [
 export default function CommercialSnowRemovalContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Snow Removal', url: 'https://tgyardcare.com/commercial/snow-removal' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Snow Removal Services"
         description="Professional commercial snow removal and de-icing for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

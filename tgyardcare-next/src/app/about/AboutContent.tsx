@@ -12,6 +12,11 @@ export default function AboutContent() {
       <PromoBanner />
       <Navigation />
 
+      <section className="sr-only">
+        <h2>About TG Yard Care</h2>
+        <p>TG Yard Care (TotalGuard Yard Care) is a locally owned lawn care and landscaping company serving Madison, Wisconsin and surrounding Dane County communities since 2019. We provide professional mowing, mulching, gutter cleaning, seasonal cleanups, fertilization, and snow removal with a 4.9-star Google rating and 100% satisfaction guarantee. Our same-crew-every-visit approach ensures consistent, reliable service for 500+ residential and commercial properties.</p>
+      </section>
+
       {/* Hero */}
       <section className="py-20 md:py-28 bg-gradient-to-b from-primary/10 via-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">

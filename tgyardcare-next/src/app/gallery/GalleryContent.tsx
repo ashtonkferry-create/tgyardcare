@@ -59,6 +59,11 @@ export default function GalleryContent() {
       <LocalBusinessSchema cityName="Madison" cityState="Wisconsin" />
       <Navigation />
 
+      <section className="sr-only">
+        <h2>TG Yard Care Project Gallery</h2>
+        <p>Browse before-and-after photos of TG Yard Care's lawn mowing, mulching, garden bed, gutter cleaning, and seasonal cleanup projects across Madison, Wisconsin. Our portfolio showcases the quality and attention to detail that has earned us a 4.9-star Google rating from 60+ satisfied customers.</p>
+      </section>
+
       {/* Hero */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-b-2 border-primary/20">
         <div className="container mx-auto px-4 text-center">

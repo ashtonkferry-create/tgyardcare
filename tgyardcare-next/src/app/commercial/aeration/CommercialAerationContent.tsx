@@ -11,6 +11,7 @@ import heroImage from "@/assets/hero-aeration.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialAerationFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -91,6 +92,11 @@ const qualityStandards = [
 export default function CommercialAerationContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Aeration', url: 'https://tgyardcare.com/commercial/aeration' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Aeration Services"
         description="Professional commercial lawn aeration services for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

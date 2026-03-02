@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Professional lawn care in Madison & Dane County. Same crew every visit, 4.9★ rated, 500+ properties served. Mowing, mulching, gutters & more. Free quote today!",
   keywords: 'lawn care Madison WI, lawn mowing Middleton, mulching Waunakee, gutter cleaning Sun Prairie, Fitchburg landscaping, Verona yard care, Dane County lawn service, Madison property maintenance',
   alternates: {
-    canonical: '/',
+    canonical: 'https://tgyardcare.com',
   },
   openGraph: {
     title: 'Lawn Care Madison WI | Same Crew Weekly | TG Yard Care',

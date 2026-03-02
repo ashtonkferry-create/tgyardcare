@@ -11,6 +11,7 @@ import heroImage from "@/assets/service-mowing.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialLawnCareFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -75,6 +76,11 @@ const qualityStandards = [
 export default function CommercialLawnCareContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Lawn Care', url: 'https://tgyardcare.com/commercial/lawn-care' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Lawn Care Services"
         description="Professional commercial lawn maintenance for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

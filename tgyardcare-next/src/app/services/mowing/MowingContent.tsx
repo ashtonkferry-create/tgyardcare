@@ -17,6 +17,7 @@ import fertilizationImage from "@/assets/before-after/fertilization-combined.png
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { mowingFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -30,6 +31,11 @@ export default function MowingContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Lawn Mowing', url: 'https://tgyardcare.com/services/mowing' }
+      ]} />
       {/* Scroll Progress - Engagement signal */}
       <ScrollProgress variant="minimal" />
 

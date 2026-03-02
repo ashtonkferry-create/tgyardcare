@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Professional snow removal in Madison, WI. Driveways & walkways cleared by 7am with salt included. Per-visit or seasonal contracts available. Get your free quote!',
   keywords: 'snow removal Madison WI, snow plowing Madison Wisconsin, driveway snow removal Madison, residential snow service Madison, winter snow clearing Madison',
   alternates: {
-    canonical: '/snow-removal-madison-wi',
+    canonical: 'https://tgyardcare.com/snow-removal-madison-wi',
   },
   openGraph: {
     title: 'Snow Plowing Madison WI | Cleared by 7am | TG Yard Care',

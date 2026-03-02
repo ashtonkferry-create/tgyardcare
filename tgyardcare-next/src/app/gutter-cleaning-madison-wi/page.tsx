@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Professional gutter cleaning in Madison, WI. Complete debris removal, downspout flushing & before/after photos included. Prevent ice dams & water damage. Free quote!',
   keywords: 'gutter cleaning Madison WI, gutter service Madison Wisconsin, gutter cleanout Madison, downspout cleaning Madison, Madison gutter company',
   alternates: {
-    canonical: '/gutter-cleaning-madison-wi',
+    canonical: 'https://tgyardcare.com/gutter-cleaning-madison-wi',
   },
   openGraph: {
     title: 'Gutter Cleaning Service Madison WI | Photos | TG Yard Care',

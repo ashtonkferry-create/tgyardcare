@@ -14,6 +14,7 @@ import mulchingImage3 from "@/assets/before-after/mulching-combined-3.png";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { mulchingFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -27,6 +28,11 @@ export default function MulchingContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Mulching', url: 'https://tgyardcare.com/services/mulching' }
+      ]} />
       <ServiceSchema
         serviceName="Professional Mulching Services in Madison & Dane County"
         description="Premium hardwood mulch installation for garden beds across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."

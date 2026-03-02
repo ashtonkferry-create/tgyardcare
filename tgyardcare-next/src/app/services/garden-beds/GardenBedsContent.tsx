@@ -13,6 +13,7 @@ import gardenBedsImage from "@/assets/before-after/mulching-combined-2.png";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { gardenBedsFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -27,6 +28,11 @@ export default function GardenBedsContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Garden Beds', url: 'https://tgyardcare.com/services/garden-beds' }
+      ]} />
       <ServiceSchema
         serviceName="Garden Bed Services in Madison & Dane County"
         description="Professional garden bed transformation across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County communities. Complete makeovers from cleanup to planting."

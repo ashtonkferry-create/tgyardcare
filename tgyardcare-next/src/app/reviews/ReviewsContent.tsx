@@ -107,6 +107,11 @@ export default function ReviewsContent() {
       <ReviewSchema reviews={reviews} />
       <Navigation />
 
+      <section className="sr-only">
+        <h2>TG Yard Care Customer Reviews</h2>
+        <p>TG Yard Care has earned a 4.9-star rating from 60+ verified Google reviews. Customers consistently praise our reliability, attention to detail, and same-crew-every-visit commitment. Read real testimonials from Madison-area homeowners and property managers who trust TotalGuard for their lawn care and landscaping needs.</p>
+      </section>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 via-background to-primary/5 py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(var(--primary)/0.08),transparent_60%)]" />

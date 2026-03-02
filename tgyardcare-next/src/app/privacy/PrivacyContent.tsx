@@ -8,6 +8,11 @@ export default function PrivacyContent() {
     <>
       <Navigation />
 
+      <section className="sr-only">
+        <h2>TG Yard Care Privacy Policy</h2>
+        <p>This privacy policy explains how TG Yard Care (TotalGuard Yard Care LLC) collects, uses, and protects your personal information when you use our website or request lawn care services in Madison, Wisconsin.</p>
+      </section>
+
       <main className="min-h-screen bg-background pt-20">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-8">Privacy Policy</h1>

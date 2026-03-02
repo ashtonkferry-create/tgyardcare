@@ -11,6 +11,7 @@ import heroImage from "@/assets/service-mulching.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialPropertyEnhancementFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -111,6 +112,11 @@ const differentiators = [
 export default function CommercialPropertyEnhancementContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Property Enhancement', url: 'https://tgyardcare.com/commercial/property-enhancement' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Property Enhancement Services"
         description="Professional commercial landscaping and property beautification for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     images: ['https://tgyardcare.com/og-image.jpg'],
   },
   alternates: {
+    canonical: 'https://tgyardcare.com',
     languages: {
       'en-US': 'https://tgyardcare.com/',
       'x-default': 'https://tgyardcare.com/',

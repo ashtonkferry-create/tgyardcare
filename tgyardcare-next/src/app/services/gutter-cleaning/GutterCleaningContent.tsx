@@ -14,6 +14,7 @@ import gutterCombined1 from "@/assets/before-after/gutter-cleaning-combined-1.pn
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { gutterCleaningFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -27,6 +28,11 @@ export default function GutterCleaningContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Gutter Cleaning', url: 'https://tgyardcare.com/services/gutter-cleaning' }
+      ]} />
       <ServiceSchema
         serviceName="Professional Gutter Cleaning in Madison & Dane County"
         description="Safe, thorough gutter cleaning and maintenance to protect your home from water damage across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."

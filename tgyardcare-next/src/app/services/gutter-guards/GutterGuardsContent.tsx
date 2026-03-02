@@ -13,6 +13,7 @@ import gutterGuardsImage from "@/assets/before-after/gutter-guards-combined.png"
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { gutterGuardsFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -25,6 +26,11 @@ export default function GutterGuardsContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Gutter Guards', url: 'https://tgyardcare.com/services/gutter-guards' }
+      ]} />
       <ServiceSchema
         serviceName="Gutter Guard Installation in Madison & Dane County"
         description="Professional gutter guard installation across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County. Prevent clogs, ice dams, and eliminate gutter cleaning."

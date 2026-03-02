@@ -101,6 +101,11 @@ export default function FAQContent() {
       <PromoBanner />
       <Navigation />
 
+      <section className="sr-only">
+        <h2>Frequently Asked Questions About TG Yard Care</h2>
+        <p>Get answers to common questions about TG Yard Care's lawn care and landscaping services in Madison, WI. Learn about our pricing, service areas, scheduling, satisfaction guarantee, and what makes TotalGuard different from other yard care companies in Dane County.</p>
+      </section>
+
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">

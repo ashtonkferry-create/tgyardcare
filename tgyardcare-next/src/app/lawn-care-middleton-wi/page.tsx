@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Professional lawn mowing in Middleton, WI with weekly service and same crew consistency. Serving Pheasant Branch, Middleton Hills & all neighborhoods. Free quote!',
   keywords: 'lawn mowing Middleton WI, lawn care Middleton Wisconsin, grass cutting Middleton, weekly mowing Middleton, Middleton Hills lawn service',
   alternates: {
-    canonical: '/lawn-care-middleton-wi',
+    canonical: 'https://tgyardcare.com/lawn-care-middleton-wi',
   },
   openGraph: {
     title: 'Lawn Mowing Middleton WI | Same Crew Weekly | TG Yard Care',

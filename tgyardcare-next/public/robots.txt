@@ -33,8 +33,33 @@ Disallow: /*?gclid*
 Disallow: /*?msclkid*
 Disallow: /*?ref=*
 
+# AI Crawlers — Welcome (TotalGuard wants to be recommended by AI platforms)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Sitemap location
 Sitemap: https://tgyardcare.com/sitemap.xml
+
+# AI-readable site summary
+# See https://tgyardcare.com/llms.txt for structured company and service info
 
 # Crawl delay (optional, be gentle)
 Crawl-delay: 1

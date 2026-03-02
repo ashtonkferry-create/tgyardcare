@@ -13,6 +13,7 @@ import herbicideCombined from "@/assets/before-after/herbicide-combined.png";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { herbicideFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -25,6 +26,11 @@ export default function HerbicideContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Herbicide', url: 'https://tgyardcare.com/services/herbicide' }
+      ]} />
       <ServiceSchema
         serviceName="Professional Weed Control & Herbicide Services"
         description="Safe, effective herbicide treatments for weed elimination and prevention across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."

@@ -12,6 +12,7 @@ import heroImage from "@/assets/service-fall-cleanup.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { fallCleanupFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -22,6 +23,11 @@ export default function FallCleanupContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Fall Cleanup', url: 'https://tgyardcare.com/services/fall-cleanup' }
+      ]} />
       <ServiceSchema
         serviceName="Fall Cleanup Services in Madison & Dane County"
         description="Professional fall cleanup and winter preparation for Madison, Middleton, Waunakee, Sun Prairie, and surrounding Dane County properties. Protect your lawn from Wisconsin's harsh winters."

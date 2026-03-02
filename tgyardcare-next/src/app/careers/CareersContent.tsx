@@ -190,6 +190,11 @@ export default function CareersContent() {
     <div className="min-h-screen bg-background">
       <Navigation />
 
+      <section className="sr-only">
+        <h2>Careers at TG Yard Care</h2>
+        <p>Join the TG Yard Care team in Madison, Wisconsin. We're looking for reliable, hardworking individuals who take pride in outdoor work. TotalGuard offers competitive pay, consistent schedules, and the opportunity to work with a growing, locally owned lawn care company serving 500+ properties across Dane County.</p>
+      </section>
+
       {/* Hero Section */}
       <section className="relative pt-24 md:pt-28 pb-16 md:pb-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
         {/* Background elements */}

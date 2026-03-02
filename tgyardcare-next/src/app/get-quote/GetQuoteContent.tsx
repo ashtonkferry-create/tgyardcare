@@ -15,6 +15,11 @@ export default function GetQuoteContent() {
     <div className="min-h-screen bg-background">
       <Navigation />
 
+      <section className="sr-only">
+        <h2>Get a Free Quote from TG Yard Care</h2>
+        <p>Request a free, no-obligation quote for professional lawn care and landscaping services in Madison, Wisconsin. TG Yard Care provides written estimates within 24 hours for mowing, mulching, gutter cleaning, seasonal cleanups, fertilization, snow removal, and more. Call (608) 535-6057 or fill out our online form.</p>
+      </section>
+
       {/* Trust Bar */}
       <TrustBar />
 

@@ -12,6 +12,7 @@ import heroImage from "@/assets/service-fertilization.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { fertilizationFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -20,6 +21,11 @@ function imgSrc(img: string | { src: string }): string {
 export default function FertilizationContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Fertilization', url: 'https://tgyardcare.com/services/fertilization' }
+      ]} />
       <ServiceSchema
         serviceName="Fertilization & Overseeding Services in Madison & Dane County"
         description="Professional fertilization and overseeding to build thick, healthy lawns across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."

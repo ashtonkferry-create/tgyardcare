@@ -11,6 +11,7 @@ import heroImage from "@/assets/service-fertilization.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialFertilizationWeedControlFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -92,6 +93,11 @@ const differentiators = [
 export default function CommercialFertilizationWeedControlContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
+        { name: 'Fertilization & Weed Control', url: 'https://tgyardcare.com/commercial/fertilization-weed-control' }
+      ]} />
       <ServiceSchema
         serviceName="Commercial Fertilization & Weed Control Services"
         description="Professional commercial lawn fertilization and weed control programs for property managers, HOAs, and commercial facilities in Madison, Wisconsin."

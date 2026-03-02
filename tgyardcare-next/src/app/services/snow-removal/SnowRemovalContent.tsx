@@ -15,6 +15,7 @@ import combinedImage from "@/assets/before-after/snow-removal-combined.webp";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { snowRemovalFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -40,6 +41,11 @@ export default function SnowRemovalContent() {
 
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Snow Removal', url: 'https://tgyardcare.com/services/snow-removal' }
+      ]} />
       <ServiceSchema
         serviceName="Snow Removal Services in Madison & Dane County"
         description="Professional snow and ice removal for residential and commercial properties across Madison, Middleton, Waunakee, Sun Prairie, Fitchburg, and Verona. Fast response during Wisconsin winter storms."

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import { ComparisonSection, ObjectionHandlerSection, PricingGuideSection } from "@/components/SearchIntentSections";
 import { FAQSchema } from "@/components/FAQSchema";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import {
   Building2,
   Store,
@@ -176,6 +177,10 @@ const locations = [
 export default function CommercialContent() {
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Commercial Services', url: 'https://tgyardcare.com/commercial' }
+      ]} />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

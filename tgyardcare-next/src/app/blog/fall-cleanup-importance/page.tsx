@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Discover why fall cleanup is critical for lawn health! Prevent snow mold, protect grass & save money on spring repairs. Expert Madison lawn care advice.',
   keywords: 'fall cleanup importance, Madison fall lawn care, autumn yard maintenance, prevent snow mold Wisconsin',
   alternates: {
-    canonical: '/blog/fall-cleanup-importance',
+    canonical: 'https://tgyardcare.com/blog/fall-cleanup-importance',
   },
   openGraph: {
     title: 'Why Fall Cleanup Matters | Madison Lawn Care Tips 2024',

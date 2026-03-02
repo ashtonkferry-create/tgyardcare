@@ -14,6 +14,7 @@ import pruningCombined from "@/assets/before-after/pruning-combined.png";
 import pruningCombined2 from "@/assets/before-after/pruning-combined-2.png";
 import heroImage from "@/assets/service-pruning.jpg";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
+import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -27,6 +28,11 @@ export default function PruningContent() {
 
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://tgyardcare.com' },
+        { name: 'Services', url: 'https://tgyardcare.com/services' },
+        { name: 'Pruning', url: 'https://tgyardcare.com/services/pruning' }
+      ]} />
       <ServiceSchema
         serviceName="Bush Trimming & Shrub Pruning Services"
         description="Professional bush trimming and shrub pruning to maintain healthy, attractive landscaping across Madison and Dane County."

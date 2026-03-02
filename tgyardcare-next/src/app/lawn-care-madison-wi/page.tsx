@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Professional lawn mowing in Madison, WI with weekly service and same crew every visit. Edging, trimming & blowing included. 500+ Madison properties. Free quote!',
   keywords: 'lawn mowing Madison WI, lawn care Madison Wisconsin, grass cutting Madison, weekly mowing Madison, lawn service near me Madison',
   alternates: {
-    canonical: '/lawn-care-madison-wi',
+    canonical: 'https://tgyardcare.com/lawn-care-madison-wi',
   },
   openGraph: {
     title: 'Professional Lawn Care Madison WI | Weekly | TG Yard Care',
