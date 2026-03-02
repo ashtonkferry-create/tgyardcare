@@ -258,7 +258,7 @@ export default function HomeContent() {
                       <img
                         src={badge.src}
                         alt={badge.alt}
-                        className="h-12 w-12 object-contain rounded-full mix-blend-luminosity brightness-150 contrast-125 group-hover:mix-blend-normal group-hover:brightness-110 group-hover:contrast-100 transition-all duration-500"
+                        className="h-12 w-12 object-contain rounded-full group-hover:scale-110 transition-transform duration-500"
                         loading="lazy"
                         width={48}
                         height={48}
