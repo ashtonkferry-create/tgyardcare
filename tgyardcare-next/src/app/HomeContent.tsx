@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
-import { PromoBanner } from "@/components/PromoBanner";
+
 import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
 import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
@@ -178,8 +178,7 @@ export default function HomeContent() {
 
       <GlobalSchema />
       <WebsiteSchema />
-      <PromoBanner />
-      <Navigation />
+      <Navigation showPromoBanner />
 
       {/* TL;DR for AI/Answer Engines */}
       <section className="sr-only" aria-label="Business Summary">

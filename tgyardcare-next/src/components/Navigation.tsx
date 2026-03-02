@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -13,6 +13,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useSeasonalTheme } from "@/contexts/SeasonalThemeContext";
 import { MobileNavMenu } from "@/components/MobileNavMenu";
+import { PromoBanner } from "@/components/PromoBanner";
+import { useScrollCondense } from "@/hooks/useScrollCondense";
 
 // Shared dropdown animation variants
 const dropdownVariants = {
@@ -624,12 +626,33 @@ function MegaMenu({
 // ---------------------------------------------------------------------------
 // Navigation Component
 // ---------------------------------------------------------------------------
-export default function Navigation() {
+interface NavigationProps {
+  showPromoBanner?: boolean;
+}
+
+export default function Navigation({ showPromoBanner = false }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [residentialOpen, setResidentialOpen] = useState(false);
   const [commercialOpen, setCommercialOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const pathname = usePathname();
+  const isCondensed = useScrollCondense();
+
+  // Track banner height for spacer
+  const bannerWrapperRef = useRef<HTMLDivElement>(null);
+  const [bannerHeight, setBannerHeight] = useState(0);
+
+  useEffect(() => {
+    const el = bannerWrapperRef.current;
+    if (!el) { setBannerHeight(0); return; }
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setBannerHeight(entry.contentRect.height);
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [showPromoBanner]);
 
   // Close sibling menus when opening one — prevents overlap jitter
   const openResidential = useCallback(() => { setCommercialOpen(false); setAboutOpen(false); setResidentialOpen(true); }, []);
@@ -695,7 +718,13 @@ export default function Navigation() {
 
   return (
     <>
-    <nav className={cn("fixed top-0 left-0 right-0 z-50 border-b shadow-lg nav-seasonal", t.bg, t.border)}>
+    <div className="fixed top-0 left-0 right-0 z-50">
+      {showPromoBanner && (
+        <div ref={bannerWrapperRef}>
+          <PromoBanner />
+        </div>
+      )}
+    <nav className={cn("border-b shadow-lg nav-seasonal relative", t.bg, t.border)}>
       {/* Cinematic effects container — overflow-hidden so glow doesn't bleed, but nav itself can show dropdowns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ambient center glow */}
@@ -713,7 +742,10 @@ export default function Navigation() {
             <img
               alt="TotalGuard Yard Care - Professional Lawn Care Services in Madison Wisconsin"
               src="/images/totalguard-logo-summer.png"
-              className="h-32 md:h-36 lg:h-40 w-auto hover:scale-105 transition-transform duration-300"
+              className={cn(
+                "w-auto hover:scale-105 transition-all duration-300",
+                isCondensed ? "h-20 md:h-24 lg:h-28" : "h-32 md:h-36 lg:h-40"
+              )}
               loading="eager"
               fetchPriority="high"
               decoding="async"
@@ -889,7 +921,9 @@ export default function Navigation() {
         <MobileNavMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       </div>
     </nav>
-    {/* Spacer to offset fixed navbar height */}
+    </div>
+    {/* Spacers to offset fixed header */}
+    <div className="transition-all duration-300" style={{ height: bannerHeight }} />
     <div className="h-16 md:h-18 lg:h-20" />
     </>
   );
