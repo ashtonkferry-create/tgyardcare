@@ -31,7 +31,7 @@ import {
   Users
 } from "lucide-react";
 import heroImage from "@/assets/hero-lawn.jpg";
-import { isSnowRemovalSeason } from "@/lib/seasonalServices";
+import { sortServicesBySeason } from "@/lib/seasonalServices";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
@@ -150,14 +150,12 @@ const baseServices = [
   }
 ];
 
-const snowRemovalService = {
+const services = sortServicesBySeason([...baseServices, {
   icon: Snowflake,
   title: "Snow Removal",
   items: ["24/7 Response", "Driveways & Lots", "Ice Management", "Seasonal Contracts"],
   path: "/commercial/snow-removal"
-};
-
-const services = isSnowRemovalSeason() ? [snowRemovalService, ...baseServices] : baseServices;
+}]);
 
 const locations = [
   { name: "Madison", path: "/locations/madison" },

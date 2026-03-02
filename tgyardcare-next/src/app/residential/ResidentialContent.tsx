@@ -47,7 +47,7 @@ import snowRemovalImage from "@/assets/service-snow-removal.jpg";
 import pruningImage from "@/assets/service-pruning.jpg";
 import gardenBedsImage from "@/assets/service-mulching.jpg";
 import aerationImage from "@/assets/hero-aeration.jpg";
-import { isSnowRemovalSeason } from "@/lib/seasonalServices";
+import { sortServicesBySeason } from "@/lib/seasonalServices";
 
 // Helper to get image src from static imports (Next.js returns objects, not strings)
 function imgSrc(img: string | { src: string }): string {
@@ -162,17 +162,14 @@ const allServices = [
   }
 ];
 
-// Add snow removal during winter season
-const snowRemovalService = {
+const services = sortServicesBySeason([...allServices, {
   icon: Snowflake,
   title: "Snow Removal",
   description: "Triggered by 2\"+ snowfall. Driveway, walkways, and porch cleared. Salt included.",
   path: "/services/snow-removal",
   image: snowRemovalImage,
   category: "seasonal"
-};
-
-const services = isSnowRemovalSeason() ? [...allServices, snowRemovalService] : allServices;
+}]);
 
 const whyChooseUs = [
   {

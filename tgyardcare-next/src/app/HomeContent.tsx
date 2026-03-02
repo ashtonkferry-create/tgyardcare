@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import type { CarouselApi } from "@/components/ui/carousel";
-import { isSnowRemovalSeason } from "@/lib/seasonalServices";
+import { sortServicesBySeason } from "@/lib/seasonalServices";
 import { WinterHero } from "@/components/WinterHero";
 import { SummerHero } from "@/components/SummerHero";
 import { FallHero } from "@/components/FallHero";
@@ -134,15 +134,15 @@ const baseServices = [{
   image: imgSrc(pruningImage)
 }];
 
-const snowRemovalService = {
+const allServices = [...baseServices, {
   icon: Snowflake,
   title: "Snow Removal",
   description: "Triggered at 2\"+ snowfall. Driveway, walks, porch. Salt included.",
   path: "/services/snow-removal",
   image: imgSrc(snowRemovalImage)
-};
+}];
 
-const services = isSnowRemovalSeason() ? [snowRemovalService, ...baseServices] : baseServices;
+const services = sortServicesBySeason(allServices);
 
 export default function HomeContent() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
