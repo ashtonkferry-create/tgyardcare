@@ -694,7 +694,8 @@ export default function Navigation() {
   const t = navTheme[activeSeason] ?? navTheme.summer;
 
   return (
-    <nav className={cn("sticky top-0 z-50 border-b shadow-lg nav-seasonal relative", t.bg, t.border)}>
+    <>
+    <nav className={cn("fixed top-0 left-0 right-0 z-50 border-b shadow-lg nav-seasonal", t.bg, t.border)}>
       {/* Cinematic effects container — overflow-hidden so glow doesn't bleed, but nav itself can show dropdowns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Ambient center glow */}
@@ -888,5 +889,8 @@ export default function Navigation() {
         <MobileNavMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       </div>
     </nav>
+    {/* Spacer to offset fixed navbar height */}
+    <div className="h-16 md:h-18 lg:h-20" />
+    </>
   );
 }
