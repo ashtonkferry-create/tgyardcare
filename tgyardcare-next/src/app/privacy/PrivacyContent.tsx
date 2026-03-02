@@ -141,7 +141,7 @@ export default function PrivacyContent() {
         </div>
       </main>
 
-      <Footer />
+      <Footer showCloser={false} />
     </>
   );
 }

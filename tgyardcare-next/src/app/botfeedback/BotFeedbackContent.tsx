@@ -261,7 +261,7 @@ export default function BotFeedbackContent() {
         </div>
       </main>
 
-      <Footer />
+      <Footer showCloser={false} />
     </>
   );
 }

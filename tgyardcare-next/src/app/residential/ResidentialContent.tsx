@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
@@ -528,7 +527,6 @@ export default function ResidentialContent() {
         </div>
       </section>
 
-      <CTASection />
       <Footer />
     </div>
   );

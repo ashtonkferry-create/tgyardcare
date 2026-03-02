@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
 import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { ComparisonTable } from "@/components/ComparisonTable";
-import CTASection from "@/components/CTASection";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider } from "@/components/SectionTransition";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
@@ -515,9 +514,6 @@ export default function HomeContent() {
           </div>
         </div>
       </section>
-
-      {/* FINAL CTA */}
-      <CTASection />
 
       <Footer />
     </div>

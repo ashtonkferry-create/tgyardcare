@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -463,7 +462,6 @@ export default function MowingContent() {
 
       <ServiceFAQ faqs={mowingFAQs} />
 
-      <CTASection />
       <Footer />
     </div>
   );

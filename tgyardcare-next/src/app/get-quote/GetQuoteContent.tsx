@@ -44,7 +44,7 @@ export default function GetQuoteContent() {
         </div>
       </section>
 
-      <Footer />
+      <Footer showCloser={false} />
     </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { Button } from "@/components/ui/button";
@@ -381,7 +380,6 @@ export default function GutterGuardsContent() {
 
       <ServiceFAQ faqs={gutterGuardsFAQs} />
 
-      <CTASection />
       <Footer />
     </div>
   );

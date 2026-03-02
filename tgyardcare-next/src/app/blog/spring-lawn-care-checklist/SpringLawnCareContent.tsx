@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { Calendar, ArrowLeft, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -125,7 +124,6 @@ export default function SpringLawnCareContent() {
         </div>
       </article>
 
-      <CTASection />
       <Footer />
     </div>
   );

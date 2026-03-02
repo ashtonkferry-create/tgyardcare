@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
@@ -227,11 +226,10 @@ export default function GalleryContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Ready to See Your Property Transformed?"
-        description="Join 100+ satisfied Madison homeowners who trust TotalGuard for stunning, professional results. Get your free quote today and experience the difference quality lawn care makes!"
+      <Footer
+        closerTitle="Ready to See Your Property Transformed?"
+        closerDescription="Join 100+ satisfied Madison homeowners who trust TotalGuard for stunning, professional results. Get your free quote today and experience the difference quality lawn care makes!"
       />
-      <Footer />
     </div>
   );
 }

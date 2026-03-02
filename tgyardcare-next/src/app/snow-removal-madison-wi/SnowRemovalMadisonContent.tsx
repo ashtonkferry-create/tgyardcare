@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -320,12 +319,10 @@ export default function SnowRemovalMadisonContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Secure Your Madison Snow Removal Spot"
-        description="Winter contracts fill fast. Lock in your seasonal rate before the first snowfall."
+      <Footer
+        closerTitle="Secure Your Madison Snow Removal Spot"
+        closerDescription="Winter contracts fill fast. Lock in your seasonal rate before the first snowfall."
       />
-
-      <Footer />
     </div>
   );
 }

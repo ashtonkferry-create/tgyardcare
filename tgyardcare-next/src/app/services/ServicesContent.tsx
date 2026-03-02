@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
@@ -524,12 +523,10 @@ export default function ServicesContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Ready to Get Started?"
-        description="Join 500+ Dane County homeowners who trust TotalGuard for all their lawn care needs. Free quotes within 24 hours."
+      <Footer
+        closerTitle="Ready to Get Started?"
+        closerDescription="Join 500+ Dane County homeowners who trust TotalGuard for all their lawn care needs. Free quotes within 24 hours."
       />
-
-      <Footer />
     </div>
   );
 }

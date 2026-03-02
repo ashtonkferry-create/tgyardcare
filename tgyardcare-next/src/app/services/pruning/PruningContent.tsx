@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CheckCircle2, Scissors, Phone, Calendar, Shield, Clock } from "lucide-react";
@@ -340,11 +339,10 @@ export default function PruningContent() {
         <ResidentialExpectationsSection serviceName="bush trimming and pruning" />
 
         <ServiceFAQ faqs={pruningFAQs} />
-        <CTASection
-          title="Ready for Beautifully Trimmed Landscaping?"
-          description="Transform overgrown bushes into polished, healthy shrubs. Professional pruning services across Madison, Middleton, Waunakee, and all of Dane County."
+        <Footer
+          closerTitle="Ready for Beautifully Trimmed Landscaping?"
+          closerDescription="Transform overgrown bushes into polished, healthy shrubs. Professional pruning services across Madison, Middleton, Waunakee, and all of Dane County."
         />
-        <Footer />
       </div>
     </>
   );

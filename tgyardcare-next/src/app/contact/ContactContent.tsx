@@ -547,7 +547,7 @@ export default function ContactContent() {
 
       <ServiceUpsellDialog open={showUpsell} onOpenChange={setShowUpsell} selectedService={selectedService} />
 
-      <Footer />
+      <Footer showCloser={false} />
     </div>
   );
 }

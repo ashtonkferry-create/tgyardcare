@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -381,7 +380,6 @@ export default function CommercialSeasonalContent() {
       </section>
 
       <ServiceFAQ faqs={commercialSeasonalServicesFAQs} />
-      <CTASection />
       <Footer />
     </div>
   );

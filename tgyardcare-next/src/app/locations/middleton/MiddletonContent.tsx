@@ -7,7 +7,6 @@ import Navigation from "@/components/Navigation";
 import { PromoBanner } from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
-import CTASection from "@/components/CTASection";
 import heroImage from "@/assets/hero-lawn.jpg";
 
 function imgSrc(img: string | { src: string }): string {
@@ -204,12 +203,10 @@ export default function MiddletonContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Experience the TotalGuard Difference in Middleton"
-        description="Professional lawn care backed by a satisfaction guarantee. Get your free quote today."
+      <Footer
+        closerTitle="Experience the TotalGuard Difference in Middleton"
+        closerDescription="Professional lawn care backed by a satisfaction guarantee. Get your free quote today."
       />
-
-      <Footer />
     </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { Calendar, ArrowLeft, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -120,7 +119,6 @@ export default function FallCleanupImportanceContent() {
         </div>
       </article>
 
-      <CTASection />
       <Footer />
     </div>
   );

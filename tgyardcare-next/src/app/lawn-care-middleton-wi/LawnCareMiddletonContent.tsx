@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -316,12 +315,10 @@ export default function LawnCareMiddletonContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Get Your Middleton Lawn Quote Today"
-        description="Professional lawn care for Middleton homeowners. Free quotes within 24 hours."
+      <Footer
+        closerTitle="Get Your Middleton Lawn Quote Today"
+        closerDescription="Professional lawn care for Middleton homeowners. Free quotes within 24 hours."
       />
-
-      <Footer />
     </div>
   );
 }

@@ -10,7 +10,6 @@ import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { FAQSchema } from "@/components/FAQSchema";
-import CTASection from "@/components/CTASection";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
 import { LocalFAQSection, WhatHappensNextSection } from "@/components/SearchIntentSections";
@@ -244,12 +243,10 @@ export default function LocationPageTemplate({
         </div>
       </section>
 
-      <CTASection
-        title={`Experience the TotalGuard Difference in ${cityName}`}
-        description="Same crew every visit. Written quotes. 48-hour issue resolution. Get your free quote today."
+      <Footer
+        closerTitle={`Experience the TotalGuard Difference in ${cityName}`}
+        closerDescription="Same crew every visit. Written quotes. 48-hour issue resolution. Get your free quote today."
       />
-
-      <Footer />
     </div>
   );
 }

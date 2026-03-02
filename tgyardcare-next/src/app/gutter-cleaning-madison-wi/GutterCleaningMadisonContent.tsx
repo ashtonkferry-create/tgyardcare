@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -259,12 +258,10 @@ export default function GutterCleaningMadisonContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Schedule Your Madison Gutter Cleaning"
-        description="Protect your home from water damage. Free quotes within 24 hours."
+      <Footer
+        closerTitle="Schedule Your Madison Gutter Cleaning"
+        closerDescription="Protect your home from water damage. Free quotes within 24 hours."
       />
-
-      <Footer />
     </div>
   );
 }

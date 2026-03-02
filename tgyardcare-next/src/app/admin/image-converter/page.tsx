@@ -285,7 +285,7 @@ export default function ImageConverter() {
         </div>
       </div>
 
-      <Footer />
+      <Footer showCloser={false} />
     </div>
   );
 }

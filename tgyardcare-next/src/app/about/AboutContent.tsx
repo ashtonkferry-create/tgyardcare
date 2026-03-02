@@ -2,7 +2,6 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { Clock, CheckCircle2, Shield, Users, ArrowRight } from "lucide-react";
 import { PromoBanner } from "@/components/PromoBanner";
 
@@ -185,11 +184,10 @@ export default function AboutContent() {
         </div>
       </section>
 
-      <CTASection
-        title="See How We Operate"
-        description="Request a quote and experience the difference that systems and accountability make. Same-day response, transparent pricing, no obligations."
+      <Footer
+        closerTitle="See How We Operate"
+        closerDescription="Request a quote and experience the difference that systems and accountability make. Same-day response, transparent pricing, no obligations."
       />
-      <Footer />
     </div>
   );
 }

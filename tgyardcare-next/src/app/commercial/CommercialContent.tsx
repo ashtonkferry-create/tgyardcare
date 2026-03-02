@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ComparisonSection, ObjectionHandlerSection, PricingGuideSection } from "@/components/SearchIntentSections";
 import { FAQSchema } from "@/components/FAQSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -476,7 +475,6 @@ export default function CommercialContent() {
         { question: "What's your response time for issues?", answer: "Issues are acknowledged within 4 hours and resolved within 48 hours. You'll receive photo confirmation when complete." }
       ]} />
 
-      <CTASection />
       <Footer />
     </div>
   );

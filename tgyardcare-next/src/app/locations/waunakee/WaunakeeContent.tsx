@@ -7,7 +7,6 @@ import Navigation from "@/components/Navigation";
 import { PromoBanner } from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
-import CTASection from "@/components/CTASection";
 import heroImage from "@/assets/hero-lawn.jpg";
 
 function imgSrc(img: string | { src: string }): string {
@@ -240,12 +239,10 @@ export default function WaunakeeContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Ready for a Beautiful Waunakee Lawn?"
-        description="Join your neighbors who trust TotalGuard for professional lawn care. Same-day quotes available."
+      <Footer
+        closerTitle="Ready for a Beautiful Waunakee Lawn?"
+        closerDescription="Join your neighbors who trust TotalGuard for professional lawn care. Same-day quotes available."
       />
-
-      <Footer />
     </div>
   );
 }

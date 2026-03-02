@@ -7,7 +7,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import CTASection from "@/components/CTASection";
 import { WinterPriorityServices } from "@/components/WinterPriorityServices";
 
 import heroImage from "@/assets/hero-snow-plow.png";
@@ -371,7 +370,6 @@ export default function SnowRemovalContent() {
 
         <ServiceFAQ faqs={snowRemovalFAQs} />
 
-        <CTASection />
         <Footer />
       </div>
     </>

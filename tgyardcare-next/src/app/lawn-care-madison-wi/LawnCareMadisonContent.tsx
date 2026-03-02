@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from "@/components/CTASection";
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
@@ -338,12 +337,10 @@ export default function LawnCareMadisonContent() {
         </div>
       </section>
 
-      <CTASection
-        title="Get Your Madison Lawn Quote Today"
-        description="Join hundreds of Madison homeowners who trust TotalGuard for reliable, professional lawn care. Free quotes within 24 hours."
+      <Footer
+        closerTitle="Get Your Madison Lawn Quote Today"
+        closerDescription="Join hundreds of Madison homeowners who trust TotalGuard for reliable, professional lawn care. Free quotes within 24 hours."
       />
-
-      <Footer />
     </div>
   );
 }
