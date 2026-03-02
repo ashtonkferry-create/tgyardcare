@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, ReactNode } from 'react';
 import {
-  X, Send, Loader2, Phone, Mail, Building2, Home, Users, MapPin,
+  MessageCircle, X, Send, Loader2, Phone, Mail, Building2, Home, Users, MapPin,
   Shield, Star, ThumbsUp, RefreshCw, Sparkles, ExternalLink,
   Scissors, Droplets, Leaf, Snowflake, MessageSquare, PhoneCall,
   CheckCircle2,
@@ -626,41 +626,17 @@ export const ChatBot = () => {
   return (
     <>
       {/* ========== FLOATING CHAT BUTTON ========== */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="fixed bottom-6 right-6 z-50"
-          >
-            {/* Breathing glow ring */}
-            <div className="absolute inset-0 rounded-full animate-[pulse_3s_ease-in-out_infinite] bg-emerald-500/20 blur-md scale-125" />
-            <button
-              onClick={() => setIsOpen(true)}
-              className="relative h-[72px] w-[72px] rounded-full
-                bg-gradient-to-br from-gray-900 to-emerald-900
-                border border-emerald-500/30
-                shadow-[0_0_40px_rgba(34,197,94,0.2)]
-                hover:shadow-[0_0_50px_rgba(34,197,94,0.4)]
-                hover:scale-110 active:scale-95
-                transition-all duration-300
-                flex items-center justify-center"
-              aria-label="Open chat"
-            >
-              {isWinterSeason() ? (
-                <Snowflake className="h-7 w-7 text-emerald-400" />
-              ) : (
-                <Leaf className="h-7 w-7 text-emerald-400" />
-              )}
-              {/* Emerald pulse ring instead of red ping */}
-              <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-400 rounded-full animate-ping opacity-75" />
-              <span className="absolute -top-0.5 -right-0.5 h-3 w-3 bg-emerald-400 rounded-full" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {!isOpen && (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl bg-gradient-to-br from-primary via-primary to-primary/90 hover:scale-110 text-white z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 transition-transform hover:shadow-[0_0_30px_rgba(34,197,94,0.5)]"
+          aria-label="Open chat"
+        >
+          <MessageCircle className="h-7 w-7 animate-pulse" />
+          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full animate-ping" />
+          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full" />
+        </Button>
+      )}
 
       {/* ========== CHAT WINDOW ========== */}
       <AnimatePresence>
