@@ -52,12 +52,15 @@ const SEASON_COLORS = {
   },
 } as const;
 
-// Deterministic pseudo-random (seeded by index) — varied distribution
-function seeded(i: number, offset: number) {
-  return ((i * 127 + offset * 311) % 97) / 97;
+// Deterministic pseudo-random with good scatter (splitmix-style hash)
+function hash(a: number): number {
+  a = (a + 0x9e3779b9) | 0;
+  a = Math.imul(a ^ (a >>> 16), 0x85ebca6b);
+  a = Math.imul(a ^ (a >>> 13), 0xc2b2ae35);
+  return (a ^ (a >>> 16)) >>> 0;
 }
-function seeded2(i: number, offset: number) {
-  return ((i * 253 + offset * 179) % 89) / 89;
+function seeded(i: number, offset: number) {
+  return (hash(i * 31 + offset * 7919) % 10000) / 10000;
 }
 
 const DENSITY_COUNTS: Record<Density, { orbs: number; dots: number; sparkles: number }> = {
@@ -82,11 +85,11 @@ export function AmbientParticles({ density = 'normal', className = '' }: Props) 
       delay: `${-seeded(i, 5) * 20}s`,
       // Per-particle random drift distances
       dx1: -40 + seeded(i, 6) * 80,
-      dy1: -30 + seeded2(i, 7) * 60,
-      dx2: -35 + seeded2(i, 8) * 70,
+      dy1: -30 + seeded(i, 7) * 60,
+      dx2: -35 + seeded(i, 8) * 70,
       dy2: -25 + seeded(i, 9) * 50,
       dx3: -45 + seeded(i, 10) * 90,
-      dy3: -35 + seeded2(i, 11) * 70,
+      dy3: -35 + seeded(i, 11) * 70,
     }));
 
     const dotConfigs = Array.from({ length: counts.dots }, (_, i) => ({
@@ -96,13 +99,13 @@ export function AmbientParticles({ density = 'normal', className = '' }: Props) 
       opacity: 0.1 + seeded(i, 13) * 0.2,
       color: palette.dots[i % palette.dots.length],
       duration: `${5 + seeded(i, 14) * 8}s`,
-      delay: `${-seeded2(i, 15) * 12}s`,
+      delay: `${-seeded(i, 15) * 12}s`,
       // Per-particle unique float path
-      dx1: -15 + seeded2(i, 16) * 30,
+      dx1: -15 + seeded(i, 16) * 30,
       dy1: -30 + seeded(i, 17) * 15,
       dx2: -10 + seeded(i, 18) * 20,
-      dy2: -20 + seeded2(i, 19) * 10,
-      dx3: -12 + seeded2(i, 20) * 24,
+      dy2: -20 + seeded(i, 19) * 10,
+      dx3: -12 + seeded(i, 20) * 24,
       dy3: -35 + seeded(i, 21) * 18,
     }));
 
@@ -112,10 +115,10 @@ export function AmbientParticles({ density = 'normal', className = '' }: Props) 
       size: 1 + seeded(i, 22) * 1.5,
       opacity: 0.15 + seeded(i, 23) * 0.25,
       duration: `${3 + seeded(i, 24) * 4}s`,
-      delay: `${-seeded2(i, 25) * 10}s`,
+      delay: `${-seeded(i, 25) * 10}s`,
       dx1: -8 + seeded(i, 26) * 16,
-      dy1: -20 + seeded2(i, 27) * 10,
-      dx2: -6 + seeded2(i, 28) * 12,
+      dy1: -20 + seeded(i, 27) * 10,
+      dx2: -6 + seeded(i, 28) * 12,
       dy2: -12 + seeded(i, 29) * 6,
     }));
 
