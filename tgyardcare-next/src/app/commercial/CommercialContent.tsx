@@ -9,6 +9,12 @@ import { ComparisonSection, ObjectionHandlerSection, PricingGuideSection } from 
 import { FAQSchema } from "@/components/FAQSchema";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { GlassCard } from '@/components/GlassCard';
+import { TrustStrip } from '@/components/TrustStrip';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import { cn } from '@/lib/utils';
 import {
   Building2,
   Store,
@@ -37,6 +43,30 @@ import { sortServicesBySeason } from "@/lib/seasonalServices";
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
 }
+
+const seasonalAccent = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalCheck = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalSectionBg = {
+  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
+  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
+  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+} as const;
+
+const seasonalLocationHover = {
+  summer: 'hover:border-emerald-500/50 hover:bg-emerald-500/5',
+  fall: 'hover:border-amber-500/50 hover:bg-amber-500/5',
+  winter: 'hover:border-cyan-500/50 hover:bg-cyan-500/5',
+} as const;
 
 const commercialServices = [
   {
@@ -174,6 +204,8 @@ const locations = [
 ];
 
 export default function CommercialContent() {
+  const { activeSeason } = useSeasonalTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbSchema items={[
@@ -206,138 +238,166 @@ export default function CommercialContent() {
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             {/* Trust badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20">
-              <Shield className="h-4 w-4 text-accent" />
-              <span>Fully Insured &bull; Certificate Available on Request</span>
-            </div>
+            <ScrollReveal>
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20">
+                <Shield className="h-4 w-4 text-accent" />
+                <span>Fully Insured &bull; Certificate Available on Request</span>
+              </div>
+            </ScrollReveal>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-              Commercial Lawn Care <span className="text-accent">Across Dane County</span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto">
-              Professional property maintenance for businesses, HOAs, and commercial properties across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County. Reliable service your tenants and customers notice.
-            </p>
+            <ScrollReveal delay={0.1}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
+                Commercial Lawn Care <span className="text-accent">Across Dane County</span>
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2}>
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto">
+                Professional property maintenance for businesses, HOAs, and commercial properties across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County. Reliable service your tenants and customers notice.
+              </p>
+            </ScrollReveal>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" variant="accent" className="w-full sm:w-auto tap-target text-base md:text-lg font-bold shadow-xl hover:shadow-2xl transition-all hover:scale-105" asChild>
-                <Link href="/contact">
+            <ScrollReveal delay={0.3}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <Link href="/contact" className="inline-flex items-center justify-center h-12 px-8 text-base md:text-lg font-bold rounded-lg animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black shadow-lg hover:shadow-amber-500/25 transition-shadow">
                   Get a Free Quote <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-gray-900 tap-target text-base md:text-lg" asChild>
-                <a href="tel:608-535-6057">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (608) 535-6057
-                </a>
-              </Button>
-            </div>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-gray-900 tap-target text-base md:text-lg" asChild>
+                  <a href="tel:608-535-6057">
+                    <Phone className="mr-2 h-5 w-5" />
+                    (608) 535-6057
+                  </a>
+                </Button>
+              </div>
+            </ScrollReveal>
 
             {/* Micro-proof points */}
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-white/80 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>Flexible Scheduling</span>
+            <ScrollReveal delay={0.4}>
+              <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-white/80 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-accent" />
+                  <span>Flexible Scheduling</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-accent" />
+                  <span>Commercial Equipment</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-accent" />
+                  <span>Custom Contracts</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>Commercial Equipment</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>Custom Contracts</span>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Quick Stats Bar */}
-      <section className="py-6 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] text-white">
+      {/* Quick Stats Bar — animated counters */}
+      <section className={cn(
+        'py-6 bg-gradient-to-r text-white border-y',
+        seasonalSectionBg[activeSeason],
+        'border-white/5'
+      )}>
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">500+</div>
-              <div className="text-sm text-primary-foreground/70">Properties Served</div>
+          <ScrollReveal>
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold">
+                  <AnimatedCounter end={500} suffix="+" />
+                </div>
+                <div className="text-sm text-white/50">Properties Served</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold">
+                  <AnimatedCounter end={7} suffix="+" />
+                </div>
+                <div className="text-sm text-white/50">Commercial Services</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold">
+                  <AnimatedCounter end={4.9} suffix="★" decimals={1} />
+                </div>
+                <div className="text-sm text-white/50">Google Rating</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold">
+                  <AnimatedCounter end={24} suffix="hr" />
+                </div>
+                <div className="text-sm text-white/50">Quote Response</div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">7+</div>
-              <div className="text-sm text-primary-foreground/70">Commercial Services</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">4.9&#9733;</div>
-              <div className="text-sm text-primary-foreground/70">Google Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">24hr</div>
-              <div className="text-sm text-primary-foreground/70">Quote Response</div>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Commercial Properties We Serve */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Properties We Serve
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From small retail locations to large corporate campuses, we have the experience and equipment to maintain any commercial property.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Properties We Serve
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                From small retail locations to large corporate campuses, we have the experience and equipment to maintain any commercial property.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {commercialServices.map((service, index) => (
-              <div
-                key={index}
-                className="flex flex-col p-8 bg-card rounded-xl border border-border hover:shadow-lg transition-all"
-              >
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <service.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift" className="p-8 h-full">
+                  <div className={cn('bg-white/5 rounded-full w-16 h-16 flex items-center justify-center mb-6')}>
+                    <service.icon className={cn('h-8 w-8', seasonalAccent[activeSeason])} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Services Overview */}
-      <section className="py-20 bg-secondary/30">
+      <section className={cn('py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Comprehensive Commercial Services
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Everything you need to maintain a professional, attractive property year-round.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Comprehensive Commercial Services
+              </h2>
+              <p className="text-xl text-white/60 max-w-3xl mx-auto">
+                Everything you need to maintain a professional, attractive property year-round.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Link
-                key={index}
-                href={service.path}
-                className="bg-background p-8 rounded-xl border border-border hover:shadow-lg hover:border-primary/50 transition-all"
-              >
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <service.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-4">{service.title}</h3>
-                <ul className="space-y-2">
-                  {service.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6 text-primary font-semibold flex items-center">
-                  Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                </div>
-              </Link>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <Link
+                  href={service.path}
+                  className="group block"
+                >
+                  <GlassCard variant="dark" hover="lift" className="p-8 h-full">
+                    <div className={cn('bg-white/5 rounded-full w-16 h-16 flex items-center justify-center mb-6')}>
+                      <service.icon className={cn('h-8 w-8', seasonalAccent[activeSeason])} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
+                    <ul className="space-y-2">
+                      {service.items.map((item, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <CheckCircle2 className={cn('h-5 w-5 mr-2 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                          <span className="text-white/60">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className={cn('mt-6 font-semibold flex items-center', seasonalAccent[activeSeason])}>
+                      Learn more <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </GlassCard>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -346,71 +406,84 @@ export default function CommercialContent() {
       {/* Why Choose Us */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Why Commercial Clients Choose TotalGuard
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              We understand the unique needs of commercial properties and deliver service that exceeds expectations.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Why Commercial Clients Choose TotalGuard
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                We understand the unique needs of commercial properties and deliver service that exceeds expectations.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUs.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center p-6"
-              >
-                <div className="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mb-6">
-                  <item.icon className="h-10 w-10 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift" className="text-center h-full">
+                  <div className={cn('bg-white/5 rounded-full w-20 h-20 flex items-center justify-center mb-6 mx-auto')}>
+                    <item.icon className={cn('h-10 w-10', seasonalAccent[activeSeason])} />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
+      <TrustStrip variant="dark" />
+
       {/* Service Areas - Location Links for SEO */}
-      <section className="py-16 md:py-24 bg-muted/30">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-bold mb-4">
-              <MapPin className="h-4 w-4" />
-              Commercial Service Areas
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className={cn('inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-4 bg-white/5 border border-white/10', seasonalAccent[activeSeason])}>
+                <MapPin className="h-4 w-4" />
+                Commercial Service Areas
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+                Serving <span className={seasonalAccent[activeSeason]}>Greater Madison</span>
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Professional commercial lawn care throughout Dane County.
+              </p>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Serving <span className="text-primary">Greater Madison</span>
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Professional commercial lawn care throughout Dane County.
-            </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 max-w-5xl mx-auto mb-10">
             {locations.map((location, index) => (
-              <Link
-                key={index}
-                href={location.path}
-                className="bg-card border border-border rounded-lg px-4 py-3 text-center hover:border-primary hover:bg-primary/5 transition-all group"
-              >
-                <div className="flex items-center justify-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary opacity-70 group-hover:opacity-100" />
-                  <span className="font-medium text-foreground text-sm">{location.name}</span>
-                </div>
-              </Link>
+              <ScrollReveal key={index} delay={index * 0.03}>
+                <Link
+                  href={location.path}
+                  className={cn(
+                    'bg-card/80 backdrop-blur-sm border border-white/[0.08] rounded-lg px-4 py-3 text-center transition-all group block',
+                    seasonalLocationHover[activeSeason]
+                  )}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <MapPin className={cn('h-4 w-4 opacity-70 group-hover:opacity-100', seasonalAccent[activeSeason])} />
+                    <span className="font-medium text-foreground text-sm">{location.name}</span>
+                  </div>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
 
-          <div className="text-center">
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/service-areas">
-                View All Service Areas <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+          <ScrollReveal>
+            <div className="text-center">
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/service-areas">
+                  View All Service Areas <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
+
+      <CTASection variant="compact" />
 
       {/* Comparison Section - Address "vs competitors" search intent */}
       <ComparisonSection
@@ -441,28 +514,30 @@ export default function CommercialContent() {
         note="Most commercial clients save 15-20% with seasonal contracts. We'll walk your property for an exact quote."
       />
 
+      <TrustStrip variant="light" />
+
       {/* Custom Maintenance Plans */}
-      <section className="py-20 bg-gray-900 text-white">
+      <section className={cn('py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Custom Maintenance Plans Available
-          </h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-            Every property is unique. We create customized maintenance schedules and service plans tailored to your specific needs and budget.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="accent" className="font-bold shadow-xl" asChild>
-              <Link href="/contact">
+          <ScrollReveal>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Custom Maintenance Plans Available
+            </h2>
+            <p className="text-xl mb-8 max-w-3xl mx-auto text-white/70">
+              Every property is unique. We create customized maintenance schedules and service plans tailored to your specific needs and budget.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact" className="inline-flex items-center justify-center h-12 px-8 text-base md:text-lg font-bold rounded-lg animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black shadow-lg hover:shadow-amber-500/25 transition-shadow">
                 Get a Custom Quote <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900" asChild>
-              <a href="tel:608-535-6057">
-                <Phone className="mr-2 h-5 w-5" />
-                (608) 535-6057
-              </a>
-            </Button>
-          </div>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900" asChild>
+                <a href="tel:608-535-6057">
+                  <Phone className="mr-2 h-5 w-5" />
+                  (608) 535-6057
+                </a>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
