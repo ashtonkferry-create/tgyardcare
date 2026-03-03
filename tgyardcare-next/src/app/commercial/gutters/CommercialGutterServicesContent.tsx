@@ -35,10 +35,19 @@ const seasonalCheck = {
   winter: 'text-cyan-400',
 } as const;
 
-const seasonalSectionBg = {
-  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
-  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
-  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+const seasonalBg = {
+  summer: {
+    page:    '#050d07',
+    section: '#0a1a0e',
+  },
+  fall: {
+    page:    '#0d0900',
+    section: '#1a1000',
+  },
+  winter: {
+    page:    '#020810',
+    section: '#060f1a',
+  },
 } as const;
 
 const services = [
@@ -117,9 +126,10 @@ const processSteps = [
 
 export default function CommercialGutterServicesContent() {
   const { activeSeason } = useSeasonalTheme();
+  const bg = seasonalBg[activeSeason];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen text-white" style={{ background: bg.page }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
@@ -181,14 +191,14 @@ export default function CommercialGutterServicesContent() {
       <TrustStrip variant="dark" />
 
       {/* Who This Is For */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Commercial gutter maintenance for property operations
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
+              <p className="text-base md:text-lg text-white/60">
                 Designed for property managers and facility directors who need documented, scheduled gutter maintenance—not reactive service calls after damage occurs.
               </p>
             </div>
@@ -198,8 +208,8 @@ export default function CommercialGutterServicesContent() {
               <ScrollReveal key={index} delay={index * 0.1}>
                 <GlassCard hover="lift">
                   <Building2 className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
-                  <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
-                  <p className="text-muted-foreground text-sm">{type.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">{type.name}</h3>
+                  <p className="text-white/60 text-sm">{type.description}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -208,7 +218,7 @@ export default function CommercialGutterServicesContent() {
       </section>
 
       {/* Liability and Risk Reduction */}
-      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
@@ -237,14 +247,14 @@ export default function CommercialGutterServicesContent() {
       </section>
 
       {/* Services */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Commercial gutter service scope
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-base md:text-lg text-white/60 max-w-3xl mx-auto">
                 Complete gutter maintenance solutions designed for commercial-scale properties with documentation and accountability.
               </p>
             </div>
@@ -256,13 +266,13 @@ export default function CommercialGutterServicesContent() {
                   <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                     <service.icon className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                  <p className="text-white/60 mb-6">{service.description}</p>
                   <ul className="space-y-3">
                     {service.items.map((item, idx) => (
                       <li key={idx} className="flex items-start">
                         <CheckCircle2 className={cn('h-5 w-5 mr-2 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
-                        <span className="text-foreground">{item}</span>
+                        <span className="text-white">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -276,15 +286,15 @@ export default function CommercialGutterServicesContent() {
       <CTASection variant="compact" />
 
       {/* Quality Standards */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20" style={{ background: bg.page }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                   Service quality standards
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground">
+                <p className="text-base md:text-lg text-white/60">
                   What you can expect from every commercial gutter service visit.
                 </p>
               </div>
@@ -294,7 +304,7 @@ export default function CommercialGutterServicesContent() {
                 <ScrollReveal key={index} delay={index * 0.1}>
                   <GlassCard variant="dark" hover="glow" className="flex items-start p-4">
                     <CheckCircle2 className={cn('h-5 w-5 mr-3 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
-                    <span className="text-foreground">{standard}</span>
+                    <span className="text-white">{standard}</span>
                   </GlassCard>
                 </ScrollReveal>
               ))}
@@ -304,15 +314,15 @@ export default function CommercialGutterServicesContent() {
       </section>
 
       {/* Pricing Structure */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                   Commercial pricing structure
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground">
+                <p className="text-base md:text-lg text-white/60">
                   Flexible contract options for commercial property budgeting and maintenance planning.
                 </p>
               </div>
@@ -321,16 +331,16 @@ export default function CommercialGutterServicesContent() {
               {pricingStructure.map((option, index) => (
                 <ScrollReveal key={index} delay={index * 0.1}>
                   <GlassCard hover="lift">
-                    <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
-                    <p className="text-muted-foreground">{option.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-3">{option.title}</h3>
+                    <p className="text-white/60">{option.description}</p>
                   </GlassCard>
                 </ScrollReveal>
               ))}
             </div>
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
-                <p className="text-muted-foreground">
-                  Commercial gutter cleaning typically ranges from <strong className="text-foreground">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
+                <p className="text-white/60">
+                  Commercial gutter cleaning typically ranges from <strong className="text-white">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
                 </p>
               </div>
             </ScrollReveal>
@@ -339,7 +349,7 @@ export default function CommercialGutterServicesContent() {
       </section>
 
       {/* Process */}
-      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
@@ -373,14 +383,14 @@ export default function CommercialGutterServicesContent() {
       <TrustStrip variant="light" />
 
       {/* Related Commercial Services */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Integrate with other commercial services
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-8">
+              <p className="text-base md:text-lg text-white/60 mb-8">
                 Many commercial properties bundle gutter maintenance with seasonal services for comprehensive property care.
               </p>
             </ScrollReveal>
@@ -393,7 +403,7 @@ export default function CommercialGutterServicesContent() {
                 <ScrollReveal key={index} delay={index * 0.1}>
                   <Link href={link.href}>
                     <GlassCard hover="lift" className="text-center cursor-pointer">
-                      <span className="font-semibold text-foreground">{link.label}</span>
+                      <span className="font-semibold text-white">{link.label}</span>
                       <ArrowRight className={cn('h-4 w-4 mx-auto mt-2', seasonalAccent[activeSeason])} />
                     </GlassCard>
                   </Link>
