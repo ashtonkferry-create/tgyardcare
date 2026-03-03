@@ -70,7 +70,7 @@ export default function BlogContent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}
@@ -79,40 +79,40 @@ export default function BlogContent() {
       </section>
 
       {/* Hero */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-primary/5 via-background to-secondary/10 border-b border-border">
+      <section className="pt-24 pb-16 border-b border-white/10" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4 text-center">
           <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
             Expert Insights
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-            Lawn Care Tips & Guides
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+            Lawn Care Tips &amp; Guides
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
             Professional advice from Madison&apos;s trusted yard care experts. Everything you need to keep your property looking its best.
           </p>
         </div>
       </section>
 
       {/* Blog Grid */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-card rounded-2xl border border-border overflow-hidden">
-                  <Skeleton className="h-32 w-full" />
+                <div key={i} className="bg-white/[0.06] rounded-2xl border border-white/10 overflow-hidden">
+                  <Skeleton className="h-32 w-full bg-white/[0.08]" />
                   <div className="p-6">
-                    <Skeleton className="h-4 w-24 mb-3" />
-                    <Skeleton className="h-6 w-full mb-3" />
-                    <Skeleton className="h-20 w-full mb-4" />
-                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-4 w-24 mb-3 bg-white/[0.08]" />
+                    <Skeleton className="h-6 w-full mb-3 bg-white/[0.08]" />
+                    <Skeleton className="h-20 w-full mb-4 bg-white/[0.08]" />
+                    <Skeleton className="h-4 w-24 bg-white/[0.08]" />
                   </div>
                 </div>
               ))}
             </div>
           ) : blogPosts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">No blog posts yet. Check back soon!</p>
+              <p className="text-white/60 text-lg">No blog posts yet. Check back soon!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -120,7 +120,7 @@ export default function BlogContent() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col"
+                  className="group bg-white/[0.06] rounded-2xl border border-white/10 overflow-hidden hover:border-primary/30 hover:bg-white/[0.10] transition-all duration-300 flex flex-col"
                 >
                   {/* Icon Header */}
                   <div className={`bg-gradient-to-br ${getGradientForPost(index)} p-8 text-white`}>
@@ -137,7 +137,7 @@ export default function BlogContent() {
 
                   {/* Content */}
                   <div className="p-6 flex flex-col flex-grow">
-                    <div className="flex items-center text-sm text-muted-foreground mb-3">
+                    <div className="flex items-center text-sm text-white/50 mb-3">
                       <Calendar className="h-4 w-4 mr-2" />
                       {new Date(post.published_at).toLocaleDateString('en-US', {
                         year: 'numeric',
@@ -145,10 +145,10 @@ export default function BlogContent() {
                         day: 'numeric'
                       })}
                     </div>
-                    <h2 className="text-xl font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors">
+                    <h2 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-primary transition-colors">
                       {post.title}
                     </h2>
-                    <p className="text-muted-foreground mb-4 line-clamp-3 flex-grow">
+                    <p className="text-white/60 mb-4 line-clamp-3 flex-grow">
                       {post.excerpt}
                     </p>
                     <span className="inline-flex items-center text-primary font-semibold group-hover:gap-3 transition-all">
@@ -163,21 +163,21 @@ export default function BlogContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+      <section className="py-16" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Transform Your Lawn?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-white/60">
             Let our experts handle your lawn care while you enjoy the results. Get started with a free quote today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild className="font-semibold">
+            <Button size="lg" asChild className="font-bold animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black">
               <Link href="/contact">
                 Get a Free Quote <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="font-semibold bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+            <Button size="lg" variant="outline" asChild className="font-semibold border-white/20 text-white hover:bg-white/10">
               <Link href="/services">
                 View Our Services
               </Link>
