@@ -4,19 +4,42 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
 import { ServiceSchema } from "@/components/ServiceSchema";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { CheckCircle2, Phone, ArrowRight, Shield, Droplets, FileText, Calendar, AlertTriangle, Building2, ClipboardCheck } from "lucide-react";
+import { CheckCircle2, Phone, ArrowRight, Shield, Droplets, AlertTriangle, Building2 } from "lucide-react";
 import heroImage from "@/assets/service-gutter.jpg";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { commercialGutterServicesFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { GlassCard } from '@/components/GlassCard';
+import { TrustStrip } from '@/components/TrustStrip';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
 }
+
+const seasonalAccent = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalCheck = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalSectionBg = {
+  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
+  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
+  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+} as const;
 
 const services = [
   {
@@ -85,7 +108,16 @@ const qualityStandards = [
   "Service completion report within 24 hours"
 ];
 
+const processSteps = [
+  { num: "1", title: "Property assessment", desc: "We evaluate gutter length, building height, accessibility, and debris accumulation patterns to determine service scope." },
+  { num: "2", title: "Maintenance plan proposal", desc: "You receive a detailed maintenance proposal with recommended frequency, service scope, and pricing options." },
+  { num: "3", title: "Scheduled service execution", desc: "Services performed on schedule with photo documentation and completion confirmation." },
+  { num: "4", title: "Documentation and reporting", desc: "Service reports with before/after photos provided for your records and board communications." },
+];
+
 export default function CommercialGutterServicesContent() {
+  const { activeSeason } = useSeasonalTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbSchema items={[
@@ -120,6 +152,9 @@ export default function CommercialGutterServicesContent() {
         <AmbientParticles density="sparse" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 text-white/90 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+              Starting at $200
+            </div>
             <p className="text-accent font-semibold mb-3 text-sm md:text-base tracking-wide uppercase">Commercial Property Maintenance</p>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6">
               Commercial Gutter <span className="text-accent">Maintenance</span>
@@ -128,11 +163,9 @@ export default function CommercialGutterServicesContent() {
               Documented gutter maintenance that reduces liability exposure and protects your property investment. Photo records with every service.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Button size="lg" variant="accent" className="text-base md:text-lg font-bold" asChild>
-                <Link href="/contact?service=commercial-gutter">
-                  Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+              <Link href="/contact?service=commercial-gutter" className="inline-flex items-center justify-center h-12 px-8 text-base md:text-lg font-bold rounded-lg animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black shadow-lg hover:shadow-amber-500/25 transition-shadow">
+                Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900 text-base md:text-lg" asChild>
                 <a href="tel:608-535-6057">
                   <Phone className="mr-2 h-5 w-5" />
@@ -145,49 +178,58 @@ export default function CommercialGutterServicesContent() {
       </section>
 
       <CommercialInsuranceBanner />
+      <TrustStrip variant="dark" />
 
       {/* Who This Is For */}
       <section className="py-16 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Commercial gutter maintenance for property operations
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need documented, scheduled gutter maintenance—not reactive service calls after damage occurs.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Commercial gutter maintenance for property operations
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground">
+                Designed for property managers and facility directors who need documented, scheduled gutter maintenance—not reactive service calls after damage occurs.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {propertyTypes.map((type, index) => (
-              <div key={index} className="bg-background p-6 rounded-lg border border-border">
-                <Building2 className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
-                <p className="text-muted-foreground text-sm">{type.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift">
+                  <Building2 className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
+                  <p className="text-muted-foreground text-sm">{type.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Liability and Risk Reduction */}
-      <section className="py-16 md:py-20">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <AlertTriangle className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Liability reduction through proactive maintenance
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Neglected gutters create liability exposure. Documented maintenance protects your property and your organization.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <AlertTriangle className={cn('h-12 w-12 mx-auto mb-4', seasonalAccent[activeSeason])} />
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                  Liability reduction through proactive maintenance
+                </h2>
+                <p className="text-base md:text-lg text-white/60">
+                  Neglected gutters create liability exposure. Documented maintenance protects your property and your organization.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {liabilityBenefits.map((benefit, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{benefit.title}</h3>
-                  <p className="text-muted-foreground">{benefit.description}</p>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>
+                    <p className="text-white/60">{benefit.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -196,55 +238,65 @@ export default function CommercialGutterServicesContent() {
 
       {/* Services */}
       <section className="py-16 md:py-20 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Commercial gutter service scope
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-              Complete gutter maintenance solutions designed for commercial-scale properties with documentation and accountability.
-            </p>
-          </div>
+        <div className="container mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Commercial gutter service scope
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+                Complete gutter maintenance solutions designed for commercial-scale properties with documentation and accountability.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {services.map((service, index) => (
-              <div key={index} className="bg-background p-8 rounded-xl border border-border">
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <service.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-                <ul className="space-y-3">
-                  {service.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift" className="p-8">
+                  <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                    <service.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
+                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <ul className="space-y-3">
+                    {service.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <CheckCircle2 className={cn('h-5 w-5 mr-2 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                        <span className="text-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
+      <CTASection variant="compact" />
+
       {/* Quality Standards */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Service quality standards
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                What you can expect from every commercial gutter service visit.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Service quality standards
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  What you can expect from every commercial gutter service visit.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {qualityStandards.map((standard, index) => (
-                <div key={index} className="flex items-start bg-card p-4 rounded-lg border border-border">
-                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">{standard}</span>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow" className="flex items-start p-4">
+                    <CheckCircle2 className={cn('h-5 w-5 mr-3 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                    <span className="text-foreground">{standard}</span>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -255,94 +307,98 @@ export default function CommercialGutterServicesContent() {
       <section className="py-16 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Commercial pricing structure
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Flexible contract options for commercial property budgeting and maintenance planning.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Commercial pricing structure
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Flexible contract options for commercial property budgeting and maintenance planning.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricingStructure.map((option, index) => (
-                <div key={index} className="bg-background p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
-                  <p className="text-muted-foreground">{option.description}</p>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard hover="lift">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
+                    <p className="text-muted-foreground">{option.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
-            <div className="mt-8 text-center">
-              <p className="text-muted-foreground">
-                Commercial gutter cleaning typically ranges from <strong className="text-foreground">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
-              </p>
-            </div>
+            <ScrollReveal delay={0.3}>
+              <div className="mt-8 text-center">
+                <p className="text-muted-foreground">
+                  Commercial gutter cleaning typically ranges from <strong className="text-foreground">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Process */}
-      <section className="py-16 md:py-20">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Commercial service process
-              </h2>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                  Commercial service process
+                </h2>
+              </div>
+            </ScrollReveal>
             <div className="space-y-6">
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Property assessment</h3>
-                  <p className="text-muted-foreground">We evaluate gutter length, building height, accessibility, and debris accumulation patterns to determine service scope.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Maintenance plan proposal</h3>
-                  <p className="text-muted-foreground">You receive a detailed maintenance proposal with recommended frequency, service scope, and pricing options.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Scheduled service execution</h3>
-                  <p className="text-muted-foreground">Services performed on schedule with photo documentation and completion confirmation.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Documentation and reporting</h3>
-                  <p className="text-muted-foreground">Service reports with before/after photos provided for your records and board communications.</p>
-                </div>
-              </div>
+              {processSteps.map((step, index) => (
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <div className="flex gap-4 items-start">
+                      <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 text-white text-sm">
+                        {step.num}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white mb-1">{step.title}</h3>
+                        <p className="text-white/60">{step.desc}</p>
+                      </div>
+                    </div>
+                  </GlassCard>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      <TrustStrip variant="light" />
+
       {/* Related Commercial Services */}
       <section className="py-16 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Integrate with other commercial services
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-8">
-              Many commercial properties bundle gutter maintenance with seasonal services for comprehensive property care.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/commercial/seasonal">Seasonal Cleanups</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/lawn-care">Lawn Care Contracts</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/snow-removal">Snow Removal</Link>
-              </Button>
+            <ScrollReveal>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Integrate with other commercial services
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground mb-8">
+                Many commercial properties bundle gutter maintenance with seasonal services for comprehensive property care.
+              </p>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+              {[
+                { href: "/commercial/seasonal", label: "Seasonal Cleanups" },
+                { href: "/commercial/lawn-care", label: "Lawn Care Contracts" },
+                { href: "/commercial/snow-removal", label: "Snow Removal" },
+              ].map((link, index) => (
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <Link href={link.href}>
+                    <GlassCard hover="lift" className="text-center cursor-pointer">
+                      <span className="font-semibold text-foreground">{link.label}</span>
+                      <ArrowRight className={cn('h-4 w-4 mx-auto mt-2', seasonalAccent[activeSeason])} />
+                    </GlassCard>
+                  </Link>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
