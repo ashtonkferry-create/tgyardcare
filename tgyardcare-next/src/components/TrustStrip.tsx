@@ -73,7 +73,10 @@ export function TrustStrip({ variant = 'dark', className }: TrustStripProps) {
   }
 
   return (
-    <section className={cn('py-5 bg-muted/50 border-y border-border', className)}>
+    <section className={cn(
+      `py-5 bg-gradient-to-r ${seasonalBg[activeSeason]} border-y ${seasonalBorder[activeSeason]}`,
+      className
+    )}>
       <div className="container mx-auto px-4">
         <ScrollReveal>
           <div className="flex flex-wrap justify-center gap-6 md:gap-14">
@@ -81,15 +84,15 @@ export function TrustStrip({ variant = 'dark', className }: TrustStripProps) {
               const Icon = stat.icon;
               return (
                 <div key={i} className="flex items-center gap-2.5">
-                  <Icon className="h-5 w-5 text-primary" />
-                  <span className="text-foreground font-bold text-lg">
+                  <Icon className={cn('h-5 w-5', accent)} />
+                  <span className="text-white font-bold text-lg">
                     <AnimatedCounter
                       end={stat.value}
                       suffix={stat.suffix}
                       decimals={stat.decimals}
                     />
                   </span>
-                  <span className="text-muted-foreground text-sm hidden sm:inline">{stat.label}</span>
+                  <span className="text-white/50 text-sm hidden sm:inline">{stat.label}</span>
                 </div>
               );
             })}

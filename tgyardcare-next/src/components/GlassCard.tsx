@@ -34,7 +34,7 @@ export function GlassCard({
   const { activeSeason } = useSeasonalTheme();
 
   const base = {
-    default: 'bg-card/80 backdrop-blur-xl border border-white/[0.08] shadow-lg',
+    default: 'bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] shadow-lg',
     dark: 'bg-black/30 backdrop-blur-xl border border-white/[0.05] shadow-lg',
     accent: 'bg-primary/5 backdrop-blur-xl border border-primary/20 shadow-lg',
   };

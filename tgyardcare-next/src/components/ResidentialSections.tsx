@@ -46,6 +46,12 @@ const seasonalCheckColor = {
   winter: 'text-cyan-400',
 } as const;
 
+const seasonalSectionBg = {
+  summer: '#0a1a0e',
+  fall: '#1a1000',
+  winter: '#060f1a',
+} as const;
+
 // ===============================
 // DEFAULT DATA
 // ===============================
@@ -120,8 +126,9 @@ export function ResidentialProblemSection({
   serviceName,
   problemPoints = defaultProblemPoints
 }: ResidentialSectionsProps) {
+  const { activeSeason } = useSeasonalTheme();
   return (
-    <section className="py-14 md:py-20 bg-muted/30">
+    <section className="py-14 md:py-20" style={{ background: seasonalSectionBg[activeSeason] }}>
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
@@ -129,11 +136,11 @@ export function ResidentialProblemSection({
               <div className="bg-destructive/10 rounded-full p-2.5 md:p-3 flex-shrink-0">
                 <AlertCircle className="h-5 w-5 md:h-6 md:w-6 text-destructive" />
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                 The Homeowner&apos;s {serviceName} Struggle
               </h2>
             </div>
-            <p className="text-muted-foreground mb-8 md:mb-10 text-base md:text-lg leading-relaxed">
+            <p className="text-white/60 mb-8 md:mb-10 text-base md:text-lg leading-relaxed">
               These aren&apos;t rare events&mdash;they&apos;re the industry standard. Finding a provider with actual systems is harder than it should be.
             </p>
           </ScrollReveal>
@@ -141,11 +148,11 @@ export function ResidentialProblemSection({
           <div className="space-y-3 md:space-y-4">
             {problemPoints.map((point, index) => (
               <ScrollReveal key={index} delay={index * 0.06}>
-                <div className="flex items-start gap-3 bg-background/80 backdrop-blur-sm p-4 md:p-5 rounded-xl border border-destructive/10 hover:border-destructive/25 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-start gap-3 bg-white/[0.06] backdrop-blur-sm p-4 md:p-5 rounded-xl border border-destructive/10 hover:border-destructive/25 hover:shadow-lg transition-all duration-300">
                   <div className="bg-destructive/10 rounded-full p-1.5 mt-0.5 flex-shrink-0">
                     <AlertCircle className="h-3.5 w-3.5 md:h-4 md:w-4 text-destructive" />
                   </div>
-                  <span className="text-sm md:text-base text-foreground leading-relaxed">{point}</span>
+                  <span className="text-sm md:text-base text-white leading-relaxed">{point}</span>
                 </div>
               </ScrollReveal>
             ))}
@@ -172,11 +179,11 @@ export function ResidentialSolutionSection({
               <div className="bg-primary/10 rounded-full p-2.5 md:p-3 flex-shrink-0">
                 <Shield className="h-5 w-5 md:h-6 md:w-6 text-primary" />
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                 How TotalGuard Is Different
               </h2>
             </div>
-            <p className="text-muted-foreground mb-8 md:mb-10 text-base md:text-lg leading-relaxed">
+            <p className="text-white/60 mb-8 md:mb-10 text-base md:text-lg leading-relaxed">
               TotalGuard operates with documented processes. Here&apos;s how each one works.
             </p>
           </ScrollReveal>
@@ -187,7 +194,7 @@ export function ResidentialSolutionSection({
                 <GlassCard variant="default" hover="glow" accentBorder className="h-full">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className={cn('h-5 w-5 mt-0.5 flex-shrink-0', checkColor)} />
-                    <span className="text-sm md:text-base text-foreground leading-relaxed">{point}</span>
+                    <span className="text-sm md:text-base text-white leading-relaxed">{point}</span>
                   </div>
                 </GlassCard>
               </ScrollReveal>
@@ -208,7 +215,7 @@ export function ResidentialHomeownerTypesSection({
   const checkColor = seasonalCheckColor[activeSeason];
 
   return (
-    <section className="py-14 md:py-20 bg-muted/30">
+    <section className="py-14 md:py-20" style={{ background: seasonalSectionBg[activeSeason] }}>
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
@@ -216,11 +223,11 @@ export function ResidentialHomeownerTypesSection({
               <div className="bg-primary/10 rounded-full p-2.5 md:p-3 flex-shrink-0">
                 <Users className="h-5 w-5 md:h-6 md:w-6 text-primary" />
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                 Who This Service Is For
               </h2>
             </div>
-            <p className="text-muted-foreground mb-8 md:mb-10 text-base md:text-lg text-left sm:text-center max-w-3xl mx-auto leading-relaxed">
+            <p className="text-white/60 mb-8 md:mb-10 text-base md:text-lg text-left sm:text-center max-w-3xl mx-auto leading-relaxed">
               We work with homeowners who value their time and want a provider they can actually count on.
             </p>
           </ScrollReveal>
@@ -233,9 +240,9 @@ export function ResidentialHomeownerTypesSection({
                   <GlassCard hover="lift" accentBorder className="h-full">
                     <div className="flex items-center gap-2 mb-3">
                       <IconComponent className={cn('h-5 w-5 flex-shrink-0', checkColor)} />
-                      <h3 className="font-bold text-foreground text-sm md:text-base">{type.title}</h3>
+                      <h3 className="font-bold text-white text-sm md:text-base">{type.title}</h3>
                     </div>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{type.description}</p>
+                    <p className="text-xs md:text-sm text-white/60 leading-relaxed">{type.description}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -261,10 +268,10 @@ export function ResidentialExpectationsSection({
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-left sm:text-center mb-8 md:mb-12">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 md:mb-4 leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4 leading-tight">
                 What You Can Expect
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+              <p className="text-white/60 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
                 Not promises&mdash;standards. Here&apos;s what working with TotalGuard actually looks like.
               </p>
             </div>
@@ -281,8 +288,8 @@ export function ResidentialExpectationsSection({
                         <IconComponent className={cn('h-4 w-4', checkColor)} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-foreground mb-1 text-sm md:text-base">{expectation.title}</h3>
-                        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{expectation.description}</p>
+                        <h3 className="font-bold text-white mb-1 text-sm md:text-base">{expectation.title}</h3>
+                        <p className="text-xs md:text-sm text-white/60 leading-relaxed">{expectation.description}</p>
                       </div>
                     </div>
                   </GlassCard>

@@ -6,18 +6,18 @@ import { Phone, ArrowRight, Sparkles } from "lucide-react";
 
 export function CommercialServicesCTA() {
   return (
-    <section className="py-16 bg-gradient-to-br from-primary/5 via-background to-primary/10">
+    <section className="py-16 bg-white/[0.03]">
       <div className="container mx-auto px-4">
         <div className="max-w-xl mx-auto">
-          <div className="bg-card border-2 border-primary/20 rounded-2xl p-6 md:p-8 text-center shadow-lg hover:shadow-xl transition-shadow">
+          <div className="bg-white/[0.06] border-2 border-primary/20 rounded-2xl p-6 md:p-8 text-center shadow-lg hover:shadow-xl transition-shadow">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl mb-5">
               <Sparkles className="h-7 w-7 text-primary" />
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               Looking for <span className="text-primary">commercial services</span>?
             </h2>
-            <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-              We also provide professional <span className="font-semibold text-foreground">commercial lawn care</span>, <span className="font-semibold text-foreground">gutter services</span>, and <span className="font-semibold text-foreground">seasonal maintenance</span> for businesses and properties throughout our service area.
+            <p className="text-base text-white/60 mb-6 leading-relaxed">
+              We also provide professional <span className="font-semibold text-white">commercial lawn care</span>, <span className="font-semibold text-white">gutter services</span>, and <span className="font-semibold text-white">seasonal maintenance</span> for businesses and properties throughout our service area.
             </p>
             <Button
               size="lg"
@@ -38,11 +38,11 @@ export function CommercialServicesCTA() {
 
 export function GetStartedCTA() {
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4">
         <div className="max-w-xl mx-auto">
-          <div className="bg-card border-2 border-primary rounded-2xl p-6 md:p-8 shadow-xl">
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6 text-center">
+          <div className="bg-white/[0.06] border-2 border-primary rounded-2xl p-6 md:p-8 shadow-xl">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-6 text-center">
               Ready to Get Started?
             </h2>
 
@@ -51,7 +51,7 @@ export function GetStartedCTA() {
                 <div className="flex-shrink-0 w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold shadow-md">
                   1
                 </div>
-                <p className="text-base text-foreground">
+                <p className="text-base text-white">
                   <span className="font-bold">Get a free quote</span> in under 24 hours
                 </p>
               </div>
@@ -60,7 +60,7 @@ export function GetStartedCTA() {
                 <div className="flex-shrink-0 w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold shadow-md">
                   2
                 </div>
-                <p className="text-base text-foreground">
+                <p className="text-base text-white">
                   <span className="font-bold">Schedule</span> your service at your convenience
                 </p>
               </div>
@@ -69,8 +69,8 @@ export function GetStartedCTA() {
                 <div className="flex-shrink-0 w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold shadow-md">
                   3
                 </div>
-                <p className="text-base text-foreground">
-                  <span className="font-bold">Enjoy</span> your beautiful Madison lawn!
+                <p className="text-base text-white">
+                  <span className="font-bold">Enjoy</span> your beautiful lawn!
                 </p>
               </div>
             </div>

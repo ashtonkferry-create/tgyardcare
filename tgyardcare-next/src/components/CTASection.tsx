@@ -62,12 +62,12 @@ export default function CTASection({
   // Compact variant for mid-page CTAs
   if (variant === "compact") {
     return (
-      <section className="py-10 md:py-12 bg-primary/5">
+      <section className="py-10 md:py-12 bg-white/[0.04]">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
             <div className="text-center md:text-left">
-              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1">{title}</h3>
-              <p className="text-muted-foreground">{description}</p>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1">{title}</h3>
+              <p className="text-white/70">{description}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="font-bold bg-amber-500 hover:bg-amber-400 text-black" asChild>
@@ -90,7 +90,7 @@ export default function CTASection({
 
   // Final CTA - season-adaptive with immersive styling
   return (
-    <section className="py-14 md:py-20 bg-background">
+    <section className="py-14 md:py-20 bg-transparent">
       <div className="container mx-auto px-4">
         {/* Visual connector from previous section */}
         <div className="w-12 h-px bg-border mx-auto mb-10" />
