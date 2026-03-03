@@ -1,0 +1,742 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 142 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 142 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 142 25% 15%;
+
+    --primary: 142 76% 28%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 25% 96%;
+    --secondary-foreground: 142 76% 20%;
+
+    --muted: 142 15% 95%;
+    --muted-foreground: 142 10% 45%;
+
+    --accent: 45 93% 47%;
+    --accent-foreground: 142 25% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 142 20% 90%;
+    --input: 142 20% 90%;
+    --ring: 142 76% 28%;
+
+    --radius: 0.5rem;
+
+    --hero-gradient: linear-gradient(135deg, hsl(142 76% 28%), hsl(142 76% 20%));
+    --shadow-soft: 0 2px 20px -5px hsl(142 76% 28% / 0.15);
+    --shadow-elevated: 0 10px 40px -10px hsl(142 76% 28% / 0.25);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Seasonal accent colors (overridden by body class) */
+    --seasonal-accent: 142 76% 28%;
+    --seasonal-gradient-from: 142 76% 28%;
+    --seasonal-gradient-to: 142 76% 20%;
+  }
+
+  /* ========== SEASONAL THEMES ========== */
+  
+  /* SPRING THEME - Fresh greens and growth */
+  body.season-spring {
+    --seasonal-accent: 142 76% 28%;
+    --seasonal-gradient-from: 142 76% 32%;
+    --seasonal-gradient-to: 160 70% 24%;
+    --accent: 142 76% 32%;
+    --primary: 142 76% 28%;
+  }
+  body.season-spring .seasonal-hero {
+    background: linear-gradient(135deg, hsl(142 76% 20%), hsl(160 60% 15%));
+  }
+  body.season-spring .seasonal-badge {
+    --tw-bg-opacity: 1;
+    background-color: hsl(142 76% 36% / 0.15);
+    color: hsl(142 76% 40%);
+  }
+
+  /* SUMMER THEME - Warm yellows and vibrant greens */
+  body.season-summer {
+    --seasonal-accent: 45 93% 47%;
+    --seasonal-gradient-from: 45 93% 50%;
+    --seasonal-gradient-to: 38 90% 40%;
+    --accent: 45 93% 47%;
+  }
+  body.season-summer .seasonal-hero {
+    background: linear-gradient(135deg, hsl(45 50% 15%), hsl(38 40% 12%));
+  }
+  body.season-summer .seasonal-badge {
+    background-color: hsl(45 93% 47% / 0.15);
+    color: hsl(45 93% 40%);
+  }
+
+  /* FALL THEME - Warm oranges and reds */
+  body.season-fall {
+    --seasonal-accent: 24 95% 53%;
+    --seasonal-gradient-from: 24 95% 55%;
+    --seasonal-gradient-to: 15 90% 45%;
+    --accent: 24 95% 53%;
+  }
+  body.season-fall .seasonal-hero {
+    background: linear-gradient(135deg, hsl(24 40% 15%), hsl(15 35% 12%));
+  }
+  body.season-fall .seasonal-badge {
+    background-color: hsl(24 95% 53% / 0.15);
+    color: hsl(24 95% 50%);
+  }
+
+  /* WINTER THEME - Cool blues and icy tones, fully dark */
+  body.season-winter {
+    --background: 220 40% 7%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 35% 10%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 35% 10%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 200 80% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 30% 15%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 25% 14%;
+    --muted-foreground: 210 15% 60%;
+
+    --accent: 200 98% 45%;
+    --accent-foreground: 220 40% 7%;
+
+    --border: 220 25% 18%;
+    --input: 220 25% 18%;
+    --ring: 200 80% 40%;
+
+    --seasonal-accent: 200 98% 39%;
+    --seasonal-gradient-from: 200 98% 45%;
+    --seasonal-gradient-to: 210 90% 35%;
+  }
+  body.season-winter .seasonal-hero {
+    background: linear-gradient(135deg, hsl(210 50% 12%), hsl(220 45% 8%));
+  }
+  body.season-winter .seasonal-badge {
+    background-color: hsl(200 98% 45% / 0.15);
+    color: hsl(200 98% 50%);
+  }
+  body.season-winter .nav-seasonal {
+    border-color: hsl(200 98% 45% / 0.3);
+  }
+  body.season-winter footer {
+    background: linear-gradient(180deg, hsl(210 30% 10%), hsl(220 35% 8%));
+  }
+
+  .dark {
+    --background: 142 25% 5%;
+    --foreground: 0 0% 95%;
+
+    --card: 142 25% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 142 25% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 142 76% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 25% 15%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 142 15% 15%;
+    --muted-foreground: 142 10% 65%;
+
+    --accent: 45 93% 57%;
+    --accent-foreground: 142 25% 15%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 142 25% 20%;
+    --input: 142 25% 20%;
+    --ring: 142 76% 40%;
+  }
+}
+
+/* ── Mobile-first fluid typography ──────────────────────────────── */
+@layer utilities {
+  .mobile-display  { font-size: clamp(1.75rem, 6vw, 3rem);    line-height: 1.15; }
+  .mobile-heading  { font-size: clamp(1.375rem, 4vw, 2rem);   line-height: 1.25; }
+  .mobile-subhead  { font-size: clamp(1rem, 3vw, 1.25rem);    line-height: 1.35; }
+  .mobile-body     { font-size: clamp(0.875rem, 2.5vw, 1rem); line-height: 1.65; }
+
+  /* Spacing standards */
+  .section-padding   { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .container-mobile  { padding-left: 1rem; padding-right: 1rem; }
+
+  @media (min-width: 768px) {
+    .section-padding  { padding-top: 4rem; padding-bottom: 4rem; }
+    .container-mobile { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+}
+
+/* Premium Animations */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-up.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-slide-up.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-slide-up.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-slide-up.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animate-snow-fall {
+  animation: snow-fall linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Winter Wonderland Enhancements */
+@keyframes aurora-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes frost-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px 0 rgba(56, 189, 248, 0);
+  }
+  50% {
+    box-shadow: 0 0 15px 2px rgba(56, 189, 248, 0.15);
+  }
+}
+
+@keyframes frost-text-glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  }
+}
+
+@keyframes shimmer-btn {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-aurora-shimmer {
+  background-size: 200% 200%;
+  animation: aurora-shimmer 8s ease-in-out infinite;
+}
+
+.animate-frost-glow {
+  animation: frost-glow 3s ease-in-out infinite;
+}
+
+.animate-frost-text-glow {
+  animation: frost-text-glow 3s ease-in-out infinite;
+}
+
+.animate-shimmer-btn {
+  background-size: 200% auto;
+  animation: shimmer-btn 3s linear infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Prevent layout shift from images */
+  img {
+    content-visibility: auto;
+  }
+
+  /* Optimize animations for performance */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+}
+
+/* Mobile-first responsive utilities */
+@layer utilities {
+  /* ========== STANDARDIZED SECTION SPACING ========== */
+  /* Desktop: 64-96px, Mobile: 40-64px, using 8px increments */
+  
+  .section-padding {
+    @apply py-10 sm:py-12 md:py-16 lg:py-20;
+  }
+  
+  .section-padding-lg {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+  
+  .section-padding-sm {
+    @apply py-8 sm:py-10 md:py-12 lg:py-16;
+  }
+  
+  /* ========== GUIDED FLOW SYSTEM ========== */
+  /* Creates visual rhythm and momentum through the page */
+  
+  /* Rhythm spacing - consistent vertical beats */
+  .flow-rhythm {
+    @apply space-y-16 md:space-y-24 lg:space-y-32;
+  }
+  
+  .flow-rhythm-tight {
+    @apply space-y-10 md:space-y-16 lg:space-y-20;
+  }
+  
+  /* Section momentum - subtle entry animations */
+  .flow-section {
+    @apply relative;
+    animation: flow-enter 0.6s ease-out;
+  }
+  
+  @keyframes flow-enter {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Scroll-linked momentum classes */
+  .flow-momentum {
+    @apply transition-all duration-300;
+  }
+  
+  /* Dead zone prevention - never let sections feel isolated */
+  .flow-connected {
+    @apply relative;
+  }
+  
+  .flow-connected::before {
+    content: '';
+    @apply absolute -top-8 left-1/2 -translate-x-1/2 w-px h-8;
+    background: linear-gradient(to bottom, transparent, hsl(var(--border)));
+  }
+  
+  .flow-connected::after {
+    content: '';
+    @apply absolute -bottom-8 left-1/2 -translate-x-1/2 w-px h-8;
+    background: linear-gradient(to bottom, hsl(var(--border)), transparent);
+  }
+  
+  /* Visual progression indicator */
+  .flow-progress-dot {
+    @apply w-2 h-2 rounded-full bg-primary/30 transition-all duration-300;
+  }
+  
+  .flow-progress-dot.active {
+    @apply bg-primary scale-125;
+  }
+  
+  /* Cognitive ease - reading comfort zones */
+  .content-readable {
+    @apply max-w-prose leading-relaxed;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  }
+  
+  .content-scannable {
+    @apply space-y-4;
+  }
+  
+  .content-scannable > * {
+    @apply max-w-3xl;
+  }
+  
+  /* ========== HERO UTILITIES ========== */
+  .hero-mobile {
+    @apply min-h-[auto] py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+  
+  /* ========== RESPONSIVE HEADINGS ========== */
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight;
+  }
+  
+  .heading-hero {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1];
+  }
+  
+  .heading-section {
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold leading-tight;
+  }
+  
+  /* ========== CONTAINER UTILITIES ========== */
+  .container-mobile {
+    @apply px-4 sm:px-6 md:px-8;
+  }
+  
+  /* Constrain content width for premium feel */
+  .content-max-width {
+    @apply max-w-prose mx-auto;
+  }
+  
+  /* ========== TOUCH TARGETS ========== */
+  .tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* ========== LUXURY CARD STYLES ========== */
+  .luxury-card {
+    @apply bg-white rounded-2xl border border-slate-200/80 shadow-lg;
+    @apply hover:shadow-xl hover:border-blue-200 hover:-translate-y-1;
+    @apply transition-all duration-300;
+  }
+  
+  .luxury-card-elevated {
+    @apply bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-700;
+    @apply text-white shadow-xl shadow-blue-500/25;
+    @apply ring-2 ring-cyan-400/40;
+  }
+  
+  /* ========== BUTTON UTILITIES ========== */
+  .btn-premium {
+    @apply font-bold transition-all duration-300;
+    @apply hover:scale-[1.02] active:scale-[0.98];
+    @apply shadow-md hover:shadow-lg;
+  }
+  
+  .btn-primary-gradient {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700;
+    @apply hover:from-blue-700 hover:to-blue-800;
+    @apply text-white shadow-blue-500/20;
+  }
+  
+  /* ========== SPACING UTILITIES ========== */
+  /* Remove random extra padding - use consistent vertical rhythm */
+  .space-section > * + * {
+    @apply mt-8 md:mt-12;
+  }
+  
+  .space-content > * + * {
+    @apply mt-4 md:mt-6;
+  }
+  
+  /* Image spacing - tight but not cramped */
+  .image-spacing {
+    @apply mt-3 mb-3 sm:mt-4 sm:mb-4;
+  }
+  
+  /* ========== GRID UTILITIES ========== */
+  /* Consistent column gaps */
+  .grid-gap-standard {
+    @apply gap-4 sm:gap-6 md:gap-8 lg:gap-10;
+  }
+  
+  /* ========== TRANSITION HELPERS ========== */
+  /* Smooth section bridges */
+  .section-bridge {
+    @apply relative;
+    margin-top: -1px;
+    margin-bottom: -1px;
+  }
+  
+  .section-bridge-gradient {
+    @apply h-16 md:h-24;
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--background)),
+      hsl(var(--muted))
+    );
+  }
+  
+  /* ========== SECTION CONTAINMENT ========== */
+  /* Prevent floating elements from overlapping into adjacent sections */
+  .section-contained {
+    @apply relative overflow-hidden;
+  }
+  
+  /* For sections with floating trust quotes */
+  .section-with-floating {
+    @apply relative;
+    padding-top: 4rem; /* Space for floating element */
+  }
+  
+  /* Ensure absolute children stay within bounds */
+  .contained-absolute {
+    @apply absolute;
+    max-width: calc(100% - 2rem);
+    left: 1rem;
+    right: 1rem;
+  }
+  
+  /* ========== MOTION PREFERENCES ========== */
+  .motion-reduce\:hidden {
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .flow-section {
+      animation: none;
+    }
+  }
+
+  /* ========== MOBILE-FIRST UTILITIES ========== */
+  /* Thumb-reach optimization zone */
+  .thumb-zone {
+    @apply fixed bottom-0 left-0 right-0 z-50;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  /* Safe area insets for notched devices */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  /* Hide scrollbar utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile-first footer spacing (accounts for sticky CTA) */
+  .mobile-footer-spacing {
+    @apply pb-24 lg:pb-0;
+  }
+  
+  /* Touch target minimum (44x44 per Apple HIG) */
+  .touch-target-min {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Mobile text sizes optimized for readability */
+  .mobile-body-text {
+    @apply text-base leading-relaxed;
+    font-size: clamp(0.938rem, 0.9rem + 0.2vw, 1.063rem);
+  }
+  
+  .mobile-heading {
+    @apply font-bold leading-tight;
+    font-size: clamp(1.5rem, 1.25rem + 1.5vw, 2.5rem);
+  }
+  
+  /* Fast-scan layout for mobile */
+  .mobile-scan-layout {
+    @apply space-y-3;
+  }
+  
+  .mobile-scan-layout > * {
+    @apply max-w-full;
+  }
+  
+  /* ========== WINTER NIGHT SNOW MENU OVERLAY ========== */
+  
+  @keyframes snow-fall {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+  }
+  
+  .winter-night-menu {
+    position: relative;
+    background: linear-gradient(135deg, hsl(220 30% 12%) 0%, hsl(210 40% 18%) 50%, hsl(220 30% 12%) 100%);
+    overflow: hidden;
+  }
+  
+  .winter-night-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, hsl(210 50% 25% / 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, hsl(200 40% 20% / 0.2) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  
+  .snow-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: snow-fall 2s ease-in-out infinite;
+    box-shadow: 0 0 4px hsl(200 80% 90% / 0.8);
+  }
+  
+  /* Seasonal Animation - Float (for spring particles) */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+      opacity: 0.3;
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-5px);
+      opacity: 0.6;
+    }
+    75% {
+      transform: translateY(-30px) translateX(15px);
+    }
+  }
+  
+  /* Seasonal Animation - Fall (for autumn leaves) */
+  @keyframes fall {
+    0% {
+      transform: translateY(-20px) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.4;
+    }
+    90% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+}
