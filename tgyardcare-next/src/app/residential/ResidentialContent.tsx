@@ -1,37 +1,21 @@
 'use client';
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
 import { ServiceSchema } from "@/components/ServiceSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
 import { AmbientParticles } from "@/components/AmbientParticles";
-import { SectionHeader } from "@/components/SectionHeader";
+import { GlassCard } from '@/components/GlassCard';
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { TrustStrip } from '@/components/TrustStrip';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
 import {
-  Home,
-  CheckCircle2,
-  Clock,
-  Shield,
-  Award,
-  Phone,
-  ArrowRight,
-  Scissors,
-  Trees,
-  Sparkles,
-  Leaf,
-  Trash2,
-  CloudRain,
-  Flower2,
-  Sprout,
-  CircleDot,
-  SprayCan,
-  Snowflake,
-  MapPin,
-  Star,
-  Users
+  Home, CheckCircle2, Clock, Shield, Award, Phone, ArrowRight,
+  Scissors, Trees, Sparkles, Leaf, Trash2, CloudRain, Flower2,
+  Sprout, CircleDot, SprayCan, Snowflake, MapPin, Star, ChevronRight
 } from "lucide-react";
 import heroImage from "@/assets/hero-lawn.jpg";
 import mowingImage from "@/assets/service-mowing.jpg";
@@ -50,149 +34,53 @@ import gardenBedsImage from "@/assets/service-mulching.jpg";
 import aerationImage from "@/assets/hero-aeration.jpg";
 import { sortServicesBySeason } from "@/lib/seasonalServices";
 
-// Helper to get image src from static imports (Next.js returns objects, not strings)
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
 }
 
-// All residential services
+const seasonalAccent = {
+  summer: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', solid: '#10b981' },
+  fall:   { text: 'text-amber-400',   bg: 'bg-amber-500/10',   border: 'border-amber-500/30',   solid: '#f59e0b' },
+  winter: { text: 'text-cyan-400',    bg: 'bg-cyan-500/10',    border: 'border-cyan-500/30',    solid: '#06b6d4' },
+} as const;
+
+const seasonalHeroBg = {
+  summer: 'from-[#050d07] via-[#0a1a0e] to-[#060e08]',
+  fall:   'from-[#0d0900] via-[#1a1000] to-[#0d0900]',
+  winter: 'from-[#020810] via-[#060f1a] to-[#020810]',
+} as const;
+
+const seasonalRadial = {
+  summer: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,185,129,0.14) 0%, transparent 70%)',
+  fall:   'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,158,11,0.14) 0%, transparent 70%)',
+  winter: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6,182,212,0.14) 0%, transparent 70%)',
+} as const;
+
 const allServices = [
-  {
-    icon: Scissors,
-    title: "Lawn Mowing",
-    description: "Weekly service, same crew assigned. Includes mowing, edging, and blowing—completed in under 45 minutes.",
-    path: "/services/mowing",
-    image: mowingImage,
-    category: "lawn"
-  },
-  {
-    icon: SprayCan,
-    title: "Herbicide Treatment",
-    description: "Targeted weed elimination with visible results in 7-14 days. We document what was treated.",
-    path: "/services/herbicide",
-    image: herbicideImage,
-    category: "lawn"
-  },
-  {
-    icon: Leaf,
-    title: "Weeding",
-    description: "Hand-pulled weeds, roots removed. Chemical-free option available for beds near edibles.",
-    path: "/services/weeding",
-    image: weedingImage,
-    category: "beds"
-  },
-  {
-    icon: Trees,
-    title: "Mulching",
-    description: "2-3\" depth, edges defined, old mulch removed if needed. One-visit installation.",
-    path: "/services/mulching",
-    image: mulchingImage,
-    category: "beds"
-  },
-  {
-    icon: Flower2,
-    title: "Garden Beds",
-    description: "Edging, weeding, and seasonal planting. Maintenance plans available monthly or per-visit.",
-    path: "/services/garden-beds",
-    image: gardenBedsImage,
-    category: "beds"
-  },
-  {
-    icon: Scissors,
-    title: "Bush Trimming & Pruning",
-    description: "Shape and trim shrubs. Debris removed, property left clean. Photos before and after.",
-    path: "/services/pruning",
-    image: pruningImage,
-    category: "beds"
-  },
-  {
-    icon: Sprout,
-    title: "Fertilization",
-    description: "4-6 applications per season based on soil needs. Timing aligned with Wisconsin growing cycles.",
-    path: "/services/fertilization",
-    image: fertilizationImage,
-    category: "lawn"
-  },
-  {
-    icon: CircleDot,
-    title: "Aeration",
-    description: "Core aeration with 2-3\" plugs. Reduces compaction, improves water absorption. Done in fall or spring.",
-    path: "/services/aeration",
-    image: aerationImage,
-    category: "lawn"
-  },
-  {
-    icon: Home,
-    title: "Gutter Cleaning",
-    description: "Full cleanout, downspout flush, and roof-line inspection. Photos sent after completion.",
-    path: "/services/gutter-cleaning",
-    image: gutterImage,
-    category: "gutters"
-  },
-  {
-    icon: Shield,
-    title: "Gutter Guards",
-    description: "LeafFilter-style micro-mesh guards. Includes installation and warranty documentation.",
-    path: "/services/gutter-guards",
-    image: gutterGuardsImage,
-    category: "gutters"
-  },
-  {
-    icon: Sparkles,
-    title: "Spring Cleanup",
-    description: "Debris removal, bed edging, first mow, and gutter check. One-visit service, typically 2-4 hours.",
-    path: "/services/spring-cleanup",
-    image: springCleanupImage,
-    category: "seasonal"
-  },
-  {
-    icon: CloudRain,
-    title: "Fall Cleanup",
-    description: "Leaf removal, final mow, gutter cleanout, and winterization. Completed before first frost.",
-    path: "/services/fall-cleanup",
-    image: fallCleanupImage,
-    category: "seasonal"
-  },
-  {
-    icon: Trash2,
-    title: "Leaf Removal",
-    description: "Full property cleared. Leaves bagged and hauled or mulched in place. Zero left behind.",
-    path: "/services/leaf-removal",
-    image: leafRemovalImage,
-    category: "seasonal"
-  }
+  { icon: Scissors, title: "Lawn Mowing", description: "Weekly service, same crew assigned. Mowing, edging, and blowing—completed in under 45 minutes.", path: "/services/mowing", image: mowingImage, category: "lawn" },
+  { icon: SprayCan, title: "Herbicide Treatment", description: "Targeted weed elimination with visible results in 7-14 days. We document what was treated.", path: "/services/herbicide", image: herbicideImage, category: "lawn" },
+  { icon: Leaf, title: "Weeding", description: "Hand-pulled weeds, roots removed. Chemical-free option available for beds near edibles.", path: "/services/weeding", image: weedingImage, category: "beds" },
+  { icon: Trees, title: "Mulching", description: "2-3\" depth, edges defined, old mulch removed if needed. One-visit installation.", path: "/services/mulching", image: mulchingImage, category: "beds" },
+  { icon: Flower2, title: "Garden Beds", description: "Edging, weeding, and seasonal planting. Maintenance plans available monthly or per-visit.", path: "/services/garden-beds", image: gardenBedsImage, category: "beds" },
+  { icon: Scissors, title: "Bush Trimming & Pruning", description: "Shape and trim shrubs. Debris removed, property left clean. Photos before and after.", path: "/services/pruning", image: pruningImage, category: "beds" },
+  { icon: Sprout, title: "Fertilization", description: "4-6 applications per season based on soil needs. Timing aligned with Wisconsin growing cycles.", path: "/services/fertilization", image: fertilizationImage, category: "lawn" },
+  { icon: CircleDot, title: "Aeration", description: "Core aeration with 2-3\" plugs. Reduces compaction, improves water absorption. Done in fall or spring.", path: "/services/aeration", image: aerationImage, category: "lawn" },
+  { icon: Home, title: "Gutter Cleaning", description: "Full cleanout, downspout flush, and roof-line inspection. Photos sent after completion.", path: "/services/gutter-cleaning", image: gutterImage, category: "gutters" },
+  { icon: Shield, title: "Gutter Guards", description: "LeafFilter-style micro-mesh guards. Includes installation and warranty documentation.", path: "/services/gutter-guards", image: gutterGuardsImage, category: "gutters" },
+  { icon: Sparkles, title: "Spring Cleanup", description: "Debris removal, bed edging, first mow, and gutter check. One-visit service, typically 2-4 hours.", path: "/services/spring-cleanup", image: springCleanupImage, category: "seasonal" },
+  { icon: CloudRain, title: "Fall Cleanup", description: "Leaf removal, final mow, gutter cleanout, and winterization. Completed before first frost.", path: "/services/fall-cleanup", image: fallCleanupImage, category: "seasonal" },
+  { icon: Trash2, title: "Leaf Removal", description: "Full property cleared. Leaves bagged and hauled or mulched in place. Zero left behind.", path: "/services/leaf-removal", image: leafRemovalImage, category: "seasonal" },
 ];
 
 const services = sortServicesBySeason([...allServices, {
-  icon: Snowflake,
-  title: "Snow Removal",
-  description: "Triggered by 2\"+ snowfall. Driveway, walkways, and porch cleared. Salt included.",
-  path: "/services/snow-removal",
-  image: snowRemovalImage,
-  category: "seasonal"
+  icon: Snowflake, title: "Snow Removal", description: "Triggered by 2\"+ snowfall. Driveway, walkways, and porch cleared. Salt included.", path: "/services/snow-removal", image: snowRemovalImage, category: "seasonal"
 }]);
 
 const whyChooseUs = [
-  {
-    icon: CheckCircle2,
-    title: "Scheduled Day, Every Week",
-    description: "Your service day is locked. Same 2-person crew arrives at the same time window. No wondering."
-  },
-  {
-    icon: Clock,
-    title: "Quotes Within 24 Hours",
-    description: "Request \u2192 Assessment \u2192 Written quote. All within one business day. Average response: 2 hours."
-  },
-  {
-    icon: Shield,
-    title: "Insured with Documentation",
-    description: "$1M liability coverage. Certificate of Insurance available on request for any job."
-  },
-  {
-    icon: Award,
-    title: "Issue Resolution in 48 Hours",
-    description: "Text a photo of any problem. We acknowledge same day, return to fix within 48 hours. No charge."
-  }
+  { icon: CheckCircle2, title: "Scheduled Day, Every Week", description: "Your service day is locked. Same 2-person crew arrives at the same time window. No wondering." },
+  { icon: Clock, title: "Quotes Within 24 Hours", description: "Request → Assessment → Written quote. All within one business day. Average response: 2 hours." },
+  { icon: Shield, title: "Insured with Documentation", description: "$1M liability coverage. Certificate of Insurance available on request for any job." },
+  { icon: Award, title: "Issue Resolution in 48 Hours", description: "Text a photo of any problem. We acknowledge same day, return to fix within 48 hours. No charge." },
 ];
 
 const locations = [
@@ -207,21 +95,21 @@ const locations = [
   { name: "Cottage Grove", path: "/locations/cottage-grove" },
   { name: "DeForest", path: "/locations/deforest" },
   { name: "Oregon", path: "/locations/oregon" },
-  { name: "Stoughton", path: "/locations/stoughton" }
+  { name: "Stoughton", path: "/locations/stoughton" },
 ];
 
-const categories = [
-  { id: "all", label: "All Services" },
-  { id: "lawn", label: "Lawn Care" },
-  { id: "beds", label: "Garden & Beds" },
-  { id: "gutters", label: "Gutters" },
-  { id: "seasonal", label: "Seasonal" }
+const processSteps = [
+  { step: "01", title: "Request a Quote", body: "Fill out our simple form or give us a call. We respond within 24 hours—often in 2." },
+  { step: "02", title: "Get Your Plan", body: "We assess your property and provide a detailed, transparent quote. No surprises." },
+  { step: "03", title: "Enjoy Your Yard", body: "Sit back while we transform your property. Same crew every visit, every season." },
 ];
 
 export default function ResidentialContent() {
+  const { activeSeason } = useSeasonalTheme();
+  const acc = seasonalAccent[activeSeason];
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Scroll Progress - Engagement signal */}
+    <div className="min-h-screen bg-background text-foreground">
       <ScrollProgress variant="minimal" />
 
       <ServiceSchema
@@ -232,301 +120,276 @@ export default function ResidentialContent() {
       />
       <Navigation />
 
-      {/* TL;DR for AI/Answer Engines */}
+      {/* SEO */}
       <section className="sr-only" aria-label="Residential Services Summary">
-        <p>TotalGuard Yard Care provides residential lawn care services for homeowners in Madison, Middleton, Waunakee, and Dane County, Wisconsin. We offer 14 services including weekly mowing, fertilization, gutter cleaning, mulching, and seasonal cleanups. Same crew assigned to your property every visit. Free quotes within 24 hours at (608) 535-6057.</p>
+        <p>TotalGuard Yard Care provides residential lawn care for homeowners in Madison, Middleton, Waunakee, and Dane County, Wisconsin. 14 services including weekly mowing, fertilization, gutter cleaning, mulching, and seasonal cleanups. Same crew every visit. Free quotes within 24 hours.</p>
       </section>
 
-      {/* Hero Section - Problem-First Conversion-Focused */}
-      <section className="relative min-h-[auto] md:min-h-[70vh] flex items-center py-20 pt-24 md:py-28 md:pt-28 bg-gradient-to-br from-primary/95 via-primary to-primary/90 overflow-hidden">
+      {/* ── HERO ── */}
+      <section
+        className={`relative min-h-[80vh] flex items-center py-28 md:py-36 bg-gradient-to-b ${seasonalHeroBg[activeSeason]} overflow-hidden`}
+        style={{ backgroundImage: seasonalRadial[activeSeason] }}
+      >
+        {/* Background image overlay */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-15"
+          className="absolute inset-0 bg-cover bg-center opacity-10"
           style={{ backgroundImage: `url(${imgSrc(heroImage)})` }}
-          role="img"
-          aria-label="Professional residential lawn care services for Madison homeowners"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,31,20,0.4)_100%)]" />
-        {/* Decorative elements */}
-        <div className="absolute top-20 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <AmbientParticles density="low" className="absolute inset-0" />
+        <div className={`absolute top-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl opacity-10 ${acc.bg}`} />
 
-        <AmbientParticles density="sparse" />
-
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Trust badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20">
-              <Star className="h-4 w-4 fill-accent text-accent" />
-              <span>4.9&#9733; from 80+ Google Reviews</span>
-            </div>
+            <ScrollReveal>
+              <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold border mb-8 ${acc.bg} ${acc.border} ${acc.text}`}>
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                4.9★ from 80+ Google Reviews
+              </div>
+            </ScrollReveal>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-              Lawn Care Across <span className="text-accent">Madison &amp; Dane County</span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto">
-              One team. 14+ services. Serving Madison, Middleton, Waunakee, Sun Prairie, and 8 more Dane County cities. Same crew, same standards, every visit.
-            </p>
+            <ScrollReveal delay={0.08}>
+              <h1 className="text-5xl md:text-7xl font-black text-white leading-none tracking-tight mb-6">
+                Lawn Care Across{' '}
+                <br />
+                <span className={acc.text}>Madison &amp; Dane County</span>
+              </h1>
+            </ScrollReveal>
 
-            {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" className="w-full sm:w-auto tap-target text-base md:text-lg font-bold shadow-xl hover:shadow-2xl transition-all hover:scale-105 bg-amber-500 hover:bg-amber-400 text-black" asChild>
-                <Link href="/contact">
-                  Get My Free Quote <ArrowRight className="ml-2 h-5 w-5" />
+            <ScrollReveal delay={0.15}>
+              <p className="text-xl md:text-2xl text-white/60 mb-10 leading-relaxed max-w-3xl mx-auto">
+                One team. 14+ services. Same crew, same standards, every visit. Serving Madison, Middleton, Waunakee, Sun Prairie, and 8 more Dane County cities.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-black text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
+                  style={{ background: acc.solid }}
+                >
+                  Get My Free Quote <ArrowRight className="h-5 w-5" />
                 </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary tap-target text-base md:text-lg" asChild>
-                <a href="tel:608-535-6057">
-                  <Phone className="mr-2 h-5 w-5" />
+                <a
+                  href="tel:608-535-6057"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white/80 border border-white/10 backdrop-blur-sm hover:border-white/20 hover:text-white transition-all duration-300"
+                >
+                  <Phone className="h-5 w-5" />
                   (608) 535-6057
                 </a>
-              </Button>
-            </div>
-
-            {/* Micro-proof points */}
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-white/80 text-sm">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>Same Crew Every Visit</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>Quotes in 24 Hours</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-accent" />
-                <span>No Surprise Fees</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </ScrollReveal>
 
-      {/* Quick Stats Bar */}
-      <section className="py-6 bg-foreground text-background">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">500+</div>
-              <div className="text-sm text-background/70">Dane County Homes</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">14+</div>
-              <div className="text-sm text-background/70">Services Offered</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">4.9&#9733;</div>
-              <div className="text-sm text-background/70">Google Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">12</div>
-              <div className="text-sm text-background/70">Cities Served</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold">24hr</div>
-              <div className="text-sm text-background/70">Quote Response</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Visual transition */}
-      <SectionConnector />
-
-      {/* All Services Grid - Discovery phase */}
-      <section className="py-12 md:py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            badge="One Team Handles Everything"
-            badgeIcon={Sparkles}
-            title="14+ Services."
-            titleHighlight="Zero Headaches."
-            description="Stop juggling contractors. We handle lawn, beds, gutters, and seasonal work—all with the same reliable crew."
-            size="lg"
-          />
-
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
-            {services.map((service, index) => (
-              <Link
-                key={index}
-                href={service.path}
-                className="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative h-40 overflow-hidden">
-                  <img
-                    src={imgSrc(service.image)}
-                    alt={`${service.title} service in Madison WI`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2">
-                    <service.icon className="h-5 w-5 text-primary" />
+            <ScrollReveal delay={0.25}>
+              <div className="flex flex-wrap justify-center gap-6 text-white/55 text-sm">
+                {['Same Crew Every Visit', 'Quotes in 24 Hours', 'No Surprise Fees'].map((point, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <CheckCircle2 className={`h-4 w-4 ${acc.text}`} />
+                    <span>{point}</span>
                   </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                    {service.description}
-                  </p>
-                  <div className="text-primary text-sm font-semibold flex items-center">
-                    Learn More <ArrowRight className="ml-1.5 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Visual transition */}
-      <SectionDivider />
-
-      {/* Why Choose Us - Trust building phase */}
-      <section className="py-12 md:py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Why Homeowners"
-            titleHighlight="Switch to Us"
-            description="The bar in this industry is low. We just do what we say we'll do."
-            size="lg"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
-            {whyChooseUs.map((item, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:border-primary/50 transition-all"
-              >
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-5">
-                  <item.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                ))}
               </div>
-            ))}
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Visual transition */}
-      <SectionConnector />
+      {/* ── STATS BAR ── */}
+      <TrustStrip variant="dark" />
 
-      {/* Service Areas - Location commitment phase */}
-      <section className="py-12 md:py-20 bg-background">
+      {/* ── SERVICES GRID ── */}
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeader
-            badge="Service Areas"
-            badgeIcon={MapPin}
-            title="Serving"
-            titleHighlight="Greater Madison"
-            description="Professional lawn care throughout Dane County. Find your location below."
-            size="lg"
-          />
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 max-w-5xl mx-auto mb-10">
-            {locations.map((location, index) => (
-              <Link
-                key={index}
-                href={location.path}
-                className="bg-card border border-border rounded-lg px-4 py-3 text-center hover:border-primary hover:bg-primary/5 transition-all group"
-              >
-                <div className="flex items-center justify-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary opacity-70 group-hover:opacity-100" />
-                  <span className="font-medium text-foreground text-sm">{location.name}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/service-areas">
-                View All Service Areas <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof Strip */}
-      <section className="py-12 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 max-w-5xl mx-auto">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">
-                Ready to Transform Your Yard?
-              </h3>
-              <p className="text-primary-foreground/90">
-                Join 500+ Madison homeowners who trust TotalGuard with their property.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="accent" className="font-bold shadow-xl" asChild>
-                <Link href="/contact">
-                  Get My Free Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-                <a href="tel:608-535-6057">
-                  <Phone className="mr-2 h-5 w-5" />
-                  Call Now
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Getting Started is <span className="text-primary">Easy</span>
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+              <Sparkles className="h-3 w-3" />
+              One Team Handles Everything
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
+              14+ Services.{' '}
+              <span className={acc.text}>Zero Headaches.</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
+              Stop juggling contractors. We handle lawn, beds, gutters, and seasonal work—all with the same reliable crew.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {services.map((service, index) => (
+              <ScrollReveal key={index} delay={(index % 8) * 0.05}>
+                <Link
+                  href={service.path}
+                  className={`group block bg-black/30 backdrop-blur-xl border border-white/[0.06] rounded-xl overflow-hidden hover:-translate-y-1.5 hover:shadow-2xl hover:${acc.border.replace('border-', 'border-')} transition-all duration-300`}
+                >
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={imgSrc(service.image)}
+                      alt={`${service.title} service in Madison WI`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className={`absolute bottom-3 left-3 p-2 rounded-lg ${acc.bg} border ${acc.border}`}>
+                      <service.icon className={`h-4 w-4 ${acc.text}`} />
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className={`font-bold text-white mb-1.5 group-hover:${acc.text} transition-colors`}>
+                      {service.title}
+                    </h3>
+                    <p className="text-white/45 text-sm mb-3 line-clamp-2 leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className={`${acc.text} text-sm font-semibold flex items-center gap-1`}>
+                      Learn More <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY CHOOSE US ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>Why Homeowners Switch</span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              The Bar in This Industry Is Low.
+            </h2>
+            <p className="text-white/50 text-xl max-w-2xl mx-auto">
+              We just do what we say we&apos;ll do.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {whyChooseUs.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <ScrollReveal key={index} delay={index * 0.08}>
+                  <GlassCard variant="dark" hover="lift" accentBorder className="text-center h-full">
+                    <div className={`inline-flex p-4 rounded-2xl ${acc.bg} border ${acc.border} mb-5`}>
+                      <Icon className={`h-7 w-7 ${acc.text}`} />
+                    </div>
+                    <h3 className="text-lg font-black text-white mb-3">{item.title}</h3>
+                    <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+
+          {/* Testimonial quote */}
+          <ScrollReveal delay={0.3} className="mt-10 max-w-3xl mx-auto">
+            <GlassCard variant="dark" hover="none" className={`border-l-4 ${acc.border.replace('border-', 'border-l-')} text-center`}>
+              <p className="text-white/70 text-lg italic leading-relaxed mb-3">
+                &ldquo;We&apos;ve tried several lawn care companies in Madison and TotalGuard is by far the best. They&apos;re responsive to texts, show up when they say they will, and the quality of work is outstanding.&rdquo;
+              </p>
+              <div className="flex justify-center gap-1 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <div className={`text-sm font-semibold ${acc.text}`}>— Amanda S. · Lawn Maintenance</div>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── PROCESS ── */}
+      <section className="py-20 md:py-28 bg-background">
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>Getting Started</span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
+              Easy as{' '}<span className={acc.text}>1-2-3</span>
+            </h2>
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
               Three simple steps to a beautiful, stress-free yard.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="relative text-center">
-              <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">Request a Quote</h3>
-              <p className="text-muted-foreground">
-                Fill out our simple form or give us a call. We respond within 24 hours.
-              </p>
-            </div>
+            {processSteps.map((step, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <GlassCard variant="dark" hover="lift" className="text-center relative">
+                  <div className={`text-6xl font-black mb-4 ${acc.text} opacity-20`}>{step.step}</div>
+                  <h3 className="text-xl font-black text-white mb-3">{step.title}</h3>
+                  <p className="text-white/55 leading-relaxed">{step.body}</p>
+                </GlassCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="relative text-center">
-              <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                2
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">Get Your Plan</h3>
-              <p className="text-muted-foreground">
-                We&apos;ll assess your property and provide a detailed, transparent quote.
-              </p>
-            </div>
+      {/* ── SERVICE AREAS ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-12">
+            <span className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+              <MapPin className="h-3 w-3" />
+              Service Areas
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              Serving Greater Madison
+            </h2>
+            <p className="text-white/50 text-xl max-w-2xl mx-auto">
+              Professional lawn care throughout Dane County. Find your location below.
+            </p>
+          </ScrollReveal>
 
-            <div className="relative text-center">
-              <div className="bg-primary text-primary-foreground w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">Enjoy Your Yard</h3>
-              <p className="text-muted-foreground">
-                Sit back and relax while we transform your property into the envy of the neighborhood.
-              </p>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-w-5xl mx-auto mb-10">
+            {locations.map((location, index) => (
+              <ScrollReveal key={index} delay={(index % 6) * 0.04}>
+                <Link
+                  href={location.path}
+                  className={`group flex items-center justify-center gap-2 px-4 py-3 rounded-lg border ${acc.border} ${acc.bg} ${acc.text} text-sm font-medium hover:border-opacity-80 transition-all duration-300 hover:-translate-y-0.5`}
+                >
+                  <MapPin className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100" />
+                  {location.name}
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal className="text-center">
+            <Link
+              href="/service-areas"
+              className="inline-flex items-center gap-2 text-white/60 hover:text-white font-semibold transition-colors"
+            >
+              View All Service Areas <ChevronRight className="h-5 w-5" />
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── METRICS STRIP ── */}
+      <section className="py-12 bg-background border-t border-white/5">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-10 md:gap-20">
+            {[
+              { value: 500, suffix: '+', label: 'Dane County Homes' },
+              { value: 14, suffix: '+', label: 'Services Offered' },
+              { value: 4.9, suffix: '★', decimals: 1, label: 'Google Rating' },
+              { value: 12, suffix: '', label: 'Cities Served' },
+            ].map((s, i) => (
+              <ScrollReveal key={i} delay={i * 0.06}>
+                <div className="text-center">
+                  <div className={`text-3xl font-black ${acc.text}`}>
+                    <AnimatedCounter end={s.value} suffix={s.suffix} decimals={s.decimals ?? 0} />
+                  </div>
+                  <div className="text-muted-foreground text-sm mt-1">{s.label}</div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
       <CTASection />
-
       <Footer showCloser={false} />
     </div>
   );

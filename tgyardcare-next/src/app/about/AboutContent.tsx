@@ -3,188 +3,408 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
-import { Clock, CheckCircle2, Shield, Users, ArrowRight } from "lucide-react";
+import { TrustStrip } from '@/components/TrustStrip';
+import { GlassCard } from '@/components/GlassCard';
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
+import { AmbientParticles } from '@/components/AmbientParticles';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import {
+  Clock, CheckCircle2, Shield, Users, ArrowRight,
+  Star, MapPin, CalendarDays, Home, Building2,
+  Zap, Award, Phone, ChevronRight
+} from "lucide-react";
+import Link from "next/link";
+
+// Seasonal color tokens
+const seasonalAccent = {
+  summer: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', glow: 'shadow-emerald-500/20' },
+  fall:   { text: 'text-amber-400',   bg: 'bg-amber-500/10',   border: 'border-amber-500/30',   glow: 'shadow-amber-500/20'   },
+  winter: { text: 'text-cyan-400',    bg: 'bg-cyan-500/10',    border: 'border-cyan-500/30',    glow: 'shadow-cyan-500/20'    },
+} as const;
+
+const seasonalHeroBg = {
+  summer: 'from-[#050d07] via-[#0a1a0e] to-[#050d07]',
+  fall:   'from-[#0d0900] via-[#1a1000] to-[#0d0900]',
+  winter: 'from-[#020810] via-[#060f1a] to-[#020810]',
+} as const;
+
+const seasonalRadial = {
+  summer: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16,185,129,0.12) 0%, transparent 70%)',
+  fall:   'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,158,11,0.12) 0%, transparent 70%)',
+  winter: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,0.12) 0%, transparent 70%)',
+} as const;
+
+// Company metrics
+const metrics = [
+  { value: 500, suffix: '+', label: 'Properties Served', icon: Home },
+  { value: 4.9, suffix: '★', label: 'Google Rating', decimals: 1, icon: Star },
+  { value: 12, suffix: '', label: 'Cities Covered', icon: MapPin },
+  { value: 2019, suffix: '', label: 'Est.', icon: CalendarDays },
+];
+
+// TotalGuard Standard cards
+const standards = [
+  {
+    icon: Clock,
+    title: 'Response Time Commitment',
+    body: 'Quote requests answered within 24 hours. Phone calls and texts returned the same business day. No exceptions, no excuses.',
+  },
+  {
+    icon: Users,
+    title: 'Crew Consistency',
+    body: 'The same crew handles your property visit after visit. They know your preferences, your layout, and what "done right" looks like.',
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Quality Control Protocol',
+    body: 'Every job is walked before the crew leaves. Edges clean, beds clear, nothing missed. The standard: "Would we be proud to show this to anyone?"',
+  },
+  {
+    icon: Shield,
+    title: 'Make-It-Right Policy',
+    body: 'If something is missed, send us a photo. We return within 48 hours to correct it—no charge, no friction, no defensiveness.',
+  },
+];
+
+// Timeline milestones
+const milestones = [
+  { year: '2019', event: 'Founded in Madison', detail: 'Alex & Vance launch TotalGuard with a commitment to systems-first service.' },
+  { year: '2020', event: 'First 100 clients', detail: 'Rapid growth through word-of-mouth — 4.9★ rating established from day one.' },
+  { year: '2022', event: 'Commercial expansion', detail: 'Added HOA, office park, and retail property maintenance to our service portfolio.' },
+  { year: '2023', event: 'Dane County coverage', detail: 'Expanded to 12 cities — Madison, Middleton, Waunakee, Sun Prairie, and more.' },
+  { year: '2024', event: '500+ properties', detail: 'Serving 500+ residential and commercial properties across the greater Madison area.' },
+  { year: '2025+', event: 'The TotalGuard Standard', detail: 'Continuing to raise the bar for what reliable, systems-driven lawn care looks like in Wisconsin.' },
+];
+
+// Who we serve cards
+const clientTypes = [
+  {
+    icon: Home,
+    title: 'Residential Homeowners',
+    description: 'Homeowners who value their time and want consistent, professional maintenance — without managing the process themselves.',
+    link: '/residential',
+    cta: 'Residential Services',
+  },
+  {
+    icon: Building2,
+    title: 'Commercial Properties',
+    description: 'Property managers, HOAs, and business owners who need reliable, documented service across one or many properties.',
+    link: '/commercial',
+    cta: 'Commercial Services',
+  },
+];
 
 export default function AboutContent() {
+  const { activeSeason } = useSeasonalTheme();
+  const acc = seasonalAccent[activeSeason];
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Navigation showPromoBanner />
 
+      {/* SEO hidden text */}
       <section className="sr-only">
-        <h2>About TG Yard Care</h2>
-        <p>TG Yard Care (TotalGuard Yard Care) is a locally owned lawn care and landscaping company serving Madison, Wisconsin and surrounding Dane County communities since 2019. We provide professional mowing, mulching, gutter cleaning, seasonal cleanups, fertilization, and snow removal with a 4.9-star Google rating and 100% satisfaction guarantee. Our same-crew-every-visit approach ensures consistent, reliable service for 500+ residential and commercial properties.</p>
+        <h2>About TotalGuard Yard Care</h2>
+        <p>TotalGuard Yard Care is a locally owned lawn care company serving Madison, Wisconsin and Dane County since 2019. We provide professional mowing, mulching, gutter cleaning, seasonal cleanups, fertilization, and snow removal with a 4.9-star Google rating and 100% satisfaction guarantee.</p>
       </section>
 
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-primary/10 via-primary/5 to-background">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block bg-primary text-primary-foreground text-sm font-semibold uppercase tracking-wider px-6 py-2 rounded-full mb-6">
-            Madison's Reliability-First Lawn Care Company
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Built for Dane County Homeowners
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            TotalGuard exists because most lawn care companies operate without systems—and Madison homeowners pay the price. We built a different kind of operation for Dane County.
-          </p>
+      {/* ── HERO ── */}
+      <section
+        className={`relative overflow-hidden py-28 md:py-40 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}
+        style={{ backgroundImage: `${seasonalRadial[activeSeason]}` }}
+      >
+        <AmbientParticles density="low" className="absolute inset-0" />
+
+        {/* Glow orbs */}
+        <div className={`absolute top-1/4 left-1/3 w-96 h-96 rounded-full blur-3xl opacity-10 ${acc.bg}`} />
+        <div className={`absolute bottom-0 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-8 ${acc.bg}`} />
+
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <ScrollReveal>
+            <span className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold uppercase tracking-widest mb-8 ${acc.bg} ${acc.border} border ${acc.text}`}>
+              <Award className="h-4 w-4" />
+              Madison&apos;s Reliability-First Lawn Care
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tight mb-6">
+              Built Different.{' '}
+              <br />
+              <span className={acc.text}>On Purpose.</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <p className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto leading-relaxed mb-10">
+              TotalGuard exists because most lawn care companies operate without systems—and Madison homeowners pay the price. We built a different kind of operation for Dane County.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.3}>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/contact"
+                className={`inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-black text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${acc.text.replace('text-', 'bg-')} ${acc.glow} shadow-lg`}
+                style={{ background: activeSeason === 'summer' ? '#10b981' : activeSeason === 'fall' ? '#f59e0b' : '#06b6d4' }}
+              >
+                Get a Free Quote <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white/80 border border-white/10 backdrop-blur-sm hover:border-white/20 hover:text-white transition-all duration-300"
+              >
+                View Services <ChevronRight className="h-5 w-5" />
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* The Problem We Solve */}
-      <section className="py-16 md:py-20">
+      {/* ── TRUST STRIP ── */}
+      <TrustStrip variant="dark" />
+
+      {/* ── METRICS ── */}
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              Why TotalGuard Exists
+          <ScrollReveal className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+              By the Numbers
             </h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-5">
-              <p className="text-lg leading-relaxed">
-                Before starting TotalGuard, we worked with and observed dozens of lawn care operations across Wisconsin. The pattern was consistent: crews running behind schedule, owners unreachable by phone, quotes taking weeks, and customers left wondering if their service would actually show up.
-              </p>
-              <p className="text-lg leading-relaxed">
-                These aren&apos;t bad companies—they&apos;re companies without systems. When demand increases, service quality decreases. When the owner gets busy, communication stops. When a crew member changes, consistency disappears.
-              </p>
-              <p className="text-lg leading-relaxed">
-                TotalGuard was built to solve this. We designed an operation where reliability is structural, not dependent on any single person having a good day. Our systems ensure that whether you&apos;re our first customer or our hundredth, you receive the same level of responsiveness, consistency, and care.
-              </p>
-            </div>
+            <p className="text-muted-foreground text-lg">Six years of showing up, doing the work, and earning the rating.</p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {metrics.map((m, i) => {
+              const Icon = m.icon;
+              return (
+                <ScrollReveal key={i} delay={i * 0.08}>
+                  <GlassCard variant="dark" hover="glow" className="text-center p-8">
+                    <Icon className={`h-8 w-8 mx-auto mb-4 ${acc.text}`} />
+                    <div className={`text-4xl md:text-5xl font-black mb-1 ${acc.text}`}>
+                      <AnimatedCounter
+                        end={m.value}
+                        suffix={m.suffix}
+                        decimals={m.decimals ?? 0}
+                        duration={2200}
+                      />
+                    </div>
+                    <div className="text-white/50 text-sm font-medium uppercase tracking-wide">{m.label}</div>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* The TotalGuard Standard */}
-      <section className="py-16 md:py-20 bg-muted/50">
+      {/* ── WHY TOTALGUARD EXISTS ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                The TotalGuard Standard
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <ScrollReveal direction="left">
+              <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+                Origin Story
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+                Why TotalGuard Exists
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Our operating philosophy isn&apos;t a marketing phrase—it&apos;s a documented set of commitments that govern every interaction with every client.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              <div className="flex flex-col p-6 md:p-8 bg-background rounded-xl border border-border">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
-                    <Clock className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Response Time Commitment</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  Quote requests are answered within 24 hours. Phone calls and texts are returned the same business day. If you reach out, you hear back—no exceptions, no excuses.
+              <div className="space-y-5 text-white/60 text-lg leading-relaxed">
+                <p>
+                  Before starting TotalGuard, we worked with dozens of lawn care operations across Wisconsin. The pattern was consistent: crews running behind, owners unreachable, quotes taking weeks, customers left wondering if service would even show up.
+                </p>
+                <p>
+                  These aren&apos;t bad companies—they&apos;re companies without systems. When demand increases, quality decreases. When the owner gets busy, communication stops.
+                </p>
+                <p>
+                  TotalGuard was built to solve this. Reliability by design, not by luck.
                 </p>
               </div>
+            </ScrollReveal>
 
-              <div className="flex flex-col p-6 md:p-8 bg-background rounded-xl border border-border">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
-                    <Users className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Crew Consistency</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  The same crew handles your property visit after visit. They know your preferences, your property&apos;s layout, and what &quot;done right&quot; looks like for your specific situation.
-                </p>
+            <ScrollReveal direction="right" delay={0.1}>
+              <div className="space-y-4">
+                {[
+                  { icon: Zap, label: 'Crews running on schedule', desc: 'Route-optimized, time-committed' },
+                  { icon: Phone, label: 'Owner reachable by phone', desc: 'Direct line, same-day response' },
+                  { icon: CheckCircle2, label: 'Quotes within 24 hours', desc: 'No waiting, no chasing' },
+                  { icon: Shield, label: 'Guaranteed to show up', desc: '100% satisfaction, make-it-right policy' },
+                ].map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-start gap-4 p-4 rounded-xl ${acc.bg} border ${acc.border} transition-all duration-300 hover:border-opacity-60`}
+                    >
+                      <div className={`p-2 rounded-lg ${acc.bg}`}>
+                        <Icon className={`h-5 w-5 ${acc.text}`} />
+                      </div>
+                      <div>
+                        <div className="text-white font-semibold text-sm">{item.label}</div>
+                        <div className="text-white/40 text-sm">{item.desc}</div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-
-              <div className="flex flex-col p-6 md:p-8 bg-background rounded-xl border border-border">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Quality Control Protocol</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  Every job is walked before the crew leaves. We verify edges are clean, beds are clear, and nothing was missed. The standard isn&apos;t &quot;good enough&quot;—it&apos;s &quot;would we be proud to show this to anyone.&quot;
-                </p>
-              </div>
-
-              <div className="flex flex-col p-6 md:p-8 bg-background rounded-xl border border-border">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
-                    <Shield className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Make-It-Right Policy</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  If something is missed or doesn&apos;t meet expectations, send us a photo. We return within 48 hours to correct it—no charge, no friction, no defensiveness. Accountability is built into the system.
-                </p>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* How We Operate */}
-      <section className="py-16 md:py-20">
+      {/* ── THE TOTALGUARD STANDARD ── */}
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              How We Operate Across Dane County
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+              Our Operating Philosophy
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
+              The TotalGuard Standard
             </h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-5">
-              <p className="text-lg leading-relaxed">
-                TotalGuard is owner-operated. Alex and Vance are directly involved in quoting, scheduling, and quality oversight—not managing from a distance. When you call, you&apos;re talking to someone who knows your Madison, Middleton, or Waunakee property and has the authority to make decisions.
-              </p>
-              <p className="text-lg leading-relaxed">
-                We maintain a focused service area: Madison and the surrounding Dane County communities including Middleton, Waunakee, Sun Prairie, Monona, Fitchburg, Verona, McFarland, DeForest, Cottage Grove, Oregon, and Stoughton. This isn&apos;t a limitation—it&apos;s intentional. A tighter geographic footprint means faster response times, more predictable scheduling, and crews that know the neighborhoods they serve.
-              </p>
-              <p className="text-lg leading-relaxed">
-                Our pricing is transparent and provided upfront. You&apos;ll know exactly what a service costs before we begin, and the invoice will match the quote. No surprises, no add-ons, no &quot;we found something else while we were there&quot; conversations.
-              </p>
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
+              Not a marketing phrase—a documented set of commitments that govern every interaction.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {standards.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <ScrollReveal key={i} delay={i * 0.08}>
+                  <GlassCard variant="dark" hover="lift" accentBorder className="h-full">
+                    <div className={`inline-flex p-3 rounded-xl ${acc.bg} mb-5`}>
+                      <Icon className={`h-6 w-6 ${acc.text}`} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">{s.title}</h3>
+                    <p className="text-white/55 leading-relaxed">{s.body}</p>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TIMELINE ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-16">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+              Company History
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              Our Journey
+            </h2>
+            <p className="text-white/50 text-xl max-w-2xl mx-auto">
+              Six years of building something Madison could depend on.
+            </p>
+          </ScrollReveal>
+
+          <div className="max-w-3xl mx-auto relative">
+            {/* Vertical line */}
+            <div className={`absolute left-8 top-0 bottom-0 w-px ${acc.border} border-l`} />
+
+            <div className="space-y-8">
+              {milestones.map((m, i) => (
+                <ScrollReveal key={i} delay={i * 0.07}>
+                  <div className="flex gap-8 items-start">
+                    {/* Year badge */}
+                    <div className={`relative flex-shrink-0 w-16 h-16 rounded-xl ${acc.bg} border ${acc.border} flex items-center justify-center z-10`}>
+                      <span className={`text-xs font-black ${acc.text} text-center leading-tight`}>{m.year}</span>
+                    </div>
+                    {/* Content */}
+                    <div className="flex-1 pt-2">
+                      <h3 className="text-white font-bold text-lg mb-1">{m.event}</h3>
+                      <p className="text-white/45 text-sm leading-relaxed">{m.detail}</p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who We Serve */}
-      <section className="py-16 md:py-20 bg-muted/50">
+      {/* ── WHO WE SERVE ── */}
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+              Our Clients
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">
               Who We Serve
             </h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-5">
-              <p className="text-lg leading-relaxed">
-                Our residential clients are homeowners who value their time and want their property maintained to a consistent standard without having to manage the process. They&apos;ve often been burned by providers who started strong and faded—and they&apos;re looking for a company that operates differently.
-              </p>
-              <p className="text-lg leading-relaxed">
-                Our commercial clients include property managers, HOAs, and business owners who need reliable, documented service across multiple properties. They value clear communication, predictable scheduling, and the ability to reach someone when issues arise.
-              </p>
-              <p className="text-lg leading-relaxed">
-                In both cases, the relationship works because expectations are set clearly and met consistently. We don&apos;t overpromise. We don&apos;t underdeliver. We show up, do the work correctly, and communicate proactively.
-              </p>
-            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {clientTypes.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <ScrollReveal key={i} delay={i * 0.1}>
+                  <GlassCard variant="dark" hover="lift" className="h-full">
+                    <div className={`inline-flex p-4 rounded-2xl ${acc.bg} border ${acc.border} mb-6`}>
+                      <Icon className={`h-8 w-8 ${acc.text}`} />
+                    </div>
+                    <h3 className="text-2xl font-black text-white mb-4">{c.title}</h3>
+                    <p className="text-white/55 leading-relaxed mb-6">{c.description}</p>
+                    <Link
+                      href={c.link}
+                      className={`inline-flex items-center gap-2 font-semibold ${acc.text} hover:underline transition-all`}
+                    >
+                      {c.cta} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Long-Term Partnership */}
-      <section className="py-16 md:py-20">
+      {/* ── HOW WE OPERATE ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              A Long-Term Approach to Property Care
-            </h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground space-y-5">
-              <p className="text-lg leading-relaxed">
-                We&apos;re not interested in one-time transactions. TotalGuard is built for ongoing relationships where we understand your property&apos;s needs across seasons and years—not just what it looks like today, but how it should develop over time.
-              </p>
-              <p className="text-lg leading-relaxed">
-                This means we&apos;ll tell you when your lawn needs aeration, when your gutters should be cleaned before the fall rush, or when a garden bed would benefit from fresh mulch. Not because we&apos;re upselling, but because proactive maintenance costs less and delivers better results than reactive fixes.
-              </p>
-              <p className="text-lg leading-relaxed">
-                When you work with TotalGuard, you&apos;re not hiring a vendor—you&apos;re establishing a property care partner who operates with the same standards whether you&apos;re watching or not.
-              </p>
+            <ScrollReveal>
+              <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>
+                Operations
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-8 leading-tight">
+                How We Operate Across Dane County
+              </h2>
+            </ScrollReveal>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {[
+                { title: 'Owner-Operated', body: 'Alex and Vance are directly involved in quoting, scheduling, and quality oversight—not managing from a distance.' },
+                { title: 'Focused Service Area', body: 'Madison and surrounding Dane County communities. Tighter geography = faster response, more predictable scheduling.' },
+                { title: 'Transparent Pricing', body: 'You\'ll know exactly what a service costs before we begin. The invoice will match the quote. No surprises.' },
+              ].map((item, i) => (
+                <ScrollReveal key={i} delay={i * 0.08}>
+                  <GlassCard variant="dark" hover="glow" className="h-full">
+                    <h3 className={`font-black text-lg mb-3 ${acc.text}`}>{item.title}</h3>
+                    <p className="text-white/55 leading-relaxed text-sm">{item.body}</p>
+                  </GlassCard>
+                </ScrollReveal>
+              ))}
             </div>
+
+            <ScrollReveal delay={0.2}>
+              <GlassCard variant="dark" hover="none" className={`border-l-4 ${acc.border.replace('border-', 'border-l-')}`}>
+                <blockquote className="text-white/70 text-lg leading-relaxed italic">
+                  &ldquo;When you work with TotalGuard, you&apos;re not hiring a vendor—you&apos;re establishing a property care partner who operates with the same standards whether you&apos;re watching or not.&rdquo;
+                </blockquote>
+                <div className={`mt-4 font-bold ${acc.text}`}>— Alex & Vance, Founders</div>
+              </GlassCard>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <CTASection />
-
       <Footer showCloser={false} />
     </div>
   );

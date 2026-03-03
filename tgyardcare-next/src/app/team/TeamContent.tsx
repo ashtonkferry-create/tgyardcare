@@ -3,225 +3,307 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
-import { Users, Award, Target, Heart, Sparkles, Phone } from "lucide-react";
+import { GlassCard } from '@/components/GlassCard';
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { AmbientParticles } from '@/components/AmbientParticles';
+import { TrustStrip } from '@/components/TrustStrip';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import {
+  Users, Award, Target, Heart,
+  Sparkles, Phone, Car, Trophy, ArrowRight, Shield, CheckCircle2
+} from "lucide-react";
+import Link from "next/link";
 import alexPortrait from "@/assets/alex-portrait.png";
 import vancePortrait from "@/assets/vance-portrait.png";
+
+const seasonalAccent = {
+  summer: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', solid: '#10b981', glow: 'shadow-emerald-500/25' },
+  fall:   { text: 'text-amber-400',   bg: 'bg-amber-500/10',   border: 'border-amber-500/30',   solid: '#f59e0b', glow: 'shadow-amber-500/25'   },
+  winter: { text: 'text-cyan-400',    bg: 'bg-cyan-500/10',    border: 'border-cyan-500/30',    solid: '#06b6d4', glow: 'shadow-cyan-500/25'    },
+} as const;
+
+const seasonalHeroBg = {
+  summer: 'from-[#050d07] via-[#0a1a0e] to-[#050d07]',
+  fall:   'from-[#0d0900] via-[#1a1000] to-[#0d0900]',
+  winter: 'from-[#020810] via-[#060f1a] to-[#020810]',
+} as const;
+
+const seasonalRadial = {
+  summer: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16,185,129,0.12) 0%, transparent 70%)',
+  fall:   'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,158,11,0.12) 0%, transparent 70%)',
+  winter: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,0.12) 0%, transparent 70%)',
+} as const;
 
 const teamMembers = [
   {
     name: "Alex",
     role: "Co-Founder",
+    funFact: "Car Enthusiast 🚗",
+    funFactDetail: "Probably knows more about your engine than your mechanic.",
     description: "When Alex isn't making your lawn look sharp, he's probably under the hood of a car figuring out what makes it tick. He's the kind of guy you can actually have a conversation with—no awkward small talk, just genuine and easy to work with. If you've got questions about your yard (or need a second opinion on that weird noise your car's making), he's your guy.",
-    image: alexPortrait
+    image: alexPortrait,
+    strengths: ['Route optimization', 'Quality inspection', 'Client communication'],
   },
   {
     name: "Vance",
     role: "Co-Founder",
-    description: "Vance genuinely gets a kick out of seeing customers happy—it's kind of his thing. There's nothing better than finishing a job and knowing someone's going to pull into their driveway and smile. When he's not transforming yards, he's getting ready to play volleyball at UW-Stevens Point. Yes, he'll probably mention it.",
-    image: vancePortrait
-  }
+    funFact: "Volleyball at UWSP 🏐",
+    funFactDetail: "Yes, he'll probably mention it. And he's earned the right to.",
+    description: "Vance genuinely gets a kick out of seeing customers happy—it's kind of his thing. There's nothing better than finishing a job and knowing someone's going to pull into their driveway and smile. When he's not transforming yards, he's getting ready to play volleyball at UW-Stevens Point.",
+    image: vancePortrait,
+    strengths: ['Customer experience', 'Operations strategy', 'New client onboarding'],
+  },
 ];
 
 const values = [
-  {
-    icon: Award,
-    title: "Quality First",
-    description: "We never compromise on the quality of our work. Every property gets our best effort, every time."
-  },
-  {
-    icon: Target,
-    title: "Reliability",
-    description: "When we say we'll be there, we'll be there. Consistent, dependable service you can count on."
-  },
-  {
-    icon: Heart,
-    title: "Customer Care",
-    description: "Your satisfaction is our priority. We listen, communicate, and go the extra mile for every client."
-  },
-  {
-    icon: Users,
-    title: "Local Focus",
-    description: "As Madison locals, we take pride in making our community more beautiful, one yard at a time."
-  }
+  { icon: Award, title: "Quality First", description: "We never compromise on the quality of our work. Every property gets our best effort, every time." },
+  { icon: Target, title: "Reliability", description: "When we say we'll be there, we'll be there. Consistent, dependable service you can count on." },
+  { icon: Heart, title: "Customer Care", description: "Your satisfaction is our priority. We listen, communicate, and go the extra mile for every client." },
+  { icon: Users, title: "Local Focus", description: "As Madison locals, we take pride in making our community more beautiful, one yard at a time." },
+];
+
+const whyYoungEntrepreneurs = [
+  { icon: Sparkles, title: "Fresh Perspective", body: "Modern techniques and innovative solutions applied to traditional lawn care." },
+  { icon: Trophy, title: "Hungry to Prove Ourselves", body: "Every job is an opportunity to exceed expectations and build our reputation." },
+  { icon: Phone, title: "Tech-Savvy Communication", body: "Easy scheduling, quick responses, and transparent updates throughout the process." },
+  { icon: Heart, title: "Invested in Your Satisfaction", body: "We rely on happy customers and word-of-mouth referrals — your satisfaction is our marketing." },
 ];
 
 export default function TeamContent() {
+  const { activeSeason } = useSeasonalTheme();
+  const acc = seasonalAccent[activeSeason];
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Navigation />
 
+      {/* SEO hidden text */}
       <section className="sr-only">
-        <h2>Meet the TG Yard Care Team</h2>
-        <p>The TG Yard Care team is a dedicated group of lawn care and landscaping professionals serving Madison, Wisconsin. Our crew members are trained, insured, and committed to delivering consistent quality on every property. With our same-crew-every-visit policy, you'll always know who's taking care of your yard.</p>
+        <h2>Meet the TotalGuard Yard Care Team</h2>
+        <p>TotalGuard Yard Care was founded by Alex and Vance, two Madison entrepreneurs committed to reliable, systems-driven lawn care across Dane County, Wisconsin since 2019.</p>
       </section>
 
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-primary/5 via-secondary/30 to-background overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.08),transparent_50%)]" />
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="inline-flex items-center bg-primary/10 text-primary px-5 py-2 rounded-full text-sm font-bold mb-6 uppercase tracking-wide animate-fade-in">
-            The Faces Behind TotalGuard
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            Meet Our Team
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Young entrepreneurs with a passion for excellence and a commitment to transforming lawns across Madison, Wisconsin.
-          </p>
+      {/* ── HERO ── */}
+      <section
+        className={`relative overflow-hidden py-28 md:py-40 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}
+        style={{ backgroundImage: seasonalRadial[activeSeason] }}
+      >
+        <AmbientParticles density="low" className="absolute inset-0" />
+        <div className={`absolute top-1/4 right-1/3 w-96 h-96 rounded-full blur-3xl opacity-10 ${acc.bg}`} />
+
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <ScrollReveal>
+            <span className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold uppercase tracking-widest mb-8 ${acc.bg} ${acc.border} border ${acc.text}`}>
+              <Users className="h-4 w-4" />
+              The Founders
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.08}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tight mb-6">
+              The Faces Behind{' '}
+              <br />
+              <span className={acc.text}>Every Perfect Lawn</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.15}>
+            <p className="text-xl md:text-2xl text-white/55 max-w-3xl mx-auto leading-relaxed mb-10">
+              Young entrepreneurs with a passion for excellence and a commitment to transforming lawns across Madison, Wisconsin.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-black text-lg transition-all duration-300 hover:scale-105 shadow-lg"
+              style={{ background: acc.solid }}
+            >
+              Work With Us <ArrowRight className="h-5 w-5" />
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Team Members */}
-      <section className="py-20 relative">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                The Founders
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                TotalGuard Yard Care was founded by two driven young entrepreneurs who saw an opportunity to provide exceptional lawn care services to the Madison community.
-              </p>
-            </div>
+      <TrustStrip variant="dark" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={index}
-                  className="group bg-gradient-to-b from-card to-card/50 p-10 rounded-2xl border-2 border-border hover:border-primary/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-fade-in"
-                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-                >
-                  <div className="relative w-36 h-36 mx-auto mb-6">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
-                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-primary/30 group-hover:border-primary shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:scale-105">
-                      <img
-                        src={typeof member.image === 'string' ? member.image : member.image.src}
-                        alt={`${member.name} - ${member.role} of TotalGuard Yard Care - Professional lawn care expert in Madison Wisconsin`}
-                        className="w-full h-full object-cover brightness-105"
-                        loading="lazy"
-                        width="144"
-                        height="144"
-                      />
+      {/* ── FOUNDER CARDS ── */}
+      <section className="py-20 md:py-28 bg-background">
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-16">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>Leadership</span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">The Founders</h2>
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
+              TotalGuard was founded by two driven entrepreneurs who saw an opportunity to do lawn care the right way.
+            </p>
+          </ScrollReveal>
+
+          <div className="space-y-12 max-w-5xl mx-auto">
+            {teamMembers.map((member, index) => (
+              <ScrollReveal key={index} delay={index * 0.1} direction={index % 2 === 0 ? 'left' : 'right'}>
+                <GlassCard variant="dark" hover="glow" className="overflow-hidden">
+                  <div className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
+                    {/* Portrait */}
+                    <div className="flex-shrink-0 relative">
+                      <div className={`absolute -inset-4 rounded-3xl blur-2xl opacity-20 ${acc.bg}`} />
+                      <div className={`relative w-48 h-48 rounded-2xl overflow-hidden border-2 ${acc.border} shadow-2xl`}>
+                        <img
+                          src={typeof member.image === 'string' ? member.image : member.image.src}
+                          alt={`${member.name} - ${member.role} of TotalGuard Yard Care`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          width="192"
+                          height="192"
+                        />
+                      </div>
+                      {/* Fun fact badge */}
+                      <div className={`absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl text-xs font-bold ${acc.bg} border ${acc.border} ${acc.text} whitespace-nowrap shadow-lg`}>
+                        {member.funFact}
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="mb-1">
+                        <span className={`text-xs font-bold uppercase tracking-widest ${acc.text}`}>{member.role}</span>
+                      </div>
+                      <h3 className="text-4xl font-black text-white mb-1">{member.name}</h3>
+                      <p className="text-white/30 text-sm italic mb-5">{member.funFactDetail}</p>
+                      <p className="text-white/60 leading-relaxed mb-6">{member.description}</p>
+
+                      {/* Strengths */}
+                      <div className="flex flex-wrap gap-2">
+                        {member.strengths.map((s, j) => (
+                          <span key={j} className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold ${acc.bg} border ${acc.border} ${acc.text}`}>
+                            <CheckCircle2 className="h-3 w-3" />
+                            {s}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <h3 className="text-3xl font-bold text-foreground mb-2 text-center group-hover:text-primary transition-colors">{member.name}</h3>
-                  <p className="text-primary font-bold mb-5 text-center text-lg tracking-wide">{member.role}</p>
-                  <p className="text-muted-foreground text-center leading-relaxed text-base">{member.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-accent/5 p-10 rounded-2xl border-2 border-primary/30 shadow-xl animate-fade-in overflow-hidden" style={{ animationDelay: '0.5s' }}>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
-              <div className="relative z-10">
-                <h3 className="text-3xl font-bold text-foreground mb-6 text-center">Our Story</h3>
-                <p className="text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto text-lg">
-                  What started as a simple idea to help neighbors with their lawn care has grown into TotalGuard Yard Care.
-                  As young business owners, Alex and Vance bring fresh energy, modern techniques, and an unwavering commitment
-                  to customer satisfaction. They understand that your property is your pride, and they treat every lawn with
-                  the same care they&apos;d give their own.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Values */}
-      <section className="py-20 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.05),transparent_70%)]" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Drives Us
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our values guide everything we do, from how we interact with clients to the quality of work we deliver.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {values.map((value, index) => (
-              <div
-                key={index}
-                className="group bg-background p-8 rounded-xl border-2 border-border text-center hover:shadow-xl hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 animate-fade-in"
-                style={{ animationDelay: `${0.1 * index}s` }}
-              >
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
-                  <value.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">{value.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{value.description}</p>
-              </div>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Young Entrepreneurs */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center animate-fade-in">
-              Why Choose Young Entrepreneurs?
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="group bg-card p-8 rounded-xl border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Sparkles className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Fresh Perspective</h3>
-                    <p className="text-muted-foreground leading-relaxed">We bring modern techniques and innovative solutions to traditional lawn care.</p>
-                  </div>
-                </div>
-              </div>
+      {/* ── OUR STORY ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <ScrollReveal>
+              <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>Our Story</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-8">Built From the Ground Up</h2>
+            </ScrollReveal>
 
-              <div className="group bg-card p-8 rounded-xl border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Target className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Hungry to Prove Ourselves</h3>
-                    <p className="text-muted-foreground leading-relaxed">Every job is an opportunity to exceed expectations and build our reputation.</p>
-                  </div>
-                </div>
-              </div>
+            <ScrollReveal delay={0.08}>
+              <GlassCard variant="dark" hover="none" className={`border-l-4 border-l-[${acc.solid}] text-left mb-8`}>
+                <p className="text-white/65 text-lg leading-relaxed">
+                  What started as a simple idea to help neighbors with their lawn care has grown into TotalGuard Yard Care. As young business owners, Alex and Vance bring fresh energy, modern techniques, and an unwavering commitment to customer satisfaction. They understand that your property is your pride, and they treat every lawn with the same care they&apos;d give their own.
+                </p>
+              </GlassCard>
+            </ScrollReveal>
 
-              <div className="group bg-card p-8 rounded-xl border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Phone className="h-6 w-6 text-primary" />
+            <ScrollReveal delay={0.15}>
+              <div className="grid grid-cols-3 gap-6">
+                {[
+                  { value: '2019', label: 'Founded' },
+                  { value: '500+', label: 'Properties Served' },
+                  { value: '4.9★', label: 'Google Rating' },
+                ].map((stat, i) => (
+                  <div key={i} className={`py-6 rounded-xl ${acc.bg} border ${acc.border}`}>
+                    <div className={`text-3xl font-black ${acc.text} mb-1`}>{stat.value}</div>
+                    <div className="text-white/40 text-sm">{stat.label}</div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Tech-Savvy Communication</h3>
-                    <p className="text-muted-foreground leading-relaxed">Easy scheduling, quick responses, and transparent updates throughout the process.</p>
-                  </div>
-                </div>
+                ))}
               </div>
-
-              <div className="group bg-card p-8 rounded-xl border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Heart className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Invested in Growth</h3>
-                    <p className="text-muted-foreground leading-relaxed">Your satisfaction means everything to us. We rely on happy customers and word-of-mouth referrals.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      <CTASection />
+      {/* ── VALUES ── */}
+      <section className="py-20 md:py-28 bg-background">
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>Core Values</span>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4">What Drives Us</h2>
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto">Our values guide everything we do, from client interactions to job-site execution.</p>
+          </ScrollReveal>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {values.map((value, index) => {
+              const Icon = value.icon;
+              return (
+                <ScrollReveal key={index} delay={index * 0.08}>
+                  <GlassCard variant="dark" hover="lift" className="text-center h-full">
+                    <div className={`inline-flex p-4 rounded-2xl ${acc.bg} border ${acc.border} mb-5`}>
+                      <Icon className={`h-7 w-7 ${acc.text}`} />
+                    </div>
+                    <h3 className="text-lg font-black text-white mb-3">{value.title}</h3>
+                    <p className="text-white/50 text-sm leading-relaxed">{value.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY YOUNG ENTREPRENEURS ── */}
+      <section className={`py-20 md:py-28 bg-gradient-to-b ${seasonalHeroBg[activeSeason]}`}>
+        <div className="container mx-auto px-4">
+          <ScrollReveal className="text-center mb-14">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest mb-4 ${acc.text}`}>The Advantage</span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Why Choose Young Entrepreneurs?</h2>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {whyYoungEntrepreneurs.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <ScrollReveal key={i} delay={i * 0.08}>
+                  <GlassCard variant="dark" hover="lift" accentBorder className="flex gap-4 h-full">
+                    <div className={`p-3 rounded-xl ${acc.bg} border ${acc.border} flex-shrink-0 h-fit`}>
+                      <Icon className={`h-6 w-6 ${acc.text}`} />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
+                      <p className="text-white/50 leading-relaxed text-sm">{item.body}</p>
+                    </div>
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CREW CALLOUT ── */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <ScrollReveal>
+            <GlassCard variant="dark" hover="none" className="text-center py-12">
+              <Shield className={`h-12 w-12 mx-auto mb-5 ${acc.text}`} />
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-4">Your Crew Is Assigned to You</h2>
+              <p className="text-white/55 max-w-2xl mx-auto leading-relaxed mb-8">
+                With TotalGuard, you don&apos;t get a rotating cast of strangers. Your crew knows your property, your preferences, and what "done right" means for your specific yard. Same team, every visit.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-black transition-all duration-300 hover:scale-105 shadow-lg"
+                style={{ background: acc.solid }}
+              >
+                Meet Your Crew <ArrowRight className="h-5 w-5" />
+              </Link>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <CTASection />
       <Footer showCloser={false} />
     </div>
   );
