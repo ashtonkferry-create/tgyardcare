@@ -35,10 +35,19 @@ const seasonalCheck = {
   winter: 'text-cyan-400',
 } as const;
 
-const seasonalSectionBg = {
-  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
-  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
-  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+const seasonalBg = {
+  summer: {
+    page:    '#050d07',
+    section: '#0a1a0e',
+  },
+  fall: {
+    page:    '#0d0900',
+    section: '#1a1000',
+  },
+  winter: {
+    page:    '#020810',
+    section: '#060f1a',
+  },
 } as const;
 
 const services = [
@@ -135,9 +144,10 @@ const differentiators = [
 
 export default function CommercialPropertyEnhancementContent() {
   const { activeSeason } = useSeasonalTheme();
+  const bg = seasonalBg[activeSeason];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen text-white" style={{ background: bg.page }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Commercial', url: 'https://tgyardcare.com/commercial' },
@@ -200,14 +210,14 @@ export default function CommercialPropertyEnhancementContent() {
       <TrustStrip variant="dark" />
 
       {/* Who This Is For */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Commercial landscape management for property operations
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
+              <p className="text-base md:text-lg text-white/60">
                 Designed for property managers, HOA boards, and facility directors who need landscape beds that look professional from April through November—not just during spring installation.
               </p>
             </div>
@@ -217,8 +227,8 @@ export default function CommercialPropertyEnhancementContent() {
               <ScrollReveal key={index} delay={index * 0.1}>
                 <GlassCard hover="lift">
                   <Building2 className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
-                  <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
-                  <p className="text-muted-foreground text-sm">{type.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">{type.name}</h3>
+                  <p className="text-white/60 text-sm">{type.description}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -227,7 +237,7 @@ export default function CommercialPropertyEnhancementContent() {
       </section>
 
       {/* What Makes Us Different */}
-      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
@@ -255,14 +265,14 @@ export default function CommercialPropertyEnhancementContent() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Commercial enhancement service scope
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-base md:text-lg text-white/60 max-w-3xl mx-auto">
                 Complete landscape enhancement solutions designed for commercial properties requiring consistent, professional appearance.
               </p>
             </div>
@@ -274,13 +284,13 @@ export default function CommercialPropertyEnhancementContent() {
                   <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6" aria-hidden="true">
                     <service.icon className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                  <p className="text-white/60 mb-6">{service.description}</p>
                   <ul className="space-y-3">
                     {service.items.map((item, idx) => (
                       <li key={idx} className="flex items-start">
                         <CheckCircle2 className={cn('h-5 w-5 mr-2 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
-                        <span className="text-foreground">{item}</span>
+                        <span className="text-white">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -294,7 +304,7 @@ export default function CommercialPropertyEnhancementContent() {
       <CTASection variant="compact" />
 
       {/* Annual Program Calendar */}
-      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
@@ -323,15 +333,15 @@ export default function CommercialPropertyEnhancementContent() {
       </section>
 
       {/* Quality Standards */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                   Commercial service standards
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground">
+                <p className="text-base md:text-lg text-white/60">
                   What you can expect from every enhancement and maintenance visit.
                 </p>
               </div>
@@ -342,7 +352,7 @@ export default function CommercialPropertyEnhancementContent() {
                   <GlassCard hover="lift" className="p-4">
                     <div className="flex items-start">
                       <CheckCircle2 className={cn('h-5 w-5 mr-3 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
-                      <span className="text-foreground">{standard}</span>
+                      <span className="text-white">{standard}</span>
                     </div>
                   </GlassCard>
                 </ScrollReveal>
@@ -353,15 +363,15 @@ export default function CommercialPropertyEnhancementContent() {
       </section>
 
       {/* Pricing Structure */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20" style={{ background: bg.page }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                   Commercial pricing structure
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground">
+                <p className="text-base md:text-lg text-white/60">
                   Flexible contract options for commercial property budgeting and annual planning.
                 </p>
               </div>
@@ -370,16 +380,16 @@ export default function CommercialPropertyEnhancementContent() {
               {pricingStructure.map((option, index) => (
                 <ScrollReveal key={index} delay={index * 0.1}>
                   <GlassCard variant="dark" hover="glow">
-                    <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
-                    <p className="text-muted-foreground">{option.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-3">{option.title}</h3>
+                    <p className="text-white/60">{option.description}</p>
                   </GlassCard>
                 </ScrollReveal>
               ))}
             </div>
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
-                <p className="text-muted-foreground">
-                  Annual bed maintenance programs typically range from <strong className="text-foreground">$200\u2013$800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
+                <p className="text-white/60">
+                  Annual bed maintenance programs typically range from <strong className="text-white">$200\u2013$800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
                 </p>
               </div>
             </ScrollReveal>
@@ -390,14 +400,14 @@ export default function CommercialPropertyEnhancementContent() {
       <TrustStrip variant="light" />
 
       {/* Related Commercial Services */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className="py-16 md:py-20" style={{ background: bg.section }}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Integrate with other commercial services
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-8">
+              <p className="text-base md:text-lg text-white/60 mb-8">
                 Most commercial properties bundle landscape enhancement with lawn care and seasonal services for complete grounds management.
               </p>
             </ScrollReveal>
@@ -405,24 +415,24 @@ export default function CommercialPropertyEnhancementContent() {
               <ScrollReveal delay={0}>
                 <Link href="/commercial/lawn-care" className="group block">
                   <GlassCard hover="lift" className="text-center py-5">
-                    <span className="text-foreground font-semibold group-hover:text-primary transition-colors">Lawn Care Contracts</span>
-                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-white font-semibold group-hover:text-primary transition-colors">Lawn Care Contracts</span>
+                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </GlassCard>
                 </Link>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
                 <Link href="/commercial/seasonal" className="group block">
                   <GlassCard hover="lift" className="text-center py-5">
-                    <span className="text-foreground font-semibold group-hover:text-primary transition-colors">Seasonal Cleanups</span>
-                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-white font-semibold group-hover:text-primary transition-colors">Seasonal Cleanups</span>
+                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </GlassCard>
                 </Link>
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <Link href="/commercial/gutters" className="group block">
                   <GlassCard hover="lift" className="text-center py-5">
-                    <span className="text-foreground font-semibold group-hover:text-primary transition-colors">Gutter Maintenance</span>
-                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-white font-semibold group-hover:text-primary transition-colors">Gutter Maintenance</span>
+                    <ArrowRight className="h-4 w-4 mx-auto mt-2 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </GlassCard>
                 </Link>
               </ScrollReveal>
