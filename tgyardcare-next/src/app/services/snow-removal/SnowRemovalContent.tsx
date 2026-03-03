@@ -75,8 +75,8 @@ export default function SnowRemovalContent() {
             role="img"
             aria-label="Professional snow removal service showing snow plow truck clearing driveway of Wisconsin residential home in winter"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a1f14]/90 via-[#0a1f14]/50 to-[#0a1f14]/85" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,31,20,0.4)_100%)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#020810]/90 via-[#020810]/50 to-[#020810]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,8,16,0.4)_100%)]" />
           </div>
           <AmbientParticles density="sparse" />
 
@@ -119,7 +119,7 @@ export default function SnowRemovalContent() {
         <TrustStrip variant="dark" />
 
         {/* Who This Is For */}
-        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
+        <section className="py-14 md:py-20" style={{ background: '#060f1a' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <ScrollReveal>
@@ -209,7 +209,7 @@ export default function SnowRemovalContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             HOW IT WORKS — Animated process timeline
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
+        <section className="py-14 md:py-20" style={{ background: '#060f1a' }}>
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">How Snow Removal Works</h2>
@@ -325,7 +325,7 @@ export default function SnowRemovalContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             PRICING — Cinematic pricing section
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
+        <section className="py-14 md:py-20" style={{ background: '#060f1a' }}>
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <div className="max-w-3xl mx-auto">
