@@ -5,7 +5,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
 import { ServiceSchema } from "@/components/ServiceSchema";
-import { MapPin, CheckCircle2, Phone, Star, ArrowRight, Sparkles, Award } from "lucide-react";
+import { MapPin, CheckCircle2, Phone, Star, ArrowRight, Sparkles, Award, Scissors, Sprout, Wind, Leaf, Droplets, Shield, Layers, Flower2, Shovel, Wheat, FlaskConical, Snowflake as SnowflakeIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -24,19 +25,19 @@ const serviceAreas = [
   "Stoughton"
 ];
 
-const services = [
-  { name: "Lawn mowing & maintenance", path: "/services/mowing", icon: "🏡" },
-  { name: "Spring cleanup", path: "/services/spring-cleanup", icon: "🌱" },
-  { name: "Fall cleanup", path: "/services/fall-cleanup", icon: "🍂" },
-  { name: "Leaf removal", path: "/services/leaf-removal", icon: "🍃" },
-  { name: "Gutter cleaning", path: "/services/gutter-cleaning", icon: "🏠" },
-  { name: "Gutter guard installation", path: "/services/gutter-guards", icon: "🛡️" },
-  { name: "Mulching services", path: "/services/mulching", icon: "🪵" },
-  { name: "Garden bed makeovers", path: "/services/garden-beds", icon: "🌺" },
-  { name: "Weeding", path: "/services/weeding", icon: "🌿" },
-  { name: "Fertilization & overseeding", path: "/services/fertilization", icon: "🌾" },
-  { name: "Herbicide application", path: "/services/herbicide", icon: "🌱" },
-  { name: "Snow removal", path: "/services/snow-removal", icon: "❄️" }
+const services: { name: string; path: string; Icon: LucideIcon }[] = [
+  { name: "Lawn mowing & maintenance", path: "/services/mowing", Icon: Scissors },
+  { name: "Spring cleanup", path: "/services/spring-cleanup", Icon: Sprout },
+  { name: "Fall cleanup", path: "/services/fall-cleanup", Icon: Wind },
+  { name: "Leaf removal", path: "/services/leaf-removal", Icon: Leaf },
+  { name: "Gutter cleaning", path: "/services/gutter-cleaning", Icon: Droplets },
+  { name: "Gutter guard installation", path: "/services/gutter-guards", Icon: Shield },
+  { name: "Mulching services", path: "/services/mulching", Icon: Layers },
+  { name: "Garden bed makeovers", path: "/services/garden-beds", Icon: Flower2 },
+  { name: "Weeding", path: "/services/weeding", Icon: Shovel },
+  { name: "Fertilization & overseeding", path: "/services/fertilization", Icon: Wheat },
+  { name: "Herbicide application", path: "/services/herbicide", Icon: FlaskConical },
+  { name: "Snow removal", path: "/services/snow-removal", Icon: SnowflakeIcon },
 ];
 
 const areaFeatures = [
@@ -229,7 +230,7 @@ export default function ServiceAreasContent() {
                 <Link key={index} href={service.path}>
                   <div className="p-8 hover:border-primary/40 transition-all border border-white/10 rounded-xl group h-full bg-white/[0.06] hover:bg-white/[0.10]">
                     <div className="flex items-center gap-4">
-                      <div className="text-4xl flex-shrink-0">{service.icon}</div>
+                      <service.Icon className="h-7 w-7 text-primary flex-shrink-0" />
                       <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
                         {service.name}
                       </h3>

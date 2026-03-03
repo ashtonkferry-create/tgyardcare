@@ -11,19 +11,20 @@ import {
   Sun,
   Snowflake,
   Crown,
-  X
+  X,
+  DollarSign,
+  type LucideIcon
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { AmbientParticles } from "@/components/AmbientParticles";
 
 interface SeasonData {
-  icon: typeof Leaf;
+  icon: LucideIcon;
   label: string;
   color: string;
   bg: string;
   gradient: string;
-  emoji: string;
   tagline: string;
   services: string[];
 }
@@ -39,7 +40,6 @@ export function FullSeasonContract() {
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
       gradient: "from-emerald-500 to-green-600",
-      emoji: "🌱",
       tagline: "Fresh starts & lawn revival",
       services: ["Spring Cleanup", "Lawn Recovery", "Edging & Trimming", "Mulching", "Garden Bed Prep", "Early Fertilization"]
     },
@@ -49,7 +49,6 @@ export function FullSeasonContract() {
       color: "text-amber-500",
       bg: "bg-amber-500/10",
       gradient: "from-amber-500 to-orange-500",
-      emoji: "☀️",
       tagline: "Peak season perfection",
       services: ["Weekly Mowing", "Weed Control", "Herbicide Treatments", "Bush Trimming", "Garden Maintenance", "Property Upkeep"]
     },
@@ -59,7 +58,6 @@ export function FullSeasonContract() {
       color: "text-orange-500",
       bg: "bg-orange-500/10",
       gradient: "from-orange-500 to-red-500",
-      emoji: "🍂",
       tagline: "Prepare for winter success",
       services: ["Leaf Removal", "Fall Cleanup", "Aeration", "Overseeding", "Gutter Cleaning", "Winterization"]
     },
@@ -69,7 +67,6 @@ export function FullSeasonContract() {
       color: "text-cyan-400",
       bg: "bg-cyan-400/10",
       gradient: "from-cyan-400 to-blue-500",
-      emoji: "❄️",
       tagline: "Safe & accessible all season",
       services: ["Snow Removal", "Ice Management", "Salting", "Gutter Guards", "Property Monitoring", "Emergency Response"]
     },
@@ -278,13 +275,13 @@ export function FullSeasonContract() {
 
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-6">
-                      <motion.span
-                        className="text-4xl"
-                        animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
+                      <motion.div
+                        className={`p-3 rounded-xl ${activeSeasonData.bg}`}
+                        animate={{ scale: [1, 1.05, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
-                        {activeSeasonData.emoji}
-                      </motion.span>
+                        {(() => { const Icon = activeSeasonData.icon; return <Icon className={`h-8 w-8 ${activeSeasonData.color}`} />; })()}
+                      </motion.div>
                       <div>
                         <h3 className="text-2xl font-bold text-white">{activeSeasonData.label} Coverage</h3>
                         <p className={`text-sm font-medium ${activeSeasonData.color}`}>{activeSeasonData.tagline}</p>
@@ -335,13 +332,13 @@ export function FullSeasonContract() {
             transition={{ duration: 0.5, delay: 0.35 }}
           >
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500/20 via-primary/15 to-cyan-500/20 border border-primary/30 rounded-full px-6 py-3 shadow-lg shadow-primary/10">
-              <motion.span
-                className="text-2xl"
-                animate={{ rotate: [0, 10, -10, 0] }}
+              <motion.div
+                className="p-2 rounded-lg bg-emerald-500/20"
+                animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                💰
-              </motion.span>
+                <DollarSign className="h-5 w-5 text-emerald-400" />
+              </motion.div>
               <div className="text-left">
                 <p className="text-white font-bold text-sm md:text-base">
                   Save 15-20% vs. booking services separately

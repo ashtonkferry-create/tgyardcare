@@ -1,275 +1,282 @@
-// Fun prefilled message templates for each service/program
+// Prefilled message templates for each service/program
 export const serviceTemplates: Record<string, { title: string; message: string }> = {
   // Programs & Bundles
   'fertilization-program': {
     title: 'Fertilization Program',
-    message: `🌱 Hey TotalGuard team!
+    message: `Hello TotalGuard team,
 
-I'm ready to give my lawn the VIP treatment it deserves! I'm interested in your Fertilization Program.
+I'm interested in your Fertilization Program for my property.
 
-My lawn could use some professional TLC — I want that thick, lush green grass that makes my neighbors jealous. 😄
+My lawn could use professional treatment — I'm looking for thick, healthy grass. Please send me information about your options.
 
-Looking forward to hearing about my options!`
+Looking forward to hearing from you.`
   },
   'full-fertilization-program': {
     title: 'Full Fertilization & Overseeding Program',
-    message: `🌿 Hello TotalGuard!
+    message: `Hello TotalGuard,
 
-I want to go all-in on my lawn! I'm interested in the Full Fertilization + Overseeding Program.
+I'm interested in the Full Fertilization + Overseeding Program.
 
-My grass needs some serious love — thin spots, bare patches, the works. I'm ready for a total lawn transformation! 💪
+My lawn has thin spots and bare patches that need professional attention. I'm ready for a comprehensive lawn restoration.
 
-Can't wait to see what you can do!`
+Please reach out with pricing and availability.`
   },
 
   // Individual Services
   'mowing': {
     title: 'Lawn Mowing Service',
-    message: `🌾 Hi TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm tired of spending my weekends pushing a mower around! I'd love to get a quote for your professional mowing service.
+I'm looking for a quote on professional lawn mowing service for my property.
 
-Ready to reclaim my free time! ⏰`
+Please send me information on scheduling and pricing.`
   },
   'fertilization': {
     title: 'Fertilization Service',
-    message: `🌱 Hey there!
+    message: `Hello TotalGuard,
 
-My lawn is looking a bit sad and could use some professional nutrients. I'm interested in your fertilization service!
+My lawn needs professional fertilization. I'm interested in your fertilization service and would like to learn more.
 
-Let's get that grass greener than my neighbor's! 💚`
+Please send pricing details for my property.`
   },
   'weeding': {
     title: 'Weeding Service',
-    message: `🌿 Hi TotalGuard team!
+    message: `Hello TotalGuard team,
 
-The weeds have declared war on my yard... and they're winning. I need your help!
+Weeds have become a significant problem in my yard and I need professional help.
 
-Ready for some serious weed elimination! 💪`
+I'm interested in your weeding service — please provide a quote.`
   },
   'mulching': {
     title: 'Mulching Service',
-    message: `🍂 Hello!
+    message: `Hello,
 
-My garden beds are looking bare and boring. I'm interested in your mulching service to freshen things up!
+My garden beds need fresh mulch. I'm interested in your mulching service.
 
-Let's make my landscape pop! ✨`
+Please provide pricing and availability.`
   },
   'pruning': {
     title: 'Bush Trimming & Pruning',
-    message: `✂️ Hi TotalGuard!
+    message: `Hello TotalGuard,
 
-My shrubs and bushes have gone a bit wild. Time for a professional haircut!
+My shrubs and bushes need professional trimming and shaping.
 
-Interested in your pruning service — let's get things looking sharp again! 🌳`
+I'm interested in your pruning service — please send a quote.`
   },
   'leaf-removal': {
     title: 'Leaf Removal Service',
-    message: `🍂 Hey team!
+    message: `Hello TotalGuard,
 
-Fall has buried my yard in leaves and I'm waving the white flag! I need your leaf removal service.
+My yard needs professional leaf removal service. I'm looking for a reliable solution this season.
 
-Save me from raking! 😅`
+Please provide pricing for my property.`
   },
   'gutter-cleaning': {
     title: 'Gutter Cleaning Service',
-    message: `🏠 Hi TotalGuard!
+    message: `Hello TotalGuard,
 
-My gutters are overflowing with leaves and mystery debris. Time for a professional cleaning!
+My gutters are due for a professional cleaning.
 
-Let's get that water flowing where it should! 💧`
+Please send me a quote for your gutter cleaning service.`
   },
   'gutter-guards': {
     title: 'Gutter Guard Installation',
-    message: `🛡️ Hello!
+    message: `Hello,
 
-I'm tired of cleaning my gutters every season. I'm interested in gutter guard installation!
+I'm interested in gutter guard installation to reduce ongoing maintenance.
 
-Ready for a set-it-and-forget-it solution! 🙌`
+Please provide pricing and product options.`
   },
   'spring-cleanup': {
     title: 'Spring Cleanup Service',
-    message: `🌸 Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-Winter's over and my yard needs some serious spring revival! I'm interested in your spring cleanup service.
+I'm ready to get my yard in shape for spring. I'm interested in your spring cleanup service.
 
-Let's shake off that winter slumber! 🌷`
+Please send pricing and availability.`
   },
   'spring-premium': {
     title: 'Premium Spring Cleanup + Mulch Bundle',
-    message: `🌿 Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I want the **Premium Spring Bundle** — complete cleanup PLUS mulch installation! 🎉
+I'm interested in the Premium Spring Bundle — complete cleanup plus mulch installation.
 
-✓ Full debris & leaf removal
-✓ Bed edging & cleanup
-✓ Premium mulch installation
-✓ Shrub & bush trimming
-✓ First mowing included
+Services I'm looking for:
+- Full debris and leaf removal
+- Bed edging and cleanup
+- Premium mulch installation
+- Shrub and bush trimming
+- First mowing included
 
-I want to lock in this bundle deal before slots fill up! ⚡`
+Please contact me to confirm availability and pricing.`
   },
   'commercial-spring': {
     title: 'Commercial Spring Preparation Quote',
-    message: `🏢 Hello TotalGuard!
+    message: `Hello TotalGuard,
 
-I need a **custom Commercial Spring Prep quote** for my business property.
+I need a custom Commercial Spring Prep quote for my business property.
 
-✓ Large property cleanup
-✓ Commercial mulch installation
-✓ Professional appearance maintenance
+Scope includes:
+- Large property cleanup
+- Commercial mulch installation
+- Professional appearance maintenance
 
-Please contact me to discuss a tailored spring plan! 📋`
+Please contact me to discuss a tailored spring plan.`
   },
   'summer-premium': {
     title: 'Premium Full Property Care Package',
-    message: `☀️ Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I want the **Premium Full Property Care** package for complete summer maintenance! 🌿
+I'm interested in the Premium Full Property Care package for complete summer maintenance.
 
-✓ Weekly mowing service
-✓ Hedge & shrub trimming
-✓ Weed control maintenance
-✓ Garden bed care
-✓ Priority scheduling
+Services needed:
+- Weekly mowing service
+- Hedge and shrub trimming
+- Weed control maintenance
+- Garden bed care
+- Priority scheduling
 
-Ready to keep my property pristine all summer! 💪`
+Please provide pricing and availability.`
   },
   'fall-cleanup': {
     title: 'Fall Cleanup Service',
-    message: `🍁 Hi there!
+    message: `Hello TotalGuard,
 
-Fall is here and so are a million leaves. I need your fall cleanup service to get my yard winter-ready!
+I need fall cleanup service to get my yard winter-ready.
 
-Let's tidy things up before the snow hits! ❄️`
+Please provide a quote for my property.`
   },
   'fall-premium': {
     title: 'Premium Fall + Aeration Bundle',
-    message: `🍂 Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I want the **Premium Fall Bundle** — leaf cleanup, aeration, AND gutter cleaning! 🎉
+I'm interested in the Premium Fall Bundle — leaf cleanup, aeration, and gutter cleaning.
 
-✓ Multi-visit leaf cleanup
-✓ Core aeration service
-✓ Overseeding for spring thickness
-✓ Gutter cleaning included
+Services included:
+- Multi-visit leaf cleanup
+- Core aeration service
+- Overseeding for spring thickness
+- Gutter cleaning included
 
-I want to lock in this bundle before slots fill up! ⚡`
+Please confirm availability and send pricing.`
   },
   'aeration': {
     title: 'Aeration & Overseeding Service',
-    message: `🌱 Hi TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm interested in **Core Aeration + Overseeding** for my lawn!
+I'm interested in Core Aeration + Overseeding for my lawn.
 
-My grass could use some TLC — want to reduce compaction and get thicker turf for spring.
+I'm looking to reduce compaction and improve turf density heading into next season.
 
-Looking forward to hearing about options! 💚`
+Please send pricing and scheduling options.`
   },
   'snow-removal': {
     title: 'Snow Removal Service',
-    message: `❄️ Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm getting ready for winter and want reliable snow removal. My back thanks you in advance!
+I'm preparing for winter and need reliable snow removal service.
 
-Interested in a snow removal quote! ☃️`
+Please send a quote for my property.`
   },
   'snow-essential': {
     title: 'Essential Snow Removal (Per-Visit)',
-    message: `❄️ Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm interested in your **Essential Per-Visit Snow Removal** package — the flexible pay-as-you-go option.
+I'm interested in the Essential Per-Visit Snow Removal package.
 
-✓ Driveway & walkway clearing
-✓ Salt treatment included
-✓ No commitment required
+Services needed:
+- Driveway and walkway clearing
+- Salt treatment included
+- No long-term commitment
 
-Please send me pricing details for my property! 🏠`
+Please send pricing details for my property.`
   },
   'snow-premium': {
     title: 'Premium Seasonal Snow Contract',
-    message: `❄️ Hey TotalGuard!
+    message: `Hello TotalGuard,
 
-I want to **lock in the Premium Seasonal Contract** for unlimited snow removal this winter! 🎉
+I want to secure the Premium Seasonal Contract for unlimited snow removal this winter.
 
-✓ Priority 24/7 response
-✓ Unlimited visits all season
-✓ Full driveway, walkway & sidewalk coverage
-✓ Premium ice management included
-✓ Fixed pricing — no surprise bills!
+Services included:
+- Priority 24/7 response
+- Unlimited visits all season
+- Full driveway, walkway, and sidewalk coverage
+- Premium ice management
+- Fixed pricing — no surprise bills
 
-I'm ready to secure my spot before they fill up! ⚡`
+Please confirm availability and secure my spot.`
   },
   'snow-commercial': {
     title: 'Commercial Snow Removal Quote',
-    message: `🏢 Hello TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm interested in a **custom Commercial Snow Removal quote** for my business property.
+I need a custom Commercial Snow Removal quote for my business property.
 
-✓ Commercial-grade equipment needed
-✓ Parking lot & large area clearing
-✓ 24/7 emergency response required
-✓ Looking for liability documentation
+Requirements:
+- Commercial-grade equipment
+- Parking lot and large area clearing
+- 24/7 emergency response
+- Liability documentation
 
-Please contact me to discuss a tailored plan for our property! 📋`
+Please contact me to discuss a tailored plan.`
   },
   'herbicide': {
     title: 'Weed Control & Herbicide Service',
-    message: `🎯 Hi TotalGuard team!
+    message: `Hello TotalGuard team,
 
-The weeds are taking over and I need the big guns! Interested in your herbicide and weed control service.
+Weeds are overtaking my property and I need professional herbicide and weed control service.
 
-Time to reclaim my lawn! 💪`
+Please provide a quote for my lawn.`
   },
   'garden-beds': {
     title: 'Garden Bed Service',
-    message: `🌺 Hello!
+    message: `Hello TotalGuard,
 
-My garden beds need some professional love. I'm interested in your garden bed services!
+My garden beds need professional maintenance and improvement.
 
-Ready to make my landscaping beautiful! 🌸`
+I'm interested in your garden bed services — please send pricing and availability.`
   },
 
   // Commercial Services
   'commercial-lawn-care': {
     title: 'Commercial Lawn Care',
-    message: `🏢 Hi TotalGuard!
+    message: `Hello TotalGuard,
 
 I manage a commercial property and need reliable, professional lawn care service.
 
-Looking for a quote for ongoing commercial maintenance! 📋`
+Please provide a quote for ongoing commercial maintenance.`
   },
   'commercial-gutter': {
     title: 'Commercial Gutter Services',
-    message: `🏗️ Hello!
+    message: `Hello TotalGuard,
 
-I need commercial gutter services for my business property. Interested in cleaning and/or guard installation.
+I need commercial gutter services for my business property — cleaning and possibly guard installation.
 
-Let's keep our building protected! 🛡️`
+Please send a quote for both services.`
   },
   'commercial-seasonal': {
     title: 'Commercial Seasonal Services',
-    message: `📅 Hi TotalGuard team!
+    message: `Hello TotalGuard team,
 
-I'm looking for seasonal services for my commercial property — cleanups, snow removal, etc.
+I'm looking for seasonal services for my commercial property — cleanups, snow removal, and ongoing maintenance.
 
-Ready to discuss a comprehensive plan! 💼`
+Please contact me to discuss a comprehensive plan.`
   },
   'commercial-fertilization': {
     title: 'Commercial Fertilization & Weed Control',
-    message: `🌿 Hey there!
+    message: `Hello TotalGuard,
 
 My commercial property needs professional fertilization and weed control services.
 
-Want to keep our grounds looking top-notch! ⭐`
+Please provide pricing for ongoing commercial grounds maintenance.`
   },
   'commercial-property-enhancement': {
     title: 'Commercial Property Enhancement',
-    message: `✨ Hello!
+    message: `Hello TotalGuard,
 
-I'm interested in enhancing the curb appeal of my commercial property — mulching, beds, landscaping improvements.
+I'm interested in enhancing the curb appeal of my commercial property — mulching, garden beds, and landscaping improvements.
 
-Let's make our property stand out! 🏆`
+Please contact me to discuss options and pricing.`
   },
 
   // Careers Application
@@ -287,11 +294,11 @@ Let's make our property stand out! 🏆`
   // Generic fallback
   'general': {
     title: 'General Quote',
-    message: `👋 Hi TotalGuard!
+    message: `Hello TotalGuard,
 
-I'm interested in your lawn care services and would love to get a quote!
+I'm interested in your lawn care services and would like to get a quote.
 
-Looking forward to hearing from you! 🌱`
+Please reach out at your earliest convenience.`
   }
 };
 
