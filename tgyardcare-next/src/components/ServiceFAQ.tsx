@@ -26,15 +26,21 @@ interface ServiceFAQProps {
 export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
   const { activeSeason } = useSeasonalTheme();
 
+  const seasonalSectionBg = {
+    summer: '#050d07',
+    fall: '#0d0900',
+    winter: '#020810',
+  } as const;
+
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/50">
+    <section className="py-16 md:py-24" style={{ background: seasonalSectionBg[activeSeason] }}>
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white/60">
               Got questions? We&apos;ve got answers. Can&apos;t find what you&apos;re looking for?{" "}
               <Link href="/contact" className="text-primary hover:text-primary/80 font-semibold underline">
                 Contact us
@@ -49,15 +55,15 @@ export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
               <AccordionItem
                 value={`item-${index}`}
                 className={cn(
-                  'bg-card/80 backdrop-blur-sm border-2 border-border rounded-xl px-6 shadow-sm',
+                  'bg-white/[0.06] backdrop-blur-sm border-2 border-white/10 rounded-xl px-6 shadow-sm',
                   'hover:shadow-lg transition-all duration-300',
                   seasonalAccordionHover[activeSeason]
                 )}
               >
-                <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary py-5">
+                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-primary py-5">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                <AccordionContent className="text-white/60 pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -66,11 +72,11 @@ export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
         </Accordion>
 
         <ScrollReveal delay={0.2}>
-          <div className="mt-12 text-center p-8 md:p-10 bg-card/80 backdrop-blur-sm rounded-2xl border-2 border-primary/20 shadow-xl">
-            <h3 className="text-2xl font-bold text-foreground mb-3">
+          <div className="mt-12 text-center p-8 md:p-10 bg-white/[0.06] backdrop-blur-sm rounded-2xl border-2 border-primary/20 shadow-xl">
+            <h3 className="text-2xl font-bold text-white mb-3">
               Still have questions?
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-white/60 mb-6">
               Our team is here to help! Get in touch and we&apos;ll respond within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

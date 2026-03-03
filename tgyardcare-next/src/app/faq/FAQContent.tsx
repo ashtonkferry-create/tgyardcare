@@ -96,7 +96,7 @@ export default function FAQContent() {
   const totalFAQs = filteredCategories.reduce((sum, cat) => sum + cat.faqs.length, 0);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <FAQSchema faqs={allFAQsForSchema} />
       <Navigation showPromoBanner />
 
@@ -106,13 +106,13 @@ export default function FAQContent() {
       </section>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-primary/5 to-background py-16 md:py-24">
+      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Frequently Asked <span className="text-primary">Questions</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl text-white/60 mb-8">
               Everything you need to know about our lawn care and landscaping services. Can&apos;t find your answer?{" "}
               <Link href="/contact" className="text-primary hover:underline font-semibold">
                 Contact us
@@ -121,7 +121,7 @@ export default function FAQContent() {
 
             {/* Search Bar */}
             <div className="relative max-w-2xl mx-auto mb-8">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40" />
               <Input
                 type="text"
                 placeholder="Search questions..."
@@ -135,12 +135,12 @@ export default function FAQContent() {
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 bg-muted/30 border-y">
+      <section className="py-8 bg-white/[0.04] border-y border-white/10">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center gap-3 mb-4">
-              <Filter className="h-5 w-5 text-muted-foreground" />
-              <span className="font-semibold text-foreground">Filter by service:</span>
+              <Filter className="h-5 w-5 text-white/40" />
+              <span className="font-semibold text-white">Filter by service:</span>
             </div>
             <div className="flex flex-wrap gap-2">
               <Button
@@ -166,12 +166,12 @@ export default function FAQContent() {
       </section>
 
       {/* FAQ Content */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             {totalFAQs === 0 ? (
               <div className="text-center py-12">
-                <p className="text-xl text-muted-foreground mb-4">
+                <p className="text-xl text-white/60 mb-4">
                   No questions found matching &ldquo;{searchQuery}&rdquo;
                 </p>
                 <Button onClick={() => setSearchQuery("")} variant="outline">
@@ -181,11 +181,11 @@ export default function FAQContent() {
             ) : (
               <>
                 <div className="mb-8">
-                  <p className="text-muted-foreground">
-                    Showing <span className="font-bold text-foreground">{totalFAQs}</span> questions
+                  <p className="text-white/60">
+                    Showing <span className="font-bold text-white">{totalFAQs}</span> questions
                     {selectedCategory !== "all" && (
                       <>
-                        {" "}in <span className="font-bold text-foreground">{selectedCategory}</span>
+                        {" "}in <span className="font-bold text-white">{selectedCategory}</span>
                       </>
                     )}
                   </p>
@@ -195,7 +195,7 @@ export default function FAQContent() {
                   {filteredCategories.map((category) => (
                     <div key={category.name}>
                       <div className="mb-6">
-                        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                           {category.name}
                         </h2>
                         <Link
@@ -211,12 +211,12 @@ export default function FAQContent() {
                           <AccordionItem
                             key={`${category.name}-${index}`}
                             value={`${category.name}-${index}`}
-                            className="bg-card border-2 border-border rounded-lg px-6 shadow-sm hover:shadow-md hover:border-primary transition-all"
+                            className="bg-white/[0.06] border-2 border-white/10 rounded-lg px-6 shadow-sm hover:shadow-md hover:border-primary transition-all"
                           >
-                            <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary py-5">
+                            <AccordionTrigger className="text-left text-lg font-semibold text-white hover:text-primary py-5">
                               {faq.question}
                             </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                            <AccordionContent className="text-white/60 pb-5 leading-relaxed">
                               {faq.answer}
                             </AccordionContent>
                           </AccordionItem>
@@ -232,13 +232,13 @@ export default function FAQContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-b from-primary/5 to-background">
+      <section className="py-16" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-3xl mx-auto text-center bg-card border-2 border-primary rounded-2xl p-8 md:p-12 shadow-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="max-w-3xl mx-auto text-center bg-white/[0.06] border-2 border-primary/30 rounded-2xl p-8 md:p-12 shadow-xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Still have questions?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-white/60 mb-8">
               Our team is here to help! Get in touch and we&apos;ll respond within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
