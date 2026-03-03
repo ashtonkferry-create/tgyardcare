@@ -29,7 +29,7 @@ export default function GutterGuardsContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Services', url: 'https://tgyardcare.com/services' },
@@ -103,11 +103,11 @@ export default function GutterGuardsContent() {
 
       {/* Who This Is For — Quick qualifier */}
       <ScrollReveal>
-        <section className="py-6 bg-muted/30 border-b border-border">
+        <section className="py-6 border-b border-border" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="text-base md:text-lg text-muted-foreground">
-                <strong className="text-foreground">Ideal for:</strong> Homeowners tired of semi-annual gutter cleaning, properties surrounded by mature trees, anyone concerned about ladder safety, and those who want permanent protection from ice dams and water damage.
+              <p className="text-base md:text-lg text-white/60">
+                <strong className="text-white">Ideal for:</strong> Homeowners tired of semi-annual gutter cleaning, properties surrounded by mature trees, anyone concerned about ladder safety, and those who want permanent protection from ice dams and water damage.
               </p>
             </div>
           </div>
@@ -141,13 +141,13 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHAT'S INCLUDED — Visual checklist
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               What&apos;s Included in Our Installation
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Complete installation from start to finish&mdash;including the cleaning your gutters need first.
             </p>
           </ScrollReveal>
@@ -165,8 +165,8 @@ export default function GutterGuardsContent() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -179,10 +179,10 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           HOW IT WORKS — Animated process timeline
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               How Gutter Guard Installation Works
             </h2>
           </ScrollReveal>
@@ -199,11 +199,11 @@ export default function GutterGuardsContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <div className="text-center relative">
-                  <div className="relative z-10 bg-card/80 backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
+                  <div className="relative z-10 bg-white/[0.06] backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
                     <span className="text-2xl font-bold text-primary">{item.step}</span>
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -226,24 +226,24 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           ROI CALCULATOR — The Math
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               The Math: Why Gutter Guards Pay for Themselves
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Compare the cost of ongoing cleaning vs. a one-time gutter guard investment:
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <ScrollReveal delay={0.1}>
               <GlassCard hover="glow" className="h-full">
-                <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-red-500" />
                   Without Gutter Guards
                 </h3>
-                <ul className="space-y-3 text-muted-foreground mb-6">
+                <ul className="space-y-3 text-white/60 mb-6">
                   <li className="flex justify-between">
                     <span>Spring cleaning:</span>
                     <span className="font-semibold">$150-$250</span>
@@ -261,18 +261,18 @@ export default function GutterGuardsContent() {
                     <span className="font-semibold text-red-600">$1,500-$2,500</span>
                   </li>
                 </ul>
-                <p className="text-sm text-muted-foreground italic">
+                <p className="text-sm text-white/60 italic">
                   Plus: Risk of ladder injury, property damage from clogs, stress of scheduling
                 </p>
               </GlassCard>
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <GlassCard variant="accent" hover="glow" className="h-full">
-                <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-primary" />
                   With Gutter Guards
                 </h3>
-                <ul className="space-y-3 text-muted-foreground mb-6">
+                <ul className="space-y-3 text-white/60 mb-6">
                   <li className="flex justify-between">
                     <span>One-time installation:</span>
                     <span className="font-semibold">$800-$2,000</span>
@@ -290,7 +290,7 @@ export default function GutterGuardsContent() {
                     <span className="font-semibold text-primary">$1,500-$3,000+</span>
                   </li>
                 </ul>
-                <p className="text-sm text-muted-foreground italic">
+                <p className="text-sm text-white/60 italic">
                   Plus: No ladder climbing, no water damage risk, peace of mind
                 </p>
               </GlassCard>
@@ -302,10 +302,10 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           BENEFITS — Wisconsin Context
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               Benefits of Gutter Guards in Wisconsin
             </h2>
           </ScrollReveal>
@@ -322,8 +322,8 @@ export default function GutterGuardsContent() {
                     <div className="bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-7 w-7 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -335,13 +335,13 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHY CHOOSE US — Final trust
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               Why Choose TotalGuard for Gutter Guards
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Not all gutter guard installations are equal. Here&apos;s what sets us apart:
             </p>
           </ScrollReveal>
@@ -353,8 +353,8 @@ export default function GutterGuardsContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <GlassCard hover="lift" className="text-center h-full">
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+                  <p className="text-white/60 leading-relaxed">{item.desc}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -365,18 +365,18 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           PRICING — Cinematic pricing card
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="max-w-2xl mx-auto">
               <GlassCard variant="accent" hover="glow" className="text-center p-8 md:p-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Gutter Guard Installation Pricing</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
-                  Gutter guard installation is priced per linear foot based on gutter length and home height. Most Madison-area homes range from <strong className="text-foreground">$800-$2,000</strong> for complete installation. This one-time investment typically pays for itself in 3-5 years compared to ongoing cleaning costs.
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Gutter Guard Installation Pricing</h2>
+                <p className="text-lg text-white/60 max-w-2xl mx-auto mb-6 leading-relaxed">
+                  Gutter guard installation is priced per linear foot based on gutter length and home height. Most Madison-area homes range from <strong className="text-white">$800-$2,000</strong> for complete installation. This one-time investment typically pays for itself in 3-5 years compared to ongoing cleaning costs.
                 </p>
                 <GlassCard className="mb-8 text-left">
-                  <p className="font-semibold text-foreground mb-2">Bundle & Save</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-semibold text-white mb-2">Bundle & Save</p>
+                  <p className="text-sm text-white/60">
                     Book installation with a gutter cleaning service and save 10% on your gutter guard installation!
                   </p>
                 </GlassCard>
@@ -395,13 +395,13 @@ export default function GutterGuardsContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           RELATED SERVICES — Cross-sell
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4 text-center">
               Complete Home Protection
             </h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-10 max-w-2xl mx-auto">
               Gutter guards are one part of protecting your home from water damage:
             </p>
           </ScrollReveal>
@@ -413,8 +413,8 @@ export default function GutterGuardsContent() {
               <ScrollReveal key={i} delay={i * 0.08}>
                 <Link href={item.href} className="block group">
                   <GlassCard hover="lift" className="text-center h-full">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <p className="text-sm text-white/60">{item.desc}</p>
                     <span className="inline-flex items-center text-primary text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                       Learn More <ArrowRight className="ml-1 h-3.5 w-3.5" />
                     </span>

@@ -43,7 +43,7 @@ export default function PruningContent() {
         serviceType="Bush Trimming and Shrub Pruning"
         areaServed={['Madison', 'Middleton', 'Waunakee', 'Verona', 'Fitchburg', 'McFarland', 'Monona', 'Sun Prairie', 'DeForest', 'Oregon', 'Stoughton', 'Cottage Grove']}
       />
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen" style={{ background: '#050d07' }}>
         <Navigation />
 
         {/* TL;DR for AI/Answer Engines */}
@@ -104,11 +104,11 @@ export default function PruningContent() {
 
         {/* Who This Is For — Quick qualifier */}
         <ScrollReveal>
-          <section className="py-6 bg-muted/30 border-b border-border">
+          <section className="py-6 border-b border-border" style={{ background: '#0a1a0e' }}>
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto text-center">
-                <p className="text-base md:text-lg text-muted-foreground">
-                  <strong className="text-foreground">Ideal for:</strong> Homeowners with overgrown foundation plantings, out-of-control hedges, or shrubs that haven&apos;t been trimmed in years. Perfect for pre-sale property prep or seasonal maintenance.
+                <p className="text-base md:text-lg text-white/60">
+                  <strong className="text-white">Ideal for:</strong> Homeowners with overgrown foundation plantings, out-of-control hedges, or shrubs that haven&apos;t been trimmed in years. Perfect for pre-sale property prep or seasonal maintenance.
                 </p>
               </div>
             </div>
@@ -142,13 +142,13 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             WHAT'S INCLUDED — Visual checklist
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4 max-w-4xl">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
                 What&apos;s Included in Our Pruning Service
               </h2>
-              <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
                 Complete service from assessment to cleanup&mdash;no extra charges for debris removal.
               </p>
             </ScrollReveal>
@@ -166,8 +166,8 @@ export default function PruningContent() {
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
-                        <h3 className="font-semibold text-foreground">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                        <h3 className="font-semibold text-white">{item.title}</h3>
+                        <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   </GlassCard>
@@ -180,10 +180,10 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             WHEN TO PRUNE — Seasonal knowledge
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20">
+        <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
           <div className="container mx-auto px-4 max-w-4xl">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
                 When to Prune in Wisconsin
               </h2>
             </ScrollReveal>
@@ -197,13 +197,13 @@ export default function PruningContent() {
                     <div className="bg-primary/10 rounded-full p-2">
                       <Calendar className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-bold text-foreground">Late Winter / Early Spring</h3>
+                    <h3 className="text-2xl font-bold text-white">Late Winter / Early Spring</h3>
                   </div>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-white/60 mb-4">
                     February through early April&mdash;before new growth begins&mdash;is ideal for most shrubs in Dane County.
                     Plants are dormant, making it easier to see structure and shape.
                   </p>
-                  <ul className="space-y-2.5 text-sm text-muted-foreground">
+                  <ul className="space-y-2.5 text-sm text-white/60">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                       Best for: Most deciduous shrubs
@@ -226,13 +226,13 @@ export default function PruningContent() {
                     <div className="bg-primary/10 rounded-full p-2">
                       <Calendar className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-bold text-foreground">After Flowering</h3>
+                    <h3 className="text-2xl font-bold text-white">After Flowering</h3>
                   </div>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-white/60 mb-4">
                     Spring-blooming shrubs (lilacs, forsythia, rhododendrons) should be pruned immediately after
                     flowering to avoid cutting off next year&apos;s buds.
                   </p>
-                  <ul className="space-y-2.5 text-sm text-muted-foreground">
+                  <ul className="space-y-2.5 text-sm text-white/60">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                       Best for: Flowering shrubs
@@ -250,8 +250,8 @@ export default function PruningContent() {
               </ScrollReveal>
             </div>
             <ScrollReveal delay={0.3}>
-              <p className="text-center text-muted-foreground mt-8 max-w-2xl mx-auto">
-                <strong className="text-foreground">Not sure when your shrubs should be pruned?</strong> We&apos;ll assess your specific plants and recommend the optimal timing for each species in your landscape.
+              <p className="text-center text-white/60 mt-8 max-w-2xl mx-auto">
+                <strong className="text-white">Not sure when your shrubs should be pruned?</strong> We&apos;ll assess your specific plants and recommend the optimal timing for each species in your landscape.
               </p>
             </ScrollReveal>
           </div>
@@ -260,10 +260,10 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             BENEFITS — Professional pruning
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4 max-w-4xl">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
                 Benefits of Professional Pruning
               </h2>
             </ScrollReveal>
@@ -281,8 +281,8 @@ export default function PruningContent() {
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                       <div>
-                        <h3 className="font-semibold text-foreground">{item.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                        <h3 className="font-semibold text-white">{item.title}</h3>
+                        <p className="text-white/60 leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   </GlassCard>
@@ -305,13 +305,13 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             WHY CHOOSE US — Final trust
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20">
+        <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
           <div className="container mx-auto px-4 max-w-4xl">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
                 Why Madison Homeowners Trust TotalGuard
               </h2>
-              <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
                 We&apos;re not the cheapest, but we&apos;re the most reliable. Here&apos;s what you can expect:
               </p>
             </ScrollReveal>
@@ -328,8 +328,8 @@ export default function PruningContent() {
                       <div className="bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4">
                         <Icon className="h-7 w-7 text-primary" />
                       </div>
-                      <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </GlassCard>
                   </ScrollReveal>
                 );
@@ -341,20 +341,20 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             PRICING — Cinematic pricing card
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4 max-w-4xl">
             <ScrollReveal>
               <div className="max-w-2xl mx-auto">
                 <GlassCard variant="accent" hover="glow" className="text-center p-8 md:p-10">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                     Pruning Service Pricing
                   </h2>
-                  <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                    Pricing depends on the number of shrubs, their size, current condition, and accessibility. Most Madison-area homes with 10-20 shrubs range from <strong className="text-foreground">$200-$500</strong> for complete pruning. We provide detailed, upfront estimates with no hidden fees.
+                  <p className="text-lg text-white/60 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Pricing depends on the number of shrubs, their size, current condition, and accessibility. Most Madison-area homes with 10-20 shrubs range from <strong className="text-white">$200-$500</strong> for complete pruning. We provide detailed, upfront estimates with no hidden fees.
                   </p>
                   <GlassCard className="mb-8 text-left">
-                    <p className="font-semibold text-foreground mb-2">Maintenance Plans Available</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-semibold text-white mb-2">Maintenance Plans Available</p>
+                    <p className="text-sm text-white/60">
                       Book annual or semi-annual pruning and save. Consistent maintenance keeps shrubs healthy and costs predictable.
                     </p>
                   </GlassCard>
@@ -373,13 +373,13 @@ export default function PruningContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             RELATED SERVICES — Cross-sell
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20">
+        <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
           <div className="container mx-auto px-4">
             <ScrollReveal>
-              <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+              <h2 className="text-3xl font-bold text-white mb-4 text-center">
                 Complete Your Landscape Care
               </h2>
-              <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+              <p className="text-center text-white/60 mb-10 max-w-2xl mx-auto">
                 Pruning pairs well with these services for a fully polished property:
               </p>
             </ScrollReveal>
@@ -392,8 +392,8 @@ export default function PruningContent() {
                 <ScrollReveal key={i} delay={i * 0.08}>
                   <Link href={item.href} className="block group">
                     <GlassCard hover="lift" className="text-center h-full">
-                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                      <p className="text-sm text-white/60">{item.desc}</p>
                       <span className="inline-flex items-center text-primary text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         Learn More <ArrowRight className="ml-1 h-3.5 w-3.5" />
                       </span>

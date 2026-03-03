@@ -33,7 +33,7 @@ export default function WeedingContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Services', url: 'https://tgyardcare.com/services' },
@@ -108,11 +108,11 @@ export default function WeedingContent() {
 
       {/* Who This Is For — Quick qualifier */}
       <ScrollReveal>
-        <section className="py-6 bg-muted/30 border-b border-border">
+        <section className="py-6 border-b border-border" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="text-base md:text-lg text-muted-foreground">
-                <strong className="text-foreground">Ideal for:</strong> Homeowners who want weed-free garden beds without the back-breaking labor. Perfect for busy professionals, those with physical limitations, or anyone who&apos;d rather enjoy their landscape than work in it.
+              <p className="text-base md:text-lg text-white/60">
+                <strong className="text-white">Ideal for:</strong> Homeowners who want weed-free garden beds without the back-breaking labor. Perfect for busy professionals, those with physical limitations, or anyone who&apos;d rather enjoy their landscape than work in it.
               </p>
             </div>
           </div>
@@ -146,13 +146,13 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHAT'S INCLUDED — Visual checklist
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               What&apos;s Included in Our Weeding Service
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Complete weed removal from start to finish&mdash;no extra charges.
             </p>
           </ScrollReveal>
@@ -171,8 +171,8 @@ export default function WeedingContent() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -185,10 +185,10 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           HOW IT WORKS — Animated process timeline
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               How Our Weeding Service Works
             </h2>
           </ScrollReveal>
@@ -205,11 +205,11 @@ export default function WeedingContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <div className="text-center relative">
-                  <div className="relative z-10 bg-card/80 backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
+                  <div className="relative z-10 bg-white/[0.06] backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
                     <span className="text-2xl font-bold text-primary">{item.step}</span>
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -220,10 +220,10 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           TIMING & FREQUENCY — Seasonal knowledge
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               When & How Often to Weed in Wisconsin
             </h2>
           </ScrollReveal>
@@ -235,12 +235,12 @@ export default function WeedingContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Calendar className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Weeding Season</h3>
+                  <h3 className="text-xl font-semibold text-white">Weeding Season</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">
-                  In Dane County, weeds grow aggressively from <strong className="text-foreground">May through September</strong>. The warm, humid conditions that make Madison summers pleasant also make them ideal for weed growth.
+                <p className="text-white/60 mb-4">
+                  In Dane County, weeds grow aggressively from <strong className="text-white">May through September</strong>. The warm, humid conditions that make Madison summers pleasant also make them ideal for weed growth.
                 </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     Early spring cleanup catches winter annuals
@@ -263,23 +263,23 @@ export default function WeedingContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Clock className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Service Frequency</h3>
+                  <h3 className="text-xl font-semibold text-white">Service Frequency</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">
-                  For most Madison-area properties, <strong className="text-foreground">bi-weekly or monthly</strong> weeding during the growing season keeps beds looking clean without letting weeds get out of control.
+                <p className="text-white/60 mb-4">
+                  For most Madison-area properties, <strong className="text-white">bi-weekly or monthly</strong> weeding during the growing season keeps beds looking clean without letting weeds get out of control.
                 </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Bi-weekly:</strong> Best for weed-prone beds</span>
+                    <span><strong className="text-white">Bi-weekly:</strong> Best for weed-prone beds</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Monthly:</strong> Good for well-mulched areas</span>
+                    <span><strong className="text-white">Monthly:</strong> Good for well-mulched areas</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">One-time:</strong> Catch-up service available</span>
+                    <span><strong className="text-white">One-time:</strong> Catch-up service available</span>
                   </li>
                 </ul>
               </GlassCard>
@@ -303,10 +303,10 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           BENEFITS — Why professional weeding
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               Benefits of Professional Weeding
             </h2>
           </ScrollReveal>
@@ -336,8 +336,8 @@ export default function WeedingContent() {
                     <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3 text-center">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-center">{item.desc}</p>
+                    <h3 className="text-xl font-semibold text-white mb-3 text-center">{item.title}</h3>
+                    <p className="text-white/60 leading-relaxed text-center">{item.desc}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -349,13 +349,13 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHY CHOOSE US — Final trust
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               Why Choose TotalGuard for Weeding
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               We don&apos;t just clear the surface&mdash;we remove the problem at the root:
             </p>
           </ScrollReveal>
@@ -373,8 +373,8 @@ export default function WeedingContent() {
                     <div className="bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-7 w-7 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -389,22 +389,22 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           PRICING — Clear, cinematic pricing card
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="max-w-2xl mx-auto">
               <GlassCard variant="accent" hover="glow" className="text-center p-8 md:p-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Madison-Area Weeding Pricing</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Madison-Area Weeding Pricing</h2>
                 <div className="flex items-baseline justify-center gap-1 mb-4">
                   <span className="text-5xl md:text-6xl font-bold text-primary">$100</span>
-                  <span className="text-2xl text-muted-foreground">&ndash;</span>
+                  <span className="text-2xl text-white/60">&ndash;</span>
                   <span className="text-5xl md:text-6xl font-bold text-primary">$300</span>
-                  <span className="text-muted-foreground text-lg ml-1">/visit</span>
+                  <span className="text-white/60 text-lg ml-1">/visit</span>
                 </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-white/60 mb-6 leading-relaxed">
                   We price weeding based on the size of the area and severity of weed growth. Regular monthly or bi-weekly service reduces per-visit costs and keeps beds consistently clean.
                 </p>
-                <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm text-muted-foreground">
+                <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm text-white/60">
                   <span className="flex items-center gap-1.5">
                     <Clock className="h-4 w-4 text-primary" />
                     Maintenance plans available
@@ -429,13 +429,13 @@ export default function WeedingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           RELATED SERVICES — Cross-sell
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4 text-center">
               Complete Your Bed Maintenance
             </h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-10 max-w-2xl mx-auto">
               Weeding pairs well with these services for pristine landscape beds:
             </p>
           </ScrollReveal>
@@ -449,8 +449,8 @@ export default function WeedingContent() {
               <ScrollReveal key={i} delay={i * 0.08}>
                 <Link href={item.href} className="block group">
                   <GlassCard hover="lift" className="text-center h-full">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <p className="text-sm text-white/60">{item.desc}</p>
                     <span className="inline-flex items-center text-primary text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                       Learn More <ArrowRight className="ml-1 h-3.5 w-3.5" />
                     </span>

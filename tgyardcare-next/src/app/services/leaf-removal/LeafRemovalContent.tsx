@@ -37,7 +37,7 @@ export default function LeafRemovalContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Services', url: 'https://tgyardcare.com/services' },
@@ -112,12 +112,12 @@ export default function LeafRemovalContent() {
 
       {/* Who This Is For */}
       <ScrollReveal>
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <ScrollReveal>
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Who Leaf Removal Is For</h2>
-                <p className="text-lg text-muted-foreground text-center mb-12">
+                <p className="text-lg text-white/60 text-center mb-12">
                   This service is designed for Dane County homeowners with heavy leaf loads who want to protect their lawn investment.
                 </p>
               </ScrollReveal>
@@ -136,7 +136,7 @@ export default function LeafRemovalContent() {
                           <Icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                           <div>
                             <h3 className="font-semibold mb-1">{item.title}</h3>
-                            <p className="text-sm text-muted-foreground">{item.desc}</p>
+                            <p className="text-sm text-white/60">{item.desc}</p>
                           </div>
                         </div>
                       </GlassCard>
@@ -176,13 +176,13 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHAT'S INCLUDED — Visual checklist
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               What&apos;s Included in Leaf Removal
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Every service includes the complete package&mdash;no hidden fees or &ldquo;extras&rdquo; to add on.
             </p>
           </ScrollReveal>
@@ -201,8 +201,8 @@ export default function LeafRemovalContent() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -215,10 +215,10 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           HOW IT WORKS — Animated process timeline
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               How Leaf Removal Works
             </h2>
           </ScrollReveal>
@@ -235,11 +235,11 @@ export default function LeafRemovalContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <div className="text-center relative">
-                  <div className="relative z-10 bg-card/80 backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
+                  <div className="relative z-10 bg-white/[0.06] backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
                     <span className="text-2xl font-bold text-primary">{item.step}</span>
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -262,10 +262,10 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           BENEFITS — Why remove leaves before winter
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               Why Remove Leaves Before Winter
             </h2>
           </ScrollReveal>
@@ -283,8 +283,8 @@ export default function LeafRemovalContent() {
                     <div className="bg-primary/10 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-7 w-7 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -296,10 +296,10 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           TIMING & FREQUENCY — Seasonal knowledge
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               When & How Often
             </h2>
           </ScrollReveal>
@@ -311,24 +311,24 @@ export default function LeafRemovalContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Calendar className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Timing</h3>
+                  <h3 className="text-xl font-semibold text-white">Timing</h3>
                 </div>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Peak season:</strong> Mid-October through late November</span>
+                    <span><strong className="text-white">Peak season:</strong> Mid-October through late November</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">First visit:</strong> After initial heavy leaf drop (usually late October)</span>
+                    <span><strong className="text-white">First visit:</strong> After initial heavy leaf drop (usually late October)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Final visit:</strong> After oaks finish dropping (mid-late November)</span>
+                    <span><strong className="text-white">Final visit:</strong> After oaks finish dropping (mid-late November)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Before:</strong> First snow covers the ground</span>
+                    <span><strong className="text-white">Before:</strong> First snow covers the ground</span>
                   </li>
                 </ul>
               </GlassCard>
@@ -340,24 +340,24 @@ export default function LeafRemovalContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Clock className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Frequency</h3>
+                  <h3 className="text-xl font-semibold text-white">Frequency</h3>
                 </div>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Light coverage:</strong> 1-2 visits typically sufficient</span>
+                    <span><strong className="text-white">Light coverage:</strong> 1-2 visits typically sufficient</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Heavy oak/maple:</strong> 2-4 visits as trees drop continuously</span>
+                    <span><strong className="text-white">Heavy oak/maple:</strong> 2-4 visits as trees drop continuously</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Neighbor&apos;s trees:</strong> May need extra visits if leaves blow in</span>
+                    <span><strong className="text-white">Neighbor&apos;s trees:</strong> May need extra visits if leaves blow in</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span><strong className="text-foreground">Wet conditions:</strong> More difficult&mdash;schedule before rain if possible</span>
+                    <span><strong className="text-white">Wet conditions:</strong> More difficult&mdash;schedule before rain if possible</span>
                   </li>
                 </ul>
               </GlassCard>
@@ -369,13 +369,13 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHAT MAKES US DIFFERENT — Final trust
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               What Makes TotalGuard Different
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               We know you&apos;ve been burned by lawn guys who don&apos;t show up or deliver inconsistent results. Here&apos;s how we&apos;re different:
             </p>
           </ScrollReveal>
@@ -389,8 +389,8 @@ export default function LeafRemovalContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <GlassCard hover="lift" accentBorder className="h-full">
-                  <h3 className="text-lg font-semibold text-foreground mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
+                  <p className="text-white/60 leading-relaxed">{item.desc}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -404,22 +404,22 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           PRICING — Clear, cinematic pricing card
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="max-w-2xl mx-auto">
               <GlassCard variant="accent" hover="glow" className="text-center p-8 md:p-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Madison-Area Leaf Removal Pricing</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Madison-Area Leaf Removal Pricing</h2>
                 <div className="flex items-baseline justify-center gap-1 mb-4">
                   <span className="text-5xl md:text-6xl font-bold text-primary">$150</span>
-                  <span className="text-2xl text-muted-foreground">&ndash;</span>
+                  <span className="text-2xl text-white/60">&ndash;</span>
                   <span className="text-5xl md:text-6xl font-bold text-primary">$400</span>
-                  <span className="text-muted-foreground text-lg ml-1">/visit</span>
+                  <span className="text-white/60 text-lg ml-1">/visit</span>
                 </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-white/60 mb-6 leading-relaxed">
                   Most Madison, Middleton, Waunakee, and Sun Prairie homes require 2-4 visits during fall season. Pricing depends on property size and leaf volume&mdash;no surprises, no hidden fees.
                 </p>
-                <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm text-muted-foreground">
+                <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm text-white/60">
                   <span className="flex items-center gap-1.5">
                     <Clock className="h-4 w-4 text-primary" />
                     October through November
@@ -444,13 +444,13 @@ export default function LeafRemovalContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           RELATED SERVICES — Cross-sell
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4 text-center">
               Pair With These Services
             </h2>
-            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-10 max-w-2xl mx-auto">
               Many Madison homeowners combine leaf removal with these related fall services:
             </p>
           </ScrollReveal>
@@ -465,8 +465,8 @@ export default function LeafRemovalContent() {
               <ScrollReveal key={i} delay={i * 0.08}>
                 <Link href={item.href} className="block group">
                   <GlassCard hover="lift" className="text-center h-full">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <p className="text-sm text-white/60">{item.desc}</p>
                     <span className="inline-flex items-center text-primary text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                       Learn More <ArrowRight className="ml-1 h-3.5 w-3.5" />
                     </span>

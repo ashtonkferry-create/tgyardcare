@@ -31,7 +31,7 @@ export default function GutterCleaningContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#050d07' }}>
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://tgyardcare.com' },
         { name: 'Services', url: 'https://tgyardcare.com/services' },
@@ -105,11 +105,11 @@ export default function GutterCleaningContent() {
 
       {/* Who This Is For — Quick qualifier */}
       <ScrollReveal>
-        <section className="py-6 bg-muted/30 border-b border-border">
+        <section className="py-6 border-b border-border" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="text-base md:text-lg text-muted-foreground">
-                <strong className="text-foreground">Ideal for:</strong> Homeowners who don&apos;t want to risk ladder falls, properties with mature trees, or anyone who values their safety and time. Essential before Wisconsin&apos;s winter freeze.
+              <p className="text-base md:text-lg text-white/60">
+                <strong className="text-white">Ideal for:</strong> Homeowners who don&apos;t want to risk ladder falls, properties with mature trees, or anyone who values their safety and time. Essential before Wisconsin&apos;s winter freeze.
               </p>
             </div>
           </div>
@@ -143,13 +143,13 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHAT'S INCLUDED — Visual checklist
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               What&apos;s Included in Our Gutter Cleaning
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
               Complete service with no hidden charges&mdash;exactly what you need to protect your home.
             </p>
           </ScrollReveal>
@@ -167,8 +167,8 @@ export default function GutterCleaningContent() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -181,10 +181,10 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           HOW IT WORKS — Animated process timeline
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               How Our Gutter Cleaning Works
             </h2>
           </ScrollReveal>
@@ -201,11 +201,11 @@ export default function GutterCleaningContent() {
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <div className="text-center relative">
-                  <div className="relative z-10 bg-card/80 backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
+                  <div className="relative z-10 bg-white/[0.06] backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
                     <span className="text-2xl font-bold text-primary">{item.step}</span>
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -228,10 +228,10 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           WHEN TO CLEAN — Seasonal knowledge
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               When to Clean Gutters in Wisconsin
             </h2>
           </ScrollReveal>
@@ -246,12 +246,12 @@ export default function GutterCleaningContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Calendar className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Fall (Late October-November)</h3>
+                  <h3 className="text-xl font-semibold text-white">Fall (Late October-November)</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-white/60 mb-4">
                   After Madison&apos;s oak and maple trees finish dropping leaves but before the first freeze. This is the most important cleaning of the year&mdash;clogged gutters in winter lead to ice dams.
                 </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     Prevents ice dam formation
@@ -274,12 +274,12 @@ export default function GutterCleaningContent() {
                   <div className="bg-primary/10 rounded-full p-2">
                     <Calendar className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">Spring (April-May)</h3>
+                  <h3 className="text-xl font-semibold text-white">Spring (April-May)</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-white/60 mb-4">
                   After pollen season and tree seeds (helicopters) finish falling. Clears winter debris and prepares for spring storms and heavy summer rain.
                 </p>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                <ul className="space-y-2.5 text-sm text-white/60">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     Removes winter accumulation
@@ -297,8 +297,8 @@ export default function GutterCleaningContent() {
             </ScrollReveal>
           </div>
           <ScrollReveal delay={0.3}>
-            <p className="text-center text-muted-foreground mt-8 max-w-2xl mx-auto">
-              <strong className="text-foreground">How often?</strong> Twice yearly (spring and fall) is standard. Properties with many trees may benefit from three cleanings.
+            <p className="text-center text-white/60 mt-8 max-w-2xl mx-auto">
+              <strong className="text-white">How often?</strong> Twice yearly (spring and fall) is standard. Properties with many trees may benefit from three cleanings.
             </p>
           </ScrollReveal>
         </div>
@@ -307,10 +307,10 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           BENEFITS — Wisconsin Context
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20 bg-muted/30">
+      <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
               Why Gutter Cleaning Matters in Wisconsin
             </h2>
           </ScrollReveal>
@@ -327,9 +327,9 @@ export default function GutterCleaningContent() {
                   <GlassCard hover="lift" accentBorder className="h-full">
                     <div className="flex items-center gap-3 mb-3">
                       <Icon className="h-6 w-6 text-primary" />
-                      <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                      <h3 className="text-xl font-semibold text-white">{item.title}</h3>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <p className="text-white/60 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </ScrollReveal>
               );
@@ -341,18 +341,18 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           PRICING — Cinematic pricing card
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="max-w-2xl mx-auto">
               <GlassCard variant="accent" hover="glow" className="text-center p-8 md:p-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Madison-Area Gutter Cleaning Prices</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
-                  Most single-story homes in Madison, Middleton, Waunakee, and Sun Prairie range from <strong className="text-foreground">$100-$200</strong>. Two-story homes typically run <strong className="text-foreground">$150-$300</strong>. Price depends on linear feet of gutter, height, and debris level. We recommend cleaning twice yearly: spring (after pollen) and fall (after leaves).
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Madison-Area Gutter Cleaning Prices</h2>
+                <p className="text-lg text-white/60 max-w-2xl mx-auto mb-6 leading-relaxed">
+                  Most single-story homes in Madison, Middleton, Waunakee, and Sun Prairie range from <strong className="text-white">$100-$200</strong>. Two-story homes typically run <strong className="text-white">$150-$300</strong>. Price depends on linear feet of gutter, height, and debris level. We recommend cleaning twice yearly: spring (after pollen) and fall (after leaves).
                 </p>
                 <GlassCard className="mb-8 text-left">
-                  <p className="font-semibold text-foreground mb-2">Seasonal Package Discount</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-semibold text-white mb-2">Seasonal Package Discount</p>
+                  <p className="text-sm text-white/60">
                     Schedule both spring and fall cleanings together and save 10% on your annual gutter maintenance.
                   </p>
                 </GlassCard>
@@ -371,13 +371,13 @@ export default function GutterCleaningContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           RELATED SERVICE — Cross-sell
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 md:py-20">
+      <section className="py-14 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4 text-center">
               Tired of Cleaning Gutters Twice a Year?
             </h2>
-            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-center text-white/60 mb-8 max-w-2xl mx-auto">
               Consider gutter guards&mdash;they reduce cleaning frequency by up to 90%:
             </p>
           </ScrollReveal>
@@ -385,8 +385,8 @@ export default function GutterCleaningContent() {
             <div className="max-w-md mx-auto">
               <Link href="/services/gutter-guards" className="block group">
                 <GlassCard hover="lift" className="text-center">
-                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">Gutter Guard Installation</h3>
-                  <p className="text-muted-foreground">One-time investment that pays for itself in 3-5 years. Never climb a ladder again.</p>
+                  <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">Gutter Guard Installation</h3>
+                  <p className="text-white/60">One-time investment that pays for itself in 3-5 years. Never climb a ladder again.</p>
                   <span className="inline-flex items-center text-primary text-sm font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                     Learn About Gutter Guards <ArrowRight className="ml-1 h-3.5 w-3.5" />
                   </span>

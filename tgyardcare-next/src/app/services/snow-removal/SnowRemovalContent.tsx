@@ -57,7 +57,7 @@ export default function SnowRemovalContent() {
         areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
       />
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen" style={{ background: '#050d07' }}>
         <Navigation />
 
         {/* TL;DR for AI/Answer Engines */}
@@ -119,12 +119,12 @@ export default function SnowRemovalContent() {
         <TrustStrip variant="dark" />
 
         {/* Who This Is For */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <ScrollReveal>
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Who Snow Removal Is For</h2>
-                <p className="text-lg text-muted-foreground text-center mb-12">
+                <p className="text-lg text-white/60 text-center mb-12">
                   This service is designed for Dane County residents who need reliable winter property access without the physical strain or unreliable contractors.
                 </p>
               </ScrollReveal>
@@ -143,7 +143,7 @@ export default function SnowRemovalContent() {
                           <Icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                           <div>
                             <h3 className="font-semibold mb-1">{item.title}</h3>
-                            <p className="text-sm text-muted-foreground">{item.desc}</p>
+                            <p className="text-sm text-white/60">{item.desc}</p>
                           </div>
                         </div>
                       </GlassCard>
@@ -209,7 +209,7 @@ export default function SnowRemovalContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             HOW IT WORKS — Animated process timeline
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">How Snow Removal Works</h2>
@@ -227,11 +227,11 @@ export default function SnowRemovalContent() {
                 ].map((item, i) => (
                   <ScrollReveal key={i} delay={i * 0.12}>
                     <div className="text-center relative">
-                      <div className="relative z-10 bg-card/80 backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
+                      <div className="relative z-10 bg-white/[0.06] backdrop-blur-sm border-2 border-primary/20 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg hover:border-primary/50 hover:shadow-primary/10 hover:shadow-xl transition-all duration-300">
                         <span className="text-2xl font-bold text-primary">{item.step}</span>
                       </div>
                       <h3 className="font-semibold mb-2">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
                     </div>
                   </ScrollReveal>
                 ))}
@@ -261,7 +261,7 @@ export default function SnowRemovalContent() {
                   <ScrollReveal key={i} delay={i * 0.1}>
                     <GlassCard hover="lift" accentBorder className="h-full">
                       <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <p className="text-white/60 leading-relaxed">{item.desc}</p>
                     </GlassCard>
                   </ScrollReveal>
                 ))}
@@ -297,11 +297,11 @@ export default function SnowRemovalContent() {
                   <GlassCard hover="glow" className="h-full">
                     <Calendar className="h-8 w-8 text-primary mb-4" />
                     <h3 className="text-xl font-semibold mb-3">Timing</h3>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>&bull; <strong className="text-foreground">Season:</strong> November through March (or April in heavy years)</li>
-                      <li>&bull; <strong className="text-foreground">Trigger:</strong> Service begins at 2+ inches of accumulation</li>
-                      <li>&bull; <strong className="text-foreground">Timing:</strong> Cleared before you need to leave for work</li>
-                      <li>&bull; <strong className="text-foreground">Multi-day storms:</strong> Multiple passes as needed</li>
+                    <ul className="space-y-2 text-white/60">
+                      <li>&bull; <strong className="text-white">Season:</strong> November through March (or April in heavy years)</li>
+                      <li>&bull; <strong className="text-white">Trigger:</strong> Service begins at 2+ inches of accumulation</li>
+                      <li>&bull; <strong className="text-white">Timing:</strong> Cleared before you need to leave for work</li>
+                      <li>&bull; <strong className="text-white">Multi-day storms:</strong> Multiple passes as needed</li>
                     </ul>
                   </GlassCard>
                 </ScrollReveal>
@@ -309,11 +309,11 @@ export default function SnowRemovalContent() {
                   <GlassCard hover="glow" className="h-full">
                     <Clock className="h-8 w-8 text-primary mb-4" />
                     <h3 className="text-xl font-semibold mb-3">Frequency</h3>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>&bull; <strong className="text-foreground">Average season:</strong> 40+ inches of snow in Dane County</li>
-                      <li>&bull; <strong className="text-foreground">Per-storm:</strong> Pay only when we plow</li>
-                      <li>&bull; <strong className="text-foreground">Seasonal contract:</strong> Fixed price for entire winter</li>
-                      <li>&bull; <strong className="text-foreground">Ice-only:</strong> De-icing service available separately</li>
+                    <ul className="space-y-2 text-white/60">
+                      <li>&bull; <strong className="text-white">Average season:</strong> 40+ inches of snow in Dane County</li>
+                      <li>&bull; <strong className="text-white">Per-storm:</strong> Pay only when we plow</li>
+                      <li>&bull; <strong className="text-white">Seasonal contract:</strong> Fixed price for entire winter</li>
+                      <li>&bull; <strong className="text-white">Ice-only:</strong> De-icing service available separately</li>
                     </ul>
                   </GlassCard>
                 </ScrollReveal>
@@ -325,7 +325,7 @@ export default function SnowRemovalContent() {
         {/* ═══════════════════════════════════════════════════════════════════
             PRICING — Cinematic pricing section
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="py-14 md:py-20 bg-muted/30">
+        <section className="py-14 md:py-20" style={{ background: '#0a1a0e' }}>
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <div className="max-w-3xl mx-auto">
@@ -333,25 +333,25 @@ export default function SnowRemovalContent() {
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">
                     Madison-Area Snow Removal Pricing
                   </h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  <p className="text-lg text-white/60 leading-relaxed mb-8">
                     Dane County averages 40+ inches of snow annually&mdash;so we offer both per-storm pricing and seasonal contracts that make sense for Wisconsin winters. Pricing depends on driveway length, property size, and service frequency.
                   </p>
                   <GlassCard className="mb-8 text-left">
                     <h3 className="font-semibold mb-4">Pricing Options:</h3>
-                    <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                    <div className="grid md:grid-cols-2 gap-4 text-sm text-white/60">
                       <div>
-                        <strong className="text-foreground">Per-Storm</strong>
+                        <strong className="text-white">Per-Storm</strong>
                         <p>Pay only when we plow. Good for light winters or budget flexibility.</p>
                       </div>
                       <div>
-                        <strong className="text-foreground">Seasonal Contract</strong>
+                        <strong className="text-white">Seasonal Contract</strong>
                         <p>Fixed price for entire season. Best value for typical Dane County winters.</p>
                       </div>
                     </div>
                   </GlassCard>
                   <GlassCard variant="accent" className="mb-8">
                     <p className="text-lg font-semibold mb-2">Wisconsin Winter Season</p>
-                    <p className="text-muted-foreground">
+                    <p className="text-white/60">
                       Snow removal available November through March. We monitor Dane County forecasts closely and mobilize before storms hit&mdash;so you wake up to cleared driveways, not snow piles.
                     </p>
                   </GlassCard>
@@ -383,7 +383,7 @@ export default function SnowRemovalContent() {
                   <ScrollReveal key={i} delay={i * 0.1}>
                     <GlassCard hover="lift" className="h-full">
                       <h3 className="font-semibold text-lg mb-3">{item.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                      <p className="text-white/60 leading-relaxed">{item.desc}</p>
                     </GlassCard>
                   </ScrollReveal>
                 ))}
@@ -403,7 +403,7 @@ export default function SnowRemovalContent() {
             <div className="max-w-4xl mx-auto text-center">
               <ScrollReveal>
                 <h2 className="text-2xl font-bold mb-6">Year-Round Property Care</h2>
-                <p className="text-muted-foreground mb-8">
+                <p className="text-white/60 mb-8">
                   Snow removal clients get priority scheduling for our summer services. Keep your property maintained all year:
                 </p>
               </ScrollReveal>
@@ -417,7 +417,7 @@ export default function SnowRemovalContent() {
                   <ScrollReveal key={i} delay={i * 0.08}>
                     <Link href={item.href} className="block group">
                       <GlassCard hover="lift" className="text-center">
-                        <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{item.title}</h3>
+                        <h3 className="text-sm font-semibold text-white group-hover:text-primary transition-colors">{item.title}</h3>
                         <span className="inline-flex items-center text-primary text-xs font-medium mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                           View <ArrowRight className="ml-1 h-3 w-3" />
                         </span>
