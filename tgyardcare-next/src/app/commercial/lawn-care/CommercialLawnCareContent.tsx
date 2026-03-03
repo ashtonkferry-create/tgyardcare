@@ -13,10 +13,33 @@ import { commercialLawnCareFAQs } from "@/data/serviceFAQs";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { GlassCard } from '@/components/GlassCard';
+import { TrustStrip } from '@/components/TrustStrip';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import { cn } from '@/lib/utils';
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
 }
+
+const seasonalAccent = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalCheck = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalSectionBg = {
+  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
+  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
+  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+} as const;
 
 const serviceScope = [
   {
@@ -74,7 +97,28 @@ const qualityStandards = [
   "Post-service property walkthrough before departure"
 ];
 
+const processSteps = [
+  {
+    title: "Property walkthrough",
+    description: "We assess your property in person—measuring turf areas, identifying access points, and documenting any special requirements or problem areas."
+  },
+  {
+    title: "Custom scope and bid",
+    description: "You receive a detailed proposal outlining service scope, schedule, pricing structure, and contract terms. No vague line items or hidden fees."
+  },
+  {
+    title: "Contract execution",
+    description: "Once approved, we assign your dedicated crew, confirm your service day, and begin operations on your agreed start date."
+  },
+  {
+    title: "Ongoing accountability",
+    description: "Service logs, monthly reports, and direct communication ensure you always know what's happening on your property."
+  }
+];
+
 export default function CommercialLawnCareContent() {
+  const { activeSeason } = useSeasonalTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbSchema items={[
@@ -110,6 +154,9 @@ export default function CommercialLawnCareContent() {
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl">
             <p className="text-accent font-semibold mb-3 text-sm md:text-base tracking-wide uppercase">Commercial Property Maintenance</p>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 text-white/90 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+              Starting at $400/mo
+            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
               Commercial Lawn Care <span className="text-accent">Contracts</span>
             </h1>
@@ -117,11 +164,9 @@ export default function CommercialLawnCareContent() {
               Predictable, documented lawn maintenance for property managers who need reliability—not excuses. Same crew, same schedule, zero missed visits.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button size="lg" variant="accent" className="w-full sm:w-auto tap-target text-base md:text-lg font-bold" asChild>
-                <Link href="/contact?service=commercial-lawn-care">
-                  Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+              <Link href="/contact?service=commercial-lawn-care" className="inline-flex items-center justify-center h-12 px-8 text-base md:text-lg font-bold rounded-lg animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black shadow-lg hover:shadow-amber-500/25 transition-shadow">
+                Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
               <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-gray-900 tap-target text-base md:text-lg" asChild>
                 <a href="tel:608-535-6057">
                   <Phone className="mr-2 h-5 w-5" />
@@ -134,25 +179,30 @@ export default function CommercialLawnCareContent() {
       </section>
 
       <CommercialInsuranceBanner />
+      <TrustStrip variant="dark" />
 
       {/* Who This Is For */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Built for commercial property operations
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              This service is designed for property managers, facility directors, and HOA boards who need grounds maintenance that operates like a system—not a favor from a local contractor.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                Built for commercial property operations
+              </h2>
+              <p className="text-base md:text-lg text-white/60">
+                This service is designed for property managers, facility directors, and HOA boards who need grounds maintenance that operates like a system—not a favor from a local contractor.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {propertyTypes.map((type, index) => (
-              <div key={index} className="bg-background p-6 rounded-lg border border-border">
-                <Building2 className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
-                <p className="text-muted-foreground text-sm">{type.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift">
+                  <Building2 className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-lg font-bold text-white mb-2">{type.name}</h3>
+                  <p className="text-white/60 text-sm">{type.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -161,79 +211,95 @@ export default function CommercialLawnCareContent() {
       {/* What's Included at Scale */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Commercial-scale service scope
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              Every element of grounds maintenance documented, scheduled, and executed with commercial-grade consistency.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Commercial-scale service scope
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground">
+                Every element of grounds maintenance documented, scheduled, and executed with commercial-grade consistency.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {serviceScope.map((item, index) => (
-              <div key={index} className="flex gap-4">
-                <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
-                  <item.icon className="h-6 w-6 text-primary" />
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <div className="flex gap-4">
+                  <div className="bg-primary/10 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+                    <item.icon className={cn('h-6 w-6', seasonalAccent[activeSeason])} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Quality Standards */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Service quality standards
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                What you can expect from every visit—documented and verifiable.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                  Service quality standards
+                </h2>
+                <p className="text-base md:text-lg text-white/60">
+                  What you can expect from every visit—documented and verifiable.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {qualityStandards.map((standard, index) => (
-                <div key={index} className="flex items-start bg-background p-4 rounded-lg border border-border">
-                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">{standard}</span>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard hover="glow" variant="dark" className="flex items-start p-4">
+                    <CheckCircle2 className={cn('h-5 w-5 mr-3 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                    <span className="text-white">{standard}</span>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
+      <CTASection variant="compact" />
+
       {/* Pricing Structure */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Commercial pricing structure
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Transparent contract options designed for commercial budgeting and property management accounting.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Commercial pricing structure
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Transparent contract options designed for commercial budgeting and property management accounting.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricingStructure.map((option, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
-                  <p className="text-muted-foreground">{option.description}</p>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
+                    <p className="text-muted-foreground">{option.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
-            <div className="mt-8 text-center">
-              <p className="text-muted-foreground mb-4">
-                Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-foreground">$400–$1,500</strong> depending on scope.
-              </p>
-            </div>
+            <ScrollReveal delay={0.3}>
+              <div className="mt-8 text-center">
+                <p className="text-muted-foreground mb-4">
+                  Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-foreground">$400–$1,500</strong> depending on scope.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -242,40 +308,50 @@ export default function CommercialLawnCareContent() {
       <section className="py-16 md:py-20 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] border-y border-emerald-800/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 mb-4">
-                What separates us from low-bid contractors
-              </h2>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 mb-4">
+                  What separates us from low-bid contractors
+                </h2>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <Shield className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-3">Accountability systems</h3>
-                <p className="text-muted-foreground">
-                  Every visit logged with crew ID, timestamp, and completion status. No wondering if service happened—you'll have records.
-                </p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <Calendar className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-3">Consistent scheduling</h3>
-                <p className="text-muted-foreground">
-                  Same day, same crew, same standards. Your property won't be pushed down the priority list during busy weeks.
-                </p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <ClipboardCheck className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-3">Documentation for boards</h3>
-                <p className="text-muted-foreground">
-                  Monthly service reports, issue tracking, and compliance records ready for board meetings and owner communications.
-                </p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <Users className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-3">Direct communication</h3>
-                <p className="text-muted-foreground">
-                  Dedicated point of contact for scheduling changes, concerns, or urgent requests. No call centers or dispatch runaround.
-                </p>
-              </div>
+              <ScrollReveal delay={0}>
+                <GlassCard hover="lift" className="p-8">
+                  <Shield className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-xl font-bold text-white mb-3">Accountability systems</h3>
+                  <p className="text-white/60">
+                    Every visit logged with crew ID, timestamp, and completion status. No wondering if service happened—you'll have records.
+                  </p>
+                </GlassCard>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <GlassCard hover="lift" className="p-8">
+                  <Calendar className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-xl font-bold text-white mb-3">Consistent scheduling</h3>
+                  <p className="text-white/60">
+                    Same day, same crew, same standards. Your property won't be pushed down the priority list during busy weeks.
+                  </p>
+                </GlassCard>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <GlassCard hover="lift" className="p-8">
+                  <ClipboardCheck className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-xl font-bold text-white mb-3">Documentation for boards</h3>
+                  <p className="text-white/60">
+                    Monthly service reports, issue tracking, and compliance records ready for board meetings and owner communications.
+                  </p>
+                </GlassCard>
+              </ScrollReveal>
+              <ScrollReveal delay={0.3}>
+                <GlassCard hover="lift" className="p-8">
+                  <Users className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-xl font-bold text-white mb-3">Direct communication</h3>
+                  <p className="text-white/60">
+                    Dedicated point of contact for scheduling changes, concerns, or urgent requests. No call centers or dispatch runaround.
+                  </p>
+                </GlassCard>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -285,69 +361,78 @@ export default function CommercialLawnCareContent() {
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                How commercial contracts work
-              </h2>
-            </div>
-            <div className="space-y-6">
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Property walkthrough</h3>
-                  <p className="text-muted-foreground">We assess your property in person—measuring turf areas, identifying access points, and documenting any special requirements or problem areas.</p>
-                </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  How commercial contracts work
+                </h2>
               </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Custom scope and bid</h3>
-                  <p className="text-muted-foreground">You receive a detailed proposal outlining service scope, schedule, pricing structure, and contract terms. No vague line items or hidden fees.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Contract execution</h3>
-                  <p className="text-muted-foreground">Once approved, we assign your dedicated crew, confirm your service day, and begin operations on your agreed start date.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">Ongoing accountability</h3>
-                  <p className="text-muted-foreground">Service logs, monthly reports, and direct communication ensure you always know what's happening on your property.</p>
-                </div>
+            </ScrollReveal>
+            <div className="relative">
+              {/* Connecting line */}
+              <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+              <div className="space-y-6">
+                {processSteps.map((step, index) => (
+                  <ScrollReveal key={index} delay={index * 0.12}>
+                    <div className="flex gap-4 items-start relative">
+                      <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 text-white text-sm z-10">
+                        {index + 1}
+                      </div>
+                      <GlassCard variant="dark" hover="glow" className="flex-1">
+                        <h3 className="text-lg font-bold text-white mb-1">{step.title}</h3>
+                        <p className="text-white/60">{step.description}</p>
+                      </GlassCard>
+                    </div>
+                  </ScrollReveal>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <TrustStrip variant="light" />
+
       {/* Related Commercial Services */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Integrate with other commercial services
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-8">
-              Most commercial properties bundle lawn care with seasonal and specialty services for comprehensive grounds management.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/commercial/fertilization-weed-control">Fertilization & Weed Control</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/seasonal">Seasonal Cleanups</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/snow-removal">Snow Removal</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/property-enhancement">Property Enhancement</Link>
-              </Button>
-            </div>
+            <ScrollReveal>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                Integrate with other commercial services
+              </h2>
+              <p className="text-base md:text-lg text-white/60 mb-8">
+                Most commercial properties bundle lawn care with seasonal and specialty services for comprehensive grounds management.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/commercial/fertilization-weed-control" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Fertilization & Weed Control</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+                <Link href="/commercial/seasonal" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Seasonal Cleanups</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+                <Link href="/commercial/snow-removal" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Snow Removal</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+                <Link href="/commercial/property-enhancement" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Property Enhancement</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>

@@ -14,10 +14,33 @@ import { WinterPriorityServices } from "@/components/WinterPriorityServices";
 import { CommercialInsuranceBanner } from "@/components/CommercialInsuranceBanner";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
+import { ScrollReveal } from '@/components/ScrollReveal';
+import { GlassCard } from '@/components/GlassCard';
+import { TrustStrip } from '@/components/TrustStrip';
+import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
+import { cn } from '@/lib/utils';
 
 function imgSrc(img: string | { src: string }): string {
   return typeof img === 'string' ? img : img.src;
 }
+
+const seasonalAccent = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalCheck = {
+  summer: 'text-emerald-400',
+  fall: 'text-amber-400',
+  winter: 'text-cyan-400',
+} as const;
+
+const seasonalSectionBg = {
+  summer: 'from-[#0a1f14] via-[#0f2818] to-[#0a1f14]',
+  fall: 'from-stone-950 via-amber-950/20 to-stone-950',
+  winter: 'from-slate-950 via-blue-950/20 to-slate-950',
+} as const;
 
 const services = [
   {
@@ -111,7 +134,28 @@ const qualityStandards = [
   "24/7 emergency contact during active storms"
 ];
 
+const communicationCards = [
+  {
+    title: "Before the storm",
+    description: "Weather alert notifications when significant accumulation is forecast. Pre-storm preparation details."
+  },
+  {
+    title: "During the storm",
+    description: "Arrival notifications when crews reach your property. Status updates during extended storm events."
+  },
+  {
+    title: "After the storm",
+    description: "Completion confirmation with service summary. Photo documentation available upon request."
+  },
+  {
+    title: "Emergency contact",
+    description: "Direct line to operations during active storms. Issues addressed immediately, not next business day."
+  }
+];
+
 export default function CommercialSnowRemovalContent() {
+  const { activeSeason } = useSeasonalTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbSchema items={[
@@ -147,6 +191,9 @@ export default function CommercialSnowRemovalContent() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <p className="text-accent font-semibold mb-3 text-sm md:text-base tracking-wide uppercase">Commercial Winter Operations</p>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 text-white/90 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+              Starting at $500/mo
+            </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6">
               Commercial Snow Removal <span className="text-accent">Contracts</span>
             </h1>
@@ -154,11 +201,9 @@ export default function CommercialSnowRemovalContent() {
               Documented storm response with real-time communication. Know when we arrive, when we finish, and what was done—every storm, every time.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Button size="lg" variant="accent" className="text-base md:text-lg font-bold" asChild>
-                <Link href="/contact?service=commercial-snow-removal">
-                  Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+              <Link href="/contact?service=commercial-snow-removal" className="inline-flex items-center justify-center h-12 px-8 text-base md:text-lg font-bold rounded-lg animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black shadow-lg hover:shadow-amber-500/25 transition-shadow">
+                Request Commercial Quote <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900 text-base md:text-lg" asChild>
                 <a href="tel:608-535-6057">
                   <Phone className="mr-2 h-5 w-5" />
@@ -171,25 +216,30 @@ export default function CommercialSnowRemovalContent() {
       </section>
 
       <CommercialInsuranceBanner />
+      <TrustStrip variant="dark" />
 
       {/* Who This Is For */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Commercial snow removal for property operations
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground">
-              Designed for property managers and facility directors who need reliable winter operations with liability documentation—not contractors who disappear during major storms.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                Commercial snow removal for property operations
+              </h2>
+              <p className="text-base md:text-lg text-white/60">
+                Designed for property managers and facility directors who need reliable winter operations with liability documentation—not contractors who disappear during major storms.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {propertyTypes.map((type, index) => (
-              <div key={index} className="bg-background p-6 rounded-lg border border-border">
-                <Building2 className="h-8 w-8 text-primary mb-4" />
-                <h3 className="text-lg font-bold text-foreground mb-2">{type.name}</h3>
-                <p className="text-muted-foreground text-sm">{type.description}</p>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift">
+                  <Building2 className={cn('h-8 w-8 mb-4', seasonalAccent[activeSeason])} />
+                  <h3 className="text-lg font-bold text-white mb-2">{type.name}</h3>
+                  <p className="text-white/60 text-sm">{type.description}</p>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -199,21 +249,25 @@ export default function CommercialSnowRemovalContent() {
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <AlertTriangle className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Liability protection through documentation
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Slip-and-fall claims are the primary winter liability for commercial properties. Documented snow response is your best defense.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <AlertTriangle className={cn('h-12 w-12 mx-auto mb-4', seasonalAccent[activeSeason])} />
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Liability protection through documentation
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Slip-and-fall claims are the primary winter liability for commercial properties. Documented snow response is your best defense.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {liabilityProtection.map((item, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -221,33 +275,37 @@ export default function CommercialSnowRemovalContent() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Commercial winter service scope
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-              Complete winter operations designed for commercial properties requiring reliable response and documented service.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                Commercial winter service scope
+              </h2>
+              <p className="text-base md:text-lg text-white/60 max-w-3xl mx-auto">
+                Complete winter operations designed for commercial properties requiring reliable response and documented service.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
-              <div key={index} className="bg-background p-8 rounded-xl border border-border">
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mb-6" aria-hidden="true">
-                  <service.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-                <ul className="space-y-3">
-                  {service.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <GlassCard hover="lift" className="p-8">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full w-16 h-16 flex items-center justify-center mb-6" aria-hidden="true">
+                    <service.icon className={cn('h-8 w-8', seasonalAccent[activeSeason])} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                  <p className="text-white/60 mb-6">{service.description}</p>
+                  <ul className="space-y-3">
+                    {service.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <CheckCircle2 className={cn('h-5 w-5 mr-2 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                        <span className="text-white">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </GlassCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -257,85 +315,103 @@ export default function CommercialSnowRemovalContent() {
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <Snowflake className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Response trigger thresholds
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Pre-defined accumulation thresholds eliminate guesswork. Service initiates automatically—no phone calls needed.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <Snowflake className={cn('h-12 w-12 mx-auto mb-4', seasonalAccent[activeSeason])} />
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Response trigger thresholds
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Pre-defined accumulation thresholds eliminate guesswork. Service initiates automatically—no phone calls needed.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="space-y-4">
               {triggerThresholds.map((threshold, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold flex-shrink-0">
-                      {threshold.amount}
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white/10 backdrop-blur-sm border border-white/10 text-white px-3 py-1 rounded-full text-sm font-bold flex-shrink-0">
+                        {threshold.amount}
+                      </div>
+                      <p className="text-muted-foreground">{threshold.response}</p>
                     </div>
-                    <p className="text-muted-foreground">{threshold.response}</p>
-                  </div>
-                </div>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
-            <div className="mt-8 p-6 bg-accent/10 rounded-xl border border-accent/20">
-              <p className="text-foreground text-center">
-                <strong>Custom triggers available.</strong> Medical facilities, 24-hour operations, and critical access properties can negotiate lower thresholds or priority routing.
-              </p>
-            </div>
+            <ScrollReveal delay={0.4}>
+              <div className="mt-8 p-6 bg-accent/10 rounded-xl border border-accent/20">
+                <p className="text-foreground text-center">
+                  <strong>Custom triggers available.</strong> Medical facilities, 24-hour operations, and critical access properties can negotiate lower thresholds or priority routing.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Quality Standards */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Commercial service standards
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                What you can expect from every storm response.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                  Commercial service standards
+                </h2>
+                <p className="text-base md:text-lg text-white/60">
+                  What you can expect from every storm response.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {qualityStandards.map((standard, index) => (
-                <div key={index} className="flex items-start bg-background p-4 rounded-lg border border-border">
-                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">{standard}</span>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard hover="glow" variant="dark" className="flex items-start p-4">
+                    <CheckCircle2 className={cn('h-5 w-5 mr-3 mt-0.5 flex-shrink-0', seasonalCheck[activeSeason])} />
+                    <span className="text-white">{standard}</span>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
+      <CTASection variant="compact" />
+
       {/* Pricing Structure */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Commercial pricing structure
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground">
-                Flexible contract options for different budgeting preferences and risk tolerance.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Commercial pricing structure
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Flexible contract options for different budgeting preferences and risk tolerance.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricingStructure.map((option, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
-                  <p className="text-muted-foreground">{option.description}</p>
-                </div>
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard variant="dark" hover="glow">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{option.title}</h3>
+                    <p className="text-muted-foreground">{option.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
               ))}
             </div>
-            <div className="mt-8 text-center">
-              <p className="text-muted-foreground">
-                Commercial snow removal contracts typically range from <strong className="text-foreground">$500–$2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
-              </p>
-            </div>
+            <ScrollReveal delay={0.3}>
+              <div className="mt-8 text-center">
+                <p className="text-muted-foreground">
+                  Commercial snow removal contracts typically range from <strong className="text-foreground">$500–$2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -344,32 +420,26 @@ export default function CommercialSnowRemovalContent() {
       <section className="py-16 md:py-20 bg-gradient-to-r from-[#0f2a1a] via-[#1a3a2a] to-[#0f2a1a] border-y border-emerald-800/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <MessageSquare className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 mb-4">
-                Real-time storm communication
-              </h2>
-              <p className="text-base md:text-lg text-white/70">
-                You'll never wonder if service happened. Our communication system keeps you informed throughout every storm event.
-              </p>
-            </div>
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <MessageSquare className={cn('h-12 w-12 mx-auto mb-4', seasonalAccent[activeSeason])} />
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 mb-4">
+                  Real-time storm communication
+                </h2>
+                <p className="text-base md:text-lg text-white/70">
+                  You'll never wonder if service happened. Our communication system keeps you informed throughout every storm event.
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-xl font-bold text-foreground mb-3">Before the storm</h3>
-                <p className="text-muted-foreground">Weather alert notifications when significant accumulation is forecast. Pre-storm preparation details.</p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-xl font-bold text-foreground mb-3">During the storm</h3>
-                <p className="text-muted-foreground">Arrival notifications when crews reach your property. Status updates during extended storm events.</p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-xl font-bold text-foreground mb-3">After the storm</h3>
-                <p className="text-muted-foreground">Completion confirmation with service summary. Photo documentation available upon request.</p>
-              </div>
-              <div className="bg-background p-6 rounded-xl border border-border">
-                <h3 className="text-xl font-bold text-foreground mb-3">Emergency contact</h3>
-                <p className="text-muted-foreground">Direct line to operations during active storms. Issues addressed immediately, not next business day.</p>
-              </div>
+              {communicationCards.map((card, index) => (
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <GlassCard hover="lift" className="p-8">
+                    <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
+                    <p className="text-white/60">{card.description}</p>
+                  </GlassCard>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
@@ -377,27 +447,42 @@ export default function CommercialSnowRemovalContent() {
 
       <WinterPriorityServices />
 
+      <TrustStrip variant="light" />
+
       {/* Related Commercial Services */}
-      <section className="py-16 md:py-20 bg-secondary/30">
+      <section className={cn('py-16 md:py-20 bg-gradient-to-b', seasonalSectionBg[activeSeason])}>
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Year-round commercial services
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-8">
-              Snow removal clients receive priority scheduling for seasonal transitions and grounds maintenance.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="outline" asChild>
-                <Link href="/commercial/lawn-care">Lawn Care Contracts</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/seasonal">Seasonal Cleanups</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/commercial/gutters">Gutter Maintenance</Link>
-              </Button>
-            </div>
+            <ScrollReveal>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                Year-round commercial services
+              </h2>
+              <p className="text-base md:text-lg text-white/60 mb-8">
+                Snow removal clients receive priority scheduling for seasonal transitions and grounds maintenance.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/commercial/lawn-care" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Lawn Care Contracts</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+                <Link href="/commercial/seasonal" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Seasonal Cleanups</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+                <Link href="/commercial/gutters" className="group">
+                  <GlassCard variant="dark" hover="glow" className="inline-flex items-center gap-2 px-5 py-3">
+                    <span className="text-white font-medium">Gutter Maintenance</span>
+                    <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </GlassCard>
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
