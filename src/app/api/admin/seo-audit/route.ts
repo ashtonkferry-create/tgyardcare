@@ -144,7 +144,7 @@ function scorePage(meta: PageMetaResponse): { score: number; issues: AuditIssue[
       issues.push({
         type: "Missing GEO meta tags",
         severity: "warning",
-        detail: `Location page missing: ${[!meta.hasGeoRegion && "geo.region", !meta.hasGeoPlacename && "geo.placename"].filter(Boolean).join(", ")}`,
+        detail: `Location page missing: ${[!meta.hasGeoRegion && "geo.region", !meta.hasGeoPlacename && "geo.placename"].filter((x): x is string => Boolean(x)).join(", ")}`,
       });
     } else {
       score += 5;
