@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import WeedingContent from './WeedingContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function WeedingPage() {
-  return <WeedingContent />;
+export default async function WeedingPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/weeding" />
+      <ServiceSchema slug="weeding" />
+      <WeedingContent />
+      <FAQSchemaBlock path="/services/weeding" />
+    </>
+  );
 }

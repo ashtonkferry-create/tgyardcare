@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import PruningContent from './PruningContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function PruningPage() {
-  return <PruningContent />;
+export default async function PruningPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/pruning" />
+      <ServiceSchema slug="pruning" />
+      <PruningContent />
+      <FAQSchemaBlock path="/services/pruning" />
+    </>
+  );
 }

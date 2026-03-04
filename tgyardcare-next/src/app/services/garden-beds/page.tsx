@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import GardenBedsContent from './GardenBedsContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function GardenBedsPage() {
-  return <GardenBedsContent />;
+export default async function GardenBedsPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/garden-beds" />
+      <ServiceSchema slug="garden-beds" />
+      <GardenBedsContent />
+      <FAQSchemaBlock path="/services/garden-beds" />
+    </>
+  );
 }

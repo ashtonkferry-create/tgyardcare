@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import StoughtonContent from './StoughtonContent';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import LocationSchema from '@/components/schemas/LocationSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,5 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function StoughtonPage() {
-  return <StoughtonContent />;
+  return (
+    <>
+      <BreadcrumbSchema path="/locations/stoughton" />
+      <LocationSchema slug="stoughton" />
+      <StoughtonContent />
+    </>
+  );
 }

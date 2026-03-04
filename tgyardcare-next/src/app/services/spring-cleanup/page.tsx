@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import SpringCleanupContent from './SpringCleanupContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function SpringCleanupPage() {
-  return <SpringCleanupContent />;
+export default async function SpringCleanupPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/spring-cleanup" />
+      <ServiceSchema slug="spring-cleanup" />
+      <SpringCleanupContent />
+      <FAQSchemaBlock path="/services/spring-cleanup" />
+    </>
+  );
 }

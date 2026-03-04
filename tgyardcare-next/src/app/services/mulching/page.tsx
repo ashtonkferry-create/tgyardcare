@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import MulchingContent from './MulchingContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function MulchingPage() {
-  return <MulchingContent />;
+export default async function MulchingPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/mulching" />
+      <ServiceSchema slug="mulching" />
+      <MulchingContent />
+      <FAQSchemaBlock path="/services/mulching" />
+    </>
+  );
 }

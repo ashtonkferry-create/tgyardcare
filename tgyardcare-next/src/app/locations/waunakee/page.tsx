@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import WaunakeeContent from './WaunakeeContent';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import LocationSchema from '@/components/schemas/LocationSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,5 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function WaunakeePage() {
-  return <WaunakeeContent />;
+  return (
+    <>
+      <BreadcrumbSchema path="/locations/waunakee" />
+      <LocationSchema slug="waunakee" />
+      <WaunakeeContent />
+    </>
+  );
 }

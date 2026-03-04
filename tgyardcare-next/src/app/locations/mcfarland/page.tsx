@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import McFarlandContent from './McFarlandContent';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import LocationSchema from '@/components/schemas/LocationSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,5 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function McFarlandPage() {
-  return <McFarlandContent />;
+  return (
+    <>
+      <BreadcrumbSchema path="/locations/mcfarland" />
+      <LocationSchema slug="mcfarland" />
+      <McFarlandContent />
+    </>
+  );
 }

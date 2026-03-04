@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import FallCleanupContent from './FallCleanupContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function FallCleanupPage() {
-  return <FallCleanupContent />;
+export default async function FallCleanupPage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/fall-cleanup" />
+      <ServiceSchema slug="fall-cleanup" />
+      <FallCleanupContent />
+      <FAQSchemaBlock path="/services/fall-cleanup" />
+    </>
+  );
 }

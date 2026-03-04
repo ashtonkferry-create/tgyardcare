@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import HerbicideContent from './HerbicideContent';
+import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function HerbicidePage() {
-  return <HerbicideContent />;
+export default async function HerbicidePage() {
+  return (
+    <>
+      <BreadcrumbSchema path="/services/herbicide" />
+      <ServiceSchema slug="herbicide" />
+      <HerbicideContent />
+      <FAQSchemaBlock path="/services/herbicide" />
+    </>
+  );
 }
