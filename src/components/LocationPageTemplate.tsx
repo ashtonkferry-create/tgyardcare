@@ -6,9 +6,9 @@ import { Phone, ArrowRight, MapPin, CheckCircle2, Star, Clock, Shield, DollarSig
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
-import { FAQSchema } from "@/components/FAQSchema";
+import { LocationPageSchemas } from "@/components/schemas/LocationPageSchemas";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectionDivider, SectionConnector } from "@/components/SectionTransition";
 import { LocalFAQSection, WhatHappensNextSection } from "@/components/SearchIntentSections";
@@ -53,11 +53,12 @@ export default function LocationPageTemplate({
       <ScrollProgress variant="minimal" />
 
       {/* SEO metadata handled by page.tsx server component */}
-      <LocalBusinessSchema cityName={cityName} />
+      <LocationPageSchemas citySlug={cityName.toLowerCase().replace(/\s+/g, '-')} faqs={[]} />
+      <WebPageSchema name={`Lawn Care in ${cityName}, WI`} description={`Professional lawn care services in ${cityName}, Wisconsin`} url={`/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}`} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://totalguardyardcare.com" },
-        { name: "Service Areas", url: "https://totalguardyardcare.com/service-areas" },
-        { name: `${cityName} Lawn Care`, url: `https://totalguardyardcare.com/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}` }
+        { name: "Home", url: "https://tgyardcare.com" },
+        { name: "Service Areas", url: "https://tgyardcare.com/service-areas" },
+        { name: `${cityName}, WI`, url: `https://tgyardcare.com/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}` }
       ]} />
       <Navigation showPromoBanner />
 
@@ -221,13 +222,7 @@ export default function LocationPageTemplate({
       {/* Local FAQ Section - Address common search queries */}
       <div className={MOBILE_ORDER.FAQ}><LocalFAQSection cityName={cityName} /></div>
 
-      {/* FAQ Schema for SEO */}
-      <FAQSchema faqs={[
-        { question: `How much does lawn care cost in ${cityName}?`, answer: `Most ${cityName} residential properties pay $40-$80 per mowing visit depending on lot size. Full-service seasonal packages range from $150-$400/month.` },
-        { question: `Do you provide service throughout ${cityName}?`, answer: `Yes, we service all neighborhoods in ${cityName} and surrounding areas with crews familiar with local conditions.` },
-        { question: `How quickly can you start service in ${cityName}?`, answer: `Most new customers can be scheduled within 3-5 business days. During peak season, book 1-2 weeks ahead.` },
-        { question: `What's included in lawn mowing service?`, answer: `Every visit includes mowing, edging along driveways, trimming around obstacles, and blowing clippings off hard surfaces.` }
-      ]} />
+      {/* FAQ data passed via LocationPageSchemas above */}
 
       {/* Service Areas Link */}
       <section className={cn("py-10 md:py-12 bg-background", MOBILE_ORDER.RELATED)}>

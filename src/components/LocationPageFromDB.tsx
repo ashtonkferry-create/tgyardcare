@@ -7,9 +7,9 @@ import { Phone, ArrowRight, MapPin, CheckCircle2, Star, Clock, Shield, Users } f
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
-import { LocalBusinessSchema } from '@/components/LocalBusinessSchema';
-import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
-import { FAQSchema } from '@/components/FAQSchema';
+import { LocationPageSchemas } from '@/components/schemas/LocationPageSchemas';
+import { BreadcrumbSchema } from '@/components/schemas/BreadcrumbSchema';
+import { WebPageSchema } from '@/components/schemas/WebPageSchema';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { SectionDivider, SectionConnector } from '@/components/SectionTransition';
 import { TrustBar } from '@/components/TrustBar';
@@ -66,12 +66,13 @@ export function LocationPageFromDB({ slug: propSlug }: LocationPageFromDBProps) 
       <ScrollProgress variant="minimal" />
 
       {/* SEO metadata handled by page.tsx server component */}
-      <LocalBusinessSchema cityName={cityName} />
+      <LocationPageSchemas citySlug={slug} faqs={[]} />
+      <WebPageSchema name={`Lawn Care in ${cityName}, ${location.state}`} description={`Professional lawn care in ${cityName}, ${location.state}`} url={`/locations/${slug}`} />
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://totalguardyardcare.com' },
-          { name: 'Service Areas', url: 'https://totalguardyardcare.com/service-areas' },
-          { name: `${cityName} Lawn Care`, url: `https://totalguardyardcare.com/locations/${slug}` },
+          { name: 'Home', url: 'https://tgyardcare.com' },
+          { name: 'Service Areas', url: 'https://tgyardcare.com/service-areas' },
+          { name: `${cityName}, ${location.state}`, url: `https://tgyardcare.com/locations/${slug}` },
         ]}
       />
       <Navigation showPromoBanner />
@@ -288,12 +289,7 @@ export function LocationPageFromDB({ slug: propSlug }: LocationPageFromDBProps) 
               <ServiceFAQFromDB serviceSlug="mowing" />
             </div>
           </div>
-          <FAQSchema
-            faqs={faqs.map((faq) => ({
-              question: faq.question,
-              answer: faq.answer,
-            }))}
-          />
+          {/* FAQ data handled by LocationPageSchemas above */}
         </section>
       )}
 
