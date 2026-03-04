@@ -21,8 +21,12 @@ create table if not exists automation_runs (
   status text not null check (status in ('success','warning','error','skipped')),
   result_summary text,
   error_message text,
-  pages_affected int default 0
+  pages_affected int not null default 0
 );
+
+create index if not exists automation_runs_slug_idx on automation_runs(automation_slug);
+create index if not exists automation_runs_started_idx on automation_runs(started_at desc);
+create index if not exists automation_runs_status_idx on automation_runs(status);
 
 -- Seed all 20 automations
 insert into automation_config (slug, name, description, tier, schedule) values
@@ -52,19 +56,43 @@ on conflict (slug) do nothing;
 alter table automation_config enable row level security;
 alter table automation_runs enable row level security;
 
-create policy "Admin read automation_config" on automation_config
-  for select using (
-    exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin')
-  );
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename='automation_config' and policyname='Admin read automation_config') then
+    create policy "Admin read automation_config" on automation_config
+      for select using (exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin'));
+  end if;
+end $$;
 
-create policy "Admin read automation_runs" on automation_runs
-  for select using (
-    exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin')
-  );
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename='automation_config' and policyname='Admin write automation_config') then
+    create policy "Admin write automation_config" on automation_config
+      for all
+      using (exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin'))
+      with check (exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin'));
+  end if;
+end $$;
 
--- Service role bypasses RLS (for cron jobs writing run logs)
-create policy "Service role full access automation_config" on automation_config
-  for all using (auth.role() = 'service_role');
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename='automation_runs' and policyname='Admin read automation_runs') then
+    create policy "Admin read automation_runs" on automation_runs
+      for select using (exists (select 1 from user_roles where user_id = auth.uid() and role = 'admin'));
+  end if;
+end $$;
 
-create policy "Service role full access automation_runs" on automation_runs
-  for all using (auth.role() = 'service_role');
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename='automation_config' and policyname='Service role full access automation_config') then
+    create policy "Service role full access automation_config" on automation_config
+      for all
+      using ((select auth.jwt() ->> 'role') = 'service_role')
+      with check ((select auth.jwt() ->> 'role') = 'service_role');
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from pg_policies where tablename='automation_runs' and policyname='Service role full access automation_runs') then
+    create policy "Service role full access automation_runs" on automation_runs
+      for all
+      using ((select auth.jwt() ->> 'role') = 'service_role')
+      with check ((select auth.jwt() ->> 'role') = 'service_role');
+  end if;
+end $$;
