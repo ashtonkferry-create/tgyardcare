@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Session } from "@supabase/supabase-js";
@@ -9,12 +10,12 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard, Search, Zap, Activity, Code2,
   Inbox, Leaf, Image, Wrench, LogOut, Menu, X,
-  ExternalLink, ChevronRight, Snowflake, Sun,
+  ChevronRight, Snowflake, Sun,
 } from "lucide-react";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
-  title: string;
+  title?: string;
 }
 
 const NAV_ITEMS = [
@@ -45,10 +46,10 @@ async function getActiveSeason(): Promise<{ season: string; isOverride: boolean 
   const month = new Date().getMonth() + 1;
   const day = new Date().getDate();
   const mmdd = month * 100 + day;
-  let season = "spring";
+  let season = "summer"; // spring maps to summer (Mar 15 – May 14)
   if (mmdd >= 1115 || mmdd <= 314) season = "winter";
-  else if (mmdd >= 515 && mmdd <= 914) season = "summer";
   else if (mmdd >= 915 && mmdd <= 1114) season = "fall";
+  // May 15 – Sep 14 = summer, Mar 15 – May 14 = summer (spring gap)
   return { season, isOverride: false };
 }
 
@@ -61,26 +62,34 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
   const [seasonInfo, setSeasonInfo] = useState<{ season: string; isOverride: boolean } | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!isMounted) return;
       if (!session) { router.push("/admin/login"); return; }
       const isAdmin = await checkAdminRole(session.user.id);
+      if (!isMounted) return;
       if (!isAdmin) { router.push("/admin/login"); toast.error("Unauthorized"); return; }
       setSession(session);
       setIsLoading(false);
-      getActiveSeason().then(setSeasonInfo);
+      getActiveSeason().then((info) => { if (isMounted) setSeasonInfo(info); });
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (!session) { router.push("/admin/login"); return; }
-      setTimeout(async () => {
+      (async () => {
         const isAdmin = await checkAdminRole(session.user.id);
+        if (!isMounted) return;
         if (!isAdmin) { router.push("/admin/login"); toast.error("Unauthorized"); return; }
         setSession(session);
         setIsLoading(false);
-      }, 0);
+      })();
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [router]);
 
   if (isLoading) {
@@ -120,6 +129,8 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
           <button
             className="md:hidden p-1 rounded"
             style={{ color: "rgba(255,255,255,0.6)" }}
+            aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -191,9 +202,10 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
                 : pathname.startsWith(item.path);
               return (
                 <li key={item.path}>
-                  <button
-                    onClick={() => { router.push(item.path); setMobileOpen(false); }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all text-left"
+                  <Link
+                    href={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all"
                     style={isActive
                       ? { background: "rgba(34,197,94,0.1)", color: "#22c55e" }
                       : { color: "rgba(255,255,255,0.5)" }
@@ -204,7 +216,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
                       style={{ color: isActive ? "#22c55e" : "rgba(255,255,255,0.4)" }}
                     />
                     <span className={isActive ? "font-medium" : ""}>{item.label}</span>
-                  </button>
+                  </Link>
                 </li>
               );
             })}
