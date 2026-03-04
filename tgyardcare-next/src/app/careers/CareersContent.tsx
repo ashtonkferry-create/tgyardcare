@@ -1,589 +1,673 @@
 'use client';
 
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from '@/components/CTASection';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Briefcase,
-  TrendingUp,
-  Users,
-  Shield,
-  Target,
-  Award,
-  CheckCircle,
-  ArrowRight,
-  Heart,
-  Zap,
-  MapPin,
-  Phone,
-  Mail,
-  FileText,
-  UserCheck,
-  MessageSquare,
-  Handshake,
-  Calendar
+  ArrowRight, CheckCircle2, MapPin, Phone, Mail,
+  Leaf, Snowflake, Users, TrendingUp, Clock,
+  Shield, Zap, Award, Calendar, ChevronRight,
+  Scissors, FileText, MessageSquare, Handshake,
 } from "lucide-react";
+
+const APPLY_URL = "/contact?service=careers";
 
 const openPositions = [
   {
     title: "Lawn Care Technician",
     type: "Full-Time / Seasonal",
-    summary: "Operate professional-grade equipment and deliver exceptional property maintenance to residential and commercial clients.",
-    available: true
+    icon: Leaf,
+    summary: "Operate professional-grade equipment. Deliver exceptional results for 500+ residential and commercial properties across Dane County.",
+    available: true,
+    tag: "Most Openings",
   },
   {
     title: "Snow Removal Operator",
-    type: "Seasonal (Winter)",
-    summary: "Provide reliable winter property management including plowing, salting, and walkway clearing with precision and timeliness.",
-    available: true
+    type: "Seasonal — Winter",
+    icon: Snowflake,
+    summary: "Own the winter. Reliable plowing, salting, and walkway clearing. Early mornings, consistent routes, competitive pay.",
+    available: true,
+    tag: "Winter Season",
   },
   {
     title: "Crew Leader",
     type: "Full-Time",
-    summary: "Lead a team of technicians, manage daily operations, ensure quality standards, and serve as the primary client liaison.",
-    available: false
+    icon: Users,
+    summary: "Lead technicians, manage daily operations, maintain quality standards, and serve as the client-facing face of TotalGuard.",
+    available: false,
+    tag: "Filled",
   },
   {
     title: "Landscape Maintenance Specialist",
     type: "Full-Time / Seasonal",
-    summary: "Execute mulching, pruning, garden bed maintenance, and seasonal property care with attention to detail and professionalism.",
-    available: true
-  }
-];
-
-const coreValues = [
-  {
-    icon: Shield,
-    title: "Ownership",
-    description: "We take full responsibility for our work. Every property we service reflects our professional standards and commitment to excellence."
+    icon: Scissors,
+    summary: "Mulching, pruning, bed maintenance, seasonal cleanup. Attention to detail is your craft. Every property is a portfolio piece.",
+    available: true,
+    tag: "Spring Priority",
   },
-  {
-    icon: Target,
-    title: "Accountability",
-    description: "We deliver on our commitments. Clear communication, punctual service, and consistent follow-through define how we operate."
-  },
-  {
-    icon: Award,
-    title: "Excellence",
-    description: "We maintain the highest standards in everything we do. Our reputation is built on the quality of our work, not promises."
-  },
-  {
-    icon: Zap,
-    title: "Efficiency",
-    description: "We respect time—ours and our clients'. Smart systems, proper training, and disciplined execution drive our operations."
-  },
-  {
-    icon: Users,
-    title: "Collaboration",
-    description: "Strong teams produce exceptional results. We support each other, share knowledge, and succeed together."
-  },
-  {
-    icon: Heart,
-    title: "Integrity",
-    description: "We do the right thing, especially when it's difficult. Honesty and ethical conduct are non-negotiable."
-  }
-];
-
-const whyWorkWithUs = [
-  {
-    icon: TrendingUp,
-    title: "Professional Development",
-    description: "We invest in our team members. Structured training, skill development, and clear advancement pathways are part of our commitment to your growth."
-  },
-  {
-    icon: Briefcase,
-    title: "Industry-Leading Training",
-    description: "Learn to operate professional equipment and master techniques that set industry standards. Your expertise grows with us."
-  },
-  {
-    icon: Calendar,
-    title: "Structured Scheduling",
-    description: "We offer consistent, reliable schedules that allow you to plan your life. Full-time and seasonal positions available."
-  },
-  {
-    icon: Award,
-    title: "Performance Recognition",
-    description: "Outstanding work is acknowledged and rewarded. We recognize those who consistently exceed expectations."
-  },
-  {
-    icon: Users,
-    title: "Professional Environment",
-    description: "Join a team that takes pride in their work. We maintain high standards and expect the same from everyone."
-  }
-];
-
-const hiringSteps = [
-  {
-    step: 1,
-    title: "Apply",
-    description: "Submit your application through our contact form. Share your experience and what you're looking for in a position.",
-    icon: FileText
-  },
-  {
-    step: 2,
-    title: "Review",
-    description: "Our team reviews every application within 48 hours. Qualified candidates will be contacted to schedule an interview.",
-    icon: UserCheck
-  },
-  {
-    step: 3,
-    title: "Interview",
-    description: "Meet with our leadership team. We'll discuss expectations, your goals, and determine mutual fit.",
-    icon: MessageSquare
-  },
-  {
-    step: 4,
-    title: "Offer",
-    description: "Successful candidates receive a clear offer outlining compensation, schedule, and start date.",
-    icon: Handshake
-  },
-  {
-    step: 5,
-    title: "Onboarding",
-    description: "Comprehensive orientation and training ensure you're prepared to represent TotalGuard Yard Care with confidence.",
-    icon: Zap
-  }
-];
-
-const idealCandidateTraits = [
-  "Demonstrates consistent reliability and punctuality",
-  "Physically capable of outdoor work in varied conditions",
-  "Maintains attention to detail and quality standards",
-  "Receptive to feedback and committed to improvement",
-  "Contributes positively to team dynamics and operations",
-  "Self-directed with strong work ethic",
-  "Represents the company professionally in all client interactions"
 ];
 
 const benefits = [
-  "Competitive compensation based on experience and role",
-  "Performance-based advancement opportunities",
-  "Comprehensive equipment training and certification",
-  "Professional development and skill building",
-  "Structured scheduling with advance notice",
-  "Seasonal and year-round positions available",
-  "Work across the greater Madison metropolitan area"
+  { icon: TrendingUp, title: "Performance Pay", desc: "Raises tied to results, not just tenure. Outperform, earn more." },
+  { icon: Calendar,   title: "Reliable Schedules", desc: "Consistent routes. Advance notice. You can actually plan your life." },
+  { icon: Award,      title: "Equipment Training", desc: "Certified training on professional-grade equipment — all provided." },
+  { icon: Shield,     title: "Stable Employment", desc: "500+ active clients. Year-round and seasonal positions available." },
+  { icon: TrendingUp, title: "Clear Path Up", desc: "Technician → Crew Lead → Management. We promote from within." },
+  { icon: Users,      title: "A Team Worth Joining", desc: "People who actually show up. No deadweight. High standards." },
+];
+
+const values = [
+  { num: "01", name: "Ownership",     desc: "Every property reflects you personally. Own the outcome, not the excuse." },
+  { num: "02", name: "Accountability", desc: "Say what you'll do. Do what you said. It's that simple." },
+  { num: "03", name: "Excellence",    desc: "Good enough isn't. Our 4.9 Google rating is proof it never was." },
+  { num: "04", name: "Efficiency",    desc: "We respect time — ours and clients'. Smart systems. Disciplined execution." },
+  { num: "05", name: "Integrity",     desc: "Right thing, every time. Especially when no one's watching." },
+];
+
+const hiringSteps = [
+  { step: "01", title: "Apply",               desc: "Submit through our contact form. Tell us your experience, availability, and what you're after.", icon: FileText },
+  { step: "02", title: "48-Hour Response",    desc: "No ghosting. Every application gets reviewed. Qualified candidates hear back fast.", icon: Clock },
+  { step: "03", title: "Interview",           desc: "Straight conversation with our leadership. We'll talk expectations, pay, and fit.", icon: MessageSquare },
+  { step: "04", title: "Written Offer",       desc: "Compensation, schedule, and start date — all in writing. No surprises.", icon: Handshake },
+  { step: "05", title: "Onboarding",          desc: "Equipment training, route orientation, meet your crew. You'll be fully ready.", icon: Zap },
 ];
 
 const serviceAreas = [
-  { name: "Madison", path: "/locations/madison" },
-  { name: "Middleton", path: "/locations/middleton" },
-  { name: "Verona", path: "/locations/verona" },
-  { name: "Fitchburg", path: "/locations/fitchburg" },
-  { name: "Sun Prairie", path: "/locations/sun-prairie" },
-  { name: "Waunakee", path: "/locations/waunakee" },
-  { name: "Monona", path: "/locations/monona" },
-  { name: "McFarland", path: "/locations/mcfarland" },
+  { name: "Madison",       path: "/locations/madison" },
+  { name: "Middleton",     path: "/locations/middleton" },
+  { name: "Verona",        path: "/locations/verona" },
+  { name: "Fitchburg",     path: "/locations/fitchburg" },
+  { name: "Sun Prairie",   path: "/locations/sun-prairie" },
+  { name: "Waunakee",      path: "/locations/waunakee" },
+  { name: "Monona",        path: "/locations/monona" },
+  { name: "McFarland",     path: "/locations/mcfarland" },
   { name: "Cottage Grove", path: "/locations/cottage-grove" },
-  { name: "DeForest", path: "/locations/deforest" },
-  { name: "Oregon", path: "/locations/oregon" },
-  { name: "Stoughton", path: "/locations/stoughton" }
+  { name: "DeForest",      path: "/locations/deforest" },
+  { name: "Oregon",        path: "/locations/oregon" },
+  { name: "Stoughton",     path: "/locations/stoughton" },
 ];
 
+const idealTraits = [
+  "You show up on time, every time. No excuses.",
+  "You like seeing the direct results of your work.",
+  "Physical outdoor work in any weather doesn't faze you.",
+  "You take direction well and improve from feedback.",
+  "You want to be part of something that's growing.",
+  "You represent yourself — and your team — professionally.",
+  "You want steady work with a predictable schedule.",
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function CareersContent() {
-  const availablePositions = openPositions.filter(p => p.available);
-  const careersContactUrl = "/contact?service=careers";
+  const availableCount = openPositions.filter(p => p.available).length;
 
   return (
     <div className="min-h-screen" style={{ background: '#050d07' }}>
       <Navigation />
 
+      {/* Hidden SEO content */}
       <section className="sr-only">
-        <h2>Careers at TG Yard Care</h2>
-        <p>Join the TG Yard Care team in Madison, Wisconsin. We're looking for reliable, hardworking individuals who take pride in outdoor work. TotalGuard offers competitive pay, consistent schedules, and the opportunity to work with a growing, locally owned lawn care company serving 500+ properties across Dane County.</p>
+        <h2>Lawn Care Jobs in Madison, Wisconsin — TotalGuard Yard Care</h2>
+        <p>
+          Hiring lawn care technicians, snow removal operators, and landscape maintenance specialists
+          in Madison, WI and Dane County. Competitive pay, consistent schedules, and advancement
+          opportunities with a 4.9-rated local company serving 500+ properties across 12 cities.
+          Apply today for outdoor jobs in Madison, Middleton, Verona, Fitchburg, and surrounding areas.
+        </p>
       </section>
 
-      {/* Hero Section */}
-      <section className="relative pt-24 md:pt-28 pb-16 md:pb-24 overflow-hidden" style={{ background: '#050d07' }}>
-        {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/[0.07] rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary/[0.07] rounded-full blur-3xl" />
+      {/* ─────────────── HERO ─────────────────────────────── */}
+      <section className="relative min-h-[92vh] flex items-center overflow-hidden pt-20">
+
+        {/* Background texture + glows */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute inset-0 opacity-[0.025]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+              backgroundSize: '60px 60px',
+            }}
+          />
+          <div
+            className="absolute top-1/4 right-0 w-[700px] h-[700px] rounded-full opacity-[0.18]"
+            style={{ background: 'radial-gradient(circle, #16a34a 0%, transparent 65%)' }}
+          />
+          <div
+            className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-[0.10]"
+            style={{ background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)' }}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Trust badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
-              <Briefcase className="h-4 w-4 text-cyan-400" />
-              <span className="text-sm font-medium text-cyan-300">Now Accepting Applications for 2026</span>
-            </div>
+          <div className="max-w-5xl">
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Careers at{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-primary">
-                TotalGuard Yard Care
+            {/* Live badge */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 mb-8"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
               </span>
-            </h1>
+              <span className="text-sm font-semibold text-amber-300 tracking-wide">
+                {availableCount} Positions Open — 2026 Season
+              </span>
+            </motion.div>
 
-            <p className="text-xl md:text-2xl text-cyan-300/80 mb-4 font-medium">
-              Build a Career with a Company That Values Excellence
-            </p>
+            {/* Headline */}
+            <motion.h1
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-[88px] font-black text-white leading-[0.93] tracking-tight mb-8"
+            >
+              Madison&apos;s
+              <br />
+              <span
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'linear-gradient(135deg, #22c55e 0%, #16a34a 45%, #f59e0b 100%)' }}
+              >
+                Best Crew
+              </span>
+              <br />
+              Is Hiring.
+            </motion.h1>
 
-            <p className="text-lg text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
-              We are building a team of dedicated professionals who take pride in their work and are committed to
-              delivering exceptional results. If you value reliability, growth, and working alongside people who
-              hold themselves to high standards, we invite you to explore opportunities with us.
-            </p>
+            {/* Sub */}
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl md:text-2xl text-white/55 mb-10 max-w-2xl leading-relaxed"
+            >
+              We don&apos;t hire just anyone. We build teams of professionals who take pride in their
+              craft, show up every day, and represent Madison&apos;s most trusted yard care company.
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="text-lg font-bold px-8 py-6 h-auto animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black"
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 mb-16"
+            >
+              <button
                 onClick={() => document.getElementById('open-positions')?.scrollIntoView({ behavior: 'smooth' })}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-lg text-black transition-all hover:scale-[1.03] hover:shadow-2xl active:scale-[0.98]"
+                style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}
               >
                 View Open Positions
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg font-bold px-8 py-6 h-auto border-white/20 text-white hover:bg-white/10"
-                asChild
+                <ArrowRight className="h-5 w-5" />
+              </button>
+              <Link
+                href={APPLY_URL}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 transition-all"
               >
-                <Link href={careersContactUrl}>
-                  Submit Application
-                </Link>
-              </Button>
-            </div>
-
-            {/* Quick stats */}
-            <div className="mt-12 flex flex-wrap justify-center gap-6 md:gap-10">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">500+</div>
-                <div className="text-sm text-white/40">Properties Served</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">12+</div>
-                <div className="text-sm text-white/40">Service Areas</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">4.9</div>
-                <div className="text-sm text-white/40">Google Rating</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Work With Us */}
-      <section className="py-16 md:py-24" style={{ background: '#0a1a0e' }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Why Build Your Career Here
-            </h2>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              TotalGuard Yard Care is committed to developing professionals who take ownership of their work and
-              are driven to grow within a structured, standards-based organization.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {whyWorkWithUs.map((item) => (
-              <div key={item.title} className="bg-white/[0.06] border border-white/10 hover:border-cyan-500/30 hover:bg-white/[0.10] transition-all duration-300 rounded-xl p-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-primary/20 border border-cyan-500/20 flex items-center justify-center mb-3">
-                  <item.icon className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-white/60">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Company Culture & Values */}
-      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Our Standards and Values
-            </h2>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              These principles guide how we operate and what we expect from every member of our team.
-              They are not aspirational statements—they are the foundation of how we work.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {coreValues.map((value) => (
-              <div key={value.title} className="bg-white/[0.06] border border-white/[0.08] rounded-xl p-6 hover:border-cyan-500/30 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/10 to-primary/10 border border-cyan-500/20 flex items-center justify-center mb-4">
-                  <value.icon className="h-6 w-6 text-cyan-400" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{value.title}</h3>
-                <p className="text-white/60">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Open Positions */}
-      <section id="open-positions" className="py-16 md:py-24 scroll-mt-20" style={{ background: '#0a1a0e' }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Current Openings
-            </h2>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              {availablePositions.length > 0
-                ? "We are seeking qualified candidates for the following positions. Review the requirements and apply if you meet our standards."
-                : "We are not actively hiring at this time. However, we welcome applications from qualified professionals for future consideration."}
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-4">
-            {openPositions.map((position, index) => (
-              <div
-                key={index}
-                className={`bg-white/[0.06] border border-white/10 hover:border-cyan-500/30 transition-all duration-300 rounded-xl ${!position.available ? 'opacity-60' : ''}`}
-              >
-                <div className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-white">{position.title}</h3>
-                        {position.available ? (
-                          <span className="px-2 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full">
-                            Accepting Applications
-                          </span>
-                        ) : (
-                          <span className="px-2 py-1 bg-white/[0.08] text-white/40 text-xs font-medium rounded-full">
-                            Position Filled
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-cyan-400 font-medium mb-2">{position.type}</p>
-                      <p className="text-white/60">{position.summary}</p>
-                    </div>
-                    {position.available && (
-                      <Button
-                        className="shrink-0 bg-gradient-to-r from-cyan-500 to-primary hover:from-cyan-600 hover:to-primary/90"
-                        asChild
-                      >
-                        <Link href={careersContactUrl}>
-                          Apply Now
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* General application CTA */}
-          <div className="mt-10 text-center">
-            <p className="text-white/60 mb-4">
-              Position not listed? We are always interested in hearing from qualified professionals.
-            </p>
-            <Button
-              variant="outline"
-              className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
-              asChild
-            >
-              <Link href={careersContactUrl}>
-                Submit General Application
+                Apply Now
+                <ChevronRight className="h-5 w-5" />
               </Link>
-            </Button>
+            </motion.div>
+
+            {/* Stats row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="flex flex-wrap gap-8 md:gap-16"
+            >
+              {[
+                { num: '500+', label: 'Properties We Maintain' },
+                { num: '4.9★', label: 'Google Rating' },
+                { num: '12+',  label: 'Cities Served' },
+                { num: '48hr', label: 'Application Response' },
+              ].map(s => (
+                <div key={s.label}>
+                  <div className="text-3xl md:text-4xl font-black text-white">{s.num}</div>
+                  <div className="text-sm text-white/35 mt-1">{s.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Decorative line */}
+        <div className="absolute right-12 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-white/8 to-transparent hidden xl:block" />
+      </section>
+
+      {/* ─────────────── OPEN POSITIONS ───────────────────── */}
+      <section
+        id="open-positions"
+        className="py-24 scroll-mt-24"
+        style={{ background: '#0a1a0e' }}
+      >
+        <div className="container mx-auto px-4">
+
+          {/* Header */}
+          <div className="mb-14 flex items-end justify-between flex-wrap gap-4">
+            <div>
+              <p className="text-amber-400 font-bold text-xs tracking-[0.2em] uppercase mb-3">
+                Right Now, We&apos;re Hiring
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-white">Open Positions</h2>
+            </div>
+            <Link
+              href={APPLY_URL}
+              className="text-white/40 hover:text-white text-sm font-medium flex items-center gap-1 transition-colors"
+            >
+              General application <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Position cards */}
+          <div className="space-y-4">
+            {openPositions.map((pos, i) => {
+              const Icon = pos.icon;
+              return (
+                <motion.div
+                  key={pos.title}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  className={`group relative rounded-2xl border overflow-hidden transition-all duration-300 ${
+                    pos.available
+                      ? 'border-white/10 hover:border-green-500/40 bg-white/[0.04] hover:bg-white/[0.07]'
+                      : 'border-white/[0.05] bg-white/[0.02] opacity-45'
+                  }`}
+                >
+                  {/* Left accent bar */}
+                  {pos.available && (
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-400 to-green-700" />
+                  )}
+
+                  <div className="p-6 md:p-8 pl-8 md:pl-10">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6">
+
+                      {/* Icon */}
+                      <div
+                        className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 border ${
+                          pos.available
+                            ? 'bg-green-500/15 border-green-500/25'
+                            : 'bg-white/[0.04] border-white/8'
+                        }`}
+                      >
+                        <Icon className={`h-7 w-7 ${pos.available ? 'text-green-400' : 'text-white/25'}`} />
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2.5 mb-1">
+                          <h3 className="text-xl md:text-2xl font-bold text-white">{pos.title}</h3>
+                          <span
+                            className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${
+                              pos.available
+                                ? 'bg-green-500/15 text-green-300 border-green-500/25'
+                                : 'bg-white/[0.04] text-white/30 border-white/10'
+                            }`}
+                          >
+                            {pos.available ? pos.tag : 'Position Filled'}
+                          </span>
+                        </div>
+                        <p className="text-sm font-semibold text-amber-400/70 mb-2">{pos.type}</p>
+                        <p className="text-white/55 leading-relaxed">{pos.summary}</p>
+                      </div>
+
+                      {/* CTA */}
+                      {pos.available && (
+                        <Link
+                          href={APPLY_URL}
+                          className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-black transition-all hover:scale-[1.03] hover:shadow-xl active:scale-[0.98]"
+                          style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}
+                        >
+                          Apply Now
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-white/35 text-sm mt-8">
+            Don&apos;t see your role?{' '}
+            <Link href={APPLY_URL} className="text-amber-400 hover:text-amber-300 font-semibold transition-colors">
+              Submit a general application →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ─────────────── WHY TOTALGUARD ───────────────────── */}
+      <section className="py-24 relative overflow-hidden" style={{ background: '#050d07' }}>
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden
+        >
+          <div className="absolute inset-y-0 left-0 right-0 h-px top-0 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+          <div className="absolute inset-y-0 left-0 right-0 h-px bottom-0 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+        </div>
+
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+
+              {/* Left: editorial copy */}
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: '-60px' }}
+              >
+                <p className="text-amber-400 font-bold text-xs tracking-[0.2em] uppercase mb-6">Why TotalGuard</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white leading-tight mb-6">
+                  More than a job.
+                  <br />
+                  <span className="text-white/35">A crew you&apos;ll</span>
+                  <br />
+                  actually respect.
+                </h2>
+                <p className="text-white/55 text-lg leading-relaxed mb-4">
+                  We&apos;re a growing, locally owned company with 500+ active clients across Dane County.
+                  Not a faceless national franchise. Your work matters here — you&apos;ll know your routes,
+                  know your clients, and take pride in every property you touch.
+                </p>
+                <p className="text-white/40 text-base leading-relaxed mb-8">
+                  We operate at a high standard because our clients expect it. That means we invest in our people —
+                  proper training, clear expectations, and recognition for those who exceed them.
+                </p>
+                <Link
+                  href={APPLY_URL}
+                  className="inline-flex items-center gap-2 text-green-400 font-bold hover:text-green-300 transition-colors group"
+                >
+                  Start your application
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+
+              {/* Right: benefit rows */}
+              <div className="space-y-3">
+                {benefits.map((b, i) => {
+                  const Icon = b.icon;
+                  return (
+                    <motion.div
+                      key={b.title}
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: '-40px' }}
+                      transition={{ delay: i * 0.07 }}
+                      className="flex items-start gap-4 p-4 rounded-xl border border-white/[0.06] bg-white/[0.03] hover:border-green-500/20 hover:bg-white/[0.06] transition-all duration-200"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-green-500/15 flex items-center justify-center shrink-0 border border-green-500/20">
+                        <Icon className="h-[18px] w-[18px] text-green-400" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-white text-sm mb-0.5">{b.title}</div>
+                        <div className="text-white/45 text-sm leading-relaxed">{b.desc}</div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Hiring Process */}
-      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
+      {/* ─────────────── OUR STANDARDS / VALUES ───────────── */}
+      <section className="py-24" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Our Hiring Process
-            </h2>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              We believe in a clear, respectful hiring process. Here is what you can expect when you apply.
-            </p>
-          </div>
-
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-2">
-              {hiringSteps.map((step, index) => (
-                <div key={step.step} className="relative">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500/20 to-primary/20 border border-cyan-500/30 flex items-center justify-center mb-4">
-                      <step.icon className="h-7 w-7 text-cyan-400" />
-                    </div>
-                    <div className="text-sm font-bold text-cyan-400 mb-1">Step {step.step}</div>
-                    <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                    <p className="text-sm text-white/60">{step.description}</p>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="mb-14"
+            >
+              <p className="text-amber-400 font-bold text-xs tracking-[0.2em] uppercase mb-3">
+                Non-Negotiables
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-white">Our Standards</h2>
+              <p className="text-white/40 mt-4 max-w-lg text-lg">
+                These aren&apos;t posters on the wall. They&apos;re how every member of this team operates,
+                every single day.
+              </p>
+            </motion.div>
+
+            <div className="divide-y divide-white/[0.05]">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.num}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ delay: i * 0.07 }}
+                  className="py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10 group cursor-default"
+                >
+                  <span className="text-5xl md:text-7xl font-black text-white/[0.05] group-hover:text-white/[0.10] transition-colors w-24 shrink-0 leading-none select-none">
+                    {v.num}
+                  </span>
+                  <div className="flex-1 flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-10">
+                    <h3 className="text-2xl md:text-3xl font-black text-white w-52 shrink-0">
+                      {v.name}
+                    </h3>
+                    <p className="text-white/50 text-lg leading-relaxed">{v.desc}</p>
                   </div>
-                  {/* Connector line */}
-                  {index < hiringSteps.length - 1 && (
-                    <div className="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-0.5 bg-gradient-to-r from-cyan-500/40 to-primary/40" />
-                  )}
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who We're Looking For */}
-      <section className="py-16 md:py-24" style={{ background: '#0a1a0e' }}>
+      {/* ─────────────── FIT + HIRING PROCESS ────────────── */}
+      <section className="py-24 relative" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Who We Are Looking For
-              </h2>
-              <p className="text-lg text-white/60">
-                We maintain high standards because our clients expect excellence. The following qualities
-                define successful team members at TotalGuard Yard Care.
-              </p>
-            </div>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20">
 
-            <div className="bg-white/[0.06] rounded-2xl border border-white/10 p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {idealCandidateTraits.map((trait, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-cyan-400 shrink-0 mt-0.5" />
-                    <span className="text-white/80">{trait}</span>
-                  </div>
+            {/* Left: Ideal Fit */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <p className="text-green-400 font-bold text-xs tracking-[0.2em] uppercase mb-4">The Right Fit</p>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
+                This role is for you
+                <br />
+                <span className="text-white/35">if you...</span>
+              </h2>
+              <div className="space-y-4">
+                {idealTraits.map((trait, i) => (
+                  <motion.div
+                    key={i}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.06 }}
+                    className="flex items-start gap-3"
+                  >
+                    <CheckCircle2 className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                    <span className="text-white/70 leading-relaxed">{trait}</span>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
+
+            {/* Right: Hiring Process */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <p className="text-amber-400 font-bold text-xs tracking-[0.2em] uppercase mb-4">Hiring Process</p>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
+                Simple. Fast.
+                <br />
+                <span className="text-white/35">No games.</span>
+              </h2>
+              <div className="relative">
+                {/* Connecting line */}
+                <div className="absolute left-5 top-10 bottom-10 w-px bg-gradient-to-b from-green-500/30 via-white/10 to-transparent" />
+                <div className="space-y-8">
+                  {hiringSteps.map((step, i) => {
+                    const Icon = step.icon;
+                    return (
+                      <motion.div
+                        key={step.step}
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.08 }}
+                        className="flex items-start gap-5"
+                      >
+                        <div className="relative w-10 h-10 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0 z-10">
+                          <Icon className="h-4 w-4 text-white/50" />
+                        </div>
+                        <div className="pt-1">
+                          <div className="font-bold text-white mb-1">{step.title}</div>
+                          <div className="text-white/45 text-sm leading-relaxed">{step.desc}</div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Benefits & Opportunities */}
-      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
+      {/* ─────────────── SERVICE AREAS (SEO) ──────────────── */}
+      <section className="py-16" style={{ background: '#0a1a0e' }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Compensation and Benefits
-              </h2>
-              <p className="text-lg text-white/60">
-                TotalGuard Yard Care offers competitive compensation and benefits. Specific details may vary by role and position type.
-              </p>
-            </div>
-
-            <div className="bg-white/[0.06] border border-white/[0.08] rounded-2xl p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-white/80">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service Areas - for SEO */}
-      <section className="py-16 md:py-20" style={{ background: '#0a1a0e' }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Our Service Areas
+            <h2 className="text-lg font-bold text-white mb-2">
+              Work Across Madison &amp; Dane County
             </h2>
-            <p className="text-white/60">
-              TotalGuard Yard Care serves clients throughout the greater Madison, Wisconsin metropolitan area.
+            <p className="text-white/35 text-sm mb-6">
+              Our crews serve {serviceAreas.length} communities across the greater Madison metro area year-round —
+              lawn care jobs in Madison, WI and outdoor work throughout Dane County.
             </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {serviceAreas.map((area) => (
-              <Link
-                key={area.path}
-                href={area.path}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.08] hover:bg-cyan-500/20 text-white/70 hover:text-cyan-300 rounded-full text-sm font-medium transition-colors border border-white/10 hover:border-cyan-500/30"
-              >
-                <MapPin className="h-3.5 w-3.5" />
-                {area.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Equal Opportunity Statement */}
-      <section className="py-12 border-t border-white/10" style={{ background: '#050d07' }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-lg font-semibold text-white mb-3">
-              Equal Opportunity Employer
-            </h3>
-            <p className="text-sm text-white/50 leading-relaxed">
-              TotalGuard Yard Care is an equal opportunity employer. We are committed to creating an inclusive
-              environment for all employees. All qualified applicants will receive consideration for employment without regard
-              to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, veteran status,
-              or any other protected characteristic.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16 md:py-24" style={{ background: '#050d07' }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-10 backdrop-blur-sm">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Ready to Apply?
-              </h2>
-              <p className="text-lg text-white/60 mb-8">
-                If you are committed to professional standards, take pride in your work, and are looking for an
-                organization that values reliability and growth, we welcome your application.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
-                <Button
-                  size="lg"
-                  className="text-lg font-bold px-8 py-6 h-auto animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black"
-                  asChild
+            <div className="flex flex-wrap gap-2">
+              {serviceAreas.map(area => (
+                <Link
+                  key={area.path}
+                  href={area.path}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.04] hover:bg-green-500/10 text-white/40 hover:text-green-300 rounded-full text-xs font-medium transition-all border border-white/[0.06] hover:border-green-500/20"
                 >
-                  <Link href={careersContactUrl}>
-                    Apply Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-lg font-bold px-8 py-6 h-auto border-white/20 text-white hover:bg-white/10"
-                  asChild
-                >
-                  <a href="tel:608-535-6057">
-                    <Phone className="mr-2 h-5 w-5" />
-                    (608) 535-6057
-                  </a>
-                </Button>
-              </div>
-
-              {/* Contact info */}
-              <div className="flex flex-wrap justify-center gap-6 text-white/40 text-sm">
-                <a href="mailto:totalguardllc@gmail.com" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
-                  <Mail className="h-4 w-4" />
-                  totalguardllc@gmail.com
-                </a>
-                <a href="tel:608-535-6057" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
-                  <Phone className="h-4 w-4" />
-                  (608) 535-6057
-                </a>
-              </div>
+                  <MapPin className="h-3 w-3" />
+                  {area.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <CTASection />
+      {/* ─────────────── FINAL CTA ────────────────────────── */}
+      <section className="py-28 relative overflow-hidden" style={{ background: '#050d07' }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute inset-0 opacity-[0.022]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+              backgroundSize: '60px 60px',
+            }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full blur-3xl opacity-[0.18]"
+            style={{ background: 'radial-gradient(ellipse, #16a34a, transparent 65%)' }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+              Ready to Join
+              <br />
+              <span
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'linear-gradient(135deg, #22c55e 0%, #f59e0b 100%)' }}
+              >
+                The Best Crew?
+              </span>
+            </h2>
+            <p className="text-xl text-white/45 mb-12 max-w-xl mx-auto leading-relaxed">
+              Apply today. We respond in 48 hours. No games, no ghosting —
+              just a straight conversation about whether we&apos;re a fit.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={APPLY_URL}
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full font-black text-lg text-black transition-all hover:scale-[1.03] hover:shadow-2xl active:scale-[0.98]"
+                style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}
+              >
+                Apply Now
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <a
+                href="tel:608-535-6057"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full font-bold text-lg text-white border border-white/20 hover:bg-white/10 transition-all"
+              >
+                <Phone className="h-5 w-5" />
+                (608) 535-6057
+              </a>
+            </div>
+            <div className="mt-8">
+              <a
+                href="mailto:totalguardllc@gmail.com"
+                className="inline-flex items-center gap-1.5 text-white/25 hover:text-white/50 text-sm transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                totalguardllc@gmail.com
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* EOE */}
+      <div className="border-t border-white/[0.05] py-8" style={{ background: '#050d07' }}>
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-xs text-white/20 max-w-2xl mx-auto leading-relaxed">
+            TotalGuard Yard Care is an equal opportunity employer. All qualified applicants will receive
+            consideration for employment without regard to race, color, religion, sex, sexual orientation,
+            gender identity, national origin, disability, or veteran status.
+          </p>
+        </div>
+      </div>
 
       <Footer showCloser={false} />
     </div>
