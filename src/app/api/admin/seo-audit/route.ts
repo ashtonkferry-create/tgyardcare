@@ -4,11 +4,6 @@ import { createClient } from "@supabase/supabase-js";
 export const runtime = "nodejs";
 export const maxDuration = 300; // 5 min timeout
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 // All 76 pages from sitemap
 const ALL_PAGES = [
   "/", "/about", "/contact", "/services", "/commercial", "/residential",
@@ -157,6 +152,7 @@ function scorePage(meta: PageMetaResponse): { score: number; issues: AuditIssue[
 }
 
 export async function GET(req: NextRequest) {
+  const supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const cronSecret = req.headers.get("authorization")?.replace("Bearer ", "");
   const adminToken = req.headers.get("x-admin-token");
 
