@@ -38,10 +38,12 @@ export default function CommandCenter() {
   const [pageScores, setPageScores] = useState<Array<{
     path: string; seo_score: number; audit_issues: Array<{type:string;severity:string}>;
   }>>([]);
+  const [pageCount, setPageCount] = useState<number>(76);
 
   useEffect(() => {
     // Fetch SEO average score
-    supabase.from("page_seo").select("seo_score").then(({ data }) => {
+    supabase.from("page_seo").select("seo_score").then(({ data, error }) => {
+      if (error) { console.error("SEO score fetch failed:", error.message); setSeoScore(0); return; }
       if (!data?.length) { setSeoScore(0); return; }
       const avg = Math.round(data.reduce((a, b) => a + (b.seo_score ?? 0), 0) / data.length);
       setSeoScore(avg);
@@ -51,11 +53,15 @@ export default function CommandCenter() {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     supabase.from("contact_submissions").select("id", { count: "exact" })
       .gte("created_at", thirtyDaysAgo)
-      .then(({ count }) => setLeadCount(count ?? 0));
+      .then(({ count, error }) => {
+        if (error) { console.error("Lead count fetch failed:", error.message); setLeadCount(0); return; }
+        setLeadCount(count ?? 0);
+      });
 
     // Fetch active season
     supabase.from("season_override").select("active_override").single()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error && error.code !== "PGRST116") { console.error("Season override fetch failed:", error.message); }
         const override = data?.active_override ?? "auto";
         if (override !== "auto") { setActiveSeason(`${override} (Override)`); return; }
         const month = new Date().getMonth() + 1;
@@ -71,7 +77,8 @@ export default function CommandCenter() {
     // Fetch top SEO issues
     supabase.from("page_seo").select("path, audit_issues, seo_score")
       .order("seo_score", { ascending: true }).limit(10)
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) { console.error("SEO issues fetch failed:", error.message); return; }
         if (!data) return;
         const issues: SeoIssue[] = [];
         for (const row of data) {
@@ -81,7 +88,7 @@ export default function CommandCenter() {
             issues.push({
               path: row.path,
               issue: issue.type,
-              severity: issue.severity as "critical" | "warning",
+              severity: issue.severity === "critical" ? "critical" : "warning",
             });
           }
           if (issues.length >= 5) break;
@@ -92,12 +99,24 @@ export default function CommandCenter() {
     // Fetch recent leads
     supabase.from("contact_submissions").select("name, created_at, message")
       .order("created_at", { ascending: false }).limit(5)
-      .then(({ data }) => setRecentLeads((data as Lead[]) ?? []));
+      .then(({ data, error }) => {
+        if (error) { console.error("Recent leads fetch failed:", error.message); return; }
+        setRecentLeads((data as Lead[]) ?? []);
+      });
 
     // Fetch page scores table
     supabase.from("page_seo").select("path, seo_score, audit_issues")
       .order("seo_score", { ascending: false }).limit(10)
-      .then(({ data }) => setPageScores(data ?? []));
+      .then(({ data, error }) => {
+        if (error) { console.error("Page scores fetch failed:", error.message); return; }
+        setPageScores(data ?? []);
+      });
+
+    // Fetch dynamic page count
+    supabase.from("page_seo").select("path", { count: "exact", head: true })
+      .then(({ count, error }) => {
+        if (!error && count !== null) setPageCount(count);
+      });
   }, []);
 
   const stats: StatTile[] = [
@@ -124,8 +143,8 @@ export default function CommandCenter() {
     },
     {
       label: "Pages Indexed",
-      value: "76",
-      sub: "In sitemap.ts",
+      value: pageCount,
+      sub: "Tracked in page_seo",
       icon: FileText,
       color: "#22c55e",
     },
@@ -188,8 +207,8 @@ export default function CommandCenter() {
             </div>
           ) : (
             <ul className="space-y-2">
-              {topIssues.map((issue, i) => (
-                <li key={i} className="flex items-start gap-2">
+              {topIssues.map((issue) => (
+                <li key={issue.path + issue.issue} className="flex items-start gap-2">
                   <span className="mt-0.5 shrink-0">
                     {issue.severity === "critical"
                       ? <AlertTriangle className="h-3.5 w-3.5 text-red-400" />
@@ -224,8 +243,8 @@ export default function CommandCenter() {
             </div>
           ) : (
             <ul className="space-y-3">
-              {recentLeads.map((lead, i) => (
-                <li key={i} className="flex items-start justify-between gap-2">
+              {recentLeads.map((lead) => (
+                <li key={lead.created_at + lead.name} className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-white/80 truncate">{lead.name}</p>
                     <p className="text-xs text-white/40 truncate">{lead.message?.slice(0, 60)}</p>
