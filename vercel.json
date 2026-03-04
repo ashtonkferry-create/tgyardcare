@@ -28,6 +28,7 @@
     { "path": "/api/cron/internal-link-optimizer", "schedule": "0 10 1 * *"   },
     { "path": "/api/cron/competitor-monitor",      "schedule": "0 9 5 * *"    },
     { "path": "/api/cron/citation-sync",           "schedule": "0 9 10 * *"   },
-    { "path": "/api/cron/backlink-monitor",        "schedule": "0 9 15 * *"   }
+    { "path": "/api/cron/backlink-monitor",        "schedule": "0 9 15 * *"   },
+    { "path": "/api/cron/schema-generator",        "schedule": "0 8 * * 5"    }
   ]
 }

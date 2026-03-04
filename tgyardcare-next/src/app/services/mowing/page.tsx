@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import MowingContent from './MowingContent';
 import FAQSchemaBlock from '@/components/FAQSchemaBlock';
+import BreadcrumbSchema from '@/components/schemas/BreadcrumbSchema';
+import ServiceSchema from '@/components/schemas/ServiceSchema';
 import { getPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,6 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MowingPage() {
   return (
     <>
+      <BreadcrumbSchema path="/services/mowing" />
+      <ServiceSchema slug="mowing" />
       <MowingContent />
       <FAQSchemaBlock path="/services/mowing" />
     </>
