@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import SunPrairieContent from './SunPrairieContent';
+import { getPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Lawn Care Sun Prairie WI | Same Crew Weekly | TG Yard Care',
-  description: 'Top-rated lawn care services in Sun Prairie, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
-  keywords: 'Sun Prairie lawn care, Sun Prairie landscaping, lawn mowing Sun Prairie WI, gutter cleaning Sun Prairie, mulching Sun Prairie',
-  alternates: { canonical: 'https://tgyardcare.com/locations/sun-prairie' },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return getPageMetadata('/locations/sun-prairie', {
+    title: 'Lawn Care Sun Prairie WI | Same Crew Weekly | TG Yard Care',
+    description: 'Top-rated lawn care services in Sun Prairie, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
+    keywords: 'Sun Prairie lawn care, Sun Prairie landscaping, lawn mowing Sun Prairie WI, gutter cleaning Sun Prairie, mulching Sun Prairie',
+    canonical: 'https://tgyardcare.com/locations/sun-prairie',
+  });
+}
 
 export default function SunPrairiePage() {
   return <SunPrairieContent />;
