@@ -99,8 +99,10 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
     seasonInfo?.season === "summer" ? "#fbbf24" :
     seasonInfo?.season === "fall"   ? "#f97316" : "#22c55e";
 
-  const SeasonIcon = seasonInfo?.season === "winter" ? Snowflake :
-                     seasonInfo?.season === "summer" ? Sun : null;
+  const SeasonIcon =
+    seasonInfo?.season === "winter" ? Snowflake :
+    seasonInfo?.season === "summer" ? Sun :
+    Leaf; // spring and fall both use Leaf
 
   const seasonLabel = seasonInfo
     ? `${seasonInfo.season.charAt(0).toUpperCase()}${seasonInfo.season.slice(1)}${seasonInfo.isOverride ? " (Override)" : " (Auto)"}`
@@ -156,7 +158,7 @@ export default function AdminLayout({ children, title }: AdminLayoutProps) {
             className="hidden sm:flex items-center gap-1 text-xs transition-colors"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >
-            View Site <ExternalLink className="h-3 w-3" />
+            View Site →
           </a>
           <button
             onClick={async () => {
