@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CheckCircle2, Home, Phone, Calendar, Shield, Clock, AlertTriangle, ArrowRight } from "lucide-react";
@@ -14,7 +15,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { gutterCleaningFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -39,12 +40,8 @@ export default function GutterCleaningContent() {
         { name: 'Services', url: 'https://tgyardcare.com/services' },
         { name: 'Gutter Cleaning', url: 'https://tgyardcare.com/services/gutter-cleaning' }
       ]} />
-      <ServiceSchema
-        serviceName="Professional Gutter Cleaning in Madison & Dane County"
-        description="Safe, thorough gutter cleaning and maintenance to protect your home from water damage across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."
-        serviceType="Gutter Cleaning"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="gutter-cleaning" faqs={gutterCleaningFAQs} />
+      <WebPageSchema name="Gutter Cleaning Services" description="Professional gutter cleaning in Madison and Dane County WI" url="/services/gutter-cleaning" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

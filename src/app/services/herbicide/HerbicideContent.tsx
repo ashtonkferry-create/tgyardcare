@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProblemResolution } from "@/components/ProblemResolution";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { herbicideFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -40,12 +41,8 @@ export default function HerbicideContent() {
         { name: 'Herbicide', url: 'https://tgyardcare.com/services/herbicide' }
       ]} />
       <ScrollProgress variant="minimal" />
-      <ServiceSchema
-        serviceName="Professional Weed Control & Herbicide Services"
-        description="Safe, effective herbicide treatments for weed elimination and prevention across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."
-        serviceType="Herbicide Application"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="herbicide" faqs={herbicideFAQs} />
+      <WebPageSchema name="Herbicide Services" description="Professional weed control and herbicide services in Madison and Dane County WI" url="/services/herbicide" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

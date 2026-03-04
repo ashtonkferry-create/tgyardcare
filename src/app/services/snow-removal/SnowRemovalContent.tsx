@@ -5,7 +5,8 @@ import { Phone, CheckCircle2, Snowflake, Users, Calendar, Shield, Clock, AlertTr
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import { WinterPriorityServices } from "@/components/WinterPriorityServices";
 
@@ -15,7 +16,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { snowRemovalFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -53,12 +54,8 @@ export default function SnowRemovalContent() {
         { name: 'Services', url: 'https://tgyardcare.com/services' },
         { name: 'Snow Removal', url: 'https://tgyardcare.com/services/snow-removal' }
       ]} />
-      <ServiceSchema
-        serviceName="Snow Removal Services in Madison & Dane County"
-        description="Professional snow and ice removal for residential and commercial properties across Madison, Middleton, Waunakee, Sun Prairie, Fitchburg, and Verona. Fast response during Wisconsin winter storms."
-        serviceType="Snow Removal"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="snow-removal" faqs={snowRemovalFAQs} />
+      <WebPageSchema name="Snow Removal Services" description="Professional snow and ice removal in Madison and Dane County WI" url="/services/snow-removal" />
 
       <div className="min-h-screen flex flex-col" style={{ background: '#020810' }}>
         <Navigation />

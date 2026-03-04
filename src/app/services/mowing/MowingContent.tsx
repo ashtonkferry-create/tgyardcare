@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProblemResolution } from "@/components/ProblemResolution";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { mowingFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -42,12 +43,8 @@ export default function MowingContent() {
         { name: 'Lawn Mowing', url: 'https://tgyardcare.com/services/mowing' }
       ]} />
       <ScrollProgress variant="minimal" />
-      <ServiceSchema
-        serviceName="Professional Lawn Mowing Services in Madison WI"
-        description="Expert weekly lawn mowing for Madison, Middleton, Waunakee, Sun Prairie, Monona, Fitchburg, and Verona. Same crew consistency, perfect stripes, and clean edges."
-        serviceType="Lawn Mowing"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="mowing" faqs={mowingFAQs} />
+      <WebPageSchema name="Professional Lawn Mowing" description="Professional lawn mowing services in Madison and Dane County WI" url="/services/mowing" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

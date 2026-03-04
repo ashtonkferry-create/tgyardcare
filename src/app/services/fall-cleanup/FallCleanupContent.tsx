@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProblemResolution } from "@/components/ProblemResolution";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { fallCleanupFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -37,12 +38,8 @@ export default function FallCleanupContent() {
         { name: 'Fall Cleanup', url: 'https://tgyardcare.com/services/fall-cleanup' }
       ]} />
       <ScrollProgress variant="minimal" />
-      <ServiceSchema
-        serviceName="Fall Cleanup Services in Madison & Dane County"
-        description="Professional fall cleanup and winter preparation for Madison, Middleton, Waunakee, Sun Prairie, and surrounding Dane County properties. Protect your lawn from Wisconsin's harsh winters."
-        serviceType="Fall Cleanup"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="fall-cleanup" faqs={fallCleanupFAQs} />
+      <WebPageSchema name="Fall Cleanup Services" description="Professional fall cleanup in Madison and Dane County WI" url="/services/fall-cleanup" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

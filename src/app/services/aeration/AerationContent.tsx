@@ -2,7 +2,8 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProblemResolution } from "@/components/ProblemResolution";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { aerationFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -34,12 +35,8 @@ export default function AerationContent() {
         { name: 'Aeration', url: 'https://tgyardcare.com/services/aeration' }
       ]} />
       <ScrollProgress variant="minimal" />
-      <ServiceSchema
-        serviceName="Core Aeration Services in Madison & Dane County"
-        description="Professional core aeration to reduce soil compaction and promote healthy root growth across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."
-        serviceType="Lawn Aeration"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="aeration" faqs={aerationFAQs} />
+      <WebPageSchema name="Core Aeration Services" description="Professional core aeration in Madison and Dane County WI" url="/services/aeration" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

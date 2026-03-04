@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ProblemResolution } from "@/components/ProblemResolution";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { weedingFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -42,11 +43,8 @@ export default function WeedingContent() {
         { name: 'Weeding', url: 'https://tgyardcare.com/services/weeding' }
       ]} />
       <ScrollProgress variant="minimal" />
-      <ServiceSchema
-        serviceName="Professional Weeding Services in Madison & Dane County"
-        description="Thorough weed removal for garden beds across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County."
-        serviceType="Weed Removal"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
+      <ServicePageSchemas slug="weeding" faqs={weedingFAQs} />
+      <WebPageSchema name="Weeding Services" description="Professional weeding services in Madison and Dane County WI" url="/services/weeding"
       />
       <Navigation />
 

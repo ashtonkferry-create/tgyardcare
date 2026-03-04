@@ -3,7 +3,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CheckCircle2, Shield, Phone, Calendar, DollarSign, Clock, ArrowRight } from "lucide-react";
@@ -13,7 +14,7 @@ import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { gutterGuardsFAQs } from "@/data/serviceFAQs";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -37,12 +38,8 @@ export default function GutterGuardsContent() {
         { name: 'Services', url: 'https://tgyardcare.com/services' },
         { name: 'Gutter Guards', url: 'https://tgyardcare.com/services/gutter-guards' }
       ]} />
-      <ServiceSchema
-        serviceName="Gutter Guard Installation in Madison & Dane County"
-        description="Professional gutter guard installation across Madison, Middleton, Waunakee, Sun Prairie, and all Dane County. Prevent clogs, ice dams, and eliminate gutter cleaning."
-        serviceType="Gutter Guards"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Sun Prairie', 'Monona', 'Fitchburg', 'Verona', 'McFarland', 'DeForest', 'Cottage Grove', 'Oregon', 'Stoughton']}
-      />
+      <ServicePageSchemas slug="gutter-guards" faqs={gutterGuardsFAQs} />
+      <WebPageSchema name="Gutter Guard Installation" description="Professional gutter guard installation in Madison and Dane County WI" url="/services/gutter-guards" />
       <Navigation />
 
       {/* TL;DR for AI/Answer Engines */}

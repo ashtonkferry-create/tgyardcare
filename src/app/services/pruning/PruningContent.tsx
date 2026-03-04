@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CheckCircle2, Scissors, Phone, Calendar, Shield, Clock, ArrowRight } from "lucide-react";
-import { ServiceSchema } from "@/components/ServiceSchema";
+import { ServicePageSchemas } from "@/components/schemas/ServicePageSchemas";
+import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 import CTASection from '@/components/CTASection';
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { pruningFAQs } from "@/data/serviceFAQs";
@@ -14,7 +15,7 @@ import pruningCombined from "@/assets/before-after/pruning-combined.png";
 import pruningCombined2 from "@/assets/before-after/pruning-combined-2.png";
 import heroImage from "@/assets/service-pruning.jpg";
 import { ResidentialProblemSection, ResidentialSolutionSection, ResidentialHomeownerTypesSection, ResidentialExpectationsSection } from "@/components/ResidentialSections";
-import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { AmbientParticles } from "@/components/AmbientParticles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { GlassCard } from "@/components/GlassCard";
@@ -39,12 +40,8 @@ export default function PruningContent() {
         { name: 'Services', url: 'https://tgyardcare.com/services' },
         { name: 'Pruning', url: 'https://tgyardcare.com/services/pruning' }
       ]} />
-      <ServiceSchema
-        serviceName="Bush Trimming & Shrub Pruning Services"
-        description="Professional bush trimming and shrub pruning to maintain healthy, attractive landscaping across Madison and Dane County."
-        serviceType="Bush Trimming and Shrub Pruning"
-        areaServed={['Madison', 'Middleton', 'Waunakee', 'Verona', 'Fitchburg', 'McFarland', 'Monona', 'Sun Prairie', 'DeForest', 'Oregon', 'Stoughton', 'Cottage Grove']}
-      />
+      <ServicePageSchemas slug="pruning" faqs={pruningFAQs} />
+      <WebPageSchema name="Bush Trimming and Pruning" description="Professional bush trimming and shrub pruning in Madison and Dane County WI" url="/services/pruning" />
       <div className="min-h-screen flex flex-col" style={{ background: '#050d07' }}>
         <Navigation />
 
