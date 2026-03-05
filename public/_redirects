@@ -1,0 +1,56 @@
+# TG Yard Care - Server-Side Redirects
+# These are processed by the hosting platform before serving content
+
+# ============================================
+# WWW to Non-WWW (301 Permanent)
+# ============================================
+https://www.tgyardcare.com/* https://tgyardcare.com/:splat 301!
+http://www.tgyardcare.com/* https://tgyardcare.com/:splat 301!
+http://tgyardcare.com/* https://tgyardcare.com/:splat 301!
+
+# ============================================
+# Legacy Wix URL Patterns (REMOVED → 410 Gone)
+# If Google finds these via old backlinks, we respond 410 so they drop from the index.
+# ============================================
+/service-page/* 410
+/post/* 410
+/product-page/* 410
+/events/* 410
+/portfolio/* 410
+/members/* 410
+
+# Wix internal paths (410 Gone)
+/_api/* 410
+/_partials/* 410
+/_functions/* 410
+/wix-code-dev-tools/* 410
+/_serverless/* 410
+/app/* 410
+
+# ============================================
+# Old Wix-era Page Redirects (301 Permanent)
+# Maps old Wix page paths to their new equivalents
+# ============================================
+/our-story /about 301
+/about-us /about 301
+/lawn-care /residential 301
+/yard-care /services 301
+/landscaping /services 301
+/gutter-care /services/gutter-cleaning 301
+/mulch-installation /services/mulching 301
+/weed-control-lawn-spraying /services/herbicide 301
+/fertilization-and-weed-control /services/fertilization 301
+/seasonal-cleanup /services/spring-cleanup 301
+/snow-removal /services/snow-removal 301
+/testimonies /reviews 301
+/privacy-policy /privacy 301
+/faqs /faq 301
+/blog/tags/* /blog 301
+
+# Old Wix services with no equivalent (410 Gone)
+/window-cleaning 410
+
+# ============================================
+# SPA Fallback (must be last)
+# ============================================
+/* /index.html 200

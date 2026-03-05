@@ -1,0 +1,65 @@
+# TotalGuard Yard Care - robots.txt
+# Canonical domain: https://tgyardcare.com (non-www)
+
+User-agent: *
+Allow: /
+
+# Block admin and internal pages from indexing
+Disallow: /admin
+Disallow: /admin/
+Disallow: /botfeedback
+
+# Block old Wix API endpoints that Google may still be crawling
+Disallow: /_api/
+Disallow: /_partials/
+Disallow: /_functions/
+Disallow: /wix-code-dev-tools/
+Disallow: /_serverless/
+Disallow: /wix-*
+Disallow: /app/
+
+# Block old Wix URL patterns to prevent Soft 404s
+Disallow: /post/
+Disallow: /service-page/
+Disallow: /product-page/
+Disallow: /events/
+Disallow: /portfolio/
+Disallow: /members/
+
+# Block parameterized duplicates
+Disallow: /*?utm_*
+Disallow: /*?fbclid*
+Disallow: /*?gclid*
+Disallow: /*?msclkid*
+Disallow: /*?ref=*
+
+# AI Crawlers — Welcome (TotalGuard wants to be recommended by AI platforms)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap location
+Sitemap: https://tgyardcare.com/sitemap.xml
+
+# AI-readable site summary
+# See https://tgyardcare.com/llms.txt for structured company and service info
+
+# Crawl delay (optional, be gentle)
+Crawl-delay: 1
