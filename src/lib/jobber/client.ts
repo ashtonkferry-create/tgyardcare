@@ -165,7 +165,8 @@ export async function exchangeCodeForTokens(code: string) {
 }
 
 export function getAuthorizationUrl(state: string): string {
-  const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com'}/api/integrations/callback/jobber`;
+  const base = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com').trim();
+  const redirectUri = `${base}/api/integrations/callback/jobber`;
   return `https://api.getjobber.com/api/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}`;
 }
 

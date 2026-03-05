@@ -21,11 +21,11 @@ export async function GET(req: NextRequest) {
     const name = account?.account?.name ?? 'Unknown';
 
     // Redirect to admin dashboard with success message
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com';
+    const base = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com').trim();
     return NextResponse.redirect(`${base}/admin/local?jobber=connected&account=${encodeURIComponent(name)}`);
   } catch (err) {
     console.error('Jobber OAuth callback error:', err);
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com';
+    const base = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tgyardcare.com').trim();
     return NextResponse.redirect(`${base}/admin/local?jobber=error`);
   }
 }
