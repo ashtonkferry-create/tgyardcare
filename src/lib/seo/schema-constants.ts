@@ -52,7 +52,7 @@ export const BUSINESS = {
 
 export const ADDRESS = {
   '@type': 'PostalAddress',
-  streetAddress: '',
+  streetAddress: '7610 Welton Dr',
   addressLocality: 'Madison',
   addressRegion: 'WI',
   postalCode: '53711',
