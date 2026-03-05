@@ -292,6 +292,7 @@ const commercialSidebar: MegaMenuSidebar = {
 const aboutPages = [
   { name: "About Us", path: "/about" },
   { name: "Meet Our Team", path: "/team" },
+  { name: "Portfolio", path: "/gallery" },
   { name: "Service Areas", path: "/service-areas" },
   { name: "FAQ", path: "/faq" },
   { name: "Blog", path: "/blog" },
@@ -732,13 +733,6 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
   } as const;
   const t = navTheme[activeSeason] ?? navTheme.summer;
 
-  const hiringDotColor: Record<Season, string> = {
-    summer: '#22c55e',
-    fall:   '#f59e0b',
-    winter: '#22d3ee',
-  } as const;
-  const dotColor = hiringDotColor[activeSeason];
-
   return (
     <>
     {showPromoBanner && (
@@ -842,14 +836,6 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
               </AnimatePresence>
             </div>
 
-            {/* Portfolio link (no dropdown) */}
-            <Link
-              href="/gallery"
-              className={`text-white/90 ${t.hoverText} hover:bg-white/5 transition-all font-semibold text-sm tracking-wide px-4 py-2 rounded-lg`}
-            >
-              Portfolio
-            </Link>
-
             {/* About Us Dropdown */}
             <div
               className="relative"
@@ -901,6 +887,14 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Careers standalone link */}
+            <Link
+              href="/careers"
+              className={`text-white/90 ${t.hoverText} hover:bg-white/5 transition-all font-semibold text-sm tracking-wide px-4 py-2 rounded-lg`}
+            >
+              Careers
+            </Link>
           </div>
 
           {/* ---- Desktop Right Side (Phone + CTA) ---- */}
@@ -914,25 +908,6 @@ export default function Navigation({ showPromoBanner = false }: NavigationProps)
               </div>
               <span>(608) 535-6057</span>
             </a>
-            {/* We're Hiring pulse pill */}
-            <Link
-              href="/careers"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40 hover:scale-[1.02] transition-all duration-200"
-            >
-              <span className="relative flex h-2 w-2">
-                <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-                  style={{ backgroundColor: dotColor }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ backgroundColor: dotColor }}
-                />
-              </span>
-              <span className="text-xs font-semibold tracking-wide text-white/80">
-                We&apos;re Hiring
-              </span>
-            </Link>
             <Link
               href="/contact"
               className={`flex items-center gap-2 bg-gradient-to-r ${t.ctaFrom} ${t.ctaTo} text-white font-bold text-sm xl:text-base px-5 xl:px-7 py-2.5 rounded-full shadow-lg ${t.ctaShadow} hover:shadow-xl ${t.ctaShadowHover} hover:scale-105 transition-all`}
