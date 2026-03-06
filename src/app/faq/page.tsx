@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/faq',
   },
+  openGraph: {
+    title: 'Lawn Care FAQ | 70+ Questions Answered | TotalGuard Madison',
+    description: "Get answers to 70+ lawn care questions. Learn about mowing, mulching, gutter cleaning, seasonal cleanup costs & timing from Madison's top-rated pros.",
+    url: 'https://tgyardcare.com/faq',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function FAQPage() {

@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/about',
   },
+  openGraph: {
+    title: 'About TotalGuard Yard Care | Madison WI Lawn Care Company',
+    description: "Madison's reliability-first lawn care company. Learn how our systems for response time, crew consistency, and accountability set us apart across Dane County.",
+    url: 'https://tgyardcare.com/about',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function AboutPage() {

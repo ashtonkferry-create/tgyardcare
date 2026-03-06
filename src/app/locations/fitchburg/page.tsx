@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Top-rated lawn care services in Fitchburg, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
   keywords: 'Fitchburg lawn care, Fitchburg landscaping, lawn mowing Fitchburg WI, gutter cleaning Fitchburg, mulching Fitchburg',
   alternates: { canonical: 'https://tgyardcare.com/locations/fitchburg' },
+  openGraph: {
+    title: 'Lawn Care Fitchburg WI | Same Crew Weekly | TG Yard Care',
+    description: 'Top-rated lawn care services in Fitchburg, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
+    url: 'https://tgyardcare.com/locations/fitchburg',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function FitchburgPage() {

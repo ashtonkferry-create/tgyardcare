@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/property-enhancement',
   },
+  openGraph: {
+    title: 'Commercial Landscaping Madison WI | Garden Beds | TG Yard Care',
+    description: 'Commercial landscaping & garden beds for HOAs & facilities in Madison, WI. Consistent standards, annual programs. $1M insured. Free quote!',
+    url: 'https://tgyardcare.com/commercial/property-enhancement',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialPropertyEnhancementPage() {

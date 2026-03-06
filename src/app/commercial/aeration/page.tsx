@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/aeration',
   },
+  openGraph: {
+    title: 'Commercial Aeration Madison WI | Core Aeration | TG Yard Care',
+    description: 'Commercial lawn aeration for HOAs & property managers in Madison, WI. Core aeration, overseeding & documented service. $1M insured. Free quote!',
+    url: 'https://tgyardcare.com/commercial/aeration',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialAerationPage() {

@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/residential',
   },
+  openGraph: {
+    title: 'Residential Lawn Care Madison WI | 14 Services | TG Yard Care',
+    description: 'Residential lawn care for Madison & Dane County homeowners. Weekly mowing, mulching, gutter cleaning & seasonal cleanups. Same crew every visit. Free quote today!',
+    url: 'https://tgyardcare.com/residential',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function ResidentialPage() {

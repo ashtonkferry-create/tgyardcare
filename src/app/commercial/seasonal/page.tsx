@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/seasonal',
   },
+  openGraph: {
+    title: 'Commercial Seasonal Cleanup Madison WI | HOAs | TG Yard Care',
+    description: 'Commercial spring & fall cleanup for HOAs & property managers in Madison, WI. Priority scheduling, documented service. $1M insured. Free quote!',
+    url: 'https://tgyardcare.com/commercial/seasonal',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialSeasonalPage() {

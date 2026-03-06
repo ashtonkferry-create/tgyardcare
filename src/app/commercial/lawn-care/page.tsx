@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/lawn-care',
   },
+  openGraph: {
+    title: 'Commercial Lawn Mowing Madison WI | HOAs | TG Yard Care',
+    description: 'Commercial lawn care for HOAs, property managers & facilities in Madison, WI. Documented visits, dedicated crews & flexible contracts. $1M insured. Get your quote!',
+    url: 'https://tgyardcare.com/commercial/lawn-care',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialLawnCarePage() {

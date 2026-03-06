@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Complete yard care services in Madison & Dane County. Mowing, mulching, gutter cleaning, seasonal cleanups & snow removal. Same crew every visit. Get your free quote!',
   keywords: 'lawn care services Madison WI, landscaping Middleton, yard maintenance Dane County, lawn mowing, mulching, gutter cleaning, snow removal Wisconsin',
   alternates: { canonical: 'https://tgyardcare.com/services' },
+  openGraph: {
+    title: 'Yard Care Services Madison WI | 14+ Options | TG Yard Care',
+    description: 'Complete yard care services in Madison & Dane County. Mowing, mulching, gutter cleaning, seasonal cleanups & snow removal. Same crew every visit. Get your free quote!',
+    url: 'https://tgyardcare.com/services',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function ServicesPage() {

@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/gutters',
   },
+  openGraph: {
+    title: 'Commercial Gutter Cleaning Madison WI | HOAs | TG Yard Care',
+    description: 'Commercial gutter cleaning & guards for HOAs & property managers in Madison, WI. Photo documentation, seasonal contracts. $1M insured. Free quote!',
+    url: 'https://tgyardcare.com/commercial/gutters',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialGutterServicesPage() {

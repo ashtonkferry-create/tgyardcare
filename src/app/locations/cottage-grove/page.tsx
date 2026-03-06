@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Top-rated lawn care services in Cottage Grove, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
   keywords: 'Cottage Grove lawn care, Cottage Grove landscaping, lawn mowing Cottage Grove WI, gutter cleaning Cottage Grove, mulching Cottage Grove',
   alternates: { canonical: 'https://tgyardcare.com/locations/cottage-grove' },
+  openGraph: {
+    title: 'Lawn Care Cottage Grove WI | Same Crew Weekly | TG Yard Care',
+    description: 'Top-rated lawn care services in Cottage Grove, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
+    url: 'https://tgyardcare.com/locations/cottage-grove',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CottageGrovePage() {

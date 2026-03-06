@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/commercial/fertilization-weed-control',
   },
+  openGraph: {
+    title: 'Commercial Fertilization Madison WI | Licensed | TG Yard Care',
+    description: 'Commercial fertilization & weed control for HOAs & properties in Madison, WI. Licensed applicators, documented treatment. $1M insured. Free quote!',
+    url: 'https://tgyardcare.com/commercial/fertilization-weed-control',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function CommercialFertilizationWeedControlPage() {

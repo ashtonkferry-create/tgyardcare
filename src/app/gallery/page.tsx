@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tgyardcare.com/gallery',
   },
+  openGraph: {
+    title: 'Before & After Gallery | TotalGuard Madison',
+    description: 'See 50+ lawn transformations in Madison WI. Real before/after photos of mowing, mulching & gutter cleaning. Get inspired!',
+    url: 'https://tgyardcare.com/gallery',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function GalleryPage() {

@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Top-rated lawn care services in McFarland, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
   keywords: 'McFarland lawn care, McFarland landscaping, lawn mowing McFarland WI, gutter cleaning McFarland, mulching McFarland',
   alternates: { canonical: 'https://tgyardcare.com/locations/mcfarland' },
+  openGraph: {
+    title: 'Lawn Care McFarland WI | Same Crew Weekly | TG Yard Care',
+    description: 'Top-rated lawn care services in McFarland, Wisconsin. Expert mowing, mulching, gutter cleaning & seasonal services. 4.9★ rated. Same-day quotes. Call today!',
+    url: 'https://tgyardcare.com/locations/mcfarland',
+    siteName: 'TG Yard Care',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function McFarlandPage() {
