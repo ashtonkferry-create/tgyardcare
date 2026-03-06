@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
+import LatestBlogPosts from "@/components/blog/LatestBlogPosts";
 import ServiceCard from "@/components/ServiceCard";
 import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { ComparisonTable } from "@/components/ComparisonTable";
@@ -524,6 +525,13 @@ export default function HomeContent() {
             </div>
             <ProcessTimeline variant="horizontal" />
           </div>
+        </div>
+      </section>
+
+      {/* LATEST BLOG POSTS */}
+      <section className="py-16 md:py-20" style={{ background: '#0a1a0e' }}>
+        <div className="container mx-auto px-4">
+          <LatestBlogPosts />
         </div>
       </section>
 

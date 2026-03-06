@@ -59,8 +59,44 @@ export async function GET(req: NextRequest) {
 
   try {
     const season = getCurrentSeason();
+
+    // 50% chance: promote a recent blog post, 50% chance: seasonal topic
+    const { data: recentPost } = await supabase
+      .from("blog_posts")
+      .select("title, slug, excerpt")
+      .eq("status", "published")
+      .order("published_at", { ascending: false })
+      .limit(5);
+
+    const promoteBlog = recentPost && recentPost.length > 0 && Math.random() > 0.5;
+    const blogPost = promoteBlog
+      ? recentPost[Math.floor(Math.random() * recentPost.length)]
+      : null;
+
     const topics = SEASON_TOPICS[season];
-    const topic = topics[Math.floor(Math.random() * topics.length)];
+    const topic = blogPost
+      ? `blog: ${blogPost.title}`
+      : topics[Math.floor(Math.random() * topics.length)];
+
+    const prompt = blogPost
+      ? `Write a social media post for TotalGuard Yard Care promoting this blog article:
+
+Title: ${blogPost.title}
+Summary: ${blogPost.excerpt}
+Link: https://tgyardcare.com/blog/${blogPost.slug}
+
+Tone: Professional but friendly, local expertise. Tease the key takeaway to drive clicks.
+Format: Write for Facebook/Instagram. Include the blog link. Keep under 200 words. Include 3-5 relevant hashtags at the end.
+
+Write just the post content, nothing else.`
+      : `Write a social media post for TotalGuard Yard Care, a professional lawn care and yard services company in Madison, WI.
+
+Topic: ${topic}
+Season: ${season}
+Tone: Professional but friendly, local expertise, helpful tips
+Format: Write for Facebook/Instagram. Include a call to action mentioning free quotes. Keep under 200 words. Include 3-5 relevant hashtags at the end.
+
+Write just the post content, nothing else.`;
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -72,19 +108,7 @@ export async function GET(req: NextRequest) {
       body: JSON.stringify({
         model: "claude-haiku-4-20250414",
         max_tokens: 500,
-        messages: [
-          {
-            role: "user",
-            content: `Write a social media post for TotalGuard Yard Care, a professional lawn care and yard services company in Madison, WI.
-
-Topic: ${topic}
-Season: ${season}
-Tone: Professional but friendly, local expertise, helpful tips
-Format: Write for Facebook/Instagram. Include a call to action mentioning free quotes. Keep under 200 words. Include 3-5 relevant hashtags at the end.
-
-Write just the post content, nothing else.`,
-          },
-        ],
+        messages: [{ role: "user", content: prompt }],
       }),
     });
 

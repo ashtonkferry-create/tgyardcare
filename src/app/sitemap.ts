@@ -114,6 +114,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
+  const blogCategoryPages: MetadataRoute.Sitemap = [
+    'seasonal-tips', 'service-guides', 'local-guides', 'how-to', 'faq-answers',
+  ].map(slug => ({
+    url: `${baseUrl}/blog/category/${slug}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+    lastModified: now,
+  }));
+
   return [
     ...staticPages,
     ...servicePages,
@@ -121,5 +130,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locationPages,
     ...cityServicePages,
     ...blogPages,
+    ...blogCategoryPages,
   ];
 }

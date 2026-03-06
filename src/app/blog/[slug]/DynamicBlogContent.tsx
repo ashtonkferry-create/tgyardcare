@@ -10,6 +10,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArticleSchema } from '@/components/schemas/ArticleSchema';
 import { WebPageSchema } from '@/components/schemas/WebPageSchema';
+import SocialShareButtons from '@/components/blog/SocialShareButtons';
+import RelatedPosts from '@/components/blog/RelatedPosts';
+import PostNavigation from '@/components/blog/PostNavigation';
 
 interface DynamicBlogContentProps {
   title: string;
@@ -134,6 +137,9 @@ export default function DynamicBlogContent({
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
 
+          {/* Social Share */}
+          <SocialShareButtons title={title} slug={slug} excerpt={excerpt} />
+
           {/* CTA card */}
           <div className="bg-white/[0.06] border border-white/10 p-6 rounded-lg mt-12">
             <h3 className="text-xl font-bold text-white mb-3">
@@ -148,6 +154,12 @@ export default function DynamicBlogContent({
               <Link href="/contact">Get a Free Quote</Link>
             </Button>
           </div>
+
+          {/* Previous / Next post */}
+          <PostNavigation currentSlug={slug} publishedAt={published_at} />
+
+          {/* Related Articles */}
+          <RelatedPosts currentSlug={slug} currentCategory={category} />
         </div>
       </article>
 

@@ -1,14 +1,11 @@
 'use client';
 
-import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import CTASection from '@/components/CTASection';
+import CTASection from "@/components/CTASection";
 import Link from "next/link";
-import { Calendar, ArrowRight, Clock, Leaf, Droplets, TreePine, Snowflake, Scissors, Rss } from "lucide-react";
+import { Calendar, ArrowRight, Clock, ArrowLeft, Leaf, Droplets, TreePine, Snowflake, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
-import { Skeleton } from "@/components/ui/skeleton";
 import { WebPageSchema } from "@/components/schemas/WebPageSchema";
 
 interface BlogPost {
@@ -18,16 +15,21 @@ interface BlogPost {
   excerpt: string;
   published_at: string;
   content: string;
-  category: string;
 }
 
-const CATEGORIES = [
-  { slug: 'seasonal-tips', name: 'Seasonal Tips' },
-  { slug: 'service-guides', name: 'Service Guides' },
-  { slug: 'local-guides', name: 'Local Guides' },
-  { slug: 'how-to', name: 'How-To' },
-  { slug: 'faq-answers', name: 'FAQ' },
-];
+interface CategoryContentProps {
+  category: string;
+  categoryName: string;
+  posts: BlogPost[];
+}
+
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  'seasonal-tips': 'Expert seasonal lawn care advice for Madison, WI homeowners',
+  'service-guides': 'In-depth guides to our professional lawn and yard care services',
+  'local-guides': 'Madison-area lawn care insights from local experts',
+  'how-to': 'Step-by-step lawn care tutorials from the pros',
+  'faq-answers': 'Answers to common lawn care questions in Madison, WI',
+};
 
 function calculateReadingTime(content: string): number {
   const text = content.replace(/<[^>]*>/g, '');
@@ -55,103 +57,58 @@ function getGradientForPost(index: number) {
   return gradients[index % gradients.length];
 }
 
-export default function BlogContent() {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .select('id, title, slug, excerpt, published_at, content, category')
-        .eq('status', 'published')
-        .order('published_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching blog posts:', error);
-        setLoading(false);
-        return;
-      }
-
-      setBlogPosts(data || []);
-      setLoading(false);
-    };
-
-    fetchPosts();
-  }, []);
+export default function CategoryContent({ category, categoryName, posts }: CategoryContentProps) {
+  const description = CATEGORY_DESCRIPTIONS[category] || '';
 
   return (
     <div className="min-h-screen" style={{ background: '#050d07' }}>
-      <WebPageSchema name="Blog" description="Lawn care tips and guides for Madison homeowners" url="/blog" />
+      <WebPageSchema
+        name={`${categoryName} - Blog`}
+        description={description}
+        url={`/blog/category/${category}`}
+      />
       <Navigation />
-
-      {/* TL;DR for AI/Answer Engines */}
-      <section className="sr-only" aria-label="Blog Summary">
-        <p>TotalGuard Yard Care blog provides expert lawn care tips and advice for Madison, Wisconsin homeowners. Learn seasonal maintenance guides, landscaping tips, and best practices to keep your yard healthy year-round. Free tips from local Madison lawn care professionals.</p>
-      </section>
 
       {/* Hero */}
       <section className="pt-24 pb-16 border-b border-white/10" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
-              Expert Insights
-            </span>
-            <a
-              href="/blog/feed.xml"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-orange-500/10 text-orange-400 rounded-full text-sm font-medium hover:bg-orange-500/20 transition-colors"
-              title="RSS Feed"
-            >
-              <Rss className="h-3.5 w-3.5" />
-              RSS
-            </a>
-          </div>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-primary transition-colors mb-6"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            All posts
+          </Link>
+          <span className="block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6 mx-auto w-fit">
+            {categoryName}
+          </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-            Lawn Care Tips &amp; Guides
+            {categoryName}
           </h1>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed mb-8">
-            Professional advice from Madison&apos;s trusted yard care experts. Everything you need to keep your property looking its best.
+          <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            {description}
           </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/blog/category/${cat.slug}`}
-                className="px-4 py-2 rounded-full text-sm font-medium bg-white/[0.06] border border-white/10 text-white/70 hover:border-primary/30 hover:text-white hover:bg-white/[0.10] transition-all"
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Blog Grid */}
+      {/* Posts Grid */}
       <section className="py-16 md:py-20" style={{ background: '#050d07' }}>
         <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-white/[0.06] rounded-2xl border border-white/10 overflow-hidden">
-                  <Skeleton className="h-32 w-full bg-white/[0.08]" />
-                  <div className="p-6">
-                    <Skeleton className="h-4 w-24 mb-3 bg-white/[0.08]" />
-                    <Skeleton className="h-6 w-full mb-3 bg-white/[0.08]" />
-                    <Skeleton className="h-20 w-full mb-4 bg-white/[0.08]" />
-                    <Skeleton className="h-4 w-24 bg-white/[0.08]" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : blogPosts.length === 0 ? (
+          {posts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-white/60 text-lg">No blog posts yet. Check back soon!</p>
+              <p className="text-white/60 text-lg mb-6">
+                No posts in this category yet. Check back soon!
+              </p>
+              <Button variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Link href="/blog">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  View all posts
+                </Link>
+              </Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post, index) => (
+              {posts.map((post, index) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
@@ -177,7 +134,7 @@ export default function BlogContent() {
                       {new Date(post.published_at).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
-                        day: 'numeric'
+                        day: 'numeric',
                       })}
                     </div>
                     <h2 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-primary transition-colors">
