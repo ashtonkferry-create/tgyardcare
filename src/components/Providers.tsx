@@ -8,7 +8,6 @@ import { ChatProvider } from '@/contexts/ChatContext';
 import { SeasonalThemeProvider } from '@/contexts/SeasonalThemeContext';
 import BackToTop from '@/components/BackToTop';
 import { DeferredChatBot } from '@/components/DeferredChatBot';
-import MobileStickyCTA from '@/components/MobileStickyCTA';
 import { useState } from 'react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -22,7 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <Sonner />
             <BackToTop />
             <DeferredChatBot />
-            <MobileStickyCTA />
+
             {children}
           </SeasonalThemeProvider>
         </ChatProvider>
