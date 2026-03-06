@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 
@@ -261,11 +262,10 @@ export default function HomeContent() {
                           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                         </svg>
                       ) : (
-                        <img
-                          src={badge.src}
+                        <Image
+                          src={badge.src!}
                           alt={badge.alt}
                           className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          loading="lazy"
                           width={56}
                           height={56}
                         />
@@ -404,13 +404,13 @@ export default function HomeContent() {
               className="order-2 lg:order-1"
             >
               <div className="relative border border-blue-100/30 rounded-xl overflow-hidden hover:shadow-lg hover:shadow-blue-100/20 transition-all duration-500">
-                <img
+                <Image
                   alt="Before and after lawn transformation showing improved grass quality and curb appeal"
                   className="w-full rounded-xl shadow-lg"
-                  loading="lazy"
                   src="/lovable-uploads/01f91d74-e152-48d0-961c-a2ebcf1e03bf.webp"
                   width={600}
                   height={400}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-full px-3 py-1 text-xs font-bold text-gray-900 shadow-sm">
                   Madison, WI

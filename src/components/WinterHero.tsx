@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Shield, Star, CheckCircle2, Snowflake, ArrowRight, Zap } from 'lucide-react';
 import heroSnowPlow from '@/assets/hero-snow-plow.png';
 import { SEASONAL_STATS, SITE_STATS, getSeasonLabel } from '@/lib/seasonalConfig';
@@ -202,12 +203,12 @@ export function WinterHero() {
             <div className="absolute -inset-8 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20 rounded-3xl blur-3xl animate-pulse" />
 
             <div className="relative w-full group">
-              <img
-                src={imgSrc(heroSnowPlow)}
+              <Image
+                src={heroSnowPlow}
                 alt="Professional snow plow truck clearing driveway in Madison Wisconsin - TotalGuard Yard Care snow removal service"
                 className="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[16/10] border border-white/10 group-hover:scale-[1.02] transition-transform duration-500"
-                loading="eager"
-                fetchPriority="high"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
 
               {/* Floating Stats Card with Animation */}

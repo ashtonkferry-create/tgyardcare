@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from '@/components/ui/button';
 import { useSeasonalTheme } from '@/contexts/SeasonalThemeContext';
 import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Phone } from 'lucide-react';
@@ -249,13 +250,14 @@ export function SeasonalHeroCarousel() {
 
           {/* Right Side Image */}
           <div className="hidden lg:block">
-            <img
+            <Image
               alt={`${activeSeason} lawn care services in Madison Wisconsin`}
               className="rounded-lg shadow-2xl hover:scale-105 transition-transform duration-300"
-              loading="eager"
+              priority
               src="/lovable-uploads/1ecd67a2-e906-4736-9491-b7de20a50376.jpg"
-              width="600"
-              height="400"
+              width={600}
+              height={400}
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
         </div>

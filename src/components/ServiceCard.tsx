@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { LucideIcon } from "lucide-react";
 
 interface ServiceCardProps {
@@ -18,13 +19,13 @@ export default function ServiceCard({ icon: Icon, title, description, path, imag
         {/* Image Section */}
         {image && (
           <div className="relative h-48 w-full overflow-hidden">
-            <img
+            <Image
               src={image}
               alt={`${title} service - Professional lawn care in Madison Wisconsin by TotalGuard`}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              loading="lazy"
-              width="400"
-              height="192"
+              width={400}
+              height={192}
+              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a1f14] via-[#0a1f14]/40 to-transparent" />
             <div className="absolute bottom-3 left-3 bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-xl w-12 h-12 flex items-center justify-center shadow-lg shadow-emerald-500/20">

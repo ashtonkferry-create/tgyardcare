@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
@@ -309,11 +310,13 @@ export default function ServicesContent() {
                       className="group block bg-black/30 backdrop-blur-xl border border-white/[0.06] rounded-xl overflow-hidden hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-300"
                     >
                       <div className="relative h-40 overflow-hidden">
-                        <img
+                        <Image
                           src={imgSrc(service.image)}
                           alt={`${service.title} service in Madison WI - TotalGuard Yard Care`}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          loading="lazy"
+                          width={400}
+                          height={160}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                         <div className={`absolute bottom-3 left-3 p-2 rounded-lg ${acc.bg} border ${acc.border}`}>

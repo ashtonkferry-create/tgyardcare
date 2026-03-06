@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Shield, Star, CheckCircle2, Leaf, ArrowRight, Zap } from 'lucide-react';
 import heroFallLeaves from '@/assets/hero-fall-leaves.jpg';
 import { SEASONAL_STATS, SITE_STATS, getSeasonLabel } from '@/lib/seasonalConfig';
@@ -196,12 +197,12 @@ export function FallHero() {
             <div className="absolute -inset-8 bg-gradient-to-r from-amber-600/20 via-orange-600/15 to-amber-600/20 rounded-3xl blur-3xl animate-pulse" />
 
             <div className="relative w-full group">
-              <img
-                src={imgSrc(heroFallLeaves)}
+              <Image
+                src={heroFallLeaves}
                 alt="Professional fall leaf cleanup with leaf blower scattering autumn leaves in Madison Wisconsin"
                 className="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[16/10] border border-amber-500/20 group-hover:scale-[1.02] transition-transform duration-500"
-                loading="eager"
-                fetchPriority="high"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
 
               {/* Floating Stats Card - Gold Theme */}

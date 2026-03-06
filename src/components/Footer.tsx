@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Phone, ArrowRight, CheckCircle2, Mail, Snowflake, Leaf, Sun, CloudRain } from "lucide-react";
@@ -449,11 +450,12 @@ export default function Footer({
             {/* Left — Logo + tagline */}
             <div className="flex items-center gap-3">
               <Link href="/" className="hover:opacity-80 transition-opacity shrink-0">
-                <img
+                <Image
                   alt="TotalGuard Yard Care"
                   src="/images/totalguard-logo-summer.png"
+                  width={150}
+                  height={150}
                   className="h-28 md:h-32 lg:h-36 w-auto"
-                  loading="lazy"
                 />
               </Link>
               <span className={`text-xs ${t.dimText} tracking-wide hidden sm:inline`}>

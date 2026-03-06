@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from '@/components/ui/button';
 import { Phone, Shield, Star, CheckCircle2, Sun, ArrowRight, AlertTriangle } from 'lucide-react';
 import heroSummerMowing from '@/assets/hero-summer-mowing.jpg';
@@ -240,12 +241,12 @@ export function SummerHero() {
             <div className="absolute -inset-6 bg-green-600/10 rounded-3xl blur-3xl" />
 
             <div className="relative w-full group">
-              <img
-                src={imgSrc(heroSummerMowing)}
+              <Image
+                src={heroSummerMowing}
                 alt="Professional lawn mowing service with commercial mower creating perfect striped patterns in Madison Wisconsin"
                 className="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[16/10] border border-green-500/20 group-hover:scale-[1.02] transition-transform duration-500"
-                loading="eager"
-                fetchPriority="high"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
 
               {/* Floating Stats Card */}

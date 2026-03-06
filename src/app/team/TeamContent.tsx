@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
@@ -163,13 +164,12 @@ export default function TeamContent() {
                     <div className="flex-shrink-0 relative">
                       <div className={`absolute -inset-4 rounded-3xl blur-2xl opacity-20 ${acc.bg}`} />
                       <div className={`relative w-48 h-48 rounded-2xl overflow-hidden border-2 ${acc.border} shadow-2xl`}>
-                        <img
-                          src={typeof member.image === 'string' ? member.image : member.image.src}
+                        <Image
+                          src={member.image}
                           alt={`${member.name} - ${member.role} of TotalGuard Yard Care`}
                           className="w-full h-full object-cover"
-                          loading="lazy"
-                          width="192"
-                          height="192"
+                          width={192}
+                          height={192}
                         />
                       </div>
                       {/* Fun fact badge */}

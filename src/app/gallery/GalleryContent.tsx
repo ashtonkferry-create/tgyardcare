@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CTASection from '@/components/CTASection';
@@ -164,13 +165,16 @@ export default function GalleryContent() {
               <div className="mt-0">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {filteredItems.map((item) => (
-                    <img
-                      key={item.id}
-                      src={item.image_url}
-                      alt={`${item.service} ${item.title} Madison WI - TotalGuard Yard Care`}
-                      className="w-full h-auto rounded-lg"
-                      loading="lazy"
-                    />
+                    <div key={item.id} className="relative">
+                      <Image
+                        src={item.image_url}
+                        alt={`${item.service} ${item.title} Madison WI - TotalGuard Yard Care`}
+                        className="w-full h-auto rounded-lg"
+                        width={600}
+                        height={400}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
                   ))}
                 </div>
 
