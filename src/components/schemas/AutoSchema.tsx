@@ -73,7 +73,7 @@ export function AutoSchema() {
   const webPage = buildWebPageSchema({
     name: deriveTitle(pathname),
     description: deriveDescription(pathname),
-    url: pathname,
+    url: `${CANONICAL}${pathname === '/' ? '' : pathname}`,
   });
   const breadcrumb = buildBreadcrumbSchema(breadcrumbs);
 

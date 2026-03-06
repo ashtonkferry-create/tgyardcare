@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.7, lastModified: now },
     { url: `${baseUrl}/team`, changeFrequency: 'monthly', priority: 0.6, lastModified: now },
     { url: `${baseUrl}/service-areas`, changeFrequency: 'monthly', priority: 0.8, lastModified: now },
-    { url: `${baseUrl}/get-quote`, changeFrequency: 'monthly', priority: 0.9, lastModified: now },
+    // /get-quote excluded — it redirects to /contact
     { url: `${baseUrl}/careers`, changeFrequency: 'monthly', priority: 0.5, lastModified: now },
     { url: `${baseUrl}/privacy`, changeFrequency: 'yearly', priority: 0.3, lastModified: now },
   ];
