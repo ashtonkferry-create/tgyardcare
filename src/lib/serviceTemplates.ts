@@ -291,6 +291,21 @@ Please contact me to discuss options and pricing.`
     message: `Hello, I'm interested in Full Season Property Care and would like to learn more about coverage options.`
   },
 
+  // Custom Package / Bundle
+  'custom-package': {
+    title: 'Custom Package Quote',
+    message: `Hello TotalGuard,
+
+I'm interested in bundling multiple services together for the best value.
+
+Services I'm considering:
+-
+-
+-
+
+Please put together a custom package quote for my property.`
+  },
+
   // Generic fallback
   'general': {
     title: 'General Quote',

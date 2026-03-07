@@ -245,7 +245,7 @@ export default function ServiceAreasContent() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild className="animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black font-bold">
-                  <Link href="/contact">
+                  <Link href="/contact?service=custom-package">
                     Get Custom Package Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
