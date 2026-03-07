@@ -345,7 +345,17 @@ export default function QuickQuoteDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className={`sm:max-w-[480px] p-0 overflow-hidden border-0 bg-gradient-to-b ${t.bodyBg} shadow-2xl`}>
+      <DialogContent className={`sm:max-w-[480px] p-0 overflow-hidden border-0 bg-gradient-to-b ${t.bodyBg} shadow-2xl [&>button:last-child]:hidden`}>
+        {/* X close button — always visible */}
+        <button
+          type="button"
+          onClick={handleClose}
+          className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/10 transition-all duration-200 group z-20"
+          aria-label="Close"
+        >
+          <X className="h-4 w-4 text-white/30 group-hover:text-white/70 transition-colors" />
+        </button>
+
         <AnimatePresence mode="wait">
           {isSuccess ? (
             /* ═══ SUCCESS STATE — Concierge Confirmation ═══ */
@@ -372,16 +382,6 @@ export default function QuickQuoteDialog({
             >
               {/* ── Header ── */}
               <div className={`relative bg-gradient-to-br ${t.headerBg} px-6 pt-7 pb-5 overflow-hidden`}>
-                {/* X close button */}
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/10 transition-all duration-200 group z-10"
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4 text-white/30 group-hover:text-white/70 transition-colors" />
-                </button>
-
                 <FloatingParticles colors={t.particleColors} />
 
                 {/* Radial glow */}
