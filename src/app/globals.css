@@ -330,6 +330,17 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes checkBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--burst-angle, 0deg)) translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--burst-angle, 0deg)) translateY(-14px) scale(0);
+  }
+}
+
 .animate-aurora-shimmer {
   background-size: 200% 200%;
   animation: aurora-shimmer 8s ease-in-out infinite;

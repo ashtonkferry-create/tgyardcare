@@ -125,7 +125,7 @@ export default function ReviewsContent() {
                 Get a Free Quote
               </Link>
               <a
-                href="https://g.page/r/totalguard-yard-care/review"
+                href="https://g.page/r/CRW5Dsg2JgwBEBM/review"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white/80 border border-white/10 backdrop-blur-sm hover:border-white/20 hover:text-white transition-all duration-300"
@@ -266,7 +266,7 @@ export default function ReviewsContent() {
               <h2 className="text-2xl font-black text-white mb-3">Had a Great Experience?</h2>
               <p className="text-white/50 mb-8">Help other Madison homeowners find reliable lawn care. Leave us a review on Google.</p>
               <a
-                href="https://g.page/r/totalguard-yard-care/review"
+                href="https://g.page/r/CRW5Dsg2JgwBEBM/review"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-black transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"

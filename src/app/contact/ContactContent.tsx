@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -62,6 +62,87 @@ const commitments = [
   { icon: RefreshCw, title: 'Make-It-Right', body: 'Free return if needed' },
 ];
 
+/* ── Animated Orb → Checkmark indicator ── */
+function AnimatedCheckOrb({ completed, accentColor }: { completed: boolean; accentColor: string }) {
+  return (
+    <div className="relative w-5 h-5 flex-shrink-0">
+      {/* Glowing orb (fades out when completed) */}
+      <div
+        className="absolute inset-0 rounded-full transition-all duration-500 ease-out"
+        style={{
+          background: accentColor,
+          opacity: completed ? 0 : 0.25,
+          boxShadow: completed ? 'none' : `0 0 12px ${accentColor}60, 0 0 4px ${accentColor}40`,
+          transform: completed ? 'scale(0)' : 'scale(1)',
+        }}
+      />
+      <div
+        className="absolute inset-[3px] rounded-full transition-all duration-500 ease-out"
+        style={{
+          background: accentColor,
+          opacity: completed ? 0 : 0.5,
+          transform: completed ? 'scale(0)' : 'scale(1)',
+        }}
+      />
+
+      {/* Animated checkmark (scales in when completed) */}
+      <svg
+        viewBox="0 0 24 24"
+        className="absolute inset-0 w-5 h-5 transition-all duration-500 ease-out"
+        style={{
+          opacity: completed ? 1 : 0,
+          transform: completed ? 'scale(1) rotate(0deg)' : 'scale(0) rotate(-90deg)',
+        }}
+      >
+        {/* Success circle burst */}
+        <circle
+          cx="12" cy="12" r="10"
+          fill="none"
+          stroke={accentColor}
+          strokeWidth="2"
+          strokeDasharray="63"
+          strokeDashoffset={completed ? '0' : '63'}
+          style={{
+            transition: 'stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.35, 1) 0.1s',
+          }}
+        />
+        {/* Checkmark stroke */}
+        <path
+          d="M7 13l3 3 7-7"
+          fill="none"
+          stroke={accentColor}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="20"
+          strokeDashoffset={completed ? '0' : '20'}
+          style={{
+            transition: 'stroke-dashoffset 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.45s',
+          }}
+        />
+      </svg>
+
+      {/* Particle burst on complete */}
+      {completed && (
+        <>
+          {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <div
+              key={angle}
+              className="absolute left-1/2 top-1/2 w-1 h-1 rounded-full animate-[checkBurst_0.6s_ease-out_forwards]"
+              style={{
+                background: accentColor,
+                transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(0px)`,
+                animationDelay: '0.3s',
+                ['--burst-angle' as string]: `${angle}deg`,
+              }}
+            />
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function ContactContent() {
   const { toast } = useToast();
   const { activeSeason } = useSeasonalTheme();
@@ -73,9 +154,24 @@ export default function ContactContent() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
+  const [showForm, setShowForm] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
   const [selectedService, setSelectedService] = useState<{ title: string; message: string } | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
+
+  const handleFieldBlur = useCallback((fieldName: string) => {
+    setFocusedField(null);
+    if (formData[fieldName as keyof typeof formData]?.trim()) {
+      setCompletedFields(prev => new Set(prev).add(fieldName));
+    } else {
+      setCompletedFields(prev => {
+        const next = new Set(prev);
+        next.delete(fieldName);
+        return next;
+      });
+    }
+  }, [formData]);
 
   useEffect(() => {
     const serviceKey = searchParams.get('service');
@@ -115,7 +211,7 @@ export default function ContactContent() {
   };
 
   const fieldClass = (field: string) =>
-    `mt-2 border bg-black/30 backdrop-blur-sm text-white placeholder:text-white/30 transition-all duration-300 ${
+    `flex-1 border bg-black/30 backdrop-blur-sm text-white placeholder:text-white/30 transition-all duration-300 ${
       focusedField === field
         ? `border-[${acc.solid}] ring-1 ring-[${acc.solid}]/30`
         : 'border-white/10 hover:border-white/20'
@@ -211,7 +307,18 @@ export default function ContactContent() {
 
             {/* Form Column */}
             <ScrollReveal direction="left">
-              <GlassCard variant="dark" hover="none" className="p-8">
+              {showForm ? (
+              <GlassCard variant="dark" hover="none" className="p-8 relative">
+                {/* X close button */}
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-all duration-200 group z-10"
+                  aria-label="Close form"
+                >
+                  <X className="h-5 w-5 text-white/30 group-hover:text-white/70 transition-colors" />
+                </button>
+
                 {/* Service badge */}
                 {selectedService && (
                   <div className={`flex items-center gap-3 p-4 ${acc.bg} border ${acc.border} rounded-xl mb-6`}>
@@ -240,86 +347,90 @@ export default function ContactContent() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Name */}
                   <div>
-                    <Label htmlFor="name" className="text-white/70 font-semibold flex items-center gap-2 text-sm">
-                      Full Name *
-                      {formData.name && <CheckCircle2 className={`h-3.5 w-3.5 ${acc.text}`} />}
-                    </Label>
-                    <Input
-                      id="name" name="name" value={formData.name} onChange={handleChange}
-                      onFocus={() => setFocusedField('name')} onBlur={() => setFocusedField(null)}
-                      required maxLength={100} placeholder="John Smith"
-                      className={fieldClass('name')}
-                      aria-invalid={errors.name ? "true" : "false"}
-                    />
-                    {errors.name && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="h-3.5 w-3.5" />{errors.name}</p>}
+                    <Label htmlFor="name" className="text-white/70 font-semibold text-sm">Full Name *</Label>
+                    <div className="flex items-center gap-3 mt-2">
+                      <AnimatedCheckOrb completed={completedFields.has('name')} accentColor={acc.solid} />
+                      <Input
+                        id="name" name="name" value={formData.name} onChange={handleChange}
+                        onFocus={() => setFocusedField('name')} onBlur={() => handleFieldBlur('name')}
+                        required maxLength={100} placeholder="John Smith"
+                        className={fieldClass('name')}
+                        aria-invalid={errors.name ? "true" : "false"}
+                      />
+                    </div>
+                    {errors.name && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1 ml-8"><AlertCircle className="h-3.5 w-3.5" />{errors.name}</p>}
                   </div>
 
                   {/* Email */}
                   <div>
-                    <Label htmlFor="email" className="text-white/70 font-semibold flex items-center gap-2 text-sm">
-                      Email Address *
-                      {formData.email && <CheckCircle2 className={`h-3.5 w-3.5 ${acc.text}`} />}
-                    </Label>
-                    <Input
-                      id="email" name="email" type="email" value={formData.email} onChange={handleChange}
-                      onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)}
-                      required maxLength={255} placeholder="john@example.com"
-                      className={fieldClass('email')}
-                      aria-invalid={errors.email ? "true" : "false"}
-                    />
-                    {errors.email && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="h-3.5 w-3.5" />{errors.email}</p>}
+                    <Label htmlFor="email" className="text-white/70 font-semibold text-sm">Email Address *</Label>
+                    <div className="flex items-center gap-3 mt-2">
+                      <AnimatedCheckOrb completed={completedFields.has('email')} accentColor={acc.solid} />
+                      <Input
+                        id="email" name="email" type="email" value={formData.email} onChange={handleChange}
+                        onFocus={() => setFocusedField('email')} onBlur={() => handleFieldBlur('email')}
+                        required maxLength={255} placeholder="john@example.com"
+                        className={fieldClass('email')}
+                        aria-invalid={errors.email ? "true" : "false"}
+                      />
+                    </div>
+                    {errors.email && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1 ml-8"><AlertCircle className="h-3.5 w-3.5" />{errors.email}</p>}
                   </div>
 
                   {/* Phone */}
                   <div>
-                    <Label htmlFor="phone" className="text-white/70 font-semibold flex items-center gap-2 text-sm">
-                      Phone Number *
-                      {formData.phone && <CheckCircle2 className={`h-3.5 w-3.5 ${acc.text}`} />}
-                    </Label>
-                    <Input
-                      id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange}
-                      onFocus={() => setFocusedField('phone')} onBlur={() => setFocusedField(null)}
-                      required maxLength={20} placeholder="(920) 555-1234"
-                      className={fieldClass('phone')}
-                      aria-invalid={errors.phone ? "true" : "false"}
-                    />
-                    {errors.phone && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="h-3.5 w-3.5" />{errors.phone}</p>}
+                    <Label htmlFor="phone" className="text-white/70 font-semibold text-sm">Phone Number *</Label>
+                    <div className="flex items-center gap-3 mt-2">
+                      <AnimatedCheckOrb completed={completedFields.has('phone')} accentColor={acc.solid} />
+                      <Input
+                        id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange}
+                        onFocus={() => setFocusedField('phone')} onBlur={() => handleFieldBlur('phone')}
+                        required maxLength={20} placeholder="(920) 555-1234"
+                        className={fieldClass('phone')}
+                        aria-invalid={errors.phone ? "true" : "false"}
+                      />
+                    </div>
+                    {errors.phone && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1 ml-8"><AlertCircle className="h-3.5 w-3.5" />{errors.phone}</p>}
                   </div>
 
                   {/* Address */}
                   <div>
-                    <Label htmlFor="address" className="text-white/70 font-semibold flex items-center gap-2 text-sm">
-                      Property Address *
-                      {formData.address && <CheckCircle2 className={`h-3.5 w-3.5 ${acc.text}`} />}
-                    </Label>
-                    <Input
-                      id="address" name="address" value={formData.address} onChange={handleChange}
-                      onFocus={() => setFocusedField('address')} onBlur={() => setFocusedField(null)}
-                      required maxLength={300} placeholder="123 Main St, Madison, WI 53703"
-                      className={fieldClass('address')}
-                      aria-invalid={errors.address ? "true" : "false"}
-                    />
-                    {errors.address && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="h-3.5 w-3.5" />{errors.address}</p>}
+                    <Label htmlFor="address" className="text-white/70 font-semibold text-sm">Property Address *</Label>
+                    <div className="flex items-center gap-3 mt-2">
+                      <AnimatedCheckOrb completed={completedFields.has('address')} accentColor={acc.solid} />
+                      <Input
+                        id="address" name="address" value={formData.address} onChange={handleChange}
+                        onFocus={() => setFocusedField('address')} onBlur={() => handleFieldBlur('address')}
+                        required maxLength={300} placeholder="123 Main St, Madison, WI 53703"
+                        className={fieldClass('address')}
+                        aria-invalid={errors.address ? "true" : "false"}
+                      />
+                    </div>
+                    {errors.address && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1 ml-8"><AlertCircle className="h-3.5 w-3.5" />{errors.address}</p>}
                   </div>
 
                   {/* Message */}
                   <div>
-                    <Label htmlFor="message" className="text-white/70 font-semibold flex items-center gap-2 text-sm">
-                      Tell Us About Your Project *
-                      {formData.message && <CheckCircle2 className={`h-3.5 w-3.5 ${acc.text}`} />}
-                    </Label>
-                    <Textarea
-                      id="message" name="message" value={formData.message} onChange={handleChange}
-                      onFocus={() => setFocusedField('message')} onBlur={() => setFocusedField(null)}
-                      required maxLength={2000}
-                      placeholder="Describe the services you're interested in and any specific details about your property..."
-                      className={`${fieldClass('message')} min-h-[140px] resize-none`}
-                      aria-invalid={errors.message ? "true" : "false"}
-                    />
-                    <p className={`text-xs mt-1.5 text-right ${formData.message.length > 1900 ? 'text-red-400' : 'text-white/25'}`}>
-                      {formData.message.length}/2000
-                    </p>
-                    {errors.message && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><AlertCircle className="h-3.5 w-3.5" />{errors.message}</p>}
+                    <Label htmlFor="message" className="text-white/70 font-semibold text-sm">Tell Us About Your Project *</Label>
+                    <div className="flex items-start gap-3 mt-2">
+                      <div className="pt-3">
+                        <AnimatedCheckOrb completed={completedFields.has('message')} accentColor={acc.solid} />
+                      </div>
+                      <div className="flex-1">
+                        <Textarea
+                          id="message" name="message" value={formData.message} onChange={handleChange}
+                          onFocus={() => setFocusedField('message')} onBlur={() => handleFieldBlur('message')}
+                          required maxLength={2000}
+                          placeholder="Describe the services you're interested in and any specific details about your property..."
+                          className={`${fieldClass('message')} min-h-[140px] resize-none`}
+                          aria-invalid={errors.message ? "true" : "false"}
+                        />
+                        <p className={`text-xs mt-1.5 text-right ${formData.message.length > 1900 ? 'text-red-400' : 'text-white/25'}`}>
+                          {formData.message.length}/2000
+                        </p>
+                      </div>
+                    </div>
+                    {errors.message && <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1 ml-8"><AlertCircle className="h-3.5 w-3.5" />{errors.message}</p>}
                   </div>
 
                   {/* Submit */}
@@ -348,6 +459,23 @@ export default function ContactContent() {
                   </div>
                 </form>
               </GlassCard>
+              ) : (
+                <GlassCard variant="dark" hover="glow" className="p-8 text-center">
+                  <div className="space-y-4">
+                    <p className="text-white/60">Form closed. Need a quote?</p>
+                    <button
+                      type="button"
+                      onClick={() => setShowForm(true)}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-black transition-all duration-300 hover:scale-[1.02]"
+                      style={{ background: acc.solid }}
+                    >
+                      <Zap className="h-4 w-4" />
+                      Reopen Form
+                    </button>
+                    <p className="text-white/40 text-sm">Or call <a href="tel:608-535-6057" className={`${acc.text} font-semibold`}>(608) 535-6057</a></p>
+                  </div>
+                </GlassCard>
+              )}
             </ScrollReveal>
 
             {/* Info Column */}
