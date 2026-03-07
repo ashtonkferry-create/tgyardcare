@@ -192,7 +192,6 @@ export const ChatBot = () => {
         { role: 'assistant', content: openingMessage }
       ]);
       setShowQuickReplies(true);
-      setCustomerInfo({});
       setQuoteStep('idle');
       setSelectedService('');
     };
