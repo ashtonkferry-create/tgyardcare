@@ -356,7 +356,7 @@ export default function QuickQuoteDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className={`sm:max-w-[480px] p-0 overflow-hidden border-0 bg-gradient-to-b ${t.bodyBg} shadow-2xl [&>button:last-child]:hidden`}>
+      <DialogContent className={`${isSuccess ? 'sm:max-w-3xl' : 'sm:max-w-[480px]'} p-0 overflow-hidden border-0 bg-gradient-to-b ${t.bodyBg} shadow-2xl [&>button:last-child]:hidden transition-[max-width] duration-300`}>
         {/* X close button — always visible */}
         <button
           type="button"

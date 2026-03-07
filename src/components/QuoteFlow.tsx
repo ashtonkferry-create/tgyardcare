@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Check, ChevronRight, ChevronLeft, Loader2, Calendar, Home, MapPin, Mail, Phone, User } from 'lucide-react';
+import { ConciergeConfirmation } from '@/components/ConciergeConfirmation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -507,46 +508,12 @@ export function QuoteFlow({ initialService, initialTier, onComplete, className =
 
       case 'confirm':
         return (
-          <div className="space-y-6 text-center">
-            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-              <Check className="h-8 w-8 text-green-600" />
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-green-600">Quote Request Submitted!</h2>
-              <p className="text-muted-foreground mt-2">
-                Thank you, {formData.firstName}! We've received your quote request.
-              </p>
-            </div>
-
-            <Card className="bg-muted/50">
-              <CardContent className="p-6 text-left">
-                <h3 className="font-semibold mb-4">What happens next?</h3>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-0.5" />
-                    <span>We'll review your request within 24 hours</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-0.5" />
-                    <span>A team member will contact you to confirm details</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-0.5" />
-                    <span>We may schedule a quick property visit if needed</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-primary mt-0.5" />
-                    <span>You'll receive your final quote via email</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <p className="text-sm text-muted-foreground">
-              Questions? Call us at <a href="tel:+16085551234" className="text-primary font-medium">(608) 555-1234</a>
-            </p>
-          </div>
+          <ConciergeConfirmation
+            open={true}
+            onClose={() => {}}
+            mode="inline"
+            submittedMessage={formData.serviceName}
+          />
         );
     }
   };
