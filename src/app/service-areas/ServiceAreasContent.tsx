@@ -209,10 +209,10 @@ export default function ServiceAreasContent() {
                 <strong className="text-white">Don&apos;t see your neighborhood?</strong>
               </p>
               <p className="text-white/60 mb-6">
-                We&apos;re constantly expanding! <a href="tel:920-629-6934" className="text-primary font-bold hover:underline">Call us at (920) 629-6934</a> to check if we can serve your area
+                We&apos;re constantly expanding! <a href="tel:608-535-6057" className="text-primary font-bold hover:underline">Call us at (608) 535-6057</a> to check if we can serve your area
               </p>
               <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
-                <a href="tel:920-629-6934">
+                <a href="tel:608-535-6057">
                   <Phone className="mr-2 h-5 w-5" />
                   Check Your Area
                 </a>
@@ -341,45 +341,6 @@ export default function ServiceAreasContent() {
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 relative overflow-hidden" style={{ background: '#0a1a0e' }}>
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]" />
-        </div>
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-6 py-3 rounded-full text-sm font-bold mb-6 text-white">
-              <Star className="h-5 w-5 fill-current text-amber-400" />
-              4.9 Stars on Google
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Ready to transform your property?
-            </h2>
-            <p className="text-xl mb-10 text-white/60 leading-relaxed">
-              Join hundreds of satisfied homeowners and businesses across Madison, Middleton, Waunakee, and surrounding areas. Get your free quote today. No obligation, just expert advice.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" asChild className="text-lg px-8 animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black font-bold">
-                <Link href="/contact">
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  Get a Free Quote
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="text-lg px-8 border-white/20 text-white hover:bg-white/10">
-                <a href="tel:920-629-6934">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (920) 629-6934
-                </a>
-              </Button>
-            </div>
-            <p className="text-sm text-white/50">
-              Or explore our <Link href="/blog" className="underline hover:no-underline font-semibold text-white/70">helpful lawn care tips</Link> and <Link href="/reviews" className="underline hover:no-underline font-semibold text-white/70">customer reviews</Link>
-            </p>
           </div>
         </div>
       </section>

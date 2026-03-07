@@ -84,14 +84,14 @@ export function GetStartedCTA() {
                   Get a Free Quote
                 </Button>
               </Link>
-              <a href="tel:920-629-6934" className="block">
+              <a href="tel:608-535-6057" className="block">
                 <Button
                   size="lg"
                   variant="outline"
                   className="w-full font-bold border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full transition-all"
                 >
                   <Phone className="mr-2 h-5 w-5" />
-                  Call 920-629-6934
+                  Call (608) 535-6057
                 </Button>
               </a>
             </div>
