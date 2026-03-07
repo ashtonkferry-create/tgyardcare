@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Phone, Mail, MapPin, ArrowRight, CheckCircle2, Loader2,
-  User, AtSign, Home, MessageSquare, Sparkles, Shield, Clock,
+  User, AtSign, Home, MessageSquare, Sparkles, Shield, Clock, X,
 } from 'lucide-react';
 import {
   Dialog,
@@ -137,18 +137,90 @@ function FloatingParticles({ colors }: { colors: readonly string[] }) {
   );
 }
 
+/* ─── Animated Orb → Checkmark ─── */
+function AnimatedCheckOrb({ completed, accentColor }: { completed: boolean; accentColor: string }) {
+  return (
+    <div className="relative w-4 h-4 flex-shrink-0">
+      {/* Glowing orb */}
+      <div
+        className="absolute inset-0 rounded-full transition-all duration-500 ease-out"
+        style={{
+          background: accentColor,
+          opacity: completed ? 0 : 0.25,
+          boxShadow: completed ? 'none' : `0 0 10px ${accentColor}60, 0 0 4px ${accentColor}40`,
+          transform: completed ? 'scale(0)' : 'scale(1)',
+        }}
+      />
+      <div
+        className="absolute inset-[2px] rounded-full transition-all duration-500 ease-out"
+        style={{
+          background: accentColor,
+          opacity: completed ? 0 : 0.5,
+          transform: completed ? 'scale(0)' : 'scale(1)',
+        }}
+      />
+      {/* Checkmark SVG */}
+      <svg
+        viewBox="0 0 24 24"
+        className="absolute inset-0 w-4 h-4 transition-all duration-500 ease-out"
+        style={{
+          opacity: completed ? 1 : 0,
+          transform: completed ? 'scale(1) rotate(0deg)' : 'scale(0) rotate(-90deg)',
+        }}
+      >
+        <circle
+          cx="12" cy="12" r="10" fill="none"
+          stroke={accentColor} strokeWidth="2"
+          strokeDasharray="63"
+          strokeDashoffset={completed ? '0' : '63'}
+          style={{ transition: 'stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.35, 1) 0.1s' }}
+        />
+        <path
+          d="M7 13l3 3 7-7" fill="none"
+          stroke={accentColor} strokeWidth="2.5"
+          strokeLinecap="round" strokeLinejoin="round"
+          strokeDasharray="20"
+          strokeDashoffset={completed ? '0' : '20'}
+          style={{ transition: 'stroke-dashoffset 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.45s' }}
+        />
+      </svg>
+      {/* Particle burst */}
+      {completed && (
+        <>
+          {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <div
+              key={angle}
+              className="absolute left-1/2 top-1/2 w-1 h-1 rounded-full animate-[checkBurst_0.6s_ease-out_forwards]"
+              style={{
+                background: accentColor,
+                transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(0px)`,
+                animationDelay: '0.3s',
+                ['--burst-angle' as string]: `${angle}deg`,
+              }}
+            />
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
 /* ─── Glowing Input ─── */
 function GlowInput({
   icon: Icon,
   label,
   theme,
   delay,
+  completed,
+  onFieldBlur,
   ...inputProps
 }: {
   icon: typeof User;
   label: string;
   theme: typeof themes.summer;
   delay: number;
+  completed: boolean;
+  onFieldBlur: () => void;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const [focused, setFocused] = useState(false);
 
@@ -161,25 +233,28 @@ function GlowInput({
       <label className={`text-[11px] font-medium ${theme.labelColor} uppercase tracking-wider mb-1.5 block`}>
         {label}
       </label>
-      <div className="relative group">
-        <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${focused ? theme.accent : 'text-white/25'}`}>
-          <Icon className="h-4 w-4" />
+      <div className="relative group flex items-center gap-2">
+        <AnimatedCheckOrb completed={completed} accentColor={theme.accentSolid} />
+        <div className="relative flex-1">
+          <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${focused ? theme.accent : 'text-white/25'}`}>
+            <Icon className="h-4 w-4" />
+          </div>
+          <input
+            {...inputProps}
+            onFocus={(e) => { setFocused(true); inputProps.onFocus?.(e); }}
+            onBlur={(e) => { setFocused(false); onFieldBlur(); inputProps.onBlur?.(e); }}
+            className={`
+              w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white
+              placeholder:text-white/20
+              border ${focused ? theme.inputBorderFocus : theme.inputBorder}
+              ${theme.inputBg} backdrop-blur-sm
+              outline-none transition-all duration-300
+            `}
+            style={{
+              boxShadow: focused ? theme.inputGlow : 'none',
+            }}
+          />
         </div>
-        <input
-          {...inputProps}
-          onFocus={(e) => { setFocused(true); inputProps.onFocus?.(e); }}
-          onBlur={(e) => { setFocused(false); inputProps.onBlur?.(e); }}
-          className={`
-            w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white
-            placeholder:text-white/20
-            border ${focused ? theme.inputBorderFocus : theme.inputBorder}
-            ${theme.inputBg} backdrop-blur-sm
-            outline-none transition-all duration-300
-          `}
-          style={{
-            boxShadow: focused ? theme.inputGlow : 'none',
-          }}
-        />
       </div>
     </motion.div>
   );
@@ -215,6 +290,19 @@ export default function QuickQuoteDialog({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [messageFocused, setMessageFocused] = useState(false);
+  const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
+
+  const handleFieldBlur = useCallback((fieldName: string) => {
+    if (formData[fieldName as keyof typeof formData]?.trim()) {
+      setCompletedFields(prev => new Set(prev).add(fieldName));
+    } else {
+      setCompletedFields(prev => {
+        const next = new Set(prev);
+        next.delete(fieldName);
+        return next;
+      });
+    }
+  }, [formData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -249,6 +337,7 @@ export default function QuickQuoteDialog({
     onOpenChange(false);
     setTimeout(() => {
       setIsSuccess(false);
+      setCompletedFields(new Set());
       setFormData({ name: '', email: '', phone: '', address: '', message: prefillMessage });
     }, 300);
   };
@@ -340,6 +429,16 @@ export default function QuickQuoteDialog({
             >
               {/* ── Header ── */}
               <div className={`relative bg-gradient-to-br ${t.headerBg} px-6 pt-7 pb-5 overflow-hidden`}>
+                {/* X close button */}
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-white/10 transition-all duration-200 group z-10"
+                  aria-label="Close"
+                >
+                  <X className="h-4 w-4 text-white/30 group-hover:text-white/70 transition-colors" />
+                </button>
+
                 <FloatingParticles colors={t.particleColors} />
 
                 {/* Radial glow */}
@@ -399,6 +498,8 @@ export default function QuickQuoteDialog({
                       required
                       theme={t}
                       delay={0.35}
+                      completed={completedFields.has('name')}
+                      onFieldBlur={() => handleFieldBlur('name')}
                     />
                     <GlowInput
                       icon={AtSign}
@@ -411,6 +512,8 @@ export default function QuickQuoteDialog({
                       required
                       theme={t}
                       delay={0.4}
+                      completed={completedFields.has('email')}
+                      onFieldBlur={() => handleFieldBlur('email')}
                     />
                   </div>
 
@@ -427,6 +530,8 @@ export default function QuickQuoteDialog({
                       required
                       theme={t}
                       delay={0.45}
+                      completed={completedFields.has('phone')}
+                      onFieldBlur={() => handleFieldBlur('phone')}
                     />
                     <GlowInput
                       icon={Home}
@@ -438,6 +543,8 @@ export default function QuickQuoteDialog({
                       required
                       theme={t}
                       delay={0.5}
+                      completed={completedFields.has('address')}
+                      onFieldBlur={() => handleFieldBlur('address')}
                     />
                   </div>
 
@@ -450,29 +557,34 @@ export default function QuickQuoteDialog({
                     <label className={`text-[11px] font-medium ${t.labelColor} uppercase tracking-wider mb-1.5 block`}>
                       Message
                     </label>
-                    <div className="relative group">
-                      <div className={`absolute left-3 top-3 transition-colors duration-200 ${messageFocused ? t.accent : 'text-white/25'}`}>
-                        <MessageSquare className="h-4 w-4" />
+                    <div className="relative group flex items-start gap-2">
+                      <div className="pt-3">
+                        <AnimatedCheckOrb completed={completedFields.has('message')} accentColor={t.accentSolid} />
                       </div>
-                      <textarea
-                        name="message"
-                        rows={3}
-                        value={formData.message}
-                        onChange={handleChange}
-                        onFocus={() => setMessageFocused(true)}
-                        onBlur={() => setMessageFocused(false)}
-                        required
-                        className={`
-                          w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white
-                          placeholder:text-white/20 resize-none
-                          border ${messageFocused ? t.inputBorderFocus : t.inputBorder}
-                          ${t.inputBg} backdrop-blur-sm
-                          outline-none transition-all duration-300
-                        `}
-                        style={{
-                          boxShadow: messageFocused ? t.inputGlow : 'none',
-                        }}
-                      />
+                      <div className="relative flex-1">
+                        <div className={`absolute left-3 top-3 transition-colors duration-200 ${messageFocused ? t.accent : 'text-white/25'}`}>
+                          <MessageSquare className="h-4 w-4" />
+                        </div>
+                        <textarea
+                          name="message"
+                          rows={3}
+                          value={formData.message}
+                          onChange={handleChange}
+                          onFocus={() => setMessageFocused(true)}
+                          onBlur={() => { setMessageFocused(false); handleFieldBlur('message'); }}
+                          required
+                          className={`
+                            w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white
+                            placeholder:text-white/20 resize-none
+                            border ${messageFocused ? t.inputBorderFocus : t.inputBorder}
+                            ${t.inputBg} backdrop-blur-sm
+                            outline-none transition-all duration-300
+                          `}
+                          style={{
+                            boxShadow: messageFocused ? t.inputGlow : 'none',
+                          }}
+                        />
+                      </div>
                     </div>
                   </motion.div>
 

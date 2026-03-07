@@ -155,7 +155,6 @@ export default function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
-  const [showForm, setShowForm] = useState(true);
   const [showUpsell, setShowUpsell] = useState(false);
   const [selectedService, setSelectedService] = useState<{ title: string; message: string } | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -307,18 +306,7 @@ export default function ContactContent() {
 
             {/* Form Column */}
             <ScrollReveal direction="left">
-              {showForm ? (
-              <GlassCard variant="dark" hover="none" className="p-8 relative">
-                {/* X close button */}
-                <button
-                  type="button"
-                  onClick={() => setShowForm(false)}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-all duration-200 group z-10"
-                  aria-label="Close form"
-                >
-                  <X className="h-5 w-5 text-white/30 group-hover:text-white/70 transition-colors" />
-                </button>
-
+              <GlassCard variant="dark" hover="none" className="p-8">
                 {/* Service badge */}
                 {selectedService && (
                   <div className={`flex items-center gap-3 p-4 ${acc.bg} border ${acc.border} rounded-xl mb-6`}>
@@ -459,23 +447,6 @@ export default function ContactContent() {
                   </div>
                 </form>
               </GlassCard>
-              ) : (
-                <GlassCard variant="dark" hover="glow" className="p-8 text-center">
-                  <div className="space-y-4">
-                    <p className="text-white/60">Form closed. Need a quote?</p>
-                    <button
-                      type="button"
-                      onClick={() => setShowForm(true)}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-black transition-all duration-300 hover:scale-[1.02]"
-                      style={{ background: acc.solid }}
-                    >
-                      <Zap className="h-4 w-4" />
-                      Reopen Form
-                    </button>
-                    <p className="text-white/40 text-sm">Or call <a href="tel:608-535-6057" className={`${acc.text} font-semibold`}>(608) 535-6057</a></p>
-                  </div>
-                </GlassCard>
-              )}
             </ScrollReveal>
 
             {/* Info Column */}
