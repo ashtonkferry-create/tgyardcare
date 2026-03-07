@@ -537,7 +537,7 @@ export function ConciergeConfirmation({
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent
-        className="sm:max-w-lg p-0 border-0 bg-transparent shadow-2xl rounded-2xl overflow-hidden"
+        className="sm:max-w-2xl p-0 border-0 bg-transparent shadow-2xl rounded-2xl overflow-hidden"
         style={{ background: tokens.dialogBg }}
       >
         {/* Accessible title — visually hidden */}
