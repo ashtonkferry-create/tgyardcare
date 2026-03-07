@@ -204,20 +204,6 @@ export default function ServiceAreasContent() {
               })}
             </div>
 
-            <div className="bg-white/[0.06] border-2 border-white/10 rounded-xl p-8 text-center">
-              <p className="text-lg text-white/60 mb-2">
-                <strong className="text-white">Don&apos;t see your neighborhood?</strong>
-              </p>
-              <p className="text-white/60 mb-6">
-                We&apos;re constantly expanding! <a href="tel:608-535-6057" className="text-primary font-bold hover:underline">Call us at (608) 535-6057</a> to check if we can serve your area
-              </p>
-              <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
-                <a href="tel:608-535-6057">
-                  <Phone className="mr-2 h-5 w-5" />
-                  Check Your Area
-                </a>
-              </Button>
-            </div>
           </div>
         </div>
       </section>

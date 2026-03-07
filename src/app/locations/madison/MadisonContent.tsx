@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import { LocationPageSchemas } from "@/components/schemas/LocationPageSchemas";
 import { BreadcrumbSchema } from "@/components/schemas/BreadcrumbSchema";
 import { WebPageSchema } from "@/components/schemas/WebPageSchema";
-import { CommercialServicesCTA, GetStartedCTA } from "@/components/LocationCTASections";
 import CTASection from '@/components/CTASection';
 import heroImage from "@/assets/hero-lawn.jpg";
 
@@ -256,12 +255,6 @@ export default function MadisonContent() {
           </div>
         </div>
       </section>
-
-      <GetStartedCTA />
-
-      <CommercialServicesCTA />
-
-      <CommercialServicesCTA />
 
       <CTASection />
 
