@@ -94,26 +94,9 @@ export default function ContactContent() {
     setIsSubmitting(true);
     try {
       const validatedData = validateContactForm(formData);
-
-      // Split name into first/last for leads table
-      const nameParts = validatedData.name.trim().split(/\s+/);
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || '';
-
-      const { error } = await supabase
-        .from('leads')
-        .insert({
-          first_name: firstName,
-          last_name: lastName,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          address: validatedData.address,
-          notes: validatedData.message,
-          status: 'new',
-          lead_score: 40, // base score for contact form submissions
-        });
-
+      const { data, error } = await supabase.functions.invoke('contact-form', { body: validatedData });
       if (error) throw new Error(error.message || "Failed to submit form");
+      if (!data?.success) throw new Error("Failed to submit form");
       setFormData({ name: "", email: "", phone: "", address: "", message: "" });
       setShowUpsell(true);
     } catch (error) {
@@ -388,7 +371,7 @@ export default function ContactContent() {
                   </div>
                   <div className="flex items-center gap-2 text-white/40 text-sm">
                     <Clock className="h-4 w-4 flex-shrink-0" />
-                    Monday – Saturday: 8:00 AM – 6:00 PM
+                    Monday - Saturday: 8:00 AM - 6:00 PM
                   </div>
                   {/* Text option */}
                   <div className="mt-3 pt-3 border-t border-white/5">
