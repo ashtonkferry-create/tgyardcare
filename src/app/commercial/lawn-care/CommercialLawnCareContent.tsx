@@ -86,7 +86,7 @@ const propertyTypes = [
 const pricingStructure = [
   {
     title: "Seasonal contract",
-    description: "Fixed monthly billing for the growing season (April to October). Predictable budgeting with no per-visit invoicing."
+    description: "Fixed monthly billing for the growing season (April–October). Predictable budgeting with no per-visit invoicing."
   },
   {
     title: "Per-visit billing",
@@ -307,7 +307,7 @@ export default function CommercialLawnCareContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60 mb-4">
-                  Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-white">$400 to $1,500</strong> depending on scope.
+                  Commercial quotes are based on property size, service frequency, and contract term. Most HOAs and apartment complexes see monthly rates between <strong className="text-white">$400–$1,500</strong> depending on scope.
                 </p>
               </div>
             </ScrollReveal>

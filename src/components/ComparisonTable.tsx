@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { AmbientParticles } from '@/components/AmbientParticles';
 
 const rows = [
-  { feature: 'Response Time', icon: Clock, us: '24 hours', them: '3 to 5 days' },
+  { feature: 'Response Time', icon: Clock, us: '24 hours', them: '3–5 days' },
   { feature: 'Same Crew', icon: Users, us: 'Every visit', them: 'Random each time' },
   { feature: 'Insurance', icon: Shield, us: '$1M liability', them: 'Often none' },
   { feature: 'Written Quotes', icon: FileText, us: 'Always, before work starts', them: 'Verbal or none' },

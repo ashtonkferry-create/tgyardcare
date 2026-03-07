@@ -341,7 +341,7 @@ export default function CommercialGutterServicesContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Commercial gutter cleaning typically ranges from <strong className="text-white">$200 to $800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
+                  Commercial gutter cleaning typically ranges from <strong className="text-white">$200–$800</strong> per service depending on building size and accessibility. Guard installation quoted per linear foot.
                 </p>
               </div>
             </ScrollReveal>

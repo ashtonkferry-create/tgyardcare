@@ -305,7 +305,7 @@ export default function CommercialSeasonalContent() {
                   Commercial spring cleanup scope
                 </h2>
                 <p className="text-base md:text-lg text-white/60">
-                  Spring cleanup typically scheduled March to May depending on ground conditions. Completion guaranteed before Memorial Day.
+                  Spring cleanup typically scheduled March–May depending on ground conditions. Completion guaranteed before Memorial Day.
                 </p>
               </div>
             </ScrollReveal>
@@ -336,7 +336,7 @@ export default function CommercialSeasonalContent() {
                   Commercial fall cleanup scope
                 </h2>
                 <p className="text-base md:text-lg text-white/60">
-                  Fall cleanup scheduled October to November. Completion guaranteed before first significant snowfall.
+                  Fall cleanup scheduled October–November. Completion guaranteed before first significant snowfall.
                 </p>
               </div>
             </ScrollReveal>
@@ -383,7 +383,7 @@ export default function CommercialSeasonalContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Commercial spring or fall cleanup typically ranges from <strong className="text-white">$400 to $1,500</strong> depending on property size and scope. Weekly leaf removal priced separately.
+                  Commercial spring or fall cleanup typically ranges from <strong className="text-white">$400–$1,500</strong> depending on property size and scope. Weekly leaf removal priced separately.
                 </p>
               </div>
             </ScrollReveal>
@@ -409,25 +409,25 @@ export default function CommercialSeasonalContent() {
             <div className="space-y-4">
               <ScrollReveal delay={0}>
                 <GlassCard variant="dark" hover="glow">
-                  <h3 className="text-lg font-bold text-white mb-2">March to April: Spring cleanup window</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">March–April: Spring cleanup window</h3>
                   <p className="text-white/60">Ground thaw through active growth. Cleanup scheduled when soil is workable but before peak mowing season.</p>
                 </GlassCard>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
                 <GlassCard variant="dark" hover="glow">
-                  <h3 className="text-lg font-bold text-white mb-2">May to September: Regular maintenance</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">May–September: Regular maintenance</h3>
                   <p className="text-white/60">Ongoing lawn care, bed maintenance, and property upkeep during growing season.</p>
                 </GlassCard>
               </ScrollReveal>
               <ScrollReveal delay={0.2}>
                 <GlassCard variant="dark" hover="glow">
-                  <h3 className="text-lg font-bold text-white mb-2">October to November: Fall cleanup window</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">October–November: Fall cleanup window</h3>
                   <p className="text-white/60">Leaf drop through first freeze. Weekly leaf removal during peak season, final cleanup before snow.</p>
                 </GlassCard>
               </ScrollReveal>
               <ScrollReveal delay={0.3}>
                 <GlassCard variant="dark" hover="glow">
-                  <h3 className="text-lg font-bold text-white mb-2">December to February: Snow removal</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">December–February: Snow removal</h3>
                   <p className="text-white/60">Winter operations for contracted properties. Seamless transition from seasonal to snow services.</p>
                 </GlassCard>
               </ScrollReveal>

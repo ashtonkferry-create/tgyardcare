@@ -83,12 +83,12 @@ const propertyTypes = [
 
 const timingSchedule = [
   {
-    season: "Fall (September to October)",
+    season: "Fall (September–October)",
     priority: "Primary",
     description: "Best timing for cool-season grasses. Aeration before winter dormancy promotes spring recovery and root development."
   },
   {
-    season: "Spring (April to May)",
+    season: "Spring (April–May)",
     priority: "Secondary",
     description: "Good option for properties that missed fall service. Schedule before summer stress to maximize root growth."
   },
@@ -383,7 +383,7 @@ export default function CommercialAerationContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Commercial aeration typically ranges from <strong className="text-white">$150 to $600</strong> depending on property size. Multi-property and annual program discounts available.
+                  Commercial aeration typically ranges from <strong className="text-white">$150–$600</strong> depending on property size. Multi-property and annual program discounts available.
                 </p>
               </div>
             </ScrollReveal>

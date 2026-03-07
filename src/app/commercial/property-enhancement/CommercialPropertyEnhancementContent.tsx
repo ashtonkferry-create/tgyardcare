@@ -83,19 +83,19 @@ const propertyTypes = [
 
 const annualProgram = [
   {
-    season: "Spring (March to May)",
+    season: "Spring (March–May)",
     services: "Bed cleanup, dead plant removal, soil amendment, spring mulch application, annual flower installation"
   },
   {
-    season: "Summer (June to August)",
+    season: "Summer (June–August)",
     services: "Ongoing weeding, irrigation monitoring, deadheading, pest monitoring, mid-season color refresh if needed"
   },
   {
-    season: "Fall (September to November)",
+    season: "Fall (September–November)",
     services: "Perennial cutback, fall mulch touch-up, fall color installation, bed preparation for winter"
   },
   {
-    season: "Winter (December to February)",
+    season: "Winter (December–February)",
     services: "Dormant pruning, evergreen maintenance, winter interest plantings, spring planning"
   }
 ];
@@ -390,7 +390,7 @@ export default function CommercialPropertyEnhancementContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Annual bed maintenance programs typically range from <strong className="text-white">$200 to $800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
+                  Annual bed maintenance programs typically range from <strong className="text-white">$200–$800/month</strong> depending on property size and scope. Enhancement projects quoted individually.
                 </p>
               </div>
             </ScrollReveal>
