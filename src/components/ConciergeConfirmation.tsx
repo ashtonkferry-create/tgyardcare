@@ -360,19 +360,19 @@ export function ConciergeConfirmation({
                         onClick={() => trackUpsellClick(svc.name, svc.slug)}
                         className={`group block bg-white/[0.06] border ${tokens.borderClass} backdrop-blur-sm rounded-xl px-2.5 pt-3 pb-2 sm:px-4 sm:pt-4 sm:pb-2.5 space-y-1 sm:space-y-1.5 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.09] hover:shadow-lg h-full`}
                       >
-                        <div className="flex items-start justify-between gap-1">
+                        <div className="flex items-center sm:items-start sm:justify-between gap-2 sm:gap-1">
                           <div
-                            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0"
                             style={{ backgroundColor: `rgba(${tokens.accentRgb}, 0.12)` }}
                           >
                             <Icon
-                              className="w-4 h-4"
+                              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                               style={{ color: tokens.accentSolid }}
                             />
                           </div>
                           {badge && (
                             <span
-                              className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full whitespace-nowrap"
+                              className="hidden sm:inline text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full whitespace-nowrap"
                               style={{
                                 backgroundColor: `rgba(${tokens.accentRgb}, 0.15)`,
                                 color: tokens.accentSolid,
@@ -382,14 +382,14 @@ export function ConciergeConfirmation({
                             </span>
                           )}
                         </div>
-                        <p className="text-white font-semibold text-sm leading-tight">
+                        <p className="text-white font-semibold text-xs sm:text-sm leading-tight">
                           {svc.name}
                         </p>
-                        <p className="text-white/40 text-[11px] leading-relaxed">
+                        <p className="hidden sm:block text-white/40 text-[11px] leading-relaxed">
                           {svc.hook}
                         </p>
                         <span
-                          className="inline-flex items-center gap-1 text-[11px] font-medium transition-colors duration-200"
+                          className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium transition-colors duration-200"
                           style={{ color: tokens.accentSolid }}
                         >
                           Learn More
