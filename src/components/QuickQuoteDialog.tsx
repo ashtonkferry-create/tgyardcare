@@ -13,6 +13,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useSeasonalTheme, Season } from '@/contexts/SeasonalThemeContext';
 import { supabase } from '@/integrations/supabase/client';
+import { ConciergeConfirmation } from '@/components/ConciergeConfirmation';
 import { validateContactForm } from '@/lib/validation';
 
 /* ─── Season Theme Tokens ─── */
@@ -347,77 +348,19 @@ export default function QuickQuoteDialog({
       <DialogContent className={`sm:max-w-[480px] p-0 overflow-hidden border-0 bg-gradient-to-b ${t.bodyBg} shadow-2xl`}>
         <AnimatePresence mode="wait">
           {isSuccess ? (
-            /* ═══ SUCCESS STATE ═══ */
+            /* ═══ SUCCESS STATE — Concierge Confirmation ═══ */
             <motion.div
               key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative p-8 text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <FloatingParticles colors={t.particleColors} />
-
-              {/* Glow orb behind checkmark */}
-              <div className="relative mx-auto mb-6 w-20 h-20">
-                <div
-                  className="absolute inset-0 rounded-full blur-2xl opacity-40"
-                  style={{ background: `radial-gradient(circle, rgba(${t.accentRgb}, 0.4), transparent)` }}
-                />
-                <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
-                  className={`relative w-20 h-20 rounded-full bg-gradient-to-br ${t.checkGradient} flex items-center justify-center ${t.successGlow}`}
-                >
-                  <CheckCircle2 className="h-10 w-10 text-white" strokeWidth={2.5} />
-                </motion.div>
-              </div>
-
-              <motion.h3
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-xl font-bold text-white mb-2"
-              >
-                You're All Set!
-              </motion.h3>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-white/50 text-sm mb-6 leading-relaxed"
-              >
-                We'll send your personalized quote within 24 hours, usually same day.
-              </motion.p>
-
-              {/* Trust badges */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="flex items-center justify-center gap-4 mb-6"
-              >
-                {[
-                  { icon: Mail, text: 'totalguardllc@gmail.com' },
-                  { icon: Phone, text: '(608) 535-6057' },
-                ].map(({ icon: I, text }) => (
-                  <span key={text} className={`flex items-center gap-1.5 text-xs ${t.accent}`}>
-                    <I className="h-3 w-3" />
-                    {text}
-                  </span>
-                ))}
-              </motion.div>
-
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                onClick={handleClose}
-                className="text-sm text-white/40 hover:text-white/70 transition-colors"
-              >
-                Close this window
-              </motion.button>
+              <ConciergeConfirmation
+                open={true}
+                onClose={handleClose}
+                mode="inline"
+                submittedMessage={formData.message}
+              />
             </motion.div>
           ) : (
             /* ═══ FORM STATE ═══ */

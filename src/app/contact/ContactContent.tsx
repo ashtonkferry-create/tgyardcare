@@ -21,7 +21,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { validateContactForm } from "@/lib/validation";
 import { supabase } from "@/integrations/supabase/client";
-import { ServiceUpsellDialog } from "@/components/ServiceUpsellDialog";
+import { ConciergeConfirmation } from "@/components/ConciergeConfirmation";
 import { getServiceTemplate } from "@/lib/serviceTemplates";
 
 const seasonalAccent = {
@@ -156,6 +156,7 @@ export default function ContactContent() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
   const [showUpsell, setShowUpsell] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState('');
   const [selectedService, setSelectedService] = useState<{ title: string; message: string } | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -192,6 +193,7 @@ export default function ContactContent() {
       const { data, error } = await supabase.functions.invoke('contact-form', { body: validatedData });
       if (error) throw new Error(error.message || "Failed to submit form");
       if (!data?.success) throw new Error("Failed to submit form");
+      setSubmittedMessage(formData.message || selectedService?.message || '');
       setFormData({ name: "", email: "", phone: "", address: "", message: "" });
       setShowUpsell(true);
     } catch (error) {
@@ -581,7 +583,7 @@ export default function ContactContent() {
         </div>
       </section>
 
-      <ServiceUpsellDialog open={showUpsell} onOpenChange={setShowUpsell} selectedService={selectedService} />
+      <ConciergeConfirmation open={showUpsell} onClose={() => setShowUpsell(false)} mode="dialog" submittedMessage={submittedMessage} />
       <Footer showCloser={false} />
     </div>
   );
