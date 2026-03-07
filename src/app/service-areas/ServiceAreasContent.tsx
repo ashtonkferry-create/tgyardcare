@@ -231,7 +231,7 @@ export default function ServiceAreasContent() {
                 Complete lawn care services in every community we serve
               </h2>
               <p className="text-lg text-white/60 max-w-3xl mx-auto">
-                Whether you need weekly <Link href="/services/mowing" className="text-primary hover:underline font-semibold">lawn mowing</Link> in Madison, <Link href="/services/gutter-cleaning" className="text-primary hover:underline font-semibold">gutter cleaning</Link> in Middleton, or <Link href="/services/snow-removal" className="text-primary hover:underline font-semibold">snow removal</Link> in Waunakee — we&apos;ve got you covered
+                Whether you need weekly <Link href="/services/mowing" className="text-primary hover:underline font-semibold">lawn mowing</Link> in Madison, <Link href="/services/gutter-cleaning" className="text-primary hover:underline font-semibold">gutter cleaning</Link> in Middleton, or <Link href="/services/snow-removal" className="text-primary hover:underline font-semibold">snow removal</Link> in Waunakee, we&apos;ve got you covered
               </p>
             </div>
 
@@ -285,7 +285,7 @@ export default function ServiceAreasContent() {
                 See exactly where we serve
               </h2>
               <p className="text-lg text-white/60 max-w-3xl mx-auto">
-                From <Link href="/services/spring-cleanup" className="text-primary hover:underline font-semibold">spring cleanup</Link> to <Link href="/services/fall-cleanup" className="text-primary hover:underline font-semibold">fall cleanup</Link>, <Link href="/services/leaf-removal" className="text-primary hover:underline font-semibold">leaf removal</Link> to <Link href="/services/fertilization" className="text-primary hover:underline font-semibold">fertilization</Link> — every service, every season, in every community below
+                From <Link href="/services/spring-cleanup" className="text-primary hover:underline font-semibold">spring cleanup</Link> to <Link href="/services/fall-cleanup" className="text-primary hover:underline font-semibold">fall cleanup</Link>, <Link href="/services/leaf-removal" className="text-primary hover:underline font-semibold">leaf removal</Link> to <Link href="/services/fertilization" className="text-primary hover:underline font-semibold">fertilization</Link>. Every service, every season, in every community below
               </p>
             </div>
 
@@ -361,7 +361,7 @@ export default function ServiceAreasContent() {
               Ready to transform your property?
             </h2>
             <p className="text-xl mb-10 text-white/60 leading-relaxed">
-              Join hundreds of satisfied homeowners and businesses across Madison, Middleton, Waunakee, and surrounding areas. Get your free quote today — no obligation, just expert advice.
+              Join hundreds of satisfied homeowners and businesses across Madison, Middleton, Waunakee, and surrounding areas. Get your free quote today. No obligation, just expert advice.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" asChild className="text-lg px-8 animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black font-bold">

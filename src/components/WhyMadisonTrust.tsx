@@ -15,7 +15,7 @@ export function WhyMadisonTrust() {
       stat: "2hr",
       statLabel: "avg response",
       title: "We Answer. We Show Up.",
-      description: "Call us — a real person picks up. Text us — you hear back in hours, not days. That's our standard, not our exception.",
+      description: "Call us, a real person picks up. Text us, you hear back in hours, not days. That's our standard, not our exception.",
       proof: "Average response: 2 hours",
     },
     {
@@ -33,13 +33,13 @@ export function WhyMadisonTrust() {
       statLabel: "quote accuracy",
       title: "The Price We Quote Is What You Pay.",
       description: "No hidden fees. No 'we found extra work' charges. No equipment surcharges. The number we give you is the number on the invoice.",
-      proof: "Zero surprise charges — ever",
+      proof: "Zero surprise charges, ever",
     },
   ];
 
   const comparison = [
     { theirs: "Ghost you after the first mow", ours: "Same crew, every single visit" },
-    { theirs: "Random workers every time", ours: "Scheduled day — we show up" },
+    { theirs: "Random workers every time", ours: "Scheduled day, we show up" },
     { theirs: '"Forgot" to come this week', ours: "Flat pricing, no surprises" },
     { theirs: "Surprise charges on the invoice", ours: "Real humans who answer the phone" },
   ];

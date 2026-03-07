@@ -342,7 +342,7 @@ export function ServiceUpsellDialog({ open, onOpenChange, selectedService }: Ser
                 onClick={() => onOpenChange(false)}
                 className="font-bold w-full sm:w-auto text-sm sm:text-base"
               >
-                {isSnowPackage ? "Done — Close Window" : "I'll Wait for My Quote"}
+                {isSnowPackage ? "Done" : "I'll Wait for My Quote"}
               </Button>
             </div>
           </div>

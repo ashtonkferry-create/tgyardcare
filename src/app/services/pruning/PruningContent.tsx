@@ -148,7 +148,7 @@ export default function PruningContent() {
                 What&apos;s Included in Our Pruning Service
               </h2>
               <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
-                Complete service from assessment to cleanup&mdash;no extra charges for debris removal.
+                Complete service from assessment to cleanup. No extra charges for debris removal.
               </p>
             </ScrollReveal>
             <div className="grid md:grid-cols-2 gap-4 md:gap-5">
@@ -158,7 +158,7 @@ export default function PruningContent() {
                 { title: "Shape Restoration", desc: "Return overgrown shrubs to their natural or desired form" },
                 { title: "Dead Wood Removal", desc: "Remove all dead, diseased, or damaged branches to promote health" },
                 { title: "Size Control", desc: "Keep plants at appropriate heights for your landscape design" },
-                { title: "Complete Cleanup", desc: "All trimmings bagged and removed\—property left spotless" }
+                { title: "Complete Cleanup", desc: "All trimmings bagged and removed. Property left spotless" }
               ].map((item, i) => (
                 <ScrollReveal key={i} delay={i * 0.08}>
                   <GlassCard hover="lift" className="h-full">
@@ -199,7 +199,7 @@ export default function PruningContent() {
                     <h3 className="text-2xl font-bold text-white">Late Winter / Early Spring</h3>
                   </div>
                   <p className="text-white/60 mb-4">
-                    February through early April&mdash;before new growth begins&mdash;is ideal for most shrubs in Dane County.
+                    February through early April, before new growth begins, is ideal for most shrubs in Dane County.
                     Plants are dormant, making it easier to see structure and shape.
                   </p>
                   <ul className="space-y-2.5 text-sm text-white/60">
@@ -318,7 +318,7 @@ export default function PruningContent() {
               {[
                 { icon: Scissors, title: "Species Knowledge", desc: "We know which shrubs thrive in Wisconsin and how each species should be pruned for optimal health." },
                 { icon: Shield, title: "Fully Insured", desc: "Complete liability coverage protects your property. You'll never worry about damage or accidents." },
-                { icon: Clock, title: "On-Time Service", desc: "We show up when we say we will\—and finish the job completely before we leave." },
+                { icon: Clock, title: "On-Time Service", desc: "We show up when we say we will and finish the job completely before we leave." },
               ].map((item, i) => {
                 const Icon = item.icon;
                 return (

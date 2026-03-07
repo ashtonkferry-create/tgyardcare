@@ -71,7 +71,7 @@ const serviceSidebarData: Record<string, ServiceSidebarOverride> = {
   // Residential
   "/services/mowing": {
     heading: "Lawn Mowing",
-    description: "Professional weekly mowing with precision edging, trimming, and blowing — your lawn looking its best every week.",
+    description: "Professional weekly mowing with precision edging, trimming, and blowing. Your lawn looking its best every week.",
     bullets: ["Consistent weekly schedule", "Precision edging & trimming", "Clippings blown clean", "Height adjusted per season"],
   },
   "/services/fertilization": {

@@ -127,7 +127,7 @@ export function WinterPriorityServices() {
       features: [
         "Priority 24/7 response",
         "Unlimited visits all winter",
-        "Fixed pricing — no surprises"
+        "Fixed pricing, no surprises"
       ],
       isBestDeal: true,
       ctaText: "See Options",
@@ -168,7 +168,7 @@ export function WinterPriorityServices() {
         >
           <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-bold mb-6">
             <Snowflake className="h-4 w-4 animate-spin [animation-duration:10s]" />
-            Winter 2025–26
+            Winter 2025/26
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
             Choose Your{' '}

@@ -76,7 +76,7 @@ const whyYoungEntrepreneurs = [
   { icon: Sparkles, title: "Fresh Perspective", body: "Modern techniques and innovative solutions applied to traditional lawn care." },
   { icon: Trophy, title: "Hungry to Prove Ourselves", body: "Every job is an opportunity to exceed expectations and build our reputation." },
   { icon: Phone, title: "Tech-Savvy Communication", body: "Easy scheduling, quick responses, and transparent updates throughout the process." },
-  { icon: Heart, title: "Invested in Your Satisfaction", body: "We rely on happy customers and word-of-mouth referrals — your satisfaction is our marketing." },
+  { icon: Heart, title: "Invested in Your Satisfaction", body: "We rely on happy customers and word-of-mouth referrals. Your satisfaction is our marketing." },
 ];
 
 export default function TeamContent() {
@@ -87,7 +87,7 @@ export default function TeamContent() {
   return (
     <div className="min-h-screen text-white" style={{ background: bg.page }}>
       <AboutPageSchema />
-      <WebPageSchema name="Our Team" description="Meet the TotalGuard Yard Care team — locally owned lawn care in Madison, WI since 2023" url="/team" />
+      <WebPageSchema name="Our Team" description="Meet the TotalGuard Yard Care team, locally owned lawn care in Madison, WI since 2023" url="/team" />
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://tgyardcare.com" },
         { name: "Our Team", url: "https://tgyardcare.com/team" }

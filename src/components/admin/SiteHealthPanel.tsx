@@ -26,7 +26,7 @@ export default function SiteHealthPanel() {
     try {
       const r = await fetch("/api/cron/robots-guard", { headers: { authorization: "Bearer dev" } });
       const d: { valid: boolean; issues?: string[] } = await r.json();
-      results[2] = { label: "robots.txt valid", status: d.valid ? "pass" : "warn", detail: d.valid ? "Valid — /admin blocked, sitemap present" : (d.issues?.join("; ") ?? "Issues found") };
+      results[2] = { label: "robots.txt valid", status: d.valid ? "pass" : "warn", detail: d.valid ? "Valid: /admin blocked, sitemap present" : (d.issues?.join("; ") ?? "Issues found") };
     } catch (e) { results[2] = { label: "robots.txt valid", status: "fail", detail: String(e) }; }
 
     // Sitemap
@@ -79,7 +79,7 @@ export default function SiteHealthPanel() {
 
       <div style={card} className="p-4">
         <h2 className="text-sm font-semibold text-white mb-2">Core Web Vitals</h2>
-        <p className="text-xs text-white/40 mb-3">LCP, CLS, and FID metrics from real users — check Vercel Analytics.</p>
+        <p className="text-xs text-white/40 mb-3">LCP, CLS, and FID metrics from real users. Check Vercel Analytics.</p>
         <a href="https://vercel.com/ashtonkferry-create/tgyardcare/analytics" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-xs text-green-400 hover:text-green-300">
           Open Vercel Analytics <ExternalLink className="h-3 w-3" />

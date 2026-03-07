@@ -56,10 +56,10 @@ const isWinterSeason = () => {
 
 const getSeasonalGreeting = () => {
   const month = new Date().getMonth();
-  if (month >= 2 && month <= 4) return "Spring cleanup season is here — let's get your yard looking fresh.";
+  if (month >= 2 && month <= 4) return "Spring cleanup season is here. Let's get your yard looking fresh.";
   if (month >= 5 && month <= 8) return "Keep your lawn pristine all summer. How can we help?";
   if (month >= 9 && month <= 10) return "Fall is the perfect time to prep your yard for winter.";
-  return "We've got you covered this winter — from snow removal to gutter care.";
+  return "We've got you covered this winter, from snow removal to gutter care.";
 };
 
 // Typing indicator with bouncing dots
@@ -471,7 +471,7 @@ export const ChatBot = () => {
       addAssistantMessage(`Perfect, ${updatedInfo.name}! Our team will follow up within 24 hours with your personalized quote. We look forward to working with you.`);
       setTimeout(() => {
         setQuoteStep('feedback');
-        addAssistantMessage("Before you go — how was your experience?");
+        addAssistantMessage("Before you go, how was your experience?");
       }, 2000);
     }, 300);
 
@@ -571,7 +571,7 @@ export const ChatBot = () => {
       console.error('Chat error:', e);
       const errorMsg = {
         role: 'assistant' as const,
-        content: "I'm having trouble connecting right now. Please call us at 608-535-6057 or email totalguardllc@gmail.com — we're happy to help."
+        content: "I'm having trouble connecting right now. Please call us at 608-535-6057 or email totalguardllc@gmail.com. We're happy to help."
       };
       const finalMessages = [...updatedMessages, errorMsg];
       setMessages(finalMessages);
@@ -936,7 +936,7 @@ export const ChatBot = () => {
                               feedback_text: feedbackText.trim() || null,
                             });
                             setQuoteStep('feedback-submitted');
-                            addAssistantMessage("Thank you for your feedback — it truly helps us improve.");
+                            addAssistantMessage("Thank you for your feedback. It truly helps us improve.");
                           } catch (err) {
                             console.error('Failed to submit feedback:', err);
                           }

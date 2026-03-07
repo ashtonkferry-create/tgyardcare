@@ -168,7 +168,7 @@ export default function CommandCenter() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Command Center</h1>
-        <p className="text-sm text-white/40 mt-1">TotalGuard Yard Care — Admin Overview</p>
+        <p className="text-sm text-white/40 mt-1">TotalGuard Yard Care: Admin Overview</p>
       </div>
 
       {/* Row 1: Stat Tiles */}

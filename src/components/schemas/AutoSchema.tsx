@@ -60,7 +60,7 @@ function deriveDescription(pathname: string): string {
   if (pathname === '/') {
     return 'Professional lawn care and landscaping services in Madison, WI';
   }
-  return `${title} — TotalGuard Yard Care, Madison WI`;
+  return `${title} | TotalGuard Yard Care, Madison WI`;
 }
 
 export function AutoSchema() {

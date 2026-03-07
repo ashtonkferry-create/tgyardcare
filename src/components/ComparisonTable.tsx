@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { AmbientParticles } from '@/components/AmbientParticles';
 
 const rows = [
-  { feature: 'Response Time', icon: Clock, us: '24 hours', them: '3–5 days' },
+  { feature: 'Response Time', icon: Clock, us: '24 hours', them: '3 to 5 days' },
   { feature: 'Same Crew', icon: Users, us: 'Every visit', them: 'Random each time' },
   { feature: 'Insurance', icon: Shield, us: '$1M liability', them: 'Often none' },
-  { feature: 'Written Quotes', icon: FileText, us: 'Always — before work starts', them: 'Verbal or none' },
+  { feature: 'Written Quotes', icon: FileText, us: 'Always, before work starts', them: 'Verbal or none' },
   { feature: 'Quality Walk', icon: Star, us: 'After every job', them: 'Never' },
   { feature: 'Satisfaction Guarantee', icon: Undo2, us: '100% or free return visit', them: 'Limited or none' },
 ];
@@ -107,7 +107,7 @@ export function ComparisonTable() {
               href="/contact"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold text-sm rounded-lg py-3.5 px-8 shadow-lg shadow-emerald-900/30 transition-all duration-200 hover:shadow-emerald-900/50"
             >
-              Experience the Difference — Get a Free Quote
+              Experience the Difference: Get a Free Quote
             </Link>
           </div>
         </div>

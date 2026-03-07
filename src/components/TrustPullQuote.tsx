@@ -66,7 +66,7 @@ function QuoteContent({ quote, source }: { quote: string; source: string }) {
 
       {/* Source */}
       <p className="text-xs text-white/60">
-        — {source}
+        {source}
       </p>
     </div>
   );

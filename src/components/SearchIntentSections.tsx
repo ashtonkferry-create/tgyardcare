@@ -97,7 +97,7 @@ export function PricingGuideSection({
 
           <div className="bg-white/[0.06] border-2 border-primary/20 rounded-xl p-8 mb-8">
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
-              {lowRange} – {highRange}
+              {lowRange} to {highRange}
             </div>
             <p className="text-white/60">Typical range for most properties</p>
           </div>

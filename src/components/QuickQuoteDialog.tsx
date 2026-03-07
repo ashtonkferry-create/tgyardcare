@@ -299,7 +299,7 @@ export default function QuickQuoteDialog({
                 transition={{ delay: 0.4 }}
                 className="text-white/50 text-sm mb-6 leading-relaxed"
               >
-                We'll send your personalized quote within 24 hours — usually same day.
+                We'll send your personalized quote within 24 hours, usually same day.
               </motion.p>
 
               {/* Trust badges */}
@@ -357,7 +357,7 @@ export default function QuickQuoteDialog({
                 >
                   <Sparkles className={`h-3.5 w-3.5 ${t.accent}`} />
                   <span className={`text-xs font-semibold ${t.accent} uppercase tracking-wide`}>
-                    {promoDiscount} OFF — Limited Time
+                    {promoDiscount} OFF: Limited Time
                   </span>
                 </motion.div>
 

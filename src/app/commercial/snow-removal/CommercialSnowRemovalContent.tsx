@@ -123,7 +123,7 @@ const liabilityProtection = [
 const pricingStructure = [
   {
     title: "Seasonal contract",
-    description: "Fixed monthly rate November–March regardless of snowfall. Predictable budgeting with unlimited service."
+    description: "Fixed monthly rate November to March regardless of snowfall. Predictable budgeting with unlimited service."
   },
   {
     title: "Per-push billing",
@@ -419,7 +419,7 @@ export default function CommercialSnowRemovalContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Commercial snow removal contracts typically range from <strong className="text-white">$500–$2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
+                  Commercial snow removal contracts typically range from <strong className="text-white">$500 to $2,500/month</strong> for seasonal contracts depending on property size and scope. Per-push pricing available upon request.
                 </p>
               </div>
             </ScrollReveal>

@@ -242,7 +242,7 @@ export default function MadisonContent() {
 
             {/* Micro-Trust Line */}
             <p className="text-center text-white/60 text-sm mb-10">
-              Built on consistency, communication, and follow-through — every visit.
+              Built on consistency, communication, and follow-through, every visit.
             </p>
 
             {/* CTA */}

@@ -81,7 +81,7 @@ export default function WeedingContent() {
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <p className="text-lg md:text-xl text-white/90 mb-6 md:mb-8 leading-relaxed">
-                Wisconsin&apos;s warm, humid summers create perfect weed-growing conditions. Hand weeding from our crew keeps your beds pristine&mdash;and saves your weekends and your back.
+                Wisconsin&apos;s warm, humid summers create perfect weed-growing conditions. Hand weeding from our crew keeps your beds pristine and saves your weekends and your back.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
@@ -153,7 +153,7 @@ export default function WeedingContent() {
               What&apos;s Included in Our Weeding Service
             </h2>
             <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
-              Complete weed removal from start to finish&mdash;no extra charges.
+              Complete weed removal from start to finish. No extra charges.
             </p>
           </ScrollReveal>
 
@@ -199,8 +199,8 @@ export default function WeedingContent() {
 
             {[
               { step: "1", title: "Assess Your Beds", desc: "We survey all garden areas and identify weed types and severity" },
-              { step: "2", title: "Hand-Pull Everything", desc: "Complete removal including roots\—not just surface clearing" },
-              { step: "3", title: "Clean Up", desc: "All debris bagged and removed\—property left spotless" },
+              { step: "2", title: "Hand-Pull Everything", desc: "Complete removal including roots, not just surface clearing" },
+              { step: "3", title: "Clean Up", desc: "All debris bagged and removed. Property left spotless" },
               { step: "4", title: "Schedule Next Visit", desc: "Regular service keeps weed pressure low all season" },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
@@ -316,12 +316,12 @@ export default function WeedingContent() {
               {
                 icon: Leaf,
                 title: "Healthier Plants",
-                desc: "Without weed competition, your flowers, shrubs, and perennials get more water, nutrients, and sunlight\—leading to more vigorous, beautiful growth."
+                desc: "Without weed competition, your flowers, shrubs, and perennials get more water, nutrients, and sunlight, leading to more vigorous, beautiful growth."
               },
               {
                 icon: Leaf,
                 title: "Instant Curb Appeal",
-                desc: "Clean, weed-free beds create an immediate polished look that elevates your entire property\—and makes your home stand out on the block."
+                desc: "Clean, weed-free beds create an immediate polished look that elevates your entire property and makes your home stand out on the block."
               },
               {
                 icon: Leaf,
@@ -356,15 +356,15 @@ export default function WeedingContent() {
               Why Choose TotalGuard for Weeding
             </h2>
             <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
-              We don&apos;t just clear the surface&mdash;we remove the problem at the root:
+              We don&apos;t just clear the surface. We remove the problem at the root:
             </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {[
-              { icon: Shield, title: "Thorough Root Removal", desc: "We extract the entire root system\—not just the visible leaves. This means weeds don't grow back in days like they do with surface clearing." },
+              { icon: Shield, title: "Thorough Root Removal", desc: "We extract the entire root system, not just the visible leaves. This means weeds don't grow back in days like they do with surface clearing." },
               { icon: Clock, title: "Reliable Scheduling", desc: "We show up on your scheduled day, every time. No chasing contractors or wondering when your beds will get attention." },
-              { icon: Leaf, title: "Complete Property Service", desc: "We handle all beds, borders, gravel areas, and hardscape edges\—not just the easy-to-reach spots." },
+              { icon: Leaf, title: "Complete Property Service", desc: "We handle all beds, borders, gravel areas, and hardscape edges, not just the easy-to-reach spots." },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
@@ -397,7 +397,7 @@ export default function WeedingContent() {
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Madison-Area Weeding Pricing</h2>
                 <div className="flex items-baseline justify-center gap-1 mb-4">
                   <span className="text-5xl md:text-6xl font-bold text-primary">$100</span>
-                  <span className="text-2xl text-white/60">&ndash;</span>
+                  <span className="text-2xl text-white/60">-</span>
                   <span className="text-5xl md:text-6xl font-bold text-primary">$300</span>
                   <span className="text-white/60 text-lg ml-1">/visit</span>
                 </div>

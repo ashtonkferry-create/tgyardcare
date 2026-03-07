@@ -80,7 +80,7 @@ export default function SeasonsPanel() {
           </p>
           {active !== "auto" && (
             <p className="text-yellow-400 mt-1">
-              Manual override active — auto-switcher cron will skip until reset to Auto
+              Manual override active. Auto-switcher cron will skip until reset to Auto.
             </p>
           )}
         </div>

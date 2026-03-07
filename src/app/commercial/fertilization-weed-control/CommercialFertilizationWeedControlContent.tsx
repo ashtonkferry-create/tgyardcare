@@ -126,9 +126,9 @@ const differentiators = [
 
 const calendarSteps = [
   { num: "1", title: "Early spring (April)", desc: "Pre-emergent crabgrass control + early-season fertilization to establish strong root growth before summer stress." },
-  { num: "2", title: "Late spring (May–June)", desc: "Broadleaf weed control + balanced fertilization during peak growing season." },
-  { num: "3", title: "Summer (July–August)", desc: "Targeted weed treatment + summer stress management. Light fertilization to maintain color without forcing growth." },
-  { num: "4", title: "Fall (September–October)", desc: "Fall fertilization for root development + broadleaf weed control. This is the most important treatment for spring recovery." },
+  { num: "2", title: "Late spring (May to June)", desc: "Broadleaf weed control + balanced fertilization during peak growing season." },
+  { num: "3", title: "Summer (July to August)", desc: "Targeted weed treatment + summer stress management. Light fertilization to maintain color without forcing growth." },
+  { num: "4", title: "Fall (September to October)", desc: "Fall fertilization for root development + broadleaf weed control. This is the most important treatment for spring recovery." },
   { num: "5", title: "Late fall (November)", desc: "Winterizer fertilization to strengthen roots and improve cold tolerance for Wisconsin winters." },
 ];
 
@@ -356,7 +356,7 @@ export default function CommercialFertilizationWeedControlContent() {
             <ScrollReveal delay={0.3}>
               <div className="mt-8 text-center">
                 <p className="text-white/60">
-                  Commercial fertilization programs typically range from <strong className="text-white">$80–$200</strong> per application depending on property size. Full-season programs (5-6 applications) offer contract discounts.
+                  Commercial fertilization programs typically range from <strong className="text-white">$80 to $200</strong> per application depending on property size. Full-season programs (5-6 applications) offer contract discounts.
                 </p>
               </div>
             </ScrollReveal>

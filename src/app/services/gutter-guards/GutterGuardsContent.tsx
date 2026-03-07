@@ -75,7 +75,7 @@ export default function GutterGuardsContent() {
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <p className="text-lg md:text-xl text-white/90 mb-6 md:mb-8 leading-relaxed">
-                Stop climbing ladders twice a year. Professional gutter guard installation keeps leaves and debris out permanently&mdash;protecting your home through Wisconsin&apos;s harshest weather.
+                Stop climbing ladders twice a year. Professional gutter guard installation keeps leaves and debris out permanently, protecting your home through Wisconsin&apos;s harshest weather.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
@@ -147,12 +147,12 @@ export default function GutterGuardsContent() {
               What&apos;s Included in Our Installation
             </h2>
             <p className="text-center text-white/60 mb-12 max-w-2xl mx-auto">
-              Complete installation from start to finish&mdash;including the cleaning your gutters need first.
+              Complete installation from start to finish, including the cleaning your gutters need first.
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-4xl mx-auto">
             {[
-              { title: "Pre-Installation Cleaning", desc: "Complete gutter cleaning before guards go on\—ensures a clean start" },
+              { title: "Pre-Installation Cleaning", desc: "Complete gutter cleaning before guards go on, ensuring a clean start" },
               { title: "Premium Micro-Mesh Guards", desc: "Durable, weather-resistant guards that handle Wisconsin's climate" },
               { title: "Custom Fitting", desc: "Precisely measured and cut to fit your specific gutter system perfectly" },
               { title: "Secure Mounting", desc: "Professional attachment that withstands wind, snow loads, and ice" },
@@ -191,7 +191,7 @@ export default function GutterGuardsContent() {
             <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20" />
 
             {[
-              { step: "1", title: "Measure & Quote", desc: "We measure your gutters and provide exact pricing\—no surprises" },
+              { step: "1", title: "Measure & Quote", desc: "We measure your gutters and provide exact pricing. No surprises" },
               { step: "2", title: "Clean Gutters", desc: "Complete cleaning before installation for optimal performance" },
               { step: "3", title: "Install Guards", desc: "Custom fit and secure mounting on all gutter sections" },
               { step: "4", title: "Test & Verify", desc: "Water testing confirms proper flow before we leave" },
@@ -348,7 +348,7 @@ export default function GutterGuardsContent() {
             {[
               { title: "Quality Products", desc: "We use micro-mesh guards proven to handle heavy rain, pine needles, and oak leaf debris common in Madison neighborhoods." },
               { title: "Proper Installation", desc: "Guards are only as good as their installation. We ensure proper angle, secure mounting, and seamless integration with your roofline." },
-              { title: "Local Expertise", desc: "We understand Wisconsin's specific challenges\—heavy snow loads, ice, and the particular debris from Dane County's trees." },
+              { title: "Local Expertise", desc: "We understand Wisconsin's specific challenges: heavy snow loads, ice, and the particular debris from Dane County's trees." },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 0.12}>
                 <GlassCard hover="lift" className="text-center h-full">

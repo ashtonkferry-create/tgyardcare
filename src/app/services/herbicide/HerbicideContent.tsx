@@ -200,13 +200,13 @@ export default function HerbicideContent() {
               {
                 icon: Target,
                 title: "Pre-Emergent Treatments",
-                desc: "Prevent weeds before they germinate. Applied in early spring before soil temperatures reach 55\°F in Madison\—typically late March to mid-April.",
+                desc: "Prevent weeds before they germinate. Applied in early spring before soil temperatures reach 55\°F in Madison, typically late March to mid-April.",
                 items: ["Crabgrass prevention", "Annual weed control", "Spring application timing", "Fall application for winter annuals"]
               },
               {
                 icon: Leaf,
                 title: "Post-Emergent Treatments",
-                desc: "Eliminate weeds that are actively growing. Best applied when weeds are young and actively growing\—typically May through September in Wisconsin.",
+                desc: "Eliminate weeds that are actively growing. Best applied when weeds are young and actively growing, typically May through September in Wisconsin.",
                 items: ["Broadleaf weed control", "Dandelion elimination", "Clover treatment", "Thistle and plantain removal"]
               },
               {
@@ -381,7 +381,7 @@ export default function HerbicideContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {[
               { icon: Shield, title: "Licensed Application", desc: "Our technicians are certified and trained in proper herbicide handling and application techniques." },
-              { icon: AlertTriangle, title: "Clear Re-Entry Times", desc: "We advise on exactly when it's safe for kids and pets to return to treated areas\—typically 2-4 hours after application dries." },
+              { icon: AlertTriangle, title: "Clear Re-Entry Times", desc: "We advise on exactly when it's safe for kids and pets to return to treated areas, typically 2-4 hours after application dries." },
               { icon: Leaf, title: "Targeted Products", desc: "We use the minimum effective amount and target only problem areas rather than blanket spraying entire lawns." },
             ].map((item, i) => {
               const Icon = item.icon;
@@ -415,7 +415,7 @@ export default function HerbicideContent() {
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Weed Control Pricing</h2>
                 <div className="flex items-baseline justify-center gap-1 mb-4">
                   <span className="text-5xl md:text-6xl font-bold text-primary">$75</span>
-                  <span className="text-2xl text-white/60">&ndash;</span>
+                  <span className="text-2xl text-white/60">-</span>
                   <span className="text-5xl md:text-6xl font-bold text-primary">$150</span>
                   <span className="text-white/60 text-lg ml-1">/application</span>
                 </div>

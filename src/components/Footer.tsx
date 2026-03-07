@@ -117,7 +117,7 @@ const seasonIcons: Record<Season, typeof Leaf> = { summer: Sun, fall: CloudRain,
 const seasonMessages: Record<Season, string> = {
   summer: 'Keep your lawn pristine all summer.',
   fall: 'Fall cleanup slots filling fast!',
-  winter: 'Snow contracts available — book now!',
+  winter: 'Snow contracts available. Book now!',
 };
 
 /* ── Component ─────────────────────────────────────── */
@@ -196,7 +196,7 @@ export default function Footer({
             >
               <div className="h-px w-12 bg-white/20" />
               <span className="text-white/40 text-sm">
-                {closerDescription || 'Or get a written quote — free, no obligation'}
+                {closerDescription || 'Or get a written quote, free, no obligation'}
               </span>
               <div className="h-px w-12 bg-white/20" />
             </motion.div>
@@ -459,7 +459,7 @@ export default function Footer({
                 />
               </Link>
               <span className={`text-xs ${t.dimText} tracking-wide hidden sm:inline`}>
-                Madison&apos;s reliability-first lawn care &mdash; serving all of Dane County
+                Madison&apos;s reliability-first lawn care, serving all of Dane County
               </span>
             </div>
 

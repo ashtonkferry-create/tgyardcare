@@ -71,14 +71,14 @@ const standards = [
   {
     icon: Shield,
     title: 'Make-It-Right Policy',
-    body: 'If something is missed, send us a photo. We return within 48 hours to correct it—no charge, no friction, no defensiveness.',
+    body: 'If something is missed, send us a photo. We return within 48 hours to correct it. No charge, no friction, no defensiveness.',
   },
 ];
 
 // Timeline milestones
 const milestones = [
   { year: '2023', event: 'Founded in Madison', detail: 'Alex & Vance launch TotalGuard with a commitment to systems-first service.' },
-  { year: '2024', event: 'Rapid growth', detail: 'Word-of-mouth drives rapid client growth — 4.9★ Google rating established early on.' },
+  { year: '2024', event: 'Rapid growth', detail: 'Word-of-mouth drives rapid client growth. 4.9★ Google rating established early on.' },
   { year: '2024', event: 'Commercial expansion', detail: 'Added HOA, office park, and retail property maintenance to our service portfolio.' },
   { year: '2025', event: 'Dane County coverage', detail: 'Expanded to 12 cities — Madison, Middleton, Waunakee, Sun Prairie, and more.' },
   { year: '2025', event: '500+ properties', detail: 'Serving 500+ residential and commercial properties across the greater Madison area.' },
@@ -226,7 +226,7 @@ export default function AboutContent() {
                   Before starting TotalGuard, we worked with dozens of lawn care operations across Wisconsin. The pattern was consistent: crews running behind, owners unreachable, quotes taking weeks, customers left wondering if service would even show up.
                 </p>
                 <p>
-                  These aren&apos;t bad companies—they&apos;re companies without systems. When demand increases, quality decreases. When the owner gets busy, communication stops.
+                  These aren&apos;t bad companies. They&apos;re companies without systems. When demand increases, quality decreases. When the owner gets busy, communication stops.
                 </p>
                 <p>
                   TotalGuard was built to solve this. Reliability by design, not by luck.
@@ -275,7 +275,7 @@ export default function AboutContent() {
               The TotalGuard Standard
             </h2>
             <p className="text-white/60 text-xl max-w-2xl mx-auto">
-              Not a marketing phrase—a documented set of commitments that govern every interaction.
+              Not a marketing phrase. A documented set of commitments that govern every interaction.
             </p>
           </ScrollReveal>
 
@@ -390,7 +390,7 @@ export default function AboutContent() {
 
             <div className="grid md:grid-cols-3 gap-6 mb-10">
               {[
-                { title: 'Owner-Operated', body: 'Alex and Vance are directly involved in quoting, scheduling, and quality oversight—not managing from a distance.' },
+                { title: 'Owner-Operated', body: 'Alex and Vance are directly involved in quoting, scheduling, and quality oversight, not managing from a distance.' },
                 { title: 'Focused Service Area', body: 'Madison and surrounding Dane County communities. Tighter geography = faster response, more predictable scheduling.' },
                 { title: 'Transparent Pricing', body: 'You\'ll know exactly what a service costs before we begin. The invoice will match the quote. No surprises.' },
               ].map((item, i) => (
@@ -406,9 +406,9 @@ export default function AboutContent() {
             <ScrollReveal delay={0.2}>
               <GlassCard variant="dark" hover="none" className={`border-l-4 ${acc.border.replace('border-', 'border-l-')}`}>
                 <blockquote className="text-white/70 text-lg leading-relaxed italic">
-                  &ldquo;When you work with TotalGuard, you&apos;re not hiring a vendor—you&apos;re establishing a property care partner who operates with the same standards whether you&apos;re watching or not.&rdquo;
+                  &ldquo;When you work with TotalGuard, you&apos;re not hiring a vendor. You&apos;re establishing a property care partner who operates with the same standards whether you&apos;re watching or not.&rdquo;
                 </blockquote>
-                <div className={`mt-4 font-bold ${acc.text}`}>— Alex & Vance, Founders</div>
+                <div className={`mt-4 font-bold ${acc.text}`}>- Alex & Vance, Founders</div>
               </GlassCard>
             </ScrollReveal>
           </div>
