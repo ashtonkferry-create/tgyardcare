@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Phone, ArrowRight, CheckCircle2, Mail, Snowflake, Leaf, Sun, CloudRain } from "lucide-react";
+import { Phone, ArrowRight, CheckCircle2, Mail, Snowflake, Leaf, Sun, CloudRain, Layers } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useSeasonalTheme, Season } from "@/contexts/SeasonalThemeContext";
 import { AmbientParticles } from "@/components/AmbientParticles";
@@ -85,7 +85,6 @@ const specialtyServices = [
   { label: 'Gutter Cleaning', href: '/services/gutter-cleaning' },
   { label: 'Gutter Guards', href: '/services/gutter-guards' },
   { label: 'Snow Removal', href: '/services/snow-removal' },
-  { label: 'Hardscaping', href: '/services/hardscaping' },
 ];
 
 const cities = [
@@ -442,6 +441,23 @@ export default function Footer({
           </div>
         </div>
       </section>
+
+      {/* ═══════════ HARDSCAPING PARTNER ═══════════ */}
+      <div className={`${t.footerBg} border-t ${t.sigBorder}`}>
+        <div className="container mx-auto px-4 py-4 max-w-6xl">
+          <div className="flex items-center gap-3">
+            <Layers className={`h-3.5 w-3.5 ${t.iconColor} flex-shrink-0`} />
+            <span className={`text-[12px] ${t.dimText}`}>Looking for Hardscaping?</span>
+            <Link
+              href="/services/hardscaping"
+              className={`text-[12px] font-medium ${t.accentText} ${t.linkHover} inline-flex items-center gap-1 group`}
+            >
+              View services
+              <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* ═══════════ ZONE 3 — SIGNATURE ═══════════ */}
       <section className={`${t.footerBg} border-t ${t.sigBorder} pb-24 lg:pb-0`}>

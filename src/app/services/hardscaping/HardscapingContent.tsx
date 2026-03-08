@@ -156,7 +156,7 @@ export default function HardscapingContent() {
       {/* ═══════════════════════════════════════════════════════════════════
           HERO — Full viewport, parallax, dramatic typography
       ════════════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-end pb-16 md:pb-24 overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[70vh] flex items-end pb-12 md:pb-20 overflow-hidden">
         {/* Parallax background layers */}
         <motion.div
           className="absolute inset-0"
@@ -190,23 +190,23 @@ export default function HardscapingContent() {
           <div className="max-w-5xl">
             {/* Overline */}
             <ScrollReveal>
-              <div className="flex items-center gap-3 mb-8">
-                <div className={`h-[1px] w-12 ${acc.line}`} />
-                <span className={`text-xs font-semibold ${acc.text} tracking-[0.3em] uppercase`}>
-                  Hardscaping Services
+              <div className="flex items-center gap-3 mb-6">
+                <div className={`h-[1px] w-10 ${acc.line}`} />
+                <span className={`text-[11px] font-semibold ${acc.text} tracking-[0.25em] uppercase`}>
+                  Hardscaping in Madison, WI
                 </span>
               </div>
             </ScrollReveal>
 
-            {/* Main headline — massive, editorial */}
+            {/* Main headline — scaled down for balance */}
             <ScrollReveal delay={0.1}>
-              <h1 className="text-[clamp(2.5rem,8vw,7rem)] font-bold text-white leading-[0.9] tracking-tight mb-8">
+              <h1 className="text-[clamp(2rem,5.5vw,4.5rem)] font-bold text-white leading-[0.95] tracking-tight mb-6">
                 Stone that
                 <br />
                 <span className="relative inline-block">
                   <span className={`${acc.text}`}>outlasts</span>
                   <motion.div
-                    className={`absolute -bottom-2 left-0 h-[3px] ${acc.line} rounded-full`}
+                    className={`absolute -bottom-1 left-0 h-[2px] ${acc.line} rounded-full`}
                     initial={{ width: 0 }}
                     animate={{ width: '100%' }}
                     transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -216,35 +216,33 @@ export default function HardscapingContent() {
               </h1>
             </ScrollReveal>
 
-            {/* Subheadline — lighter weight */}
+            {/* Subheadline */}
             <ScrollReveal delay={0.25}>
-              <p className="text-lg md:text-xl text-white/50 max-w-xl leading-relaxed mb-12 font-light">
+              <p className="text-sm md:text-base text-white/50 max-w-lg leading-relaxed mb-8 font-light">
                 Paver patios, retaining walls, firepits, and walkways — engineered for
                 Dane County clay and Wisconsin freeze-thaw. Built once, built right.
               </p>
             </ScrollReveal>
 
-            {/* CTA row */}
+            {/* CTA row — compact */}
             <ScrollReveal delay={0.35}>
-              <div className="flex flex-col sm:flex-row items-start gap-4">
+              <div className="flex flex-col sm:flex-row items-start gap-3">
                 <Button
-                  size="lg"
-                  className="text-base md:text-lg font-bold px-8 py-5 h-auto animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black rounded-xl shadow-xl shadow-amber-500/20 hover:shadow-2xl hover:shadow-amber-500/30 hover:scale-[1.02] transition-all"
+                  className="text-sm font-bold px-6 py-2.5 h-auto animate-shimmer-btn bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 bg-[length:200%_auto] text-black rounded-lg shadow-lg shadow-amber-500/15 hover:shadow-xl hover:shadow-amber-500/25 hover:scale-[1.02] transition-all"
                   asChild
                 >
                   <a href="tel:608-576-4220">
-                    <Phone className="mr-2 h-5 w-5" />
+                    <Phone className="mr-2 h-4 w-4" />
                     (608) 576-4220
                   </a>
                 </Button>
                 <Button
-                  size="lg"
                   variant="outline"
-                  className="text-base md:text-lg font-semibold border-white/20 text-white/80 hover:bg-white/5 hover:border-white/30 px-8 py-5 h-auto rounded-xl transition-all"
+                  className="text-sm font-semibold border-white/20 text-white/80 hover:bg-white/5 hover:border-white/30 px-6 py-2.5 h-auto rounded-lg transition-all"
                   asChild
                 >
                   <a href="mailto:ydexteriorvisions@gmail.com">
-                    Request Estimate <ArrowRight className="ml-2 h-5 w-5" />
+                    Request Estimate <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
               </div>
@@ -252,26 +250,26 @@ export default function HardscapingContent() {
 
             {/* Stat strip */}
             <ScrollReveal delay={0.5}>
-              <div className="flex items-center gap-8 mt-16 pt-8 border-t border-white/[0.06]">
+              <div className="flex items-center gap-6 mt-10 pt-6 border-t border-white/[0.06]">
                 <div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl md:text-4xl font-bold text-white"><AnimatedCounter end={5} decimals={1} /></span>
-                    <Star className="h-5 w-5 text-amber-400 fill-amber-400" />
+                    <span className="text-xl md:text-2xl font-bold text-white"><AnimatedCounter end={5} decimals={1} /></span>
+                    <Star className="h-3.5 w-3.5 text-amber-400 fill-amber-400" />
                   </div>
-                  <span className="text-xs text-white/40 uppercase tracking-wider">Google Rating</span>
+                  <span className="text-[10px] text-white/40 uppercase tracking-wider">Google Rating</span>
                 </div>
-                <div className={`w-px h-10 ${acc.lineDim}`} />
+                <div className={`w-px h-8 ${acc.lineDim}`} />
                 <div>
-                  <div className="text-3xl md:text-4xl font-bold text-white">6</div>
-                  <span className="text-xs text-white/40 uppercase tracking-wider">Step Process</span>
+                  <div className="text-xl md:text-2xl font-bold text-white">6</div>
+                  <span className="text-[10px] text-white/40 uppercase tracking-wider">Step Process</span>
                 </div>
-                <div className={`w-px h-10 ${acc.lineDim}`} />
+                <div className={`w-px h-8 ${acc.lineDim}`} />
                 <div className="hidden sm:block">
                   <div className="flex items-center gap-1.5">
-                    <MapPin className={`h-4 w-4 ${acc.dim}`} />
-                    <span className="text-sm text-white/60">Dane County, WI</span>
+                    <MapPin className={`h-3.5 w-3.5 ${acc.dim}`} />
+                    <span className="text-xs text-white/60">Dane County, WI</span>
                   </div>
-                  <span className="text-xs text-white/40 uppercase tracking-wider">Service Area</span>
+                  <span className="text-[10px] text-white/40 uppercase tracking-wider">Service Area</span>
                 </div>
               </div>
             </ScrollReveal>
