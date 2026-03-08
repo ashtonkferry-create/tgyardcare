@@ -176,6 +176,7 @@ export const ChatBot = () => {
   const [feedbackRating, setFeedbackRating] = useState<number>(0);
   const [feedbackText, setFeedbackText] = useState<string>('');
   const [feedbackHover, setFeedbackHover] = useState<number>(0);
+  const [awaitingCustomService, setAwaitingCustomService] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -307,8 +308,17 @@ export const ChatBot = () => {
   };
 
   const handleServiceSelect = (service: string) => {
-    setSelectedService(service);
     addUserMessage(service);
+    if (service === 'Other') {
+      // Ask user to specify their service instead of using "Other"
+      setAwaitingCustomService(true);
+      setTimeout(() => {
+        addAssistantMessage("No problem! What service do you need? Just type it in.");
+      }, 300);
+      return; // Stay on 'service' step — typed input will come through handleSend → case 'service'
+    }
+    setAwaitingCustomService(false);
+    setSelectedService(service);
     setQuoteStep('name');
     setTimeout(() => {
       addAssistantMessage(`Got it — ${service}! What's your full name?`);
@@ -332,7 +342,8 @@ export const ChatBot = () => {
       return;
     }
     setQuoteStep('email');
-    setTimeout(() => addAssistantMessage(`Nice to meet you, ${name}! What's your email address?`), 300);
+    const firstName = name.split(/\s+/)[0];
+    setTimeout(() => addAssistantMessage(`Nice to meet you, ${firstName}! What's your email address?`), 300);
   };
 
   const handleEmailSubmit = () => {
@@ -744,7 +755,7 @@ export const ChatBot = () => {
                 )}
 
                 {/* ===== SERVICE SELECTION ===== */}
-                {quoteStep === 'service' && !isLoading && (
+                {quoteStep === 'service' && !isLoading && !awaitingCustomService && (
                   <div className="pt-2">
                     <div className="flex flex-wrap gap-2">
                       {serviceOptions.map((opt, idx) => (
@@ -897,6 +908,7 @@ export const ChatBot = () => {
                       setQuoteStep('idle');
                       setShowQuickReplies(true);
                       setSelectedService('');
+                      setAwaitingCustomService(false);
                       setQuoteFormData({ name: '', email: '', phone: '', address: '', message: '' });
                       setEditingField(null);
                       setFeedbackRating(0);
@@ -932,6 +944,7 @@ export const ChatBot = () => {
                       quoteStep === 'phone' ? "Your phone number..." :
                       quoteStep === 'address' ? "Your property address..." :
                       quoteStep === 'description' ? "Describe your project..." :
+                      quoteStep === 'service' && awaitingCustomService ? "Type your service..." :
                       "Ask a question..."
                     }
                     className="flex-1 h-12 px-4 text-base sm:text-sm text-white/90 placeholder:text-white/25
