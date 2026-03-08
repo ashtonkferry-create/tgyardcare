@@ -436,28 +436,26 @@ export default function Footer({
                 <SeasonIcon className="h-3 w-3 flex-shrink-0" />
                 <span>{seasonMessages[activeSeason]}</span>
               </div>
+
+              {/* Hardscaping partner link */}
+              <div className="mt-4 pt-3 border-t border-white/[0.04]">
+                <p className={`text-[10px] uppercase tracking-[0.15em] ${t.dimText} font-semibold mb-1.5`}>
+                  Looking for Hardscaping?
+                </p>
+                <Link
+                  href="/services/hardscaping"
+                  className={`inline-flex items-center gap-1 text-[13px] ${t.textColor} ${t.linkHover} transition-colors group`}
+                >
+                  <Layers className={`h-3.5 w-3.5 ${t.iconColor}`} />
+                  Hardscaping Services
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
             </motion.div>
 
           </div>
         </div>
       </section>
-
-      {/* ═══════════ HARDSCAPING PARTNER ═══════════ */}
-      <div className={`${t.footerBg} border-t ${t.sigBorder}`}>
-        <div className="container mx-auto px-4 py-4 max-w-6xl">
-          <div className="flex items-center gap-3">
-            <Layers className={`h-3.5 w-3.5 ${t.iconColor} flex-shrink-0`} />
-            <span className={`text-[12px] ${t.dimText}`}>Looking for Hardscaping?</span>
-            <Link
-              href="/services/hardscaping"
-              className={`text-[12px] font-medium ${t.accentText} ${t.linkHover} inline-flex items-center gap-1 group`}
-            >
-              View services
-              <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </div>
 
       {/* ═══════════ ZONE 3 — SIGNATURE ═══════════ */}
       <section className={`${t.footerBg} border-t ${t.sigBorder} pb-24 lg:pb-0`}>
