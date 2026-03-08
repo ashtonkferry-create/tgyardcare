@@ -24,6 +24,7 @@ import {
   Droplets,
   Calendar,
   ChevronDown,
+  Layers,
   type LucideIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,13 @@ const serviceCategories: {
     services: [
       { name: "Gutter Cleaning", path: "/services/gutter-cleaning", icon: Home },
       { name: "Gutter Guards", path: "/services/gutter-guards", icon: Shield },
+    ]
+  },
+  {
+    category: "Hardscaping",
+    icon: Layers,
+    services: [
+      { name: "Hardscaping Services", path: "/services/hardscaping", icon: Layers },
     ]
   }
 ];

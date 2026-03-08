@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'mowing', 'weeding', 'mulching', 'leaf-removal', 'spring-cleanup',
     'fall-cleanup', 'gutter-cleaning', 'gutter-guards', 'garden-beds',
     'fertilization', 'herbicide', 'snow-removal', 'pruning', 'aeration',
+    'hardscaping',
   ].map(slug => ({
     url: `${baseUrl}/services/${slug}`,
     changeFrequency: 'monthly' as const,

@@ -7,7 +7,7 @@ import {
   Menu, ChevronDown, Phone, Sprout, Flower2, Calendar, Home, Snowflake,
   Scissors, SprayCan, Leaf, CircleDot, Trees, Sparkles, CloudRain,
   Shield, ArrowRight, Users, Award, Droplets, Building2,
-  TreePine, CheckCircle2, Clock, FileText, type LucideIcon,
+  TreePine, CheckCircle2, Clock, FileText, Layers, type LucideIcon,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -503,78 +503,94 @@ function MegaMenu({
       </div>
 
       <div className="flex relative">
-        {/* ---- 3 Service Columns ---- */}
-        <div className="flex-1 p-5 grid grid-cols-3 gap-6">
-          {columns.map((col) => {
-            const ColIcon = col.icon;
-            return (
-              <div key={col.heading} className="space-y-3">
-                {/* Column header — static, no hover effect */}
-                <div className={`flex items-center gap-2 pb-2.5 border-b ${accent.headerBorder}`}>
-                  <div className={`p-1.5 ${accent.headerBg} rounded-lg`}>
-                    <ColIcon className={`h-4 w-4 ${accent.iconColor}`} />
+        {/* ---- 3 Service Columns + Hardscaping Link ---- */}
+        <div className="flex-1 flex flex-col">
+          <div className="p-5 pb-2 grid grid-cols-3 gap-6">
+            {columns.map((col) => {
+              const ColIcon = col.icon;
+              return (
+                <div key={col.heading} className="space-y-3">
+                  {/* Column header — static, no hover effect */}
+                  <div className={`flex items-center gap-2 pb-2.5 border-b ${accent.headerBorder}`}>
+                    <div className={`p-1.5 ${accent.headerBg} rounded-lg`}>
+                      <ColIcon className={`h-4 w-4 ${accent.iconColor}`} />
+                    </div>
+                    <span className={`text-xs font-bold ${accent.headerText} tracking-widest uppercase`}>{col.heading}</span>
                   </div>
-                  <span className={`text-xs font-bold ${accent.headerText} tracking-widest uppercase`}>{col.heading}</span>
-                </div>
 
-                {/* Service items — hovered item + related upsell items highlight */}
-                <div className="space-y-0.5">
-                  {col.items.map((item) => {
-                    const ItemIcon = item.icon;
-                    const active = isActivePath(item.path);
-                    const related = isRelated(item);
+                  {/* Service items — hovered item + related upsell items highlight */}
+                  <div className="space-y-0.5">
+                    {col.items.map((item) => {
+                      const ItemIcon = item.icon;
+                      const active = isActivePath(item.path);
+                      const related = isRelated(item);
 
-                    return (
-                      <Link
-                        key={item.path + item.name}
-                        href={item.path}
-                        onMouseEnter={() => setHoveredItem(item)}
-                        onMouseLeave={() => setHoveredItem(null)}
-                        className={cn(
-                          `group flex items-start gap-2.5 py-2 px-2 -mx-2 rounded-lg transition-all duration-200`,
-                          active
-                            ? `${accent.activeItemBg} ${accent.activeItemText}`
-                            : related
-                              ? 'bg-white/[0.07]'
-                              : 'hover:bg-white/10 hover:translate-x-1'
-                        )}
-                      >
-                        <ItemIcon className={cn(
-                          `h-3.5 w-3.5 mt-0.5 flex-shrink-0 transition-colors`,
-                          active
-                            ? accent.activeItemText
-                            : related
-                              ? 'text-white/60'
-                              : `text-white/50 ${accent.hoverText}`
-                        )} />
-                        <div className="min-w-0">
-                          <span className={cn(
-                            `block text-sm leading-tight transition-colors`,
+                      return (
+                        <Link
+                          key={item.path + item.name}
+                          href={item.path}
+                          onMouseEnter={() => setHoveredItem(item)}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          className={cn(
+                            `group flex items-start gap-2.5 py-2 px-2 -mx-2 rounded-lg transition-all duration-200`,
                             active
-                              ? `${accent.activeItemText} font-semibold`
+                              ? `${accent.activeItemBg} ${accent.activeItemText}`
                               : related
-                                ? 'text-white/80 font-medium'
-                                : `text-white font-medium ${accent.hoverText}`
-                          )}>
-                            {item.name}
-                          </span>
-                          <span className={cn(
-                            "block text-[11px] leading-tight mt-0.5 transition-colors",
-                            related ? 'text-white/50' : 'text-white/40 group-hover:text-white/60'
-                          )}>
-                            {item.description}
-                          </span>
-                        </div>
-                        {active && (
-                          <div className={`ml-auto mt-1 w-1.5 h-1.5 ${accent.pulseDot} rounded-full animate-pulse flex-shrink-0`} />
-                        )}
-                      </Link>
-                    );
-                  })}
+                                ? 'bg-white/[0.07]'
+                                : 'hover:bg-white/10 hover:translate-x-1'
+                          )}
+                        >
+                          <ItemIcon className={cn(
+                            `h-3.5 w-3.5 mt-0.5 flex-shrink-0 transition-colors`,
+                            active
+                              ? accent.activeItemText
+                              : related
+                                ? 'text-white/60'
+                                : `text-white/50 ${accent.hoverText}`
+                          )} />
+                          <div className="min-w-0">
+                            <span className={cn(
+                              `block text-sm leading-tight transition-colors`,
+                              active
+                                ? `${accent.activeItemText} font-semibold`
+                                : related
+                                  ? 'text-white/80 font-medium'
+                                  : `text-white font-medium ${accent.hoverText}`
+                            )}>
+                              {item.name}
+                            </span>
+                            <span className={cn(
+                              "block text-[11px] leading-tight mt-0.5 transition-colors",
+                              related ? 'text-white/50' : 'text-white/40 group-hover:text-white/60'
+                            )}>
+                              {item.description}
+                            </span>
+                          </div>
+                          {active && (
+                            <div className={`ml-auto mt-1 w-1.5 h-1.5 ${accent.pulseDot} rounded-full animate-pulse flex-shrink-0`} />
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* Hardscaping partner link */}
+          <div className="px-5 pb-4 pt-1 border-t border-white/[0.06] mt-auto">
+            <Link
+              href="/services/hardscaping"
+              className="group inline-flex items-center gap-2 py-2 px-3 -mx-3 rounded-lg hover:bg-white/10 transition-all duration-200"
+            >
+              <Layers className={`h-4 w-4 ${accent.iconColor} transition-colors`} />
+              <span className={`text-sm font-medium ${accent.headerText} transition-colors`}>
+                Looking for Hardscaping?
+              </span>
+              <ArrowRight className={`h-3.5 w-3.5 ${accent.iconColor} group-hover:translate-x-1 transition-transform`} />
+            </Link>
+          </div>
         </div>
 
         {/* ---- Sidebar Panel (dynamic — updates on service hover) ---- */}

@@ -85,6 +85,7 @@ const specialtyServices = [
   { label: 'Gutter Cleaning', href: '/services/gutter-cleaning' },
   { label: 'Gutter Guards', href: '/services/gutter-guards' },
   { label: 'Snow Removal', href: '/services/snow-removal' },
+  { label: 'Hardscaping', href: '/services/hardscaping' },
 ];
 
 const cities = [
