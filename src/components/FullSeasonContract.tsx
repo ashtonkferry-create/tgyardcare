@@ -13,6 +13,7 @@ import {
   Crown,
   DollarSign,
   Calendar,
+  ChevronDown,
   type LucideIcon,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -275,13 +276,26 @@ export function FullSeasonContract() {
                       {season.tagline}
                     </p>
 
-                    {/* Service count */}
-                    <p
-                      className="text-xs font-semibold"
-                      style={{ color: season.jewelHex }}
+                    {/* Service count + expand indicator */}
+                    <div
+                      className="flex items-center justify-between"
                     >
-                      {season.services.length} services included
-                    </p>
+                      <p
+                        className="text-xs font-semibold"
+                        style={{ color: season.jewelHex }}
+                      >
+                        {isExpanded ? "Hide services" : `View ${season.services.length} services`}
+                      </p>
+                      <motion.div
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      >
+                        <ChevronDown
+                          className="h-4 w-4"
+                          style={{ color: season.jewelHex }}
+                        />
+                      </motion.div>
+                    </div>
 
                     {/* Expanded services accordion */}
                     <AnimatePresence>
