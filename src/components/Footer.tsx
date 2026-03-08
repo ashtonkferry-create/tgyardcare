@@ -351,7 +351,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/residential"
-                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block py-1`}
+                    className={`text-[13px] font-semibold ${t.accentText} ${t.linkHover} transition-colors duration-200 inline-block py-1`}
                   >
                     Residential
                   </Link>
@@ -359,7 +359,7 @@ export default function Footer({
                 <li>
                   <Link
                     href="/commercial"
-                    className={`text-[13px] ${t.textColor} ${t.linkHover} transition-colors duration-200 inline-block py-1`}
+                    className={`text-[13px] font-semibold ${t.accentText} ${t.linkHover} transition-colors duration-200 inline-block py-1`}
                   >
                     Commercial
                   </Link>
