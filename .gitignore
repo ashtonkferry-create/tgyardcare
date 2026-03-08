@@ -42,3 +42,14 @@ next-env.d.ts
 
 .vercel
 tgyardcare-next/
+
+# QA screenshots (temp artifacts from visual testing)
+*.screenshot.png
+full-season-*.png
+test.png
+
+# Playwright MCP logs
+.playwright-mcp/*.log
+
+# IDE
+.idea/
