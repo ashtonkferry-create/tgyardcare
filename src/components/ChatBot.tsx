@@ -27,6 +27,7 @@ interface QuoteFormData {
 
 type QuoteStep =
   | 'idle'
+  | 'service'
   | 'name'
   | 'email'
   | 'phone'
@@ -38,6 +39,19 @@ type QuoteStep =
   | 'editing'
   | 'feedback'
   | 'feedback-submitted';
+
+const serviceOptions = [
+  { text: 'Lawn Mowing', icon: <Scissors className="h-4 w-4" /> },
+  { text: 'Fertilization & Herbicide', icon: <Leaf className="h-4 w-4" /> },
+  { text: 'Gutter Cleaning', icon: <Droplets className="h-4 w-4" /> },
+  { text: 'Gutter Guards', icon: <Shield className="h-4 w-4" /> },
+  { text: 'Spring Cleanup', icon: <Sparkles className="h-4 w-4" /> },
+  { text: 'Fall Cleanup', icon: <Leaf className="h-4 w-4" /> },
+  { text: 'Mulching & Garden Beds', icon: <Leaf className="h-4 w-4" /> },
+  { text: 'Bush Trimming', icon: <Scissors className="h-4 w-4" /> },
+  { text: 'Snow Removal', icon: <Snowflake className="h-4 w-4" /> },
+  { text: 'Other', icon: <MessageSquare className="h-4 w-4" /> },
+];
 
 const isWinterSeason = () => {
   const month = new Date().getMonth();
@@ -279,12 +293,31 @@ export const ChatBot = () => {
   };
 
   const startQuoteFlow = (service: string) => {
-    setSelectedService(service);
     addUserMessage(service);
     setShowQuickReplies(false);
+
+    if (service === 'Get a quote') {
+      // Generic quote request — ask what service they need first
+      setQuoteStep('service');
+      setTimeout(() => {
+        addAssistantMessage("Great — let's get your free quote started! What service are you interested in?");
+      }, 300);
+    } else {
+      // Specific service selected — skip to name
+      setSelectedService(service);
+      setQuoteStep('name');
+      setTimeout(() => {
+        addAssistantMessage("Great choice! Let's get your free quote started. What's your full name?");
+      }, 300);
+    }
+  };
+
+  const handleServiceSelect = (service: string) => {
+    setSelectedService(service);
+    addUserMessage(service);
     setQuoteStep('name');
     setTimeout(() => {
-      addAssistantMessage("Great choice! Let's get your free quote started. What's your full name?");
+      addAssistantMessage(`Got it — ${service}! What's your full name?`);
     }, 300);
   };
 
@@ -495,6 +528,7 @@ export const ChatBot = () => {
     if (!input.trim() || isLoading) return;
 
     switch (quoteStep) {
+      case 'service': handleServiceSelect(input.trim()); setInput(''); break;
       case 'name': handleNameSubmit(); break;
       case 'email': handleEmailSubmit(); break;
       case 'phone': handlePhoneSubmit(); break;
@@ -523,8 +557,8 @@ export const ChatBot = () => {
 
 
   // Quote step tracking
-  const STEP_ORDER = ['name', 'email', 'phone', 'address', 'description', 'confirm'] as const;
-  const STEP_LABELS = ['Name', 'Email', 'Phone', 'Address', 'Details', 'Review'];
+  const STEP_ORDER = ['service', 'name', 'email', 'phone', 'address', 'description', 'confirm'] as const;
+  const STEP_LABELS = ['Service', 'Name', 'Email', 'Phone', 'Address', 'Details', 'Review'];
   const currentStepIdx = STEP_ORDER.indexOf(quoteStep as typeof STEP_ORDER[number]);
   const showProgress = quoteStep !== 'idle' && quoteStep !== 'complete' && quoteStep !== 'submitting' && quoteStep !== 'feedback' && quoteStep !== 'feedback-submitted';
 
@@ -709,6 +743,24 @@ export const ChatBot = () => {
                           delay={idx * 0.08}
                         >
                           {reply.text}
+                        </GlassChip>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* ===== SERVICE SELECTION ===== */}
+                {quoteStep === 'service' && !isLoading && (
+                  <div className="pt-2">
+                    <div className="flex flex-wrap gap-2">
+                      {serviceOptions.map((opt, idx) => (
+                        <GlassChip
+                          key={idx}
+                          onClick={() => handleServiceSelect(opt.text)}
+                          icon={opt.icon}
+                          delay={idx * 0.05}
+                        >
+                          {opt.text}
                         </GlassChip>
                       ))}
                     </div>
