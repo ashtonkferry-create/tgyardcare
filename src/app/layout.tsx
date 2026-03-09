@@ -46,14 +46,14 @@ export const metadata: Metadata = {
       "Madison's most dependable yard care -- clean, precise mowing, landscaping, gutters, and seasonal cleanups done right the first time.",
     siteName: 'TG Yard Care',
     locale: 'en_US',
-    images: [{ url: 'https://tgyardcare.com/og-image.jpg' }],
+    images: [{ url: 'https://tgyardcare.com/og-image.png', width: 1200, height: 630, type: 'image/png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'TG Yard Care | Professional Lawn Care & Landscaping in Madison, WI',
     description:
       "Madison's most dependable yard care -- clean, precise mowing, landscaping, gutters, and seasonal cleanups done right the first time.",
-    images: ['https://tgyardcare.com/og-image.jpg'],
+    images: ['https://tgyardcare.com/og-image.png'],
   },
   alternates: {
     canonical: 'https://tgyardcare.com',

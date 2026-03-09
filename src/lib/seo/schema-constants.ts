@@ -39,7 +39,7 @@ export const BUSINESS = {
   description:
     'TotalGuard Yard Care provides premium lawn care, gutter cleaning, snow removal, and seasonal yard services to residential and commercial properties across Madison and Dane County, WI. Locally owned since 2023.',
   logo: `${CANONICAL_URL}/images/totalguard-logo-full.png`,
-  image: `${CANONICAL_URL}/og-image.jpg`,
+  image: `${CANONICAL_URL}/og-image.png`,
   url: CANONICAL_URL,
   paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Venmo'] as const,
   currenciesAccepted: 'USD' as const,

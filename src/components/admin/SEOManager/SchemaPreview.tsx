@@ -29,7 +29,7 @@ export function SchemaPreview({ page }: SchemaPreviewProps) {
         return {
           ...baseSchema,
           "@type": "LocalBusiness",
-          "image": page.og_image || `${CANONICAL_DOMAIN}/og-image.jpg`,
+          "image": page.og_image || `${CANONICAL_DOMAIN}/og-image.png`,
           "telephone": "+1-608-535-6057",
           "email": "totalguardllc@gmail.com",
           "address": {
