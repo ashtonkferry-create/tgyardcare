@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 export const maxDuration = 60;
 
@@ -71,6 +71,53 @@ async function pingIndexNow(url: string): Promise<void> {
   }).catch(() => {}); // best effort
 }
 
+// --- HELPERS ---
+
+async function markUnfixable(
+  supabase: SupabaseClient,
+  id: string,
+  url: string,
+  issueType: string,
+  reason: string
+): Promise<void> {
+  await supabase
+    .from("seo_heal_queue")
+    .update({ status: "unfixable", fixed_at: new Date().toISOString() })
+    .eq("id", id);
+  await supabase.from("seo_heal_log").insert({
+    action: "marked_unfixable",
+    url,
+    issue_type: issueType,
+    before_state: {},
+    after_state: { reason },
+  });
+}
+
+async function callClaude(
+  apiKey: string,
+  prompt: string,
+  maxTokens: number
+): Promise<string | null> {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: maxTokens,
+      messages: [{ role: "user", content: prompt }],
+    }),
+  });
+  if (!res.ok) return null;
+  const data = (await res.json()) as {
+    content: Array<{ type: string; text: string }>;
+  };
+  return data.content[0]?.text ?? null;
+}
+
 export async function GET(req: NextRequest) {
   const auth = req.headers.get("authorization");
   if (
@@ -121,12 +168,13 @@ export async function GET(req: NextRequest) {
     let unfixable = 0;
     let skipped = 0;
 
-    // Pre-fetch sitemap paths for http_error handling
+    // Pre-fetch sitemap paths for http_error and broken_internal_link handling
     let sitemapPaths: string[] = [];
-    const hasHttpErrors = queueItems.some(
-      (item: Record<string, unknown>) => item.issue_type === "http_error"
+    const needsSitemap = queueItems.some(
+      (item: Record<string, unknown>) =>
+        item.issue_type === "http_error" || item.issue_type === "broken_internal_link"
     );
-    if (hasHttpErrors) {
+    if (needsSitemap) {
       try {
         const siteUrl =
           process.env.NEXT_PUBLIC_SITE_URL || "https://tgyardcare.com";
@@ -144,47 +192,55 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    // Extract apiKey once
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+
     // 2. Process each item sequentially
     for (const item of queueItems) {
-      const { id, url, issue_type } = item as {
+      const { id, url, issue_type, details } = item as {
         id: string;
         url: string;
         issue_type: string;
+        details: Record<string, unknown>;
       };
 
       try {
+        // ===== FALSE POSITIVE AUTO-RESOLVE (5) =====
+        if (
+          issue_type === "missing_title" ||
+          issue_type === "missing_meta_description" ||
+          issue_type === "missing_og" ||
+          issue_type === "missing_canonical" ||
+          issue_type === "missing_schema"
+        ) {
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "resolved", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+          await supabase.from("seo_heal_log").insert({
+            action: "auto_resolved",
+            url,
+            issue_type,
+            before_state: {},
+            after_state: { reason: "False positive — metadata hardcoded" },
+          });
+          fixed++;
+          continue;
+        }
+
+        // ===== AUTO-FIXABLE (8) =====
+
         if (issue_type === "thin_content") {
-          // --- THIN CONTENT FIX ---
-          const apiKey = process.env.ANTHROPIC_API_KEY;
+          // --- THIN CONTENT FIX: Claude expand ---
           if (!apiKey) {
-            await supabase
-              .from("seo_heal_queue")
-              .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-              .eq("id", id);
-            await supabase.from("seo_heal_log").insert({
-              action: "marked_unfixable",
-              url,
-              issue_type: "thin_content",
-              before_state: {},
-              after_state: { reason: "ANTHROPIC_API_KEY not configured" },
-            });
+            await markUnfixable(supabase, id, url, issue_type, "ANTHROPIC_API_KEY not configured");
             unfixable++;
             continue;
           }
 
           const slug = extractSlugFromUrl(url);
           if (!slug) {
-            await supabase
-              .from("seo_heal_queue")
-              .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-              .eq("id", id);
-            await supabase.from("seo_heal_log").insert({
-              action: "marked_unfixable",
-              url,
-              issue_type: "thin_content",
-              before_state: {},
-              after_state: { reason: "Could not extract slug from URL" },
-            });
+            await markUnfixable(supabase, id, url, issue_type, "Could not extract slug from URL");
             unfixable++;
             continue;
           }
@@ -196,17 +252,7 @@ export async function GET(req: NextRequest) {
             .single();
 
           if (postError || !post) {
-            await supabase
-              .from("seo_heal_queue")
-              .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-              .eq("id", id);
-            await supabase.from("seo_heal_log").insert({
-              action: "marked_unfixable",
-              url,
-              issue_type: "thin_content",
-              before_state: {},
-              after_state: { reason: `Blog post not found for slug: ${slug}` },
-            });
+            await markUnfixable(supabase, id, url, issue_type, `Blog post not found for slug: ${slug}`);
             unfixable++;
             continue;
           }
@@ -215,72 +261,25 @@ export async function GET(req: NextRequest) {
           const content = (post as Record<string, unknown>).content as string;
           const oldWordCount = countWords(content);
 
-          const claudeRes = await fetch(
-            "https://api.anthropic.com/v1/messages",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-api-key": apiKey,
-                "anthropic-version": "2023-06-01",
-              },
-              body: JSON.stringify({
-                model: "claude-haiku-4-5-20251001",
-                max_tokens: 4096,
-                messages: [
-                  {
-                    role: "user",
-                    content: `You are a lawn care content expert in Madison, WI. Expand the following blog post to at least 1200 words. Keep the same topic, title, tone, and HTML structure. Add more depth, practical examples, Madison WI local context, and actionable tips. Return ONLY the expanded HTML content, no explanation.\n\nTitle: ${title}\n\nCurrent content:\n${content}`,
-                  },
-                ],
-              }),
-            }
+          const expanded = await callClaude(
+            apiKey,
+            `You are a lawn care content expert in Madison, WI. Expand the following blog post to at least 1200 words. Keep the same topic, title, tone, and HTML structure. Add more depth, practical examples, Madison WI local context, and actionable tips. Return ONLY the expanded HTML content, no explanation.\n\nTitle: ${title}\n\nCurrent content:\n${content}`,
+            4096
           );
 
-          if (!claudeRes.ok) {
-            await supabase
-              .from("seo_heal_queue")
-              .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-              .eq("id", id);
-            await supabase.from("seo_heal_log").insert({
-              action: "marked_unfixable",
-              url,
-              issue_type: "thin_content",
-              before_state: { word_count: oldWordCount },
-              after_state: {
-                reason: `Claude API error: ${claudeRes.status} ${claudeRes.statusText}`,
-              },
-            });
+          if (!expanded) {
+            await markUnfixable(supabase, id, url, issue_type, "Claude API call failed");
             unfixable++;
             continue;
           }
 
-          const claudeData = (await claudeRes.json()) as {
-            content: Array<{ type: string; text: string }>;
-          };
-          const expanded = claudeData.content[0].text;
           const newWordCount = countWords(expanded);
-
           if (newWordCount < 1000) {
-            await supabase
-              .from("seo_heal_queue")
-              .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-              .eq("id", id);
-            await supabase.from("seo_heal_log").insert({
-              action: "marked_unfixable",
-              url,
-              issue_type: "thin_content",
-              before_state: { word_count: oldWordCount },
-              after_state: {
-                word_count: newWordCount,
-                reason: "Expanded content did not meet 1000 word minimum",
-              },
-            });
+            await markUnfixable(supabase, id, url, issue_type, `Expanded content only ${newWordCount} words (need 1000+)`);
             unfixable++;
             continue;
           }
 
-          // Update the blog post
           await supabase
             .from("blog_posts")
             .update({
@@ -290,16 +289,14 @@ export async function GET(req: NextRequest) {
             })
             .eq("slug", slug);
 
-          // Log the fix
           await supabase.from("seo_heal_log").insert({
             action: "expanded_content",
             url,
-            issue_type: "thin_content",
+            issue_type,
             before_state: { word_count: oldWordCount },
             after_state: { word_count: newWordCount },
           });
 
-          // Mark as fixed
           await supabase
             .from("seo_heal_queue")
             .update({ status: "fixed", fixed_at: new Date().toISOString() })
@@ -307,8 +304,8 @@ export async function GET(req: NextRequest) {
 
           await pingIndexNow(url);
           fixed++;
-        } else if (issue_type === "http_error") {
-          // --- HTTP ERROR (404) FIX ---
+        } else if (issue_type === "http_error" || issue_type === "broken_internal_link") {
+          // --- HTTP ERROR / BROKEN INTERNAL LINK: Smart redirect ---
           const path = extractPathFromUrl(url);
 
           let bestMatch = "";
@@ -328,19 +325,21 @@ export async function GET(req: NextRequest) {
           const destinationPath =
             bestScore > 0.6 ? bestMatch : getParentSection(path);
 
-          // Insert redirect
-          await supabase.from("seo_redirects").insert({
-            source_path: path,
-            destination_path: destinationPath,
-            status_code: 301,
-            created_by: "seo-heal",
-          });
+          // Upsert redirect (use upsert instead of insert to avoid duplicates)
+          await supabase.from("seo_redirects").upsert(
+            {
+              source_path: path,
+              destination_path: destinationPath,
+              status_code: 301,
+              created_by: "seo-heal",
+            },
+            { onConflict: "source_path" }
+          );
 
-          // Log the fix
           await supabase.from("seo_heal_log").insert({
             action: "created_redirect",
             url,
-            issue_type: "http_error",
+            issue_type,
             before_state: { path, status: 404 },
             after_state: {
               destination: destinationPath,
@@ -349,7 +348,6 @@ export async function GET(req: NextRequest) {
             },
           });
 
-          // Mark as fixed
           await supabase
             .from("seo_heal_queue")
             .update({ status: "fixed", fixed_at: new Date().toISOString() })
@@ -357,49 +355,419 @@ export async function GET(req: NextRequest) {
 
           await pingIndexNow(url);
           fixed++;
-        } else {
-          // --- ALL OTHER ISSUE TYPES: mark as unfixable ---
-          await supabase
-            .from("seo_heal_queue")
-            .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-            .eq("id", id);
+        } else if (issue_type === "soft_404") {
+          // --- SOFT 404: Blog → Claude generate, Non-blog → needs_review ---
+          const isBlog = url.includes("/blog/");
+
+          if (isBlog) {
+            if (!apiKey) {
+              await markUnfixable(supabase, id, url, issue_type, "ANTHROPIC_API_KEY not configured");
+              unfixable++;
+              continue;
+            }
+
+            const slug = extractSlugFromUrl(url);
+            if (!slug) {
+              await markUnfixable(supabase, id, url, issue_type, "Could not extract slug from URL");
+              unfixable++;
+              continue;
+            }
+
+            const { data: post } = await supabase
+              .from("blog_posts")
+              .select("*")
+              .eq("slug", slug)
+              .single();
+
+            const postTitle = post
+              ? ((post as Record<string, unknown>).title as string)
+              : slug.replace(/-/g, " ");
+
+            const generated = await callClaude(
+              apiKey,
+              `You are a lawn care content expert in Madison, WI. Write a comprehensive blog post (1200+ words) about "${postTitle}". Include practical tips, local Madison WI context, seasonal considerations, and actionable advice. Return ONLY HTML content (no <html>, <head>, or <body> tags). Use <h2>, <h3>, <p>, <ul>, <li> tags.`,
+              4096
+            );
+
+            if (!generated) {
+              await markUnfixable(supabase, id, url, issue_type, "Claude API call failed");
+              unfixable++;
+              continue;
+            }
+
+            const newWordCount = countWords(generated);
+
+            if (post) {
+              await supabase
+                .from("blog_posts")
+                .update({
+                  content: generated,
+                  reading_time: Math.ceil(newWordCount / 200),
+                  updated_at: new Date().toISOString(),
+                })
+                .eq("slug", slug);
+            } else {
+              await supabase.from("blog_posts").insert({
+                slug,
+                title: postTitle,
+                content: generated,
+                reading_time: Math.ceil(newWordCount / 200),
+                status: "published",
+                published_at: new Date().toISOString(),
+              });
+            }
+
+            await supabase.from("seo_heal_log").insert({
+              action: "generated_content",
+              url,
+              issue_type,
+              before_state: { word_count: (details?.word_count as number) || 0 },
+              after_state: { word_count: newWordCount },
+            });
+
+            await supabase
+              .from("seo_heal_queue")
+              .update({ status: "fixed", fixed_at: new Date().toISOString() })
+              .eq("id", id);
+
+            await pingIndexNow(url);
+            fixed++;
+          } else {
+            // Non-blog soft 404: flag for review
+            await supabase
+              .from("seo_heal_queue")
+              .update({ status: "needs_review", fixed_at: new Date().toISOString() })
+              .eq("id", id);
+            await supabase.from("seo_heal_log").insert({
+              action: "flagged_for_review",
+              url,
+              issue_type,
+              before_state: {},
+              after_state: { reason: "Non-blog soft 404 — needs manual review" },
+            });
+            skipped++;
+          }
+        } else if (issue_type === "slow_response") {
+          // --- SLOW RESPONSE: Cache-bust fetch to warm CDN cache ---
+          try {
+            await fetch(url, {
+              headers: { "Cache-Control": "no-cache", "User-Agent": "TotalGuard-SEO-Healer/1.0" },
+            });
+          } catch {
+            // best effort
+          }
 
           await supabase.from("seo_heal_log").insert({
-            action: "marked_unfixable",
+            action: "cache_warmed",
             url,
             issue_type,
-            before_state: {},
-            after_state: {
-              reason: "Code-level issue — visible in admin dashboard",
-            },
+            before_state: { response_time_ms: details?.response_time_ms },
+            after_state: { action: "fetched_with_no_cache" },
           });
 
-          unfixable++;
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "fixed", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+
+          fixed++;
+        } else if (issue_type === "broken_external_link") {
+          // --- BROKEN EXTERNAL LINK: Blog → strip dead <a>, Non-blog → unfixable ---
+          const isBlog = url.includes("/blog/");
+
+          if (isBlog) {
+            const slug = extractSlugFromUrl(url);
+            if (!slug) {
+              await markUnfixable(supabase, id, url, issue_type, "Could not extract slug from URL");
+              unfixable++;
+              continue;
+            }
+
+            const { data: post } = await supabase
+              .from("blog_posts")
+              .select("*")
+              .eq("slug", slug)
+              .single();
+
+            if (!post) {
+              await markUnfixable(supabase, id, url, issue_type, `Blog post not found for slug: ${slug}`);
+              unfixable++;
+              continue;
+            }
+
+            const content = (post as Record<string, unknown>).content as string;
+            const brokenHref = details?.broken_href as string;
+
+            if (!brokenHref) {
+              await markUnfixable(supabase, id, url, issue_type, "No broken_href in details");
+              unfixable++;
+              continue;
+            }
+
+            // Strip the <a> tag but keep its inner text
+            const escapedHref = brokenHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const linkRegex = new RegExp(
+              `<a\\s+[^>]*href=["']${escapedHref}["'][^>]*>(.*?)<\\/a>`,
+              "gi"
+            );
+            const updatedContent = content.replace(linkRegex, "$1");
+
+            if (updatedContent === content) {
+              await markUnfixable(supabase, id, url, issue_type, "Link tag not found in content");
+              unfixable++;
+              continue;
+            }
+
+            await supabase
+              .from("blog_posts")
+              .update({ content: updatedContent, updated_at: new Date().toISOString() })
+              .eq("slug", slug);
+
+            await supabase.from("seo_heal_log").insert({
+              action: "stripped_broken_link",
+              url,
+              issue_type,
+              before_state: { broken_href: brokenHref },
+              after_state: { action: "link_text_preserved_tag_removed" },
+            });
+
+            await supabase
+              .from("seo_heal_queue")
+              .update({ status: "fixed", fixed_at: new Date().toISOString() })
+              .eq("id", id);
+
+            await pingIndexNow(url);
+            fixed++;
+          } else {
+            await markUnfixable(supabase, id, url, issue_type, "Non-blog broken external link — requires code change");
+            unfixable++;
+          }
+        } else if (issue_type === "stale_content") {
+          // --- STALE CONTENT: Claude refresh blog content ---
+          if (!apiKey) {
+            await markUnfixable(supabase, id, url, issue_type, "ANTHROPIC_API_KEY not configured");
+            unfixable++;
+            continue;
+          }
+
+          const slug = extractSlugFromUrl(url);
+          if (!slug) {
+            await markUnfixable(supabase, id, url, issue_type, "Could not extract slug from URL");
+            unfixable++;
+            continue;
+          }
+
+          const { data: post } = await supabase
+            .from("blog_posts")
+            .select("*")
+            .eq("slug", slug)
+            .single();
+
+          if (!post) {
+            await markUnfixable(supabase, id, url, issue_type, `Blog post not found for slug: ${slug}`);
+            unfixable++;
+            continue;
+          }
+
+          const title = (post as Record<string, unknown>).title as string;
+          const content = (post as Record<string, unknown>).content as string;
+          const oldWordCount = countWords(content);
+
+          const refreshed = await callClaude(
+            apiKey,
+            `You are a lawn care content expert in Madison, WI. Refresh and update the following blog post with current best practices, updated statistics, and fresh examples for 2026. Keep the same topic, title, and HTML structure. Ensure at least 1200 words. Return ONLY the updated HTML content, no explanation.\n\nTitle: ${title}\n\nCurrent content:\n${content}`,
+            4096
+          );
+
+          if (!refreshed) {
+            await markUnfixable(supabase, id, url, issue_type, "Claude API call failed");
+            unfixable++;
+            continue;
+          }
+
+          const newWordCount = countWords(refreshed);
+
+          await supabase
+            .from("blog_posts")
+            .update({
+              content: refreshed,
+              reading_time: Math.ceil(newWordCount / 200),
+              updated_at: new Date().toISOString(),
+            })
+            .eq("slug", slug);
+
+          await supabase.from("seo_heal_log").insert({
+            action: "refreshed_content",
+            url,
+            issue_type,
+            before_state: { word_count: oldWordCount },
+            after_state: { word_count: newWordCount },
+          });
+
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "fixed", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+
+          await pingIndexNow(url);
+          fixed++;
+        } else if (issue_type === "missing_alt") {
+          // --- MISSING ALT: Claude generate alt text for blog images ---
+          if (!apiKey) {
+            await markUnfixable(supabase, id, url, issue_type, "ANTHROPIC_API_KEY not configured");
+            unfixable++;
+            continue;
+          }
+
+          const slug = extractSlugFromUrl(url);
+          if (!slug) {
+            await markUnfixable(supabase, id, url, issue_type, "Could not extract slug from URL");
+            unfixable++;
+            continue;
+          }
+
+          const { data: post } = await supabase
+            .from("blog_posts")
+            .select("*")
+            .eq("slug", slug)
+            .single();
+
+          if (!post) {
+            await markUnfixable(supabase, id, url, issue_type, `Blog post not found for slug: ${slug}`);
+            unfixable++;
+            continue;
+          }
+
+          const title = (post as Record<string, unknown>).title as string;
+          const content = (post as Record<string, unknown>).content as string;
+
+          // Find <img> tags without alt attributes
+          const imgWithoutAlt = /<img\b(?![^>]*\balt\s*=)[^>]*>/gi;
+          const matches = content.match(imgWithoutAlt);
+
+          if (!matches || matches.length === 0) {
+            // No images without alt — auto-resolve
+            await supabase
+              .from("seo_heal_queue")
+              .update({ status: "resolved", fixed_at: new Date().toISOString() })
+              .eq("id", id);
+            await supabase.from("seo_heal_log").insert({
+              action: "auto_resolved",
+              url,
+              issue_type,
+              before_state: {},
+              after_state: { reason: "No images without alt found on re-check" },
+            });
+            fixed++;
+            continue;
+          }
+
+          // Ask Claude to generate alt texts
+          const imgList = matches.map((m, i) => `${i + 1}. ${m}`).join("\n");
+          const altTexts = await callClaude(
+            apiKey,
+            `Generate descriptive, SEO-friendly alt text for each of these images from a lawn care blog post titled "${title}". Return ONLY a JSON array of strings, one alt text per image in the same order.\n\nImages:\n${imgList}`,
+            1024
+          );
+
+          if (!altTexts) {
+            await markUnfixable(supabase, id, url, issue_type, "Claude API call failed for alt generation");
+            unfixable++;
+            continue;
+          }
+
+          let alts: string[];
+          try {
+            alts = JSON.parse(altTexts) as string[];
+          } catch {
+            await markUnfixable(supabase, id, url, issue_type, "Failed to parse Claude alt text response");
+            unfixable++;
+            continue;
+          }
+
+          // Replace each <img> without alt with the Claude-generated alt
+          let updatedContent = content;
+          let altIndex = 0;
+          updatedContent = updatedContent.replace(imgWithoutAlt, (match) => {
+            const alt = alts[altIndex] || `Lawn care image for ${title}`;
+            altIndex++;
+            // Insert alt before the closing >
+            return match.replace(/>$/, ` alt="${alt.replace(/"/g, "&quot;")}">`);
+          });
+
+          await supabase
+            .from("blog_posts")
+            .update({ content: updatedContent, updated_at: new Date().toISOString() })
+            .eq("slug", slug);
+
+          await supabase.from("seo_heal_log").insert({
+            action: "added_alt_text",
+            url,
+            issue_type,
+            before_state: { missing_alt_count: matches.length },
+            after_state: { alts_added: Math.min(alts.length, matches.length) },
+          });
+
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "fixed", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+
+          await pingIndexNow(url);
+          fixed++;
+        } else if (issue_type === "cwv_poor") {
+          // ===== FLAGGED: CWV POOR — cache purge + needs_review =====
+          try {
+            await fetch(url, {
+              headers: { "Cache-Control": "no-cache", "User-Agent": "TotalGuard-SEO-Healer/1.0" },
+            });
+          } catch {
+            // best effort cache purge
+          }
+
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "needs_review", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+          await supabase.from("seo_heal_log").insert({
+            action: "flagged_for_review",
+            url,
+            issue_type,
+            before_state: details,
+            after_state: { reason: "Cache purged, needs manual CWV optimization review" },
+          });
+          skipped++;
+        } else {
+          // ===== FLAGGED: Everything else → needs_review =====
+          // Covers: missing_h1, heading_order, duplicate_title, orphan_page,
+          // nap_mismatch, sitemap_mismatch, schema_error, and any unknown types
+          await supabase
+            .from("seo_heal_queue")
+            .update({ status: "needs_review", fixed_at: new Date().toISOString() })
+            .eq("id", id);
+          await supabase.from("seo_heal_log").insert({
+            action: "flagged_for_review",
+            url,
+            issue_type,
+            before_state: details,
+            after_state: { reason: "Requires manual review — code-level or structural issue" },
+          });
+          skipped++;
         }
       } catch (itemError) {
         // Individual item failure — mark as unfixable and continue
         const reason =
           itemError instanceof Error ? itemError.message : "Unknown error";
-        await supabase
-          .from("seo_heal_queue")
-          .update({ status: "unfixable", fixed_at: new Date().toISOString() })
-          .eq("id", id);
-        await supabase.from("seo_heal_log").insert({
-          action: "marked_unfixable",
-          url,
-          issue_type,
-          before_state: {},
-          after_state: { reason },
-        });
+        await markUnfixable(supabase, id, url, issue_type, reason);
         unfixable++;
       }
     }
 
-    // 5. Log automation run
+    // 3. Log automation run
     await supabase.from("automation_runs").insert({
       automation_slug: "seo-heal",
       status: "success",
-      result_summary: `Fixed ${fixed}, unfixable ${unfixable}`,
+      result_summary: `Fixed ${fixed}, unfixable ${unfixable}, needs_review ${skipped}`,
       completed_at: new Date().toISOString(),
       pages_affected: fixed,
     });

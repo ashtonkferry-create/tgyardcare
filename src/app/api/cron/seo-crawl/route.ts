@@ -10,6 +10,12 @@ interface SeoIssue {
   details: Record<string, unknown>;
 }
 
+interface ProcessResult {
+  issues: SeoIssue[];
+  title: string | null;
+  url: string;
+}
+
 async function fetchWithTimeout(
   url: string,
   timeoutMs: number
@@ -38,7 +44,7 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-async function processUrl(url: string): Promise<SeoIssue[]> {
+async function processUrl(url: string): Promise<ProcessResult> {
   const issues: SeoIssue[] = [];
 
   let html: string;
@@ -57,7 +63,7 @@ async function processUrl(url: string): Promise<SeoIssue[]> {
       severity: "standard",
       details: { error: "fetch_failed_or_timeout" },
     });
-    return issues;
+    return { issues, title: null, url };
   }
 
   // HTTP error
@@ -171,21 +177,89 @@ async function processUrl(url: string): Promise<SeoIssue[]> {
     }
   }
 
-  return issues;
+  // --- NEW CHECK: Broken external links (blog pages only to stay within timeout) ---
+  if (url.includes("/blog/")) {
+    const extLinkRegex = /href=["'](https?:\/\/(?!(?:www\.)?tgyardcare\.com)[^"']+)["']/gi;
+    let extMatch;
+    const checkedExternals = new Set<string>();
+    while ((extMatch = extLinkRegex.exec(html)) !== null) {
+      const extUrl = extMatch[1];
+      if (checkedExternals.has(extUrl)) continue;
+      checkedExternals.add(extUrl);
+      try {
+        const extRes = await fetchWithTimeout(extUrl, 5000);
+        if (extRes.response.status >= 400) {
+          issues.push({
+            url,
+            issue_type: "broken_external_link",
+            severity: "standard",
+            details: { broken_href: extUrl, status: extRes.response.status },
+          });
+        }
+      } catch {
+        issues.push({
+          url,
+          issue_type: "broken_external_link",
+          severity: "standard",
+          details: { broken_href: extUrl, error: "timeout_or_unreachable" },
+        });
+      }
+    }
+  }
+
+  // --- NEW CHECK: H1 count ---
+  const h1Matches = html.match(/<h1\b[^>]*>/gi) || [];
+  if (h1Matches.length === 0) {
+    issues.push({
+      url,
+      issue_type: "missing_h1",
+      severity: "standard",
+      details: { h1_count: 0 },
+    });
+  } else if (h1Matches.length > 1) {
+    issues.push({
+      url,
+      issue_type: "heading_order",
+      severity: "standard",
+      details: { h1_count: h1Matches.length, issue: "multiple_h1" },
+    });
+  }
+
+  // --- NEW CHECK: Image alt coverage (blog pages) ---
+  if (url.includes("/blog/")) {
+    const imgRegex = /<img\b([^>]*)>/gi;
+    let imgMatch;
+    let missingAltCount = 0;
+    while ((imgMatch = imgRegex.exec(html)) !== null) {
+      if (!/\balt\s*=/i.test(imgMatch[1])) {
+        missingAltCount++;
+      }
+    }
+    if (missingAltCount > 0) {
+      issues.push({
+        url,
+        issue_type: "missing_alt",
+        severity: "standard",
+        details: { missing_alt_count: missingAltCount },
+      });
+    }
+  }
+
+  return { issues, title, url };
 }
 
 async function processInPool(
   urls: string[],
   concurrency: number
-): Promise<SeoIssue[]> {
-  const allIssues: SeoIssue[] = [];
+): Promise<ProcessResult[]> {
+  const allResults: ProcessResult[] = [];
   let index = 0;
 
   async function next(): Promise<void> {
     while (index < urls.length) {
       const currentIndex = index++;
-      const issues = await processUrl(urls[currentIndex]);
-      allIssues.push(...issues);
+      const result = await processUrl(urls[currentIndex]);
+      allResults.push(result);
     }
   }
 
@@ -193,7 +267,67 @@ async function processInPool(
     next()
   );
   await Promise.all(workers);
-  return allIssues;
+  return allResults;
+}
+
+// --- NEW: Core Web Vitals via CrUX API ---
+const CWV_PAGES = [
+  "https://tgyardcare.com/",
+  "https://tgyardcare.com/services",
+  "https://tgyardcare.com/services/mowing",
+  "https://tgyardcare.com/reviews",
+  "https://tgyardcare.com/contact",
+];
+
+async function checkCoreWebVitals(): Promise<SeoIssue[]> {
+  const issues: SeoIssue[] = [];
+  for (const pageUrl of CWV_PAGES) {
+    try {
+      const cruxRes = await fetch(
+        "https://chromeuxreport.googleapis.com/v1/records:queryRecord",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: pageUrl }),
+        }
+      );
+      if (!cruxRes.ok) continue;
+      const cruxData = (await cruxRes.json()) as {
+        record?: {
+          metrics?: {
+            largest_contentful_paint?: { percentiles?: { p75?: number } };
+            cumulative_layout_shift?: { percentiles?: { p75?: number } };
+            interaction_to_next_paint?: { percentiles?: { p75?: number } };
+          };
+        };
+      };
+      const metrics = cruxData.record?.metrics;
+      if (!metrics) continue;
+
+      const lcp = metrics.largest_contentful_paint?.percentiles?.p75;
+      const cls = metrics.cumulative_layout_shift?.percentiles?.p75;
+      const inp = metrics.interaction_to_next_paint?.percentiles?.p75;
+
+      const cwvDetails: Record<string, unknown> = {};
+      let poor = false;
+
+      if (lcp && lcp > 2500) { cwvDetails.lcp_ms = lcp; poor = true; }
+      if (cls && cls > 0.1) { cwvDetails.cls = cls; poor = true; }
+      if (inp && inp > 200) { cwvDetails.inp_ms = inp; poor = true; }
+
+      if (poor) {
+        issues.push({
+          url: pageUrl,
+          issue_type: "cwv_poor",
+          severity: "standard",
+          details: cwvDetails,
+        });
+      }
+    } catch {
+      // CrUX unavailable — skip silently
+    }
+  }
+  return issues;
 }
 
 export async function GET(req: NextRequest) {
@@ -239,9 +373,36 @@ export async function GET(req: NextRequest) {
     }
 
     // 2. Crawl with concurrency pool of 5
-    const allIssues = await processInPool(urls, 5);
+    const allResults = await processInPool(urls, 5);
+    const allIssues: SeoIssue[] = allResults.flatMap((r) => r.issues);
 
-    // 3. Upsert issues into seo_heal_queue
+    // 3. Core Web Vitals check (top 5 pages)
+    const cwvIssues = await checkCoreWebVitals();
+    allIssues.push(...cwvIssues);
+
+    // 4. Duplicate title detection (post-crawl pass)
+    const titleToUrls = new Map<string, string[]>();
+    for (const result of allResults) {
+      if (result.title) {
+        const normalized = result.title.toLowerCase().trim();
+        if (!titleToUrls.has(normalized)) titleToUrls.set(normalized, []);
+        titleToUrls.get(normalized)!.push(result.url);
+      }
+    }
+    for (const [dupTitle, pageUrls] of titleToUrls) {
+      if (pageUrls.length > 1) {
+        for (const pageUrl of pageUrls) {
+          allIssues.push({
+            url: pageUrl,
+            issue_type: "duplicate_title",
+            severity: "standard",
+            details: { title: dupTitle, duplicate_with: pageUrls.filter((u) => u !== pageUrl) },
+          });
+        }
+      }
+    }
+
+    // 5. Upsert issues into seo_heal_queue
     const flaggedKeys = new Set<string>();
 
     for (const issue of allIssues) {
@@ -263,7 +424,7 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    // 4. Auto-resolve: mark items resolved if not flagged this run
+    // 6. Auto-resolve: mark items resolved if not flagged this run
     const { data: existingItems } = await supabase
       .from("seo_heal_queue")
       .select("id, url, issue_type")
@@ -291,7 +452,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 5. Log to automation_runs
+    // 7. Log to automation_runs
     await supabase.from("automation_runs").insert({
       automation_slug: "seo-crawl",
       status: "success",
