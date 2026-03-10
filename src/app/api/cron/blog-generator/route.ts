@@ -338,10 +338,15 @@ Return a JSON object with these exact fields:
       slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`;
     }
 
-    // Calculate reading time
+    // Calculate reading time and validate minimum content length
     const plainText = stripHtml(content);
     const wordCount = plainText.split(/\s+/).filter(Boolean).length;
     const readingTime = Math.ceil(wordCount / 200);
+
+    // Reject thin content that would trigger Soft 404 in Google Search Console
+    if (wordCount < 800) {
+      throw new Error(`Generated content too thin (${wordCount} words, minimum 800). Skipping publish.`);
+    }
 
     /* ── 5. Save to Supabase ── */
     const { error: insertError } = await supabase.from("blog_posts").insert({

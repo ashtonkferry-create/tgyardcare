@@ -117,14 +117,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  const blogCategoryPages: MetadataRoute.Sitemap = [
-    'seasonal-tips', 'service-guides', 'local-guides', 'how-to', 'faq-answers',
-  ].map(slug => ({
-    url: `${baseUrl}/blog/category/${slug}`,
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-    lastModified: now,
-  }));
+  // Only include blog category pages that actually have published posts
+  // Empty categories trigger Soft 404 in Google Search Console
+  let blogCategoryPages: MetadataRoute.Sitemap = [];
+  try {
+    const supabaseCat = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+    const categories = ['seasonal-tips', 'service-guides', 'local-guides', 'how-to', 'faq-answers'];
+    for (const slug of categories) {
+      const { count } = await supabaseCat
+        .from('blog_posts')
+        .select('id', { count: 'exact', head: true })
+        .eq('category', slug)
+        .eq('status', 'published');
+      if (count && count > 0) {
+        blogCategoryPages.push({
+          url: `${baseUrl}/blog/category/${slug}`,
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
+          lastModified: now,
+        });
+      }
+    }
+  } catch {
+    // If Supabase unavailable, omit empty category pages from sitemap entirely
+  }
 
   return [
     ...staticPages,

@@ -4,9 +4,10 @@
 User-agent: *
 Allow: /
 
-# Block admin and internal pages from indexing
+# Block admin, internal pages, and API routes from indexing
 Disallow: /admin
 Disallow: /admin/
+Disallow: /api/
 Disallow: /botfeedback
 
 # Block old Wix API endpoints that Google may still be crawling

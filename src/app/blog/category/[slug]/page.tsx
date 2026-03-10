@@ -42,6 +42,23 @@ export async function generateMetadata({
     return { title: 'Category Not Found | TotalGuard Yard Care' };
   }
 
+  // Check if category has any published posts — noindex empty categories to avoid Soft 404
+  let hasPublishedPosts = false;
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+    const { count } = await supabase
+      .from('blog_posts')
+      .select('id', { count: 'exact', head: true })
+      .eq('category', slug)
+      .eq('status', 'published');
+    hasPublishedPosts = (count ?? 0) > 0;
+  } catch {
+    // If Supabase unavailable, default to noindex (safe fallback)
+  }
+
   const title = `${category.name} | TotalGuard Blog`;
 
   return {
@@ -56,6 +73,7 @@ export async function generateMetadata({
       url: `/blog/category/${slug}`,
       siteName: 'TotalGuard Yard Care',
     },
+    ...(hasPublishedPosts ? {} : { robots: { index: false, follow: true } }),
   };
 }
 
