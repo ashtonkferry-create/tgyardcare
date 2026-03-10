@@ -2,15 +2,15 @@ import type { Metadata } from 'next';
 import ServiceAreasContent from './ServiceAreasContent';
 
 export const metadata: Metadata = {
-  title: 'Service Areas Madison WI | 12+ Communities | TG Yard Care',
-  description: 'TotalGuard serves 12+ communities in Madison WI metro. Mowing, gutters, cleanups & more. Free quotes!',
+  title: 'Lawn Care Service Areas Dane County WI | TotalGuard',
+  description: 'Serving 12+ communities across Dane County. Mowing, gutters, cleanups & more. 4.9★ rated. Free quote: (608) 535-6057.',
   keywords: 'lawn care near me Madison WI, landscaping service areas Wisconsin, yard maintenance Middleton, lawn mowing Waunakee, gutter cleaning Madison area',
   alternates: {
     canonical: 'https://tgyardcare.com/service-areas',
   },
   openGraph: {
-    title: 'Service Areas Madison WI | 12+ Communities | TG Yard Care',
-    description: 'TotalGuard serves 12+ communities in Madison WI metro. Mowing, gutters, cleanups & more. Free quotes!',
+    title: 'Lawn Care Service Areas Dane County WI | TotalGuard',
+    description: 'Serving 12+ communities across Dane County. Mowing, gutters, cleanups & more. 4.9★ rated. Free quote: (608) 535-6057.',
     url: 'https://tgyardcare.com/service-areas',
     siteName: 'TG Yard Care',
     locale: 'en_US',

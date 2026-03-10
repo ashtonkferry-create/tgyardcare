@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/privacy`, changeFrequency: 'yearly', priority: 0.3, lastModified: now },
   ];
 
+  // All 15 service directories (verified against src/app/services/)
   const servicePages: MetadataRoute.Sitemap = [
     'mowing', 'weeding', 'mulching', 'leaf-removal', 'spring-cleanup',
     'fall-cleanup', 'gutter-cleaning', 'gutter-guards', 'garden-beds',
@@ -31,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ].map(slug => ({
     url: `${baseUrl}/services/${slug}`,
     changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    priority: 0.85,
     lastModified: now,
   }));
 
@@ -45,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
+  // Location pages — HIGH priority (local SEO money pages)
   const locationPages: MetadataRoute.Sitemap = [
     'madison', 'middleton', 'waunakee', 'monona', 'sun-prairie',
     'fitchburg', 'verona', 'mcfarland', 'cottage-grove', 'deforest',
@@ -52,7 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ].map(slug => ({
     url: `${baseUrl}/locations/${slug}`,
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.9,
     lastModified: now,
   }));
 

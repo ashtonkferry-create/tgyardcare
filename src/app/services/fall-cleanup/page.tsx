@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import FallCleanupContent from './FallCleanupContent';
 
 export const metadata: Metadata = {
-  title: 'Fall Cleanup Madison WI | Leaf Removal | TG Yard Care',
-  description: 'Protect your lawn from winter damage. Complete fall cleanup in Madison & Dane County. Leaves, gutters & bed prep. Book now!',
+  title: 'Fall Cleanup Madison WI — 4.9★ Rated | TotalGuard',
+  description: 'Complete fall cleanup in Madison & Dane County. Leaves, gutters & bed prep included. Free quote: (608) 535-6057.',
   keywords: 'fall cleanup Madison WI, leaf removal Middleton, autumn cleanup Waunakee, Sun Prairie fall yard service, Fitchburg winterization, Dane County fall maintenance',
   alternates: { canonical: 'https://tgyardcare.com/services/fall-cleanup' },
   openGraph: {
-    title: 'Fall Cleanup Madison WI | Leaf Removal | TG Yard Care',
-    description: 'Protect your lawn from winter damage. Complete fall cleanup in Madison & Dane County. Leaves, gutters & bed prep. Book now!',
+    title: 'Fall Cleanup Madison WI — 4.9★ Rated | TotalGuard',
+    description: 'Complete fall cleanup in Madison & Dane County. Leaves, gutters & bed prep included. Free quote: (608) 535-6057.',
     url: 'https://tgyardcare.com/services/fall-cleanup',
     siteName: 'TG Yard Care',
     locale: 'en_US',
