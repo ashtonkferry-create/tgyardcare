@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { contactFormSchema } from '@/lib/validation';
-import { z } from 'zod';
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,7 +20,6 @@ export async function POST(req: NextRequest) {
 
     const data = result.data;
 
-    // Save lead to Supabase directly — no edge function dependency
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey =
       process.env.SUPABASE_SERVICE_ROLE_KEY ??
@@ -29,7 +27,6 @@ export async function POST(req: NextRequest) {
 
     if (!supabaseUrl || !supabaseKey) {
       console.error('[contact] Missing Supabase env vars');
-      // Still return success — don't block the user
       return NextResponse.json({ success: true });
     }
 
@@ -39,6 +36,7 @@ export async function POST(req: NextRequest) {
     const firstName = nameParts[0] ?? data.name;
     const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
+    // 1. Save to leads table (for lead scoring, n8n workflows, pipeline)
     const { error: dbError } = await supabase.from('leads').insert({
       first_name: firstName,
       last_name: lastName || null,
@@ -48,12 +46,31 @@ export async function POST(req: NextRequest) {
       notes: data.message,
       status: 'new',
       referral_source: 'contact_form',
-      lead_score: 60, // baseline for form submissions
+      lead_score: 60,
     });
 
     if (dbError) {
       console.error('[contact] DB insert error:', dbError.message);
-      // Don't block user — log and return success
+    }
+
+    // 2. Call edge function to send confirmation + owner notification emails
+    try {
+      const { error: fnError } = await supabase.functions.invoke('contact-form', {
+        body: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          message: data.message,
+        },
+      });
+
+      if (fnError) {
+        console.error('[contact] Edge function error:', fnError.message);
+      }
+    } catch (emailErr) {
+      console.error('[contact] Email sending error:', emailErr);
+      // Don't block user — lead is already saved
     }
 
     return NextResponse.json({ success: true });

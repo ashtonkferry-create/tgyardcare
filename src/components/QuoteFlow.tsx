@@ -176,9 +176,27 @@ export function QuoteFlow({ initialService, initialTier, onComplete, className =
     leadData.lead_score = calculateLeadScore(leadData);
 
     submitLead.mutate(leadData, {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         goNext();
         onComplete?.(data?.id ?? '');
+
+        // Trigger confirmation + owner notification emails via edge function
+        try {
+          const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+          await fetch('/api/lead-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: fullName,
+              email: formData.email,
+              phone: formData.phone,
+              address: formData.address || '',
+              message: formData.notes || `Quote request: ${formData.tier} tier, ${formData.frequency} frequency`,
+            }),
+          });
+        } catch {
+          // Non-blocking — lead is already saved
+        }
       },
       onError: (error) => {
         const message = error instanceof Error ? error.message : 'Failed to submit. Please try again.';
