@@ -20,17 +20,44 @@
       "name": "Fetch All Customers",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 300]
+      "position": [220, 200]
     },
     {
       "parameters": {
-        "jsCode": "const week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Fall cleanup season is here — book TotalGuard!', body: 'Hi {name},\\n\\nLeaves are starting to fall in Madison! TotalGuard\\'s fall cleanup includes leaf removal, yard cleanup, and bed prep for winter.\\n\\nBook your fall cleanup at tgyardcare.com' },\n  { subject: 'Your lawn needs aeration before winter', body: 'Hi {name},\\n\\nFall aeration is the single best thing you can do for your lawn before winter. Core aeration reduces compaction and helps roots grow stronger.\\n\\nBook aeration at tgyardcare.com or call (608) 535-6057' },\n  { subject: \"Don't forget your gutters this fall!\", body: 'Hi {name},\\n\\nLeaf-clogged gutters can cause serious damage over winter. TotalGuard gutter cleaning removes all debris and flushes downspouts.\\n\\nBook gutter cleaning at tgyardcare.com' },\n  { subject: 'Winterize now — your lawn will thank you in spring', body: 'Hi {name},\\n\\nOur complete fall package: cleanup + aeration + final fertilization + gutter cleaning. Everything your property needs before the first frost.\\n\\ntgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nreturn $input.all().map(i => ({ json: { ...i.json, subject: template.subject, body: template.body.replace('{name}', i.json.first_name || 'there') } }));"
+        "method": "GET",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends?workflow_name=eq.fall_nurture&select=contact_email,email_type",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }] }
+      },
+      "id": "fetch-sent",
+      "name": "Fetch Sent History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Fall cleanup season is here — book TotalGuard!', body: 'Hi {name},\\n\\nLeaves are starting to fall in Madison! TotalGuard\\'s fall cleanup includes leaf removal, yard cleanup, and bed prep for winter.\\n\\nBook your fall cleanup at tgyardcare.com' },\n  { subject: 'Your lawn needs aeration before winter', body: 'Hi {name},\\n\\nFall aeration is the single best thing you can do for your lawn before winter. Core aeration reduces compaction and helps roots grow stronger.\\n\\nBook aeration at tgyardcare.com or call (608) 535-6057' },\n  { subject: \"Don't forget your gutters this fall!\", body: 'Hi {name},\\n\\nLeaf-clogged gutters can cause serious damage over winter. TotalGuard gutter cleaning removes all debris and flushes downspouts.\\n\\nBook gutter cleaning at tgyardcare.com' },\n  { subject: 'Winterize now — your lawn will thank you in spring', body: 'Hi {name},\\n\\nOur complete fall package: cleanup + aeration + final fertilization + gutter cleaning. Everything your property needs before the first frost.\\n\\ntgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nconst emailType = `fall_week_${emailIdx + 1}`;\n\n// Build dedup set\nconst sentItems = $('Fetch Sent History').all().map(i => i.json);\nconst sentSet = new Set(sentItems.map(s => `${s.contact_email}|${s.email_type}`));\n\nconst results = [];\nfor (const item of $input.all()) {\n  const c = item.json;\n  if (!c.email) continue;\n  const dedupKey = `${c.email}|${emailType}`;\n  if (sentSet.has(dedupKey)) continue;\n  results.push({ json: { ...c, subject: template.subject, body: template.body.replace('{name}', c.first_name || 'there'), emailType } });\n}\nreturn results.length > 0 ? results : [{ json: { _skip: true } }];"
       },
       "id": "build-email",
       "name": "Build Fall Email",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -46,13 +73,33 @@
       "name": "Send Fall Nurture Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $json.email }}\", \"workflow_name\": \"fall_nurture\", \"email_type\": \"{{ $json.emailType }}\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "continueOnFail": true
     }
   ],
   "connections": {
-    "Weekly Mon 9am CT Aug-Sep": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }]] },
+    "Weekly Mon 9am CT Aug-Sep": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }, { "node": "Fetch Sent History", "type": "main", "index": 0 }]] },
     "Fetch All Customers": { "main": [[{ "node": "Build Fall Email", "type": "main", "index": 0 }]] },
-    "Build Fall Email": { "main": [[{ "node": "Send Fall Nurture Email", "type": "main", "index": 0 }]] }
+    "Fetch Sent History": { "main": [[{ "node": "Build Fall Email", "type": "main", "index": 1 }]] },
+    "Build Fall Email": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Send Fall Nurture Email", "type": "main", "index": 0 }]] },
+    "Send Fall Nurture Email": { "main": [[{ "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

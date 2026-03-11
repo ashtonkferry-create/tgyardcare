@@ -24,13 +24,27 @@
     },
     {
       "parameters": {
-        "jsCode": "const results = [];\nconst stages = [\n  { days: 30, stage: 1, subject: 'We miss your lawn! 🌿', body: 'Hi {name}, it\\'s been a while! Here\\'s a seasonal tip: {tip}. Ready to book? tgyardcare.com' },\n  { days: 60, stage: 2, subject: 'Your Madison neighbors are loving their lawns', body: 'Hi {name}, TotalGuard is keeping hundreds of Madison yards beautiful. We\\'d love to get yours back on track! tgyardcare.com' },\n  { days: 90, stage: 3, subject: '10% comeback offer — just for you', body: 'Hi {name}, we want you back! Use code COMEBACK10 for 10% off your next service. Book at tgyardcare.com or call (608) 535-6057.' },\n  { days: 120, stage: 4, subject: 'Last chance: 15% off to come back to TotalGuard', body: 'Hi {name}, this is your last discount offer: 15% off when you rebook. Code: LASTCHANCE15. Valid 7 days. tgyardcare.com' },\n  { days: 180, stage: 5, subject: 'Should we remove you from our list?', body: 'Hi {name}, we haven\\'t heard from you in a while. Should we remove you? If you\\'d like to stay connected, reply STAY. Otherwise no action needed.' }\n];\nfor (const item of $input.all()) {\n  const c = item.json;\n  if (!c.last_job_completed_at || !c.email) continue;\n  const daysSince = Math.floor((Date.now() - new Date(c.last_job_completed_at)) / (1000*60*60*24));\n  const currentStage = c.reengagement_stage || 0;\n  const nextStage = stages.find(s => s.days <= daysSince && s.stage > currentStage);\n  if (!nextStage) continue;\n  const tip = 'water deeply twice a week and avoid cutting more than 1/3 of grass height';\n  results.push({ json: { ...c, subject: nextStage.subject, body: nextStage.body.replace('{name}', c.first_name).replace('{tip}', tip), newStage: nextStage.stage } });\n}\nreturn results;"
+        "jsCode": "const results = [];\nconst stages = [\n  { days: 30, stage: 1, subject: 'We miss your lawn! 🌿', body: 'Hi {name}, it\\'s been a while! Here\\'s a seasonal tip: {tip}. Ready to book? tgyardcare.com' },\n  { days: 60, stage: 2, subject: 'Your Madison neighbors are loving their lawns', body: 'Hi {name}, TotalGuard is keeping hundreds of Madison yards beautiful. We\\'d love to get yours back on track! tgyardcare.com' },\n  { days: 90, stage: 3, subject: '10% comeback offer — just for you', body: 'Hi {name}, we want you back! Use code COMEBACK10 for 10% off your next service. Book at tgyardcare.com or call (608) 535-6057.' },\n  { days: 120, stage: 4, subject: 'Last chance: 15% off to come back to TotalGuard', body: 'Hi {name}, this is your last discount offer: 15% off when you rebook. Code: LASTCHANCE15. Valid 7 days. tgyardcare.com' },\n  { days: 180, stage: 5, subject: 'Should we remove you from our list?', body: 'Hi {name}, we haven\\'t heard from you in a while. Should we remove you? If you\\'d like to stay connected, reply STAY. Otherwise no action needed.' }\n];\nfor (const item of $input.all()) {\n  const c = item.json;\n  if (!c.last_job_completed_at || !c.email) continue;\n  const daysSince = Math.floor((Date.now() - new Date(c.last_job_completed_at)) / (1000*60*60*24));\n  const currentStage = c.reengagement_stage || 0;\n  const nextStage = stages.find(s => s.days <= daysSince && s.stage > currentStage);\n  if (!nextStage) continue;\n  const tip = 'water deeply twice a week and avoid cutting more than 1/3 of grass height';\n  results.push({ json: { ...c, subject: nextStage.subject, body: nextStage.body.replace('{name}', c.first_name).replace('{tip}', tip), newStage: nextStage.stage } });\n}\nreturn results.length > 0 ? results : [{ json: { _skip: true } }];"
       },
       "id": "determine-stage",
       "name": "Determine Reengagement Stage",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -46,29 +60,47 @@
       "name": "Send Reengagement Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
     },
     {
       "parameters": {
         "method": "PATCH",
-        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/customers?id=eq.{{$('Determine Reengagement Stage').first().json.id}}",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/customers?id=eq.{{$('Determine Reengagement Stage').item.json.id}}",
         "sendHeaders": true,
         "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }] },
         "sendBody": true,
-        "bodyParameters": { "parameters": [{ "name": "reengagement_stage", "value": "={{$('Determine Reengagement Stage').first().json.newStage}}" }] }
+        "bodyParameters": { "parameters": [{ "name": "reengagement_stage", "value": "={{$('Determine Reengagement Stage').item.json.newStage}}" }] }
       },
       "id": "update-stage",
       "name": "Update Customer Stage",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [880, 300]
+      "position": [1000, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $('Determine Reengagement Stage').item.json.email }}\", \"workflow_name\": \"reengagement\", \"email_type\": \"reengagement_stage_{{ $('Determine Reengagement Stage').item.json.newStage }}\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 400],
+      "continueOnFail": true
     }
   ],
   "connections": {
     "Daily 8am CT": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }]] },
     "Fetch All Customers": { "main": [[{ "node": "Determine Reengagement Stage", "type": "main", "index": 0 }]] },
-    "Determine Reengagement Stage": { "main": [[{ "node": "Send Reengagement Email", "type": "main", "index": 0 }]] },
-    "Send Reengagement Email": { "main": [[{ "node": "Update Customer Stage", "type": "main", "index": 0 }]] }
+    "Determine Reengagement Stage": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Send Reengagement Email", "type": "main", "index": 0 }]] },
+    "Send Reengagement Email": { "main": [[{ "node": "Update Customer Stage", "type": "main", "index": 0 }, { "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

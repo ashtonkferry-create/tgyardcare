@@ -12,7 +12,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/customers?select=id,first_name,email,job_count,total_spend,referrals_count,reviews_count&order=total_spend.desc&limit=50",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/customers?select=id,first_name,email,job_count,total_spend,referrals_count,reviews_count,tier&order=total_spend.desc&limit=50",
         "sendHeaders": true,
         "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }] }
       },
@@ -24,13 +24,27 @@
     },
     {
       "parameters": {
-        "jsCode": "const customers = $input.all().map(i => i.json);\nconst threshold = Math.floor(customers.length * 0.2);\nconst vipCandidates = customers.slice(0, threshold);\nreturn vipCandidates.map(c => ({ json: c }));"
+        "jsCode": "const customers = $input.all().map(i => i.json);\nconst threshold = Math.floor(customers.length * 0.2);\nconst vipCandidates = customers.slice(0, threshold);\n// Only upgrade customers not already VIP\nconst newVips = vipCandidates.filter(c => c.tier !== 'vip');\nreturn newVips.length > 0 ? newVips.map(c => ({ json: c })) : [{ json: { _skip: true } }];"
       },
       "id": "select-vip",
       "name": "Select Top 20% VIPs",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -45,7 +59,7 @@
       "name": "Mark as VIP",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
     },
     {
       "parameters": {
@@ -61,14 +75,33 @@
       "name": "Send VIP Welcome Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [880, 300]
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $json.email }}\", \"workflow_name\": \"vip_upgrade\", \"email_type\": \"vip_welcome\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1220, 300],
+      "continueOnFail": true
     }
   ],
   "connections": {
     "Monthly 1st 9am CT": { "main": [[{ "node": "Fetch Top Customers", "type": "main", "index": 0 }]] },
     "Fetch Top Customers": { "main": [[{ "node": "Select Top 20% VIPs", "type": "main", "index": 0 }]] },
-    "Select Top 20% VIPs": { "main": [[{ "node": "Mark as VIP", "type": "main", "index": 0 }]] },
-    "Mark as VIP": { "main": [[{ "node": "Send VIP Welcome Email", "type": "main", "index": 0 }]] }
+    "Select Top 20% VIPs": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Mark as VIP", "type": "main", "index": 0 }]] },
+    "Mark as VIP": { "main": [[{ "node": "Send VIP Welcome Email", "type": "main", "index": 0 }]] },
+    "Send VIP Welcome Email": { "main": [[{ "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

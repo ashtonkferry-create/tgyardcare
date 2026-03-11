@@ -20,17 +20,44 @@
       "name": "Fetch Recently Completed Jobs",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 300]
+      "position": [220, 200]
     },
     {
       "parameters": {
-        "jsCode": "const map = { 'Lawn Mowing': ['Fertilization','Aeration','Weeding'], 'Spring Cleanup': ['Lawn Mowing','Mulching','Garden Bed Care'], 'Fall Cleanup': ['Leaf Removal','Gutter Cleaning','Aeration'], 'Gutter Cleaning': ['Gutter Guard Installation','Fall Cleanup'], 'Snow Removal': ['Spring Cleanup'], 'Garden Bed Care': ['Mulching','Bush Trimming','Hardscaping'], 'Fertilization': ['Aeration','Herbicide Services'], 'Leaf Removal': ['Gutter Cleaning','Fall Cleanup'], 'Aeration': ['Fertilization','Herbicide Services'], 'Mulching': ['Garden Bed Care','Bush Trimming'] };\nconst results = [];\nfor (const item of $input.all()) {\n  const job = item.json;\n  const suggestions = map[job.parsed_service] || ['Lawn Mowing','Spring Cleanup'];\n  const suggest = suggestions[0];\n  results.push({ json: { ...job, suggest_service: suggest, subject: `Have you tried TotalGuard's ${suggest}?` } });\n}\nreturn results;"
+        "method": "GET",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends?workflow_name=eq.cross_sell&select=contact_email,email_type",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }] }
+      },
+      "id": "fetch-sent",
+      "name": "Fetch Sent History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const map = { 'Lawn Mowing': ['Fertilization','Aeration','Weeding'], 'Spring Cleanup': ['Lawn Mowing','Mulching','Garden Bed Care'], 'Fall Cleanup': ['Leaf Removal','Gutter Cleaning','Aeration'], 'Gutter Cleaning': ['Gutter Guard Installation','Fall Cleanup'], 'Snow Removal': ['Spring Cleanup'], 'Garden Bed Care': ['Mulching','Bush Trimming','Hardscaping'], 'Fertilization': ['Aeration','Herbicide Services'], 'Leaf Removal': ['Gutter Cleaning','Fall Cleanup'], 'Aeration': ['Fertilization','Herbicide Services'], 'Mulching': ['Garden Bed Care','Bush Trimming'] };\n\n// Build dedup set from sent history\nconst sentItems = $('Fetch Sent History').all().map(i => i.json);\nconst sentSet = new Set(sentItems.map(s => `${s.contact_email}|${s.email_type}`));\n\nconst results = [];\nfor (const item of $input.all()) {\n  const job = item.json;\n  const suggestions = map[job.parsed_service] || ['Lawn Mowing','Spring Cleanup'];\n  const suggest = suggestions[0];\n  const dedupKey = `${job.parsed_customer_email}|cross_sell_${suggest}`;\n  if (sentSet.has(dedupKey)) continue;\n  results.push({ json: { ...job, suggest_service: suggest, subject: `Have you tried TotalGuard's ${suggest}?` } });\n}\nreturn results.length > 0 ? results : [{ json: { _skip: true } }];"
       },
       "id": "build-crosssell",
       "name": "Build Cross-sell Suggestion",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -46,13 +73,33 @@
       "name": "Send Cross-sell Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $('Build Cross-sell Suggestion').item.json.parsed_customer_email }}\", \"workflow_name\": \"cross_sell\", \"email_type\": \"cross_sell_{{ $('Build Cross-sell Suggestion').item.json.suggest_service }}\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "continueOnFail": true
     }
   ],
   "connections": {
-    "Daily 11am CT": { "main": [[{ "node": "Fetch Recently Completed Jobs", "type": "main", "index": 0 }]] },
+    "Daily 11am CT": { "main": [[{ "node": "Fetch Recently Completed Jobs", "type": "main", "index": 0 }, { "node": "Fetch Sent History", "type": "main", "index": 0 }]] },
     "Fetch Recently Completed Jobs": { "main": [[{ "node": "Build Cross-sell Suggestion", "type": "main", "index": 0 }]] },
-    "Build Cross-sell Suggestion": { "main": [[{ "node": "Send Cross-sell Email", "type": "main", "index": 0 }]] }
+    "Fetch Sent History": { "main": [[{ "node": "Build Cross-sell Suggestion", "type": "main", "index": 1 }]] },
+    "Build Cross-sell Suggestion": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Send Cross-sell Email", "type": "main", "index": 0 }]] },
+    "Send Cross-sell Email": { "main": [[{ "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

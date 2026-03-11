@@ -20,17 +20,44 @@
       "name": "Fetch All Customers",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 300]
+      "position": [220, 200]
     },
     {
       "parameters": {
-        "jsCode": "const week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Madison snow season is coming — are you ready?', body: 'Hi {name},\\n\\nMadison\\'s snow season is right around the corner! TotalGuard snow removal triggers at 2\"+ snowfall: driveway, walks, porch, and salt.\\n\\nSecure your spot before we\\'re fully booked: tgyardcare.com' },\n  { subject: 'Lock in your snow removal rate — limited spots for 2026-27', body: 'Hi {name},\\n\\nWe only take a limited number of snow removal customers to guarantee 2-hour response time. Spots are going fast.\\n\\nBook your seasonal snow contract at tgyardcare.com or call (608) 535-6057' },\n  { subject: 'Last chance: seasonal snow contract with guaranteed 2-hour response', body: 'Hi {name},\\n\\nThis is your last chance to lock in TotalGuard snow removal before the season starts. Seasonal contract pricing vs. per-visit pricing available.\\n\\nDon\\'t get caught without coverage: tgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nreturn $input.all().map(i => ({ json: { ...i.json, subject: template.subject, body: template.body.replace('{name}', i.json.first_name || 'there') } }));"
+        "method": "GET",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends?workflow_name=eq.snow_nurture&select=contact_email,email_type",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }] }
+      },
+      "id": "fetch-sent",
+      "name": "Fetch Sent History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Madison snow season is coming — are you ready?', body: 'Hi {name},\\n\\nMadison\\'s snow season is right around the corner! TotalGuard snow removal triggers at 2\"+ snowfall: driveway, walks, porch, and salt.\\n\\nSecure your spot before we\\'re fully booked: tgyardcare.com' },\n  { subject: 'Lock in your snow removal rate — limited spots for 2026-27', body: 'Hi {name},\\n\\nWe only take a limited number of snow removal customers to guarantee 2-hour response time. Spots are going fast.\\n\\nBook your seasonal snow contract at tgyardcare.com or call (608) 535-6057' },\n  { subject: 'Last chance: seasonal snow contract with guaranteed 2-hour response', body: 'Hi {name},\\n\\nThis is your last chance to lock in TotalGuard snow removal before the season starts. Seasonal contract pricing vs. per-visit pricing available.\\n\\nDon\\'t get caught without coverage: tgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nconst emailType = `snow_week_${emailIdx + 1}`;\n\n// Build dedup set\nconst sentItems = $('Fetch Sent History').all().map(i => i.json);\nconst sentSet = new Set(sentItems.map(s => `${s.contact_email}|${s.email_type}`));\n\nconst results = [];\nfor (const item of $input.all()) {\n  const c = item.json;\n  if (!c.email) continue;\n  const dedupKey = `${c.email}|${emailType}`;\n  if (sentSet.has(dedupKey)) continue;\n  results.push({ json: { ...c, subject: template.subject, body: template.body.replace('{name}', c.first_name || 'there'), emailType } });\n}\nreturn results.length > 0 ? results : [{ json: { _skip: true } }];"
       },
       "id": "build-email",
       "name": "Build Snow Email",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -46,13 +73,33 @@
       "name": "Send Snow Nurture Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $json.email }}\", \"workflow_name\": \"snow_nurture\", \"email_type\": \"{{ $json.emailType }}\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "continueOnFail": true
     }
   ],
   "connections": {
-    "Weekly Tue 9am CT Oct-Nov": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }]] },
+    "Weekly Tue 9am CT Oct-Nov": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }, { "node": "Fetch Sent History", "type": "main", "index": 0 }]] },
     "Fetch All Customers": { "main": [[{ "node": "Build Snow Email", "type": "main", "index": 0 }]] },
-    "Build Snow Email": { "main": [[{ "node": "Send Snow Nurture Email", "type": "main", "index": 0 }]] }
+    "Fetch Sent History": { "main": [[{ "node": "Build Snow Email", "type": "main", "index": 1 }]] },
+    "Build Snow Email": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Send Snow Nurture Email", "type": "main", "index": 0 }]] },
+    "Send Snow Nurture Email": { "main": [[{ "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

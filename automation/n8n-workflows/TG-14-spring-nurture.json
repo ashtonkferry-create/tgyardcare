@@ -20,17 +20,44 @@
       "name": "Fetch All Customers",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [220, 300]
+      "position": [220, 200]
     },
     {
       "parameters": {
-        "jsCode": "const month = new Date().getMonth() + 1;\nconst week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Spring is coming — time to prep your Madison yard!', body: 'Hi {name},\\n\\nSpring is just around the corner! TotalGuard\\'s spring cleanup service gets your yard ready for the season: debris removal, bed prep, and your first mow.\\n\\nBook early — spots fill fast! tgyardcare.com or (608) 535-6057' },\n  { subject: 'Lock in your weekly mowing rate before the rush', body: 'Hi {name},\\n\\nEvery spring our mowing schedule fills up fast. Lock in your rate now and get the same crew every week, guaranteed.\\n\\nBook your weekly mowing at tgyardcare.com' },\n  { subject: 'Complete spring package — cleanup + first mow + fertilization', body: 'Hi {name},\\n\\nOur complete spring package includes: full yard cleanup, first mow of the season, and a fertilization treatment. One booking, handled.\\n\\nGet your spring package at tgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nreturn $input.all().map(i => ({ json: { ...i.json, subject: template.subject, body: template.body.replace('{name}', i.json.first_name || 'there'), weekNum: emailIdx + 1 } }));"
+        "method": "GET",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends?workflow_name=eq.spring_nurture&select=contact_email,email_type",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }] }
+      },
+      "id": "fetch-sent",
+      "name": "Fetch Sent History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const month = new Date().getMonth() + 1;\nconst week = Math.ceil(new Date().getDate() / 7);\nconst emails = [\n  { subject: 'Spring is coming — time to prep your Madison yard!', body: 'Hi {name},\\n\\nSpring is just around the corner! TotalGuard\\'s spring cleanup service gets your yard ready for the season: debris removal, bed prep, and your first mow.\\n\\nBook early — spots fill fast! tgyardcare.com or (608) 535-6057' },\n  { subject: 'Lock in your weekly mowing rate before the rush', body: 'Hi {name},\\n\\nEvery spring our mowing schedule fills up fast. Lock in your rate now and get the same crew every week, guaranteed.\\n\\nBook your weekly mowing at tgyardcare.com' },\n  { subject: 'Complete spring package — cleanup + first mow + fertilization', body: 'Hi {name},\\n\\nOur complete spring package includes: full yard cleanup, first mow of the season, and a fertilization treatment. One booking, handled.\\n\\nGet your spring package at tgyardcare.com' }\n];\nconst emailIdx = Math.min(week - 1, emails.length - 1);\nconst template = emails[emailIdx];\nconst emailType = `spring_week_${emailIdx + 1}`;\n\n// Build dedup set\nconst sentItems = $('Fetch Sent History').all().map(i => i.json);\nconst sentSet = new Set(sentItems.map(s => `${s.contact_email}|${s.email_type}`));\n\nconst results = [];\nfor (const item of $input.all()) {\n  const c = item.json;\n  if (!c.email) continue;\n  const dedupKey = `${c.email}|${emailType}`;\n  if (sentSet.has(dedupKey)) continue;\n  results.push({ json: { ...c, subject: template.subject, body: template.body.replace('{name}', c.first_name || 'there'), emailType } });\n}\nreturn results.length > 0 ? results : [{ json: { _skip: true } }];"
       },
       "id": "build-email",
       "name": "Build Spring Email",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": { "type": "boolean", "operation": "notEquals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "filter-skip",
+      "name": "Filter Skipped",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [600, 300]
     },
     {
       "parameters": {
@@ -46,13 +73,33 @@
       "name": "Send Spring Nurture Email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 300]
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/email_sends",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "apikey", "value": "={{$vars.TG_SUPABASE_ANON_KEY}}" }, { "name": "Authorization", "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}" }, { "name": "Content-Type", "value": "application/json" }, { "name": "Prefer", "value": "return=minimal" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"contact_email\": \"{{ $json.email }}\", \"workflow_name\": \"spring_nurture\", \"email_type\": \"{{ $json.emailType }}\" }"
+      },
+      "id": "log-send",
+      "name": "Log to email_sends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "continueOnFail": true
     }
   ],
   "connections": {
-    "Weekly Mon 9am CT Feb-Mar": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }]] },
+    "Weekly Mon 9am CT Feb-Mar": { "main": [[{ "node": "Fetch All Customers", "type": "main", "index": 0 }, { "node": "Fetch Sent History", "type": "main", "index": 0 }]] },
     "Fetch All Customers": { "main": [[{ "node": "Build Spring Email", "type": "main", "index": 0 }]] },
-    "Build Spring Email": { "main": [[{ "node": "Send Spring Nurture Email", "type": "main", "index": 0 }]] }
+    "Fetch Sent History": { "main": [[{ "node": "Build Spring Email", "type": "main", "index": 1 }]] },
+    "Build Spring Email": { "main": [[{ "node": "Filter Skipped", "type": "main", "index": 0 }]] },
+    "Filter Skipped": { "main": [[{ "node": "Send Spring Nurture Email", "type": "main", "index": 0 }]] },
+    "Send Spring Nurture Email": { "main": [[{ "node": "Log to email_sends", "type": "main", "index": 0 }]] }
   },
   "settings": { "availableInMCP": true }
 }

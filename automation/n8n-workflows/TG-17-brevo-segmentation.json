@@ -334,6 +334,11 @@
             "node": "Needs List Creation",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Add Contacts to List",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
