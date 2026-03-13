@@ -5,13 +5,17 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "tg-lead-capture",
-        "responseMode": "lastNode"
+        "responseMode": "responseNode",
+        "options": {}
       },
-      "id": "lead-capture-webhook",
-      "name": "Lead Capture Webhook",
+      "id": "lead-capture-trigger",
+      "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [0, 0],
+      "position": [
+        0,
+        0
+      ],
       "webhookId": "tg-lead-capture"
     },
     {
@@ -23,43 +27,73 @@
             {
               "id": "first_name",
               "name": "first_name",
-              "value": "={{ $json.body?.first_name || $json.first_name || '' }}",
+              "value": "={{ $json.first_name || $json.firstName || '' }}",
               "type": "string"
             },
             {
               "id": "last_name",
               "name": "last_name",
-              "value": "={{ $json.body?.last_name || $json.last_name || '' }}",
+              "value": "={{ $json.last_name || $json.lastName || '' }}",
               "type": "string"
             },
             {
               "id": "email",
               "name": "email",
-              "value": "={{ ($json.body?.email || $json.email || '').toLowerCase().trim() }}",
+              "value": "={{ ($json.email || '').toLowerCase().trim() }}",
               "type": "string"
             },
             {
               "id": "phone",
               "name": "phone",
-              "value": "={{ ($json.body?.phone || $json.phone || '').replace(/[^\\d+]/g, '') }}",
+              "value": "={{ ($json.phone || '').replace(/[^\\d+]/g, '') }}",
               "type": "string"
             },
             {
               "id": "service",
               "name": "service",
-              "value": "={{ $json.body?.service || $json.service || '' }}",
+              "value": "={{ $json.service || $json.services || '' }}",
               "type": "string"
             },
             {
               "id": "address",
               "name": "address",
-              "value": "={{ $json.body?.address || $json.address || '' }}",
+              "value": "={{ $json.address || '' }}",
               "type": "string"
             },
             {
               "id": "source",
               "name": "source",
-              "value": "={{ $json.body?.source || $json.source || 'website' }}",
+              "value": "={{ $json.source || 'website' }}",
+              "type": "string"
+            },
+            {
+              "id": "utm_source",
+              "name": "utm_source",
+              "value": "={{ $json.utm_params && $json.utm_params.utm_source ? $json.utm_params.utm_source : ($json.utm_source || '') }}",
+              "type": "string"
+            },
+            {
+              "id": "utm_medium",
+              "name": "utm_medium",
+              "value": "={{ $json.utm_params && $json.utm_params.utm_medium ? $json.utm_params.utm_medium : ($json.utm_medium || '') }}",
+              "type": "string"
+            },
+            {
+              "id": "utm_campaign",
+              "name": "utm_campaign",
+              "value": "={{ $json.utm_params && $json.utm_params.utm_campaign ? $json.utm_params.utm_campaign : ($json.utm_campaign || '') }}",
+              "type": "string"
+            },
+            {
+              "id": "utm_term",
+              "name": "utm_term",
+              "value": "={{ $json.utm_params && $json.utm_params.utm_term ? $json.utm_params.utm_term : ($json.utm_term || '') }}",
+              "type": "string"
+            },
+            {
+              "id": "utm_content",
+              "name": "utm_content",
+              "value": "={{ $json.utm_params && $json.utm_params.utm_content ? $json.utm_params.utm_content : ($json.utm_content || '') }}",
               "type": "string"
             }
           ]
@@ -70,7 +104,10 @@
       "name": "Normalize Lead Data",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [220, 0]
+      "position": [
+        220,
+        0
+      ]
     },
     {
       "parameters": {
@@ -80,7 +117,63 @@
       "name": "Score Lead",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 0]
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$vars.TG_SUPABASE_URL}}/rest/v1/leads",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$vars.TG_SUPABASE_ANON_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"first_name\": \"{{ $json.first_name }}\",\n  \"last_name\": \"{{ $json.last_name }}\",\n  \"email\": \"{{ $json.email }}\",\n  \"phone\": \"{{ $json.phone }}\",\n  \"service\": \"{{ $json.service }}\",\n  \"address\": \"{{ $json.address }}\",\n  \"source\": \"{{ $json.source }}\",\n  \"utm_source\": \"{{ $json.utm_source }}\",\n  \"utm_medium\": \"{{ $json.utm_medium }}\",\n  \"utm_campaign\": \"{{ $json.utm_campaign }}\",\n  \"utm_term\": \"{{ $json.utm_term }}\",\n  \"utm_content\": \"{{ $json.utm_content }}\",\n  \"lead_score\": {{ $json.lead_score }},\n  \"lead_tier\": \"{{ $json.lead_tier }}\",\n  \"status\": \"new\"\n}",
+        "options": {}
+      },
+      "id": "insert-supabase-lead",
+      "name": "Insert Supabase Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const leadData = $('Score Lead').first().json;\nconst insertResult = $input.first().json;\nconst lead_id = Array.isArray(insertResult) ? (insertResult[0] && insertResult[0].id) : (insertResult && insertResult.id);\n\nreturn {\n  json: {\n    ...leadData,\n    lead_id: lead_id || null\n  }\n};"
+      },
+      "id": "extract-lead-id",
+      "name": "Extract Lead ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ]
     },
     {
       "parameters": {
@@ -105,58 +198,31 @@
         "options": {}
       },
       "id": "sync-brevo-contact",
-      "name": "Create Brevo Contact",
+      "name": "Sync Brevo Contact",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [660, 0],
+      "position": [
+        1100,
+        0
+      ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "method": "PATCH",
-        "url": "=={{$vars.TG_SUPABASE_URL}}/rest/v1/leads?email=eq.{{$('Score Lead').first().json.email}}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{$vars.TG_SUPABASE_ANON_KEY}}"
-            },
-            {
-              "name": "Authorization",
-              "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"brevo_contact_id\": \"{{ $json.id || '' }}\",\n  \"lead_score\": {{ $('Score Lead').first().json.lead_score }},\n  \"lead_tier\": \"{{ $('Score Lead').first().json.lead_tier }}\",\n  \"nurture_status\": \"enrolled\"\n}",
-        "options": {}
-      },
-      "id": "update-lead-brevo-id",
-      "name": "Update Lead with Brevo ID",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [880, 0],
-      "continueOnFail": true
-    },
-    {
-      "parameters": {
-        "jsCode": "const scored = $('Score Lead').first().json;\nreturn {\n  json: {\n    success: true,\n    email: scored.email,\n    score: scored.lead_score,\n    tier: scored.lead_tier,\n    brevo_synced: !$('Create Brevo Contact').first().json.error\n  }\n};"
+        "jsCode": "const data = $('Extract Lead ID').first().json;\n\nreturn {\n  json: {\n    success: true,\n    lead_id: data.lead_id,\n    score: data.lead_score,\n    tier: data.lead_tier\n  }\n};"
       },
       "id": "build-response",
       "name": "Build Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1100, 0]
+      "position": [
+        1320,
+        0
+      ]
     }
   ],
   "connections": {
-    "Lead Capture Webhook": {
+    "Webhook": {
       "main": [
         [
           {
@@ -182,25 +248,36 @@
       "main": [
         [
           {
-            "node": "Create Brevo Contact",
+            "node": "Insert Supabase Lead",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Create Brevo Contact": {
+    "Insert Supabase Lead": {
       "main": [
         [
           {
-            "node": "Update Lead with Brevo ID",
+            "node": "Extract Lead ID",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Update Lead with Brevo ID": {
+    "Extract Lead ID": {
+      "main": [
+        [
+          {
+            "node": "Sync Brevo Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync Brevo Contact": {
       "main": [
         [
           {
