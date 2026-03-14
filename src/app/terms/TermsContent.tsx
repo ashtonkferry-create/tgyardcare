@@ -86,18 +86,33 @@ export default function TermsContent() {
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4">SMS/Text Messaging Terms</h2>
               <p>
-                By providing your phone number through our website, contact form, or other channels, you consent to receive service-related text messages from TotalGuard Yard Care. These messages may include:
+                <strong>Program Name:</strong> TotalGuard Yard Care SMS Notifications
+              </p>
+              <p className="mt-4">
+                <strong>Program Description:</strong> By providing your phone number through our website contact form at tgyardcare.com/contact, by phone when booking a service, or through any other communication channel, you consent to receive text messages from TotalGuard Yard Care. These messages may include:
               </p>
               <ul className="list-disc pl-6 space-y-2 mt-4">
                 <li>Appointment confirmations and reminders</li>
                 <li>Service updates and scheduling changes</li>
                 <li>Quote follow-ups and responses to your inquiries</li>
+                <li>Review requests after completed services</li>
+                <li>Seasonal service promotions and availability updates</li>
+                <li>Weather-related service notifications</li>
               </ul>
               <p className="mt-4">
-                Message and data rates may apply. Message frequency varies based on your service activity. You may opt out at any time by replying STOP to any message. For help, reply HELP or contact us at (608) 535-6057.
+                <strong>Message Frequency:</strong> Message frequency varies. You may receive up to 10 messages per month depending on your service activity, seasonal promotions, and scheduling updates.
+              </p>
+              <p className="mt-4">
+                <strong>Message and Data Rates:</strong> Message and data rates may apply. Check with your mobile carrier for details about your text messaging plan.
+              </p>
+              <p className="mt-4">
+                <strong>Opt-Out:</strong> You may opt out of receiving text messages at any time by replying <strong>STOP</strong> to any message. After opting out, you will receive a one-time confirmation message and no further texts will be sent.
+              </p>
+              <p className="mt-4">
+                <strong>Help:</strong> For help or questions about our SMS program, reply <strong>HELP</strong> to any message, call us at (608) 535-6057, or email totalguardllc@gmail.com.
               </p>
               <p className="mt-4 p-4 bg-muted rounded-lg border border-border font-medium text-foreground">
-                We will never share your phone number or opt-in data with third parties for marketing purposes. Your consent information is used solely for providing TotalGuard Yard Care services.
+                We will never share your phone number or opt-in data with third parties for marketing purposes. Your consent information is used solely for providing TotalGuard Yard Care services. See our <a href="/privacy" className="underline hover:opacity-80 transition-opacity">Privacy Policy</a> for full details.
               </p>
             </section>
 
