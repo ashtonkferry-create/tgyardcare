@@ -7,7 +7,7 @@
           "item": [
             {
               "mode": "everyX",
-              "value": 5,
+              "value": 15,
               "unit": "minutes"
             }
           ]
@@ -28,14 +28,14 @@
       ],
       "credentials": {
         "imap": {
-          "id": "TG_IMAP",
+          "id": "uDsKlXmOyOV3O5Vn",
           "name": "TG - Jobber Gmail IMAP"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "const email = $input.first().json;\nconst subject = (email.subject || '').trim();\nconst body = email.text || email.html || email.textAsHtml || '';\nconst from = email.from && email.from.text ? email.from.text : (email.from || '');\nconst receivedAt = email.date || new Date().toISOString();\n\n// Determine event type from subject\nlet event_type = 'unknown';\nif (/new request/i.test(subject)) event_type = 'new_request';\nelse if (/job scheduled/i.test(subject)) event_type = 'job_scheduled';\nelse if (/job complet|completed/i.test(subject)) event_type = 'job_completed';\nelse if (/invoice/i.test(subject)) event_type = 'invoice_sent';\nelse if (/payment/i.test(subject)) event_type = 'payment_received';\n\n// Extract customer name\nlet customer_name = '';\nconst nameMatch = body.match(/(?:client|customer|name)[:\\s]+([A-Z][a-z]+ [A-Z][a-z]+)/i)\n  || body.match(/^([A-Z][a-z]+ [A-Z][a-z]+)/m)\n  || subject.match(/for ([A-Z][a-z]+ [A-Z][a-z]+)/i);\nif (nameMatch) customer_name = nameMatch[1].trim();\n\n// Extract email\nlet customer_email = '';\nconst emailMatch = body.match(/[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}/);\nif (emailMatch) customer_email = emailMatch[0].toLowerCase();\n\n// Extract phone\nlet customer_phone = '';\nconst phoneMatch = body.match(/(\\+?1?[\\s.-]?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4})/);\nif (phoneMatch) customer_phone = phoneMatch[1].replace(/[^\\d+]/g, '');\n\n// Extract address\nlet address = '';\nconst addressMatch = body.match(/(\\d+\\s+[A-Za-z0-9\\s,]+(?:St|Ave|Rd|Dr|Ln|Blvd|Way|Ct|Pl|Cir)[.,]?\\s*(?:[A-Za-z]+,?\\s*WI)?\\s*\\d{5}?)/i);\nif (addressMatch) address = addressMatch[1].trim();\n\n// Extract service\nlet service = '';\nconst serviceMatch = body.match(/(?:service|job type|work)[:\\s]+([^\\n\\r]+)/i)\n  || subject.match(/(?:for|re:)[\\s]+([^-\\n]+)/i);\nif (serviceMatch) service = serviceMatch[1].trim();\n\n// Extract dollar amount\nlet amount = null;\nconst amountMatch = body.match(/\\$([\\d,]+(?:\\.\\d{2})?)/);\nif (amountMatch) amount = parseFloat(amountMatch[1].replace(',', ''));\n\n// Extract Jobber job/request ID\nlet jobber_id = '';\nconst jobberIdMatch = body.match(/(?:job|request|invoice)[\\s#]+([A-Z0-9-]+)/i)\n  || subject.match(/#([A-Z0-9-]+)/i);\nif (jobberIdMatch) jobber_id = jobberIdMatch[1];\n\nreturn {\n  json: {\n    event_type,\n    customer_name,\n    customer_email,\n    customer_phone,\n    address,\n    service,\n    amount,\n    jobber_id,\n    email_subject: subject,\n    email_from: from,\n    received_at: receivedAt,\n    raw_subject: subject,\n    processing_status: 'processing'\n  }\n};"
+        "jsCode": "const email = $input.first().json;\nconst subject = (email.subject || '').trim();\nconst body = email.text || email.html || email.textAsHtml || '';\nconst from = email.from && email.from.text ? email.from.text : (email.from || '');\nconst receivedAt = email.date || new Date().toISOString();\n\n// Determine event type from subject\nlet event_type = 'unknown';\nif (/new request/i.test(subject)) event_type = 'new_request';\nelse if (/job scheduled/i.test(subject)) event_type = 'job_scheduled';\nelse if (/job complet|completed/i.test(subject)) event_type = 'job_completed';\nelse if (/invoice/i.test(subject)) event_type = 'invoice_sent';\nelse if (/payment/i.test(subject)) event_type = 'payment_received';\nelse if (/quote|estimate/i.test(subject)) event_type = 'quote_sent';\nelse if (/on (my|the) way|visit confirmed|appointment confirmed|en route/i.test(subject)) event_type = 'visit_confirmed';\nelse if (/accepted|approved|plan confirmed/i.test(subject)) event_type = 'plan_accepted';\n\n// Extract customer name\nlet customer_name = '';\nconst nameMatch = body.match(/(?:client|customer|name)[:\\s]+([A-Z][a-z]+ [A-Z][a-z]+)/i)\n  || body.match(/^([A-Z][a-z]+ [A-Z][a-z]+)/m)\n  || subject.match(/for ([A-Z][a-z]+ [A-Z][a-z]+)/i);\nif (nameMatch) customer_name = nameMatch[1].trim();\n\n// Extract email\nlet customer_email = '';\nconst emailMatch = body.match(/[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}/);\nif (emailMatch) customer_email = emailMatch[0].toLowerCase();\n\n// Extract phone\nlet customer_phone = '';\nconst phoneMatch = body.match(/(\\+?1?[\\s.-]?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4})/);\nif (phoneMatch) customer_phone = phoneMatch[1].replace(/[^\\d+]/g, '');\n\n// Extract address\nlet address = '';\nconst addressMatch = body.match(/(\\d+\\s+[A-Za-z0-9\\s,]+(?:St|Ave|Rd|Dr|Ln|Blvd|Way|Ct|Pl|Cir)[.,]?\\s*(?:[A-Za-z]+,?\\s*WI)?\\s*\\d{5}?)/i);\nif (addressMatch) address = addressMatch[1].trim();\n\n// Extract service\nlet service = '';\nconst serviceMatch = body.match(/(?:service|job type|work)[:\\s]+([^\\n\\r]+)/i)\n  || subject.match(/(?:for|re:)[\\s]+([^-\\n]+)/i);\nif (serviceMatch) service = serviceMatch[1].trim();\n\n// Extract dollar amount\nlet amount = null;\nconst amountMatch = body.match(/\\$([\\d,]+(?:\\.\\d{2})?)/);\nif (amountMatch) amount = parseFloat(amountMatch[1].replace(',', ''));\n\n// Extract Jobber job/request ID\nlet jobber_id = '';\nconst jobberIdMatch = body.match(/(?:job|request|invoice)[\\s#]+([A-Z0-9-]+)/i)\n  || subject.match(/#([A-Z0-9-]+)/i);\nif (jobberIdMatch) jobber_id = jobberIdMatch[1];\n\nreturn {\n  json: {\n    event_type,\n    customer_name,\n    customer_email,\n    customer_phone,\n    address,\n    service,\n    amount,\n    jobber_id,\n    email_subject: subject,\n    email_from: from,\n    received_at: receivedAt,\n    raw_subject: subject,\n    processing_status: 'processing'\n  }\n};"
       },
       "id": "parse-jobber-email",
       "name": "Parse Jobber Email",
@@ -49,17 +49,17 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$vars.TG_SUPABASE_URL}}/rest/v1/jobber_email_events",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/jobber_email_events",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "apikey",
-              "value": "={{$vars.TG_SUPABASE_ANON_KEY}}"
+              "value": "=REDACTED_SUPABASE_ANON_KEY"
             },
             {
               "name": "Authorization",
-              "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}"
+              "value": "=Bearer REDACTED_SUPABASE_SERVICE_KEY"
             },
             {
               "name": "Content-Type",
@@ -136,6 +136,74 @@
               },
               "renameOutput": true,
               "outputKey": "job_completed"
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event_type }}",
+                    "rightValue": "quote_sent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "quote_sent"
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event_type }}",
+                    "rightValue": "invoice_sent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "invoice_sent"
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event_type }}",
+                    "rightValue": "visit_confirmed",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "visit_confirmed"
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event_type }}",
+                    "rightValue": "plan_accepted",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "plan_accepted"
             }
           ]
         },
@@ -155,17 +223,17 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$vars.TG_SUPABASE_URL}}/rest/v1/leads",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/leads",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "apikey",
-              "value": "={{$vars.TG_SUPABASE_ANON_KEY}}"
+              "value": "=REDACTED_SUPABASE_ANON_KEY"
             },
             {
               "name": "Authorization",
-              "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}"
+              "value": "=Bearer REDACTED_SUPABASE_SERVICE_KEY"
             },
             {
               "name": "Content-Type",
@@ -215,7 +283,7 @@
           "parameters": [
             {
               "name": "api-key",
-              "value": "={{$vars.TG_BREVO_API_KEY}}"
+              "value": "=REDACTED_BREVO_API_KEY"
             },
             {
               "name": "Content-Type",
@@ -241,17 +309,17 @@
     {
       "parameters": {
         "method": "PATCH",
-        "url": "={{$vars.TG_SUPABASE_URL}}/rest/v1/jobber_email_events?id=eq.{{ $('Extract Event ID').item.json.event_id }}",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/jobber_email_events?id=eq.{{ $('Extract Event ID').item.json.event_id }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "apikey",
-              "value": "={{$vars.TG_SUPABASE_ANON_KEY}}"
+              "value": "=REDACTED_SUPABASE_ANON_KEY"
             },
             {
               "name": "Authorization",
-              "value": "=Bearer {{$vars.TG_SUPABASE_SERVICE_KEY}}"
+              "value": "=Bearer REDACTED_SUPABASE_SERVICE_KEY"
             },
             {
               "name": "Content-Type",
@@ -277,6 +345,81 @@
         0
       ],
       "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "workflowId": "",
+        "options": {}
+      },
+      "id": "call-tg83",
+      "name": "Call TG-83 Quote Follow-up",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ],
+      "notes": "TODO: Set workflowId after TG-83 is created"
+    },
+    {
+      "parameters": {
+        "workflowId": "",
+        "options": {}
+      },
+      "id": "call-tg84",
+      "name": "Call TG-84 Invoice Collections",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        500
+      ],
+      "notes": "TODO: Set workflowId after TG-84 is created"
+    },
+    {
+      "parameters": {
+        "workflowId": "",
+        "options": {}
+      },
+      "id": "call-tg86",
+      "name": "Call TG-86 Plan Enrollment",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        700
+      ],
+      "notes": "TODO: Set workflowId after TG-86 is created"
+    },
+    {
+      "parameters": {
+        "workflowId": "",
+        "options": {}
+      },
+      "id": "call-tg88",
+      "name": "Call TG-88 On My Way",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        600
+      ],
+      "notes": "TODO: Set workflowId after TG-88 is created"
+    },
+    {
+      "parameters": {
+        "workflowId": "",
+        "options": {}
+      },
+      "id": "call-tg89",
+      "name": "Call TG-89 Invoice Delivery",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        500
+      ],
+      "notes": "TODO: Set workflowId after TG-89 is created"
     }
   ],
   "connections": {
@@ -339,6 +482,39 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Call TG-83 Quote Follow-up",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call TG-84 Invoice Collections",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call TG-89 Invoice Delivery",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call TG-88 On My Way",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Call TG-86 Plan Enrollment",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -374,10 +550,66 @@
           }
         ]
       ]
+    },
+    "Call TG-83 Quote Follow-up": {
+      "main": [
+        [
+          {
+            "node": "Mark Event Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call TG-84 Invoice Collections": {
+      "main": [
+        [
+          {
+            "node": "Mark Event Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call TG-86 Plan Enrollment": {
+      "main": [
+        [
+          {
+            "node": "Mark Event Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call TG-88 On My Way": {
+      "main": [
+        [
+          {
+            "node": "Mark Event Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call TG-89 Invoice Delivery": {
+      "main": [
+        [
+          {
+            "node": "Mark Event Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
-    "availableInMCP": true
+    "availableInMCP": true,
+    "callerPolicy": "workflowsFromSameOwner"
   }
 }
