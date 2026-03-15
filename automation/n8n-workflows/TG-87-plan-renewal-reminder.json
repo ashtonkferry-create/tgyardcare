@@ -1,0 +1,126 @@
+{
+  "name": "TG-87-plan-renewal-reminder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "triggerAtHour": 14, "triggerAtMinute": 0 }]
+        }
+      },
+      "id": "tg87-trigger",
+      "name": "Daily 9 AM CT",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/customer_subscriptions?status=eq.active&end_date=gte.{{ $now.toISODate() }}&end_date=lte.{{ $now.plus(31, 'days').toISODate() }}&select=id,lead_id,plan_id,end_date,renewal_reminder_30d_sent,renewal_reminder_14d_sent,renewal_reminder_3d_sent,leads(first_name,last_name,phone,email)",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" }
+          ]
+        }
+      },
+      "id": "tg87-query",
+      "name": "Find Expiring Plans",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.first().json;\nif (!Array.isArray(results) || results.length === 0) {\n  return { json: { has_results: false } };\n}\n\nconst now = new Date();\nconst output = [];\n\nfor (const sub of results) {\n  const endDate = new Date(sub.end_date);\n  const daysUntil = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));\n  const lead = sub.leads || {};\n  const name = ((lead.first_name || '') + ' ' + (lead.last_name || '')).trim();\n  const phone = lead.phone || '';\n  const email = lead.email || '';\n  \n  let reminder_type = null;\n  if (daysUntil <= 3 && !sub.renewal_reminder_3d_sent) reminder_type = '3d';\n  else if (daysUntil <= 14 && !sub.renewal_reminder_14d_sent) reminder_type = '14d';\n  else if (daysUntil <= 30 && !sub.renewal_reminder_30d_sent) reminder_type = '30d';\n  \n  if (reminder_type) {\n    output.push({\n      json: {\n        has_results: true,\n        sub_id: sub.id,\n        customer_name: name,\n        customer_phone: phone,\n        customer_email: email,\n        end_date: sub.end_date,\n        days_until: daysUntil,\n        reminder_type\n      }\n    });\n  }\n}\n\nif (output.length === 0) return { json: { has_results: false } };\nreturn output;"
+      },
+      "id": "tg87-process",
+      "name": "Determine Reminders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{ "id": "hr", "leftValue": "={{ $json.has_results }}", "rightValue": true, "operator": { "type": "boolean", "operation": "equals" } }],
+          "combinator": "and"
+        }
+      },
+      "id": "tg87-if-any",
+      "name": "Any Reminders?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "BREVO_API_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": { \"name\": \"TotalGuard Yard Care\", \"email\": \"workelyhelp@gmail.com\" },\n  \"to\": [{ \"email\": \"{{ $json.customer_email }}\", \"name\": \"{{ $json.customer_name }}\" }],\n  \"subject\": \"{{ $json.reminder_type === '3d' ? 'Your TotalGuard plan expires in 3 days!' : $json.reminder_type === '14d' ? 'Your TotalGuard plan renews in 2 weeks' : 'Your TotalGuard plan is coming up for renewal' }}\",\n  \"htmlContent\": \"<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto;'><h2 style='color:#16a34a;'>TotalGuard Yard Care</h2><p>Hi {{ $json.customer_name || 'there' }},</p><p>{{ $json.reminder_type === '3d' ? 'Your TotalGuard plan expires in just 3 days! Do not let your yard care lapse.' : $json.reminder_type === '14d' ? 'Your TotalGuard plan is coming up for renewal in 2 weeks.' : 'Just a heads up -- your TotalGuard plan renews in about 30 days.' }}</p><p>To renew or discuss your plan options, reply to this email or call us at 608-535-6057.</p><p>We would love to keep taking care of your yard!</p><p>The TotalGuard Team</p></div>\"\n}"
+      },
+      "id": "tg87-send-email",
+      "name": "Send Renewal Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [880, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/customer_subscriptions?id=eq.{{ $json.sub_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.reminder_type === '3d' ? '{\"renewal_reminder_3d_sent\": \"' + $now.toISO() + '\"}' : $json.reminder_type === '14d' ? '{\"renewal_reminder_14d_sent\": \"' + $now.toISO() + '\"}' : '{\"renewal_reminder_30d_sent\": \"' + $now.toISO() + '\"}' }}"
+      },
+      "id": "tg87-mark-sent",
+      "name": "Mark Reminder Sent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, -100],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Daily 9 AM CT": {
+      "main": [[{ "node": "Find Expiring Plans", "type": "main", "index": 0 }]]
+    },
+    "Find Expiring Plans": {
+      "main": [[{ "node": "Determine Reminders", "type": "main", "index": 0 }]]
+    },
+    "Determine Reminders": {
+      "main": [[{ "node": "Any Reminders?", "type": "main", "index": 0 }]]
+    },
+    "Any Reminders?": {
+      "main": [
+        [{ "node": "Send Renewal Email", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Send Renewal Email": {
+      "main": [[{ "node": "Mark Reminder Sent", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

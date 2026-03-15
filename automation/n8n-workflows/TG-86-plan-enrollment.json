@@ -1,0 +1,138 @@
+{
+  "name": "TG-86-plan-enrollment",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "tg86-trigger",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nreturn {\n  json: {\n    customer_name: data.customer_name || '',\n    customer_email: data.customer_email || '',\n    customer_phone: data.customer_phone || '',\n    service: data.service || '',\n    amount: data.amount || null,\n    plan_name: data.service || 'lawn-care'\n  }\n};"
+      },
+      "id": "tg86-extract",
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/leads?phone=eq.{{ $json.customer_phone }}&select=id&limit=1",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" }
+          ]
+        }
+      },
+      "id": "tg86-get-lead",
+      "name": "Get Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/subscription_plans?select=id,name,price_monthly,duration_months&limit=6",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" }
+          ]
+        }
+      },
+      "id": "tg86-get-plans",
+      "name": "Get Plans",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = $('Get Lead').first().json;\nconst plans = $('Get Plans').first().json;\nconst extracted = $('Extract Data').first().json;\n\nconst leadArr = Array.isArray(leads) ? leads : [leads];\nconst planArr = Array.isArray(plans) ? plans : [plans];\n\nconst lead = leadArr[0] || {};\nconst serviceLower = (extracted.plan_name || '').toLowerCase();\n\nlet matchedPlan = planArr.find(p => p.name && p.name.toLowerCase().includes(serviceLower));\nif (!matchedPlan) matchedPlan = planArr[0] || {};\n\nconst startDate = new Date();\nconst endDate = new Date();\nendDate.setMonth(endDate.getMonth() + (matchedPlan.duration_months || 12));\n\nreturn {\n  json: {\n    lead_id: lead.id || null,\n    plan_id: matchedPlan.id || null,\n    plan_name: matchedPlan.name || 'Standard Plan',\n    price: matchedPlan.price_monthly || extracted.amount,\n    start_date: startDate.toISOString().split('T')[0],\n    end_date: endDate.toISOString().split('T')[0],\n    customer_name: extracted.customer_name,\n    customer_phone: extracted.customer_phone,\n    customer_email: extracted.customer_email\n  }\n};"
+      },
+      "id": "tg86-match",
+      "name": "Match Plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/customer_subscriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=representation" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"lead_id\": \"{{ $json.lead_id }}\",\n  \"plan_id\": \"{{ $json.plan_id }}\",\n  \"status\": \"active\",\n  \"start_date\": \"{{ $json.start_date }}\",\n  \"end_date\": \"{{ $json.end_date }}\"\n}"
+      },
+      "id": "tg86-create-sub",
+      "name": "Create Subscription",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [880, 0],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "BREVO_API_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": { \"name\": \"TotalGuard Yard Care\", \"email\": \"workelyhelp@gmail.com\" },\n  \"to\": [{ \"email\": \"{{ $json.customer_email }}\", \"name\": \"{{ $json.customer_name }}\" }],\n  \"subject\": \"Welcome to your TotalGuard {{ $json.plan_name }} plan!\",\n  \"htmlContent\": \"<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto;'><h2 style='color:#16a34a;'>Welcome to TotalGuard!</h2><p>Hi {{ $json.customer_name }},</p><p>You are now enrolled in the <strong>{{ $json.plan_name }}</strong> plan.</p><ul><li><strong>Start date:</strong> {{ $json.start_date }}</li><li><strong>Coverage through:</strong> {{ $json.end_date }}</li></ul><p>We will take care of everything on schedule. If you ever have questions, just reply to this email or call 608-535-6057.</p><p>Thank you for trusting TotalGuard with your yard!</p><p>The TotalGuard Team</p></div>\"\n}"
+      },
+      "id": "tg86-send-email",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 0],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "When Called": {
+      "main": [[{ "node": "Extract Data", "type": "main", "index": 0 }]]
+    },
+    "Extract Data": {
+      "main": [
+        [{ "node": "Get Lead", "type": "main", "index": 0 }, { "node": "Get Plans", "type": "main", "index": 0 }]
+      ]
+    },
+    "Get Lead": {
+      "main": [[{ "node": "Match Plan", "type": "main", "index": 0 }]]
+    },
+    "Get Plans": {
+      "main": [[{ "node": "Match Plan", "type": "main", "index": 0 }]]
+    },
+    "Match Plan": {
+      "main": [[{ "node": "Create Subscription", "type": "main", "index": 0 }]]
+    },
+    "Create Subscription": {
+      "main": [[{ "node": "Send Welcome Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}
