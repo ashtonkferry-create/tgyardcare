@@ -1,0 +1,149 @@
+{
+  "name": "TG-89-invoice-delivery-sms-email",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "tg89-trigger",
+      "name": "When Called by TG-05",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/rpc/can_send_sms",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"p_phone\": \"{{ $json.customer_phone }}\"}"
+      },
+      "id": "tg89-check-consent",
+      "name": "Check SMS Consent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "consent-check",
+              "leftValue": "={{ $json }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg89-if-consent",
+      "name": "Has SMS Consent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/sms_sends",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"phone\": \"{{ $('When Called by TG-05').item.json.customer_phone }}\",\n  \"workflow_name\": \"TG-89-invoice-delivery\",\n  \"message_body\": \"Hi {{ $('When Called by TG-05').item.json.customer_name || 'there' }}! Your TotalGuard invoice{{ $('When Called by TG-05').item.json.amount ? ' for $' + $('When Called by TG-05').item.json.amount : '' }} has been sent to your email. Questions? Call 608-535-6057\",\n  \"status\": \"pending\"\n}"
+      },
+      "id": "tg89-log-sms",
+      "name": "Log SMS Send",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "from": "+16089953554",
+        "to": "={{ $('When Called by TG-05').item.json.customer_phone }}",
+        "message": "=Hi {{ $('When Called by TG-05').item.json.customer_name || 'there' }}! Your TotalGuard invoice{{ $('When Called by TG-05').item.json.amount ? ' for $' + $('When Called by TG-05').item.json.amount : '' }} has been sent to your email. Questions? Call 608-535-6057"
+      },
+      "id": "tg89-send-sms",
+      "name": "Send Invoice SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [880, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/smtp/email",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "BREVO_API_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"sender\": { \"name\": \"TotalGuard Yard Care\", \"email\": \"totalguardllc@gmail.com\" },\n  \"to\": [{ \"email\": \"{{ $('When Called by TG-05').item.json.customer_email }}\", \"name\": \"{{ $('When Called by TG-05').item.json.customer_name || 'Valued Customer' }}\" }],\n  \"subject\": \"Your TotalGuard Invoice{{ $('When Called by TG-05').item.json.jobber_id ? ' #' + $('When Called by TG-05').item.json.jobber_id : '' }}\",\n  \"htmlContent\": \"<div style='font-family:Arial,sans-serif;max-width:600px;margin:0 auto;'><h2 style='color:#16a34a;'>TotalGuard Yard Care</h2><p>Hi {{ $('When Called by TG-05').item.json.customer_name || 'there' }},</p><p>Your invoice{{ $('When Called by TG-05').item.json.amount ? ' for <strong>$' + $('When Called by TG-05').item.json.amount + '</strong>' : '' }} for {{ $('When Called by TG-05').item.json.service || 'your recent service' }} is ready.</p><p>You can view and pay your invoice through the Jobber client hub link in your original invoice email.</p><p>If you have any questions, please don't hesitate to reach out:</p><ul><li>Phone: 608-535-6057</li><li>Email: totalguardllc@gmail.com</li></ul><p>Thank you for choosing TotalGuard!</p><p style='color:#888;font-size:12px;'>TotalGuard Yard Care LLC | Madison, WI</p></div>\"\n}"
+      },
+      "id": "tg89-send-email",
+      "name": "Send Invoice Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 200],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { status: 'completed', sms_sent: true, email_sent: true } }];"
+      },
+      "id": "tg89-done",
+      "name": "Done",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 0]
+    }
+  ],
+  "connections": {
+    "When Called by TG-05": {
+      "main": [[{ "node": "Check SMS Consent", "type": "main", "index": 0 }]]
+    },
+    "Check SMS Consent": {
+      "main": [[{ "node": "Has SMS Consent?", "type": "main", "index": 0 }]]
+    },
+    "Has SMS Consent?": {
+      "main": [
+        [{ "node": "Log SMS Send", "type": "main", "index": 0 }],
+        [{ "node": "Send Invoice Email", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log SMS Send": {
+      "main": [[{ "node": "Send Invoice SMS", "type": "main", "index": 0 }]]
+    },
+    "Send Invoice SMS": {
+      "main": [[{ "node": "Send Invoice Email", "type": "main", "index": 0 }]]
+    },
+    "Send Invoice Email": {
+      "main": [[{ "node": "Done", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

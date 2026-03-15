@@ -1,0 +1,148 @@
+{
+  "name": "TG-88-on-my-way-sms",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "tg88-trigger",
+      "name": "When Called by TG-05",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/rpc/can_send_sms",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"p_phone\": \"{{ $json.customer_phone }}\"}"
+      },
+      "id": "tg88-check-consent",
+      "name": "Check SMS Consent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "consent-check",
+              "leftValue": "={{ $json }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "tg88-if-consent",
+      "name": "Has SMS Consent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/sms_sends",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"phone\": \"{{ $('When Called by TG-05').item.json.customer_phone }}\",\n  \"workflow_name\": \"TG-88-on-my-way-sms\",\n  \"message_body\": \"Hi {{ $('When Called by TG-05').item.json.customer_name || 'there' }}! The TotalGuard crew is on the way to {{ $('When Called by TG-05').item.json.address || 'your property' }}. ETA approximately 15-30 minutes. Questions? Call 608-535-6057\",\n  \"status\": \"pending\"\n}"
+      },
+      "id": "tg88-log-send",
+      "name": "Log SMS Send",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "from": "+16089953554",
+        "to": "={{ $('When Called by TG-05').item.json.customer_phone }}",
+        "message": "=Hi {{ $('When Called by TG-05').item.json.customer_name || 'there' }}! The TotalGuard crew is on the way to {{ $('When Called by TG-05').item.json.address || 'your property' }}. ETA approximately 15-30 minutes. Questions? Call 608-535-6057"
+      },
+      "id": "tg88-send-sms",
+      "name": "Send On My Way SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [880, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://lwtmvzhwekgdxkaisfra.supabase.co/rest/v1/sms_sends?phone=eq.{{ $('When Called by TG-05').item.json.customer_phone }}&workflow_name=eq.TG-88-on-my-way-sms&status=eq.pending",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUPABASE_ANON_KEY" },
+            { "name": "Authorization", "value": "Bearer SUPABASE_SERVICE_KEY" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "return=minimal" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"status\": \"sent\", \"twilio_sid\": \"{{ $json.sid || '' }}\"}"
+      },
+      "id": "tg88-update-status",
+      "name": "Update Send Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, -100],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { status: 'no_sms_consent', phone: $('When Called by TG-05').item.json.customer_phone } }];"
+      },
+      "id": "tg88-no-consent",
+      "name": "No Consent - Skip",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 100]
+    }
+  ],
+  "connections": {
+    "When Called by TG-05": {
+      "main": [[{ "node": "Check SMS Consent", "type": "main", "index": 0 }]]
+    },
+    "Check SMS Consent": {
+      "main": [[{ "node": "Has SMS Consent?", "type": "main", "index": 0 }]]
+    },
+    "Has SMS Consent?": {
+      "main": [
+        [{ "node": "Log SMS Send", "type": "main", "index": 0 }],
+        [{ "node": "No Consent - Skip", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log SMS Send": {
+      "main": [[{ "node": "Send On My Way SMS", "type": "main", "index": 0 }]]
+    },
+    "Send On My Way SMS": {
+      "main": [[{ "node": "Update Send Status", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}
