@@ -1,76 +1,53 @@
-# TotalGuard Yard Care — Marketing Automation Roadmap
+# TotalGuard Automation Gap Closer — Roadmap
 
-## Milestone 1: Full Marketing Automation System
+## Milestone 2: Close Every Gap Against TTW
 
-**Goal**: Deploy complete 88-workflow marketing automation stack on top of existing Next.js website. Turn TotalGuard into a self-running marketing machine.
+**Goal**: Take TG from ~35 functional automations to 127+ by fixing existing dead workflows, building every missing capability TTW has, and adding an intelligence layer TTW doesn't have. Execute with zero wasted motion.
+
+**Starting Position**: TG wins 65, TTW wins 48, 7 ties. But ~20 TG workflows are dead on arrival (missing API keys), and 25 active TTW capabilities have zero TG equivalent.
 
 **Success Criteria**:
-- All 70+ Supabase tables live and seeded
-- All 88 n8n workflows imported, tagged TotalGuard, and active
-- Jobber email bridge parsing real notification emails
-- Brevo sending automated email sequences
-- Twilio sending review requests and crew briefings
-- Owner receiving daily KPI SMS digest
-- Google reviews syncing and getting AI responses
+- All existing workflows functional (0 dead on arrival)
+- Every revenue-impact TTW capability replicated or exceeded
+- CRM fully unified (single webhook router, unified comms)
+- SEO gaps closed (GSC sync, city content, gap detection)
+- Self-improvement loop operational (TG's only category at 0)
+- Final score: TG wins 90+, TTW wins <20
 
 ---
 
-## Phase 1: Database Foundation
-**Goal**: Apply all 71 adapted SQL migrations to Supabase. Creates the complete data layer for all automation workflows.
-**Output**: 70+ tables, views, RPCs, RLS policies live in Supabase project lwtmvzhwekgdxkaisfra
-**Status**: 🔄 IN PROGRESS — migrations being generated
+## Phase 0: Fix Existing (Zero Build Cost)
+**Goal**: Unlock ~20 dead workflows by adding missing API keys, fixing broken env vars, completing OAuth handshakes, and deploying undeployed workflows. No new code — pure configuration.
+**Impact**: 35 functional -> 55+ functional
+**Status**: Ready to execute
 
-## Phase 2: Lead Capture & Jobber Bridge (n8n)
-**Goal**: 7 workflows — website lead capture, phone/Facebook leads, Jobber email parser, Zapier bridge, lead scoring
-**Output**: TG-01 through TG-07 imported and active in n8n
-**Status**: ✅ Files generated (TG-01 through TG-07)
+## Phase 1: Revenue Engine
+**Goal**: Build 9 n8n workflows (TG-83 through TG-91) that automate revenue-generating customer communication: quote follow-ups, invoice collections, missed call capture, plan enrollment/renewal, on-my-way SMS, invoice delivery, fertilizer schedule reminders, and abandoned quote recovery.
+**Impact**: Recover 10-20% lost leads, increase quote-to-close 15-25%, enable recurring revenue
+**Status**: Planned
+**Plans:** 8 plans
 
-## Phase 3: Email Marketing & Nurture (n8n)
-**Goal**: 10 workflows — welcome series, followup sequences, cross-sell, reengagement, VIP upgrade, seasonal nurtures
-**Output**: TG-08 through TG-17 imported and active
-**Status**: 🔄 IN PROGRESS — agent running
+Plans:
+- [ ] 01-01-PLAN.md -- Database migrations + fertilizer schedule seeding
+- [ ] 01-02-PLAN.md -- TG-05 extension (new routes, $vars fix, poll frequency reduction)
+- [ ] 01-03-PLAN.md -- TG-88 On My Way SMS + TG-89 Invoice Delivery
+- [ ] 01-04-PLAN.md -- TG-85 Missed Call AI Capture
+- [ ] 01-05-PLAN.md -- TG-83 Quote Follow-up Sequence
+- [ ] 01-06-PLAN.md -- TG-84 Invoice Collections + TG-91 Abandoned Quote
+- [ ] 01-07-PLAN.md -- TG-86 Plan Enrollment + TG-87 Renewal Reminder
+- [ ] 01-08-PLAN.md -- TG-90 Fertilizer Schedule Engine
 
-## Phase 4: Review & Reputation Management (n8n)
-**Goal**: 6 workflows — post-job review request, Google review sync, AI response, reengagement, review-to-referral
-**Output**: TG-18 through TG-23 imported and active
-**Status**: 🔄 IN PROGRESS — agent running
+## Phase 2: CRM Unification
+**Goal**: Build 10 workflows that unify all CRM communication — webhook router, integrated SMS/email, auto-dispatch, territory assignment, bonus calculator, payment installments.
+**Impact**: Eliminate manual CRM work, unified customer communication layer
+**Status**: Pending Phase 1
 
-## Phase 5: Field Marketing & Operations (n8n)
-**Goal**: 11 workflows — post-job field tasks, crew daily briefing, compliance, photo upload, inventory, postcards, referrals
-**Output**: TG-24 through TG-34 imported and active
-**Status**: 🔄 IN PROGRESS — TG-24 through TG-33 written
+## Phase 3: SEO Domination
+**Goal**: Build 14 workflows/crons that close remaining SEO gaps — GSC daily sync, city/neighborhood content generator, content gap detector, ranking opportunity detector, index coverage monitor, rank drop alerts.
+**Impact**: Fill the only SEO category where TTW beats TG (monitoring: 10-5)
+**Status**: Pending Phase 2
 
-## Phase 6: Social Media & Content (n8n)
-**Goal**: 13 workflows — social scheduler, content calendar, AI captions, competitor monitoring, YouTube planner
-**Output**: TG-35 through TG-44 imported and active
-**Status**: 🔄 IN PROGRESS — TG-38 through TG-44 written
-
-## Phase 7: SEO Dashboard & Analytics (n8n)
-**Goal**: 11 workflows — keyword tracking, GBP automation, IndexNow, citation monitor, backlink tracker, content refresh
-**Output**: TG-45 through TG-55 imported and active
-**Status**: ⏳ Pending — agent running
-
-## Phase 8: Advanced Automation (n8n)
-**Goal**: 15 workflows — weather-triggered campaigns, health scoring, pricing optimization, SMS consent, NPS, loyalty
-**Output**: TG-56 through TG-65 imported and active
-**Status**: ⏳ Pending — agent running
-
-## Phase 9: Reporting & Intelligence (n8n)
-**Goal**: 8 workflows — daily KPI digest, weekly owner report, revenue forecaster, system health monitor
-**Output**: TG-66 through TG-73 imported and active
-**Status**: ⏳ Pending — agent running
-
-## Phase 10: AI & Bot Layer (n8n)
-**Goal**: 7 workflows — Telegram bot, AI quoting, two-way SMS, voice sync, universal router
-**Output**: TG-74 through TG-80 imported and active
-**Status**: ⏳ Pending — agent running
-
-## Phase 11: Prerequisites & Account Setup
-**Goal**: Set up all external accounts (Brevo, Twilio, Gmail bridge, OpenWeather, Google APIs) and configure n8n variables
-**Output**: All n8n variables set, credentials configured, workflows activatable
-**Status**: ⏳ Waiting on Vance to create accounts
-
-## Phase 12: Import, Activate & Test
-**Goal**: Run import-tg-workflows.js to push all 88 workflows to n8n, activate them, smoke-test key flows
-**Output**: All workflows live, Jobber bridge tested, review request tested, daily briefing SMS confirmed
-**Status**: ⏳ Blocked on Phase 11
+## Phase 4: Intelligence Layer
+**Goal**: Build 20+ workflows for self-improvement, revenue attribution, A/B testing, ad optimization, and AI learning reports. This is TTW's only 12-0 category — TG currently has zero.
+**Impact**: TG becomes a self-optimizing system that gets smarter every week
+**Status**: Pending Phase 3
